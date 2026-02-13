@@ -1,7 +1,7 @@
 [project]
 name = "agno-cookbook"
 version = "0.1.0"
-description = "Agno Cookbook - Examples and tutorials"
+description = "Agno Cookbook 中文版 - AI Agent 开发示例与教程"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

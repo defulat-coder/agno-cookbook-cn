@@ -1,110 +1,80 @@
-# Agno Cookbooks
+# Agno Cookbook 中文版
 
-Hundreds of examples. Copy, paste, run.
+数百个示例，复制、粘贴、运行。
 
-## Where to Start
+## 从哪里开始
 
-**New to Agno?** Start with [00_quickstart](./00_quickstart) — it walks you through the fundamentals, with each cookbook building on the last.
+**刚接触 Agno？** 从 [00_quickstart](./00_quickstart) 开始 — 逐步介绍基础知识，每个示例递进式构建。
 
-**Want to see something real?** Jump to [01_showcase](./01_showcase) — advanced use cases. Run the examples, break them, learn from them.
+**想看实际案例？** 跳转到 [01_demo](./01_demo) — 高级用例。运行示例、拆解它们、从中学习。
 
-**Want to explore a particular topic?** Find your use case below.
-
----
-
-## Build by Use Case
-
-### I want to build a single agent
-[02_agents](./02_agents) — The atomic unit of Agno. Start here for tools, RAG, structured outputs, multimodal, guardrails, and more.
-
-### I want agents working together
-[03_teams](./03_teams) — Coordinate multiple agents. Async flows, shared memory, distributed RAG, reasoning patterns.
-
-### I want to orchestrate complex processes
-[04_workflows](./04_workflows) — Chain agents, teams, and functions into automated pipelines.
-
-### I want to deploy and manage agents
-[05_agent_os](./05_agent_os) — Deploy to web APIs, Slack, WhatsApp, and more. The control plane for your agent systems.
+**想探索特定主题？** 在下方找到你的使用场景。
 
 ---
 
-## Deep Dives
+## 按使用场景构建
 
-### Storage
-[06_storage](./06_storage) — Give your agents persistent storage. Postgres and SQLite recommended. Also supports DynamoDB, Firestore, MongoDB, Redis, SingleStore, SurrealDB, and more.
+### 构建单个 Agent
+[02_agents](./02_agents) — Agno 的原子单元。从这里开始了解工具、RAG、结构化输出、多模态、护栏等。
 
-### Knowledge & RAG
-[07_knowledge](./07_knowledge) — Give your agents information to search at runtime. Covers chunking strategies (semantic, recursive, agentic), embedders, vector databases, hybrid search, and loading from URLs, S3, GCS, YouTube, PDFs, and more.
+### 多 Agent 协作
+[03_teams](./03_teams) — 协调多个 Agent。异步流程、共享记忆、分布式 RAG、推理模式。
 
-### Learning
-[08_learning](./08_learning) — Unified learning system for agents. Decision logging, preference tracking, and continuous improvement.
+### 编排复杂流程
+[04_workflows](./04_workflows) — 将 Agent、团队和函数串联为自动化管道。
 
-### Evals
-[09_evals](./09_evals) — Measure what matters: accuracy (LLM-as-judge), performance (latency, memory), reliability (expected tool calls), and agent-as-judge patterns.
-
-### Reasoning
-[10_reasoning](./10_reasoning) — Make agents think before they act. Three approaches:
-- **Reasoning models** — Use models pre-trained for reasoning (o1, o3, etc.)
-- **Reasoning tools** — Give the agent tools that enable reasoning (think, analyze)
-- **Reasoning harness** — Set `reasoning=True` for chain-of-thought with tool use
-
-### Memory
-[80_memory](./80_memory) — Agents that remember. Store insights and facts about users across conversations for personalized responses.
-
-### Models
-[90_models](./90_models) — 40+ model providers. Gemini, Claude, GPT, Llama, Mistral, DeepSeek, Groq, Ollama, vLLM — if it exists, we probably support it.
-
-### Tools
-[91_tools](./91_tools) — Extend what agents can do. Web search, SQL, email, APIs, MCP, Discord, Slack, Docker, and custom tools with the `@tool` decorator.
-
-### Integrations
-[92_integrations](./92_integrations) — Connect to Discord, observability tools (Langfuse, Arize Phoenix, AgentOps, LangSmith), memory providers, and A2A protocol.
-
-## Quality Standard
-
-For every cookbook folder that contains runnable Python examples, include:
-
-- `README.md` explaining intent, prerequisites, and run commands
-- `TEST_LOG.md` recording run status and observations
-
-Use templates:
-
-- `cookbook/templates/README.template.md`
-- `cookbook/templates/TEST_LOG.template.md`
-- `cookbook/STYLE_GUIDE.md`
-
-Run metadata audit:
-
-```bash
-python3 cookbook/scripts/audit_cookbook_metadata.py --scope direct
-```
-
-Enforce in checks (fails on missing metadata):
-
-```bash
-python3 cookbook/scripts/audit_cookbook_metadata.py --scope direct --fail-on-missing
-```
-
-Check cookbook Python structure pattern:
-
-```bash
-python3 cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/00_quickstart
-```
-
-Run cookbooks in non-interactive batch mode with demo environment defaults:
-
-```bash
-python3 cookbook/scripts/cookbook_runner.py cookbook/00_quickstart --batch --python-bin .venvs/demo/bin/python
-```
-
-Write machine-readable run report:
-
-```bash
-python3 cookbook/scripts/cookbook_runner.py cookbook/00_quickstart --batch --json-report .context/cookbook-run.json
-```
+### 部署和管理 Agent
+[05_agent_os](./05_agent_os) — 部署到 Web API、Slack、WhatsApp 等。Agent 系统的控制平面。
 
 ---
 
-## Contributing
+## 深入探索
 
-We're always adding new cookbooks. Want to contribute? See [CONTRIBUTING.md](./CONTRIBUTING.md).
+### 存储
+[06_storage](./06_storage) — 为 Agent 提供持久化存储。推荐 Postgres 和 SQLite，也支持 DynamoDB、Firestore、MongoDB、Redis、SingleStore、SurrealDB 等。
+
+### 知识库与 RAG
+[07_knowledge](./07_knowledge) — 为 Agent 提供运行时可搜索的信息。涵盖分块策略（语义、递归、智能体式）、嵌入器、向量数据库、混合搜索，以及从 URL、S3、GCS、YouTube、PDF 等加载数据。
+
+### 学习
+[08_learning](./08_learning) — Agent 统一学习系统。决策日志、偏好跟踪和持续改进。
+
+### 评估
+[09_evals](./09_evals) — 衡量关键指标：准确性（LLM 作为评判者）、性能（延迟、内存）、可靠性（预期工具调用）和 Agent 作为评判者模式。
+
+### 推理
+[10_reasoning](./10_reasoning) — 让 Agent 先思考再行动。三种方式：
+- **推理模型** — 使用预训练的推理模型（o1、o3 等）
+- **推理工具** — 为 Agent 提供推理工具（think、analyze）
+- **推理框架** — 设置 `reasoning=True` 启用带工具调用的思维链
+
+### 记忆
+[11_memory](./11_memory) — 有记忆的 Agent。跨会话存储用户相关的见解和事实，提供个性化响应。
+
+### 模型
+[90_models](./90_models) — 40+ 模型提供商。Gemini、Claude、GPT、Llama、Mistral、DeepSeek、Groq、Ollama、vLLM — 市面上有的我们基本都支持。
+
+### 工具
+[91_tools](./91_tools) — 扩展 Agent 能力。网页搜索、SQL、邮件、API、MCP、Discord、Slack、Docker，以及使用 `@tool` 装饰器的自定义工具。
+
+### 集成
+[92_integrations](./92_integrations) — 连接 Discord、可观测性工具（Langfuse、Arize Phoenix、AgentOps、LangSmith）、记忆提供商和 A2A 协议。
+
+---
+
+## 包管理
+
+本项目使用 [uv](https://docs.astral.sh/uv/) 管理依赖。
+
+```bash
+# 安装所有依赖
+uv sync --group all
+
+# 仅安装特定示例组的依赖
+uv sync --group quickstart
+uv sync --group demo
+uv sync --group learning
+
+# 运行示例
+uv run python 00_quickstart/agent_search_over_knowledge.py
+```

@@ -1,51 +1,51 @@
-# Cookbook Python Style Guide
+# Cookbook Python 风格指南
 
-This guide standardizes runnable cookbook `.py` examples.
+本指南规范可运行的 cookbook `.py` 示例文件。
 
-## Core Pattern
+## 核心模式
 
-1. Module docstring at the top:
-- What this example demonstrates
-- Key concepts
-- Prompts or inputs to try
+1. 文件顶部的模块文档字符串：
+- 本示例演示的内容
+- 关键概念
+- 可尝试的提示词或输入
 
-2. Sectioned flow using banner comments:
-- Config sections (storage, tools, knowledge, schemas) as needed
-- Instructions section
-- `Create ...` section
-- `Run ...` section
-- Optional `More Examples` section
+2. 使用横幅注释划分段落：
+- 配置段落（存储、工具、知识库、数据模型等按需添加）
+- 指令段落
+- `Create ...` 创建段落
+- `Run ...` 运行段落
+- 可选的 `More Examples` 更多示例段落
 
-3. Main execution gate:
+3. 主执行入口：
 - `if __name__ == "__main__":`
-- Keep runnable demo steps in this block
+- 将可运行的演示步骤放在此代码块中
 
-4. No emoji characters in cookbook Python files.
+4. cookbook Python 文件中不使用 emoji 字符。
 
-## Recommended Skeleton
+## 推荐骨架
 
 ```python
 """
-<Title>
-<What this demonstrates>
+<标题>
+<本示例演示的内容>
 """
 
 # ---------------------------------------------------------------------------
-# <Config / Setup>
+# <配置 / 初始化>
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# Agent Instructions
+# Agent 指令
 # ---------------------------------------------------------------------------
 instructions = """..."""
 
 # ---------------------------------------------------------------------------
-# Create the Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 example_agent = Agent(...)
 
 # ---------------------------------------------------------------------------
-# Run the Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     example_agent.print_response("...", stream=True)
