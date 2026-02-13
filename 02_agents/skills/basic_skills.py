@@ -1,8 +1,8 @@
 """
-Basic Skills
+基础 Skills
 =============================
 
-Basic Skills Example.
+基础 Skills 示例。
 """
 
 from pathlib import Path
@@ -12,28 +12,28 @@ from agno.models.openai import OpenAIChat
 from agno.skills import LocalSkills, Skills
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
-# Get the skills directory relative to this file
+# 获取相对于此文件的 skills 目录
 skills_dir = Path(__file__).parent / "sample_skills"
 
-# Create an agent with skills loaded from the directory
+# 创建一个从目录加载 skills 的 agent
 agent = Agent(
     name="Code Review Agent",
     model=OpenAIChat(id="gpt-4o"),
     skills=Skills(loaders=[LocalSkills(str(skills_dir))]),
     instructions=[
-        "You are a helpful assistant with access to specialized skills.",
+        "你是一个有帮助的助手，可以访问专业的 skills。",
     ],
     markdown=True,
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Ask the agent to review some code
+    # 要求 agent 审查一些代码
     agent.print_response(
         "Review this Python code and provide feedback:\n\n"
         "```python\n"

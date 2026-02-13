@@ -1,8 +1,8 @@
 """
-Session State Events
+Session State 事件示例
 =============================
 
-Session State Events.
+Session State 事件。
 """
 
 from agno.agent import Agent, RunCompletedEvent
@@ -12,7 +12,7 @@ from agno.run import RunContext
 
 
 def add_item(run_context: RunContext, item: str) -> str:
-    """Add an item to the shopping list."""
+    """向购物清单添加一个商品。"""
     if run_context.session_state is None:
         run_context.session_state = {}
 
@@ -20,26 +20,26 @@ def add_item(run_context: RunContext, item: str) -> str:
     return f"The shopping list is now {run_context.session_state['shopping_list']}"  # type: ignore
 
 
-# Create an Agent that maintains state
+# 创建一个维护状态的 Agent
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with a counter starting at 0 (this is the default session state for all users)
+    # 使用计数器从 0 开始初始化 session state（这是所有用户的默认 session state）
     session_state={"shopping_list": []},
     db=SqliteDb(db_file="tmp/agents.db"),
     tools=[add_item],
-    # You can use variables from the session state in the instructions
+    # 你可以在 instructions 中使用 session state 的变量
     instructions="Current state (shopping list) is: {shopping_list}",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Example usage
+    # 使用示例
     response = agent.run(
         "Add milk, eggs, and bread to the shopping list",
         stream=True,

@@ -1,8 +1,8 @@
 """
-Image To Audio
+图像转音频
 =============================
 
-Image To Audio.
+演示图像转音频功能。
 """
 
 from pathlib import Path
@@ -17,14 +17,14 @@ from rich.text import Text
 cwd = Path(__file__).parent.resolve()
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 image_agent = Agent(model=OpenAIChat(id="gpt-4o"))
 
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     image_story: RunOutput = image_agent.run(

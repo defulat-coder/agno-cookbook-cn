@@ -1,45 +1,45 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间：2026-02-10 UTC
 
-Pattern Check: Checked 4 file(s) in cookbook/02_agents/hooks. Violations: 0
+模式检查：已检查 cookbook/02_agents/hooks 中的 4 个文件。违规：0
 
 ### post_hook_output.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### pre_hook_input.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_hooks.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### stream_hook.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---

@@ -1,9 +1,9 @@
 """
-Filter Tool Calls From History
+从历史记录中过滤工具调用
 =============================
 
-Demonstrates `max_tool_calls_from_history` by showing that tool-call filtering only
-affects model input history while full run history remains in storage.
+演示 `max_tool_calls_from_history`，说明工具调用过滤仅影响模型输入历史，
+而完整运行历史仍保留在存储中。
 """
 
 import random
@@ -22,7 +22,7 @@ def get_weather_for_city(city: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 cities = [
     "Tokyo",
@@ -37,13 +37,13 @@ cities = [
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[get_weather_for_city],
-    instructions="You are a weather assistant. Get the weather using the get_weather_for_city tool.",
-    # Only keep 3 most recent tool calls from history in context (reduces token costs)
+    instructions="你是一个天气助手。使用 get_weather_for_city 工具获取天气。",
+    # 仅在上下文中保留历史记录中最近的 3 次工具调用（降低 token 成本）
     max_tool_calls_from_history=3,
     db=SqliteDb(db_file="tmp/weather_data.db"),
     add_history_to_context=True,
@@ -52,21 +52,21 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("\n" + "=" * 90)
-    print("Tool Call Filtering Demo: max_tool_calls_from_history=3")
+    print("工具调用过滤演示: max_tool_calls_from_history=3")
     print("=" * 90)
     print(
-        f"{'Run':<5} | {'City':<15} | {'History':<8} | {'Current':<8} | {'In Context':<11} | {'In DB':<8}"
+        f"{'运行':<5} | {'城市':<15} | {'历史':<8} | {'当前':<8} | {'上下文中':<11} | {'数据库中':<8}"
     )
     print("-" * 90)
 
     for i, city in enumerate(cities, 1):
         run_response = agent.run(f"What's the weather in {city}?")
 
-        # Count tool calls from history (sent to model after filtering)
+        # 计算来自历史记录的工具调用（过滤后发送给模型）
         history_tool_calls = sum(
             len(msg.tool_calls)
             for msg in run_response.messages
@@ -75,7 +75,7 @@ if __name__ == "__main__":
             and getattr(msg, "from_history", False)
         )
 
-        # Count tool calls from current run
+        # 计算当前运行中的工具调用
         current_tool_calls = sum(
             len(msg.tool_calls)
             for msg in run_response.messages
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
         total_in_context = history_tool_calls + current_tool_calls
 
-        # Total tool calls stored in database (unfiltered)
+        # 存储在数据库中的工具调用总数（未过滤）
         saved_messages = agent.get_session_messages()
         total_in_db = (
             sum(

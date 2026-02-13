@@ -1,8 +1,8 @@
 """
-User Input Required
+需要用户输入
 =============================
 
-Human-in-the-Loop: Allowing users to provide input externally.
+人机协作：允许用户在外部提供输入。
 """
 
 from typing import List
@@ -15,22 +15,22 @@ from agno.tools.function import UserInputField
 from agno.utils import pprint
 
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# 你可以指定 user_input_fields 或留空以让用户提供所有字段
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    发送电子邮件。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): 电子邮件的主题。
+        body (str): 电子邮件的正文。
+        to_address (str): 发送电子邮件的地址。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),

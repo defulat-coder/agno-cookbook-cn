@@ -1,33 +1,33 @@
 """
-Session State Tools
+Session State 工具
 ===================
-Use `session_state` as a parameter name in your factory to receive
-the session state dict directly (no need for run_context).
+在工厂中使用 `session_state` 作为参数名来直接接收会话状态字典
+（无需 run_context）。
 
-Set `cache_callables=False` so the factory runs fresh every time,
-picking up any session_state changes between runs.
+设置 `cache_callables=False` 以便工厂每次都重新运行，
+捕获运行之间的任何 session_state 变化。
 """
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Tools
+# 工具
 # ---------------------------------------------------------------------------
 
 
 def get_greeting(name: str) -> str:
-    """Greet someone by name."""
+    """用名字问候某人。"""
     return f"Hello, {name}!"
 
 
 def get_farewell(name: str) -> str:
-    """Say goodbye to someone."""
+    """向某人道别。"""
     return f"Goodbye, {name}!"
 
 
 def get_tools(session_state: dict):
-    """Pick tools based on the 'mode' key in session_state."""
+    """根据 session_state 中的 'mode' 键选择工具。"""
     mode = session_state.get("mode", "greet")
     print(f"--> Factory resolved mode: {mode}")
 
@@ -38,19 +38,19 @@ def get_tools(session_state: dict):
 
 
 # ---------------------------------------------------------------------------
-# Create the Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=get_tools,
     cache_callables=False,
-    instructions=["Use the available tool to respond."],
+    instructions=["使用可用的工具来响应。"],
 )
 
 
 # ---------------------------------------------------------------------------
-# Run the Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

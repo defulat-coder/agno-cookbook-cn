@@ -1,15 +1,15 @@
 """
-Basic Agent
+基础 Agent
 =============================
 
-Basic Agent Quickstart.
+基础 Agent 快速入门。
 """
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Quickstart Agent",
@@ -17,7 +17,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

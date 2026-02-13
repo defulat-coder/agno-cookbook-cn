@@ -1,8 +1,8 @@
 """
-Pre Hook Input
+Pre Hook 输入验证示例
 =============================
 
-Example demonstrating how to use a pre_hook to perform comprehensive input validation for your Agno Agent.
+演示如何使用 pre_hook 为 Agno Agent 执行综合输入验证的示例。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from pydantic import BaseModel
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 class InputValidationResult(BaseModel):
     is_relevant: bool
@@ -25,16 +25,16 @@ class InputValidationResult(BaseModel):
 
 def comprehensive_input_validation(run_input: RunInput) -> None:
     """
-    Pre-hook: Comprehensive input validation using an AI agent.
+    Pre-hook：使用 AI Agent 进行综合输入验证。
 
-    This hook validates input for:
-    - Relevance to the agent's purpose
-    - Sufficient detail for meaningful response
+    此 hook 验证输入的：
+    - 与 Agent 目的的相关性
+    - 足够的细节以提供有意义的响应
 
-    Could also be used to check for safety, prompt injection, etc.
+    也可用于检查安全性、提示注入等。
     """
 
-    # Input validation agent
+    # 输入验证 Agent
     validator_agent = Agent(
         name="Input Validator",
         model=OpenAIChat(id="gpt-5-mini"),
@@ -60,7 +60,7 @@ def comprehensive_input_validation(run_input: RunInput) -> None:
 
     result = validation_result.content
 
-    # Check validation results
+    # 检查验证结果
     if not result.is_safe:
         raise InputCheckError(
             f"Input is harmful or unsafe. {result.recommendations[0] if result.recommendations else ''}",
@@ -84,7 +84,7 @@ def main():
     print("Input Validation Pre-Hook Example")
     print("=" * 60)
 
-    # Create a financial advisor agent with comprehensive hooks
+    # 创建一个带有综合 hooks 的财务顾问 Agent
     agent = Agent(
         name="Financial Advisor",
         model=OpenAIChat(id="gpt-5-mini"),
@@ -102,7 +102,7 @@ def main():
         ],
     )
 
-    # Test 1: Valid financial question (should work normally with enhanced formatting)
+    # 测试 1：有效的财务问题（应该正常工作并增强格式）
     print("\n[TEST 1] Valid financial question")
     print("-" * 40)
     try:
@@ -122,7 +122,7 @@ def main():
     except Exception as e:
         print(f"[ERROR] Unexpected error: {e}")
 
-    # Test 2: Input with insufficient detail (should trigger pre-hook)
+    # 测试 2：细节不足的输入（应触发 pre-hook）
     print("\n[TEST 2] Vague input (insufficient detail)")
     print("-" * 40)
     try:
@@ -132,7 +132,7 @@ def main():
         print(f"[BLOCKED] Pre-hook validation failed: {e}")
         print(f"   Trigger: {e.check_trigger}")
 
-    # Test 3: Irrelevant request (should trigger pre-hook)
+    # 测试 3：不相关的请求（应触发 pre-hook）
     print("\n[TEST 3] Off-topic request")
     print("-" * 40)
     try:
@@ -142,7 +142,7 @@ def main():
         print(f"[BLOCKED] Pre-hook validation failed: {e}")
         print(f"   Trigger: {e.check_trigger}")
 
-    # Test 4: Potentially harmful content (should trigger pre-hook)
+    # 测试 4：潜在有害内容（应触发 pre-hook）
     print("\n[TEST 4] Potentially unsafe content")
     print("-" * 40)
     try:
@@ -156,7 +156,7 @@ def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     main()

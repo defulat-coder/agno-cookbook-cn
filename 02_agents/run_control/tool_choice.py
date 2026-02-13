@@ -1,8 +1,8 @@
 """
-Tool Choice
+工具选择
 =============================
 
-Tool Choice Control.
+工具选择控制。
 """
 
 from agno.agent import Agent
@@ -14,7 +14,7 @@ def get_weather(city: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agents
 # ---------------------------------------------------------------------------
 no_tools_agent = Agent(
     name="No-Tools Agent",
@@ -38,7 +38,7 @@ forced_tool_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agents
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     prompt = "What is the weather in San Francisco today?"

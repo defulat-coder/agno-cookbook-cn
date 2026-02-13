@@ -1,55 +1,55 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间：2026-02-10 UTC
 
-Pattern Check: Checked 5 file(s) in cookbook/02_agents/guardrails. Violations: 0
+模式检查：已检查 cookbook/02_agents/guardrails 中的 5 个文件。违规数：0
 
 ### custom_guardrail.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为示例代码执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### openai_moderation.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为示例代码执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### output_guardrail.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为示例代码执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### pii_detection.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为示例代码执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### prompt_injection.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为示例代码执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---

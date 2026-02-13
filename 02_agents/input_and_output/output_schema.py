@@ -1,8 +1,8 @@
 """
-Output Schema
+输出模式
 =============================
 
-This example shows how to use the output_model parameter to specify the model that will be used to generate the final response.
+本示例展示如何使用 output_model 参数指定用于生成最终响应的模型。
 """
 
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4.1"),
@@ -19,7 +19,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("Latest news from France?", stream=True)

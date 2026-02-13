@@ -1,8 +1,8 @@
 """
-Agentic Rag
+Agentic RAG
 =============================
 
-1. Run: `./cookbook/run_pgvector.sh` to start a postgres container with pgvector.
+1. 运行：`./cookbook/run_pgvector.sh` 启动带有 pgvector 的 postgres 容器。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 knowledge = Knowledge(
-    # Use PgVector as the vector database and store embeddings in the `ai.recipes` table
+    # 使用 PgVector 作为向量数据库，将嵌入存储在 `ai.recipes` 表中
     vector_db=PgVector(
         table_name="recipes",
         db_url=db_url,
@@ -25,19 +25,19 @@ knowledge = Knowledge(
 knowledge.insert(url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # 添加搜索知识库的工具，启用 agentic RAG。
+    # 当为 Agent 提供 `knowledge` 时，此功能默认启用。
     search_knowledge=True,
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

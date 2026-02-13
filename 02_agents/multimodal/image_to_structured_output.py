@@ -1,8 +1,8 @@
 """
-Image To Structured Output
+图像转结构化输出
 =============================
 
-Image To Structured Output.
+演示图像转结构化输出功能。
 """
 
 from typing import List
@@ -26,12 +26,12 @@ class MovieScript(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(model=OpenAIChat(id="gpt-4o"), output_schema=MovieScript)
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response = agent.run(

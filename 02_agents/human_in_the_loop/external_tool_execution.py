@@ -1,8 +1,8 @@
 """
-External Tool Execution
+外部工具执行
 =============================
 
-Human-in-the-Loop: Execute a tool call outside of the agent.
+人机协作：在 agent 之外执行工具调用。
 """
 
 import subprocess
@@ -14,16 +14,16 @@ from agno.tools import tool
 from agno.utils import pprint
 
 
-# We have to create a tool with the correct name, arguments and docstring for the agent to know what to call.
+# 我们必须创建一个具有正确名称、参数和 docstring 的工具，以便 agent 知道要调用什么。
 @tool(external_execution=True)
 def execute_shell_command(command: str) -> str:
-    """Execute a shell command.
+    """执行 shell 命令。
 
     Args:
-        command (str): The shell command to execute
+        command (str): 要执行的 shell 命令
 
     Returns:
-        str: The output of the shell command
+        str: shell 命令的输出
     """
     if command.startswith("ls"):
         return subprocess.check_output(command, shell=True).decode("utf-8")
@@ -32,7 +32,7 @@ def execute_shell_command(command: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -42,7 +42,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_response = agent.run("What files do I have in my current directory?")
@@ -54,11 +54,11 @@ if __name__ == "__main__":
                     print(
                         f"Executing {requirement.tool_execution.tool_name} with args {requirement.tool_execution.tool_args} externally"
                     )
-                    # We execute the tool ourselves. You can also execute something completely external here.
+                    # 我们自己执行工具。你也可以在这里执行完全外部的东西。
                     result = execute_shell_command.entrypoint(
                         **requirement.tool_execution.tool_args
                     )  # type: ignore
-                    # We have to set the result on the tool execution object so that the agent can continue
+                    # 我们必须在工具执行对象上设置结果，以便 agent 可以继续
                     requirement.set_external_execution_result(result)
 
     run_response = agent.continue_run(
@@ -67,5 +67,5 @@ if __name__ == "__main__":
     )
     pprint.pprint_run_response(run_response)
 
-    # Or for simple debug flow
+    # 或者用于简单的调试流程
     # agent.print_response("What files do I have in my current directory?")

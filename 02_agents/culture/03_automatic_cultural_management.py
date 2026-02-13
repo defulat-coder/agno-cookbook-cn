@@ -1,8 +1,8 @@
 """
-03 Automatic Cultural Management
+03 自动管理文化知识
 =============================
 
-Automatically update cultural knowledge based on Agent interactions.
+根据 Agent 交互自动更新文化知识。
 """
 
 from agno.agent import Agent
@@ -10,29 +10,29 @@ from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
 
 # ---------------------------------------------------------------------------
-# Step 1. Initialize the database (same one used in 01_create_cultural_knowledge.py)
+# 步骤 1. 初始化数据库（与 01_create_cultural_knowledge.py 中使用的相同）
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/demo.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
-# The Agent will automatically add or update cultural knowledge after each run.
+# Agent 将在每次运行后自动添加或更新文化知识。
 agent = Agent(
     db=db,
     model=Claude(id="claude-sonnet-4-5"),
-    update_cultural_knowledge=True,  # enables automatic cultural updates
+    update_cultural_knowledge=True,  # 启用自动文化更新
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     # ---------------------------------------------------------------------------
-    # Step 3. Ask the Agent to generate a response
+    # 步骤 3. 让 Agent 生成响应
     # ---------------------------------------------------------------------------
     agent.print_response(
-        "What would be the best way to cook ramen? Detailed and specific instructions generally work better than general advice.",
+        "煮拉面的最佳方法是什么？详细和具体的指导通常比一般性建议效果更好。",
         stream=True,
         markdown=True,
     )

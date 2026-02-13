@@ -1,8 +1,8 @@
 """
-02 Use Cultural Knowledge In Agent
+02 在 Agent 中使用文化知识
 =============================
 
-Use cultural knowledge with your Agents.
+在你的 Agents 中使用文化知识。
 """
 
 from agno.agent import Agent
@@ -10,44 +10,44 @@ from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
 
 # ---------------------------------------------------------------------------
-# Step 1. Initialize the database (same one used in 01_create_cultural_knowledge.py)
+# 步骤 1. 初始化数据库（与 01_create_cultural_knowledge.py 中使用的相同）
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/demo.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
-# The Agent will automatically load shared cultural knowledge (e.g., how to
-# format responses, how to write tutorials, or tone/style preferences).
+# Agent 会自动加载共享的文化知识（例如，如何格式化响应、
+# 如何编写教程，或语调/风格偏好）。
 agent = Agent(
     model=Claude(id="claude-sonnet-4-5"),
     db=db,
-    # This flag will add the cultural knowledge to the agent's context:
+    # 此标志将把文化知识添加到 agent 的上下文中：
     add_culture_to_context=True,
-    # This flag will update cultural knowledge after every run:
+    # 此标志将在每次运行后更新文化知识：
     # update_cultural_knowledge=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # (Optional) Quick A/B switch to show the difference without culture:
+    # （可选）快速 A/B 切换以展示没有文化知识的差异：
     # agent_no_culture = Agent(model=Claude(id="claude-sonnet-4-5"))
 
     # ---------------------------------------------------------------------------
-    # Step 3. Ask the Agent to generate a response that benefits from culture
+    # 步骤 3. 让 Agent 生成受益于文化知识的响应
     # ---------------------------------------------------------------------------
-    # If `01_create_cultural_knowledge.py` added principles like:
-    #   "Start technical explanations with code examples and then reasoning"
-    # The Agent will apply that here, starting with a concrete FastAPI example.
-    print("\n=== With Culture ===\n")
+    # 如果 `01_create_cultural_knowledge.py` 添加了如下原则：
+    #   "以代码示例开始技术解释，然后是推理"
+    # Agent 将在此应用该原则，从具体的 FastAPI 示例开始。
+    print("\n=== 使用文化知识 ===\n")
     agent.print_response(
-        "How do I set up a FastAPI service using Docker? ",
+        "如何使用 Docker 设置 FastAPI 服务？",
         stream=True,
         markdown=True,
     )
 
-    # (Optional) Run without culture for contrast:
-    # print("\n=== Without Culture ===\n")
-    # agent_no_culture.print_response("How do I set up a FastAPI service using Docker?", stream=True, markdown=True)
+    # （可选）运行不带文化知识的对比：
+    # print("\n=== 不使用文化知识 ===\n")
+    # agent_no_culture.print_response("如何使用 Docker 设置 FastAPI 服务？", stream=True, markdown=True)

@@ -1,8 +1,8 @@
 """
-Audio To Text
+音频转文字
 =============================
 
-Audio To Text.
+演示音频转文字功能。
 """
 
 import requests
@@ -11,7 +11,7 @@ from agno.media import Audio
 from agno.models.google import Gemini
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=Gemini(id="gemini-3-flash-preview"),
@@ -24,10 +24,10 @@ response = requests.get(url)
 audio_content = response.content
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Give a transcript of this audio conversation. Use speaker A, speaker B to identify speakers.
+    # 提供此音频对话的转录文本。使用说话人 A、说话人 B 来标识说话者。
 
     agent.print_response(
         "Give a transcript of this audio conversation. Use speaker A, speaker B to identify speakers.",

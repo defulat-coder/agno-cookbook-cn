@@ -1,8 +1,8 @@
 """
-Input Schema
+输入模式
 =============================
 
-Input Schema.
+演示如何使用输入模式验证 Agent 的输入参数。
 """
 
 from typing import List
@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 
 
 class ResearchTopic(BaseModel):
-    """Structured research topic with specific requirements"""
+    """包含特定要求的结构化研究主题"""
 
     topic: str
     focus_areas: List[str] = Field(description="Specific areas to focus on")
@@ -22,9 +22,9 @@ class ResearchTopic(BaseModel):
     sources_required: int = Field(description="Number of sources needed", default=5)
 
 
-# Define agents
+# 定义 agents
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
@@ -35,10 +35,10 @@ hackernews_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Pass a dict that matches the input schema
+    # 传递一个与输入模式匹配的字典
     hackernews_agent.print_response(
         input={
             "topic": "AI",
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         }
     )
 
-    # Pass a pydantic model that matches the input schema
+    # 传递一个与输入模式匹配的 pydantic 模型
     hackernews_agent.print_response(
         input=ResearchTopic(
             topic="AI",

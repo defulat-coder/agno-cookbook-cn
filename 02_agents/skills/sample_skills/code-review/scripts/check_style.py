@@ -1,12 +1,12 @@
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 #!/usr/bin/env python3
 """
-Check Style
+检查风格
 =============================
 
-Check Python code for style issues.
+检查 Python 代码的风格问题。
 """
 
 import json
@@ -14,22 +14,22 @@ import sys
 
 
 def check_style(code: str) -> dict:
-    """Check code for common style issues."""
+    """检查代码的常见风格问题。"""
     issues = []
     lines = code.split("\n")
 
     for i, line in enumerate(lines, 1):
-        # Check line length
+        # 检查行长度
         if len(line) > 100:
             issues.append(
                 {"line": i, "issue": f"Line exceeds 100 characters ({len(line)})"}
             )
 
-        # Check trailing whitespace
+        # 检查尾随空白
         if line.endswith(" ") or line.endswith("\t"):
             issues.append({"line": i, "issue": "Trailing whitespace"})
 
-        # Check for camelCase variables (simple heuristic)
+        # 检查驼峰式命名的变量（简单启发式）
         if "=" in line and not line.strip().startswith("#"):
             var = line.split("=")[0].strip()
             if (
@@ -44,7 +44,7 @@ def check_style(code: str) -> dict:
                     }
                 )
 
-        # Check for single-letter variables
+        # 检查单字母变量
         if "=" in line:
             var = line.split("=")[0].strip()
             if len(var) == 1 and var not in "ijkxyz_":
@@ -63,7 +63,7 @@ def check_style(code: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     try:

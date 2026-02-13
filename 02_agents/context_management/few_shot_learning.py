@@ -1,8 +1,8 @@
 """
-Few Shot Learning
+少样本学习
 =============================
 
-This example demonstrates how to use additional_input with an Agent.
+此示例演示如何在 Agent 中使用 additional_input。
 """
 
 from agno.agent import Agent
@@ -10,90 +10,90 @@ from agno.models.message import Message
 from agno.models.openai.chat import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
-# Few-shot examples showing good support patterns
+# 展示良好支持模式的少样本示例
 support_examples = [
-    # Example 1: Simple issue resolution
-    Message(role="user", content="I forgot my password and can't log in"),
+    # 示例 1: 简单问题解决
+    Message(role="user", content="我忘记密码了，无法登录"),
     Message(
         role="assistant",
         content="""
-    I'll help you reset your password right away.
+    我会立即帮你重置密码。
 
-    **Steps to Reset Your Password:**
-    . Go to the login page and click "Forgot Password"
-    . Enter your email address
-    . Check your email for the reset link
-    . Follow the link to create a new password
-    . Use a strong password with uppercase, lowercase, numbers, and symbols
+    **重置密码的步骤:**
+    1. 进入登录页面并点击"忘记密码"
+    2. 输入你的电子邮件地址
+    3. 检查你的电子邮件以获取重置链接
+    4. 点击链接创建新密码
+    5. 使用包含大写、小写、数字和符号的强密码
 
-    f you don't receive the email within 5 minutes, please check your spam folder. Let me know if you need any assistance with these steps!
+    如果你在 5 分钟内没有收到电子邮件，请检查你的垃圾邮件文件夹。如果你在这些步骤中需要任何帮助，请告诉我！
     """.strip(),
     ),
-    # Example 2: Billing issue pattern
+    # 示例 2: 账单问题模式
     Message(
         role="user",
-        content="I've been charged twice for the same order and I'm frustrated!",
+        content="我被重复收费两次同一笔订单，我很沮丧！",
     ),
     Message(
         role="assistant",
         content="""
-    I sincerely apologize for the billing error and the frustration this has caused you.
+    对于账单错误以及给你造成的困扰，我深表歉意。
 
-    **Immediate Action Plan:**
-    1. I'll investigate your account to confirm the duplicate charge
-    2. Process a full refund for the duplicate transaction
-    3. Ensure this doesn't happen again by checking your payment method settings
-    4. Provide you with a confirmation number once the refund is processed
+    **即时行动计划:**
+    1. 我会调查你的账户以确认重复收费
+    2. 处理重复交易的全额退款
+    3. 通过检查你的付款方式设置来确保这不会再次发生
+    4. 在退款处理完成后向你提供确认号
 
-    The refund typically takes 3-5 business days to appear on your statement. As an apology for this inconvenience, I'd also like to offer you a 10% discount on your next order.
+    退款通常需要 3-5 个工作日才能出现在你的账单上。作为对此不便的歉意，我还想为你提供下次订单 10% 的折扣。
 
-    Is there anything else I can help you with regarding this issue?
+    关于这个问题，我还能帮你做什么吗？
     """.strip(),
     ),
-    # Example 3: Technical support pattern
-    Message(role="user", content="Your app keeps crashing when I try to upload photos"),
+    # 示例 3: 技术支持模式
+    Message(role="user", content="当我尝试上传照片时，你们的应用一直崩溃"),
     Message(
         role="assistant",
         content="""
-    I'm sorry you're experiencing crashes with photo uploads. Let me help you troubleshoot this issue.
+    很抱歉你在上传照片时遇到崩溃问题。让我帮你解决这个问题。
 
-    **Troubleshooting Steps:**
-    1. **Check App Version:** Ensure you have the latest version from the app store
-    2. **Restart the App:** Close completely and reopen the application
-    3. **Check Storage:** Make sure you have sufficient device storage (at least 1GB free)
-    4. **Photo Size:** Try uploading smaller photos (under 10MB each)
-    5. **Network Connection:** Ensure you have a stable internet connection
+    **故障排除步骤:**
+    1. **检查应用版本:** 确保你从应用商店安装了最新版本
+    2. **重启应用:** 完全关闭并重新打开应用程序
+    3. **检查存储空间:** 确保你有足够的设备存储空间（至少 1GB 可用）
+    4. **照片大小:** 尝试上传较小的照片（每张不超过 10MB）
+    5. **网络连接:** 确保你有稳定的互联网连接
 
-    **If the issue persists:**
-    - Try uploading one photo at a time instead of multiple
-    - Clear the app cache in your device settings
-    - Restart your device
+    **如果问题仍然存在:**
+    - 尝试一次上传一张照片而不是多张
+    - 在设备设置中清除应用缓存
+    - 重启你的设备
 
-    If none of these steps resolve the issue, please let me know your device type and OS version, and I'll escalate this to our technical team for further investigation.
+    如果这些步骤都无法解决问题，请告诉我你的设备类型和操作系统版本，我会将此问题上报给我们的技术团队进行进一步调查。
     """.strip(),
     ),
 ]
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Create agent with few-shot learning
+    # 使用少样本学习创建 agent
     agent = Agent(
-        name="Customer Support Specialist",
+        name="客户支持专员",
         model=OpenAIChat(id="gpt-4o-mini"),
         add_name_to_context=True,
-        additional_input=support_examples,  # few-shot learning examples
+        additional_input=support_examples,  # 少样本学习示例
         instructions=[
-            "You are an expert customer support specialist.",
-            "Always be empathetic, professional, and solution-oriented.",
-            "Provide clear, actionable steps to resolve customer issues.",
-            "Follow the established patterns for consistent, high-quality support.",
+            "你是一名专业的客户支持专员。",
+            "始终保持同理心、专业性和解决方案导向。",
+            "提供清晰、可操作的步骤来解决客户问题。",
+            "遵循既定模式，以实现一致的高质量支持。",
         ],
         markdown=True,
     )
 
-    agent.print_response("I want to enable two-factor authentication for my account.")
+    agent.print_response("我想为我的账户启用双因素认证。")

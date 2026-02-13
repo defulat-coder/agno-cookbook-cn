@@ -1,8 +1,8 @@
 """
-Custom Guardrail
+自定义护栏
 =============================
 
-Custom Guardrail.
+自定义护栏示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.models.openai import OpenAIResponses
 
 
 class TopicGuardrail(BaseGuardrail):
-    """Blocks requests that ask for dangerous instructions."""
+    """拦截请求危险指令的请求。"""
 
     def check(self, run_input) -> None:
         content = (run_input.input_content or "").lower()
@@ -28,7 +28,7 @@ class TopicGuardrail(BaseGuardrail):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Guarded Agent",
@@ -37,7 +37,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

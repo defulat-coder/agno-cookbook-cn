@@ -1,8 +1,8 @@
 """
-Instructions With State
+带状态的指令
 =============================
 
-Example demonstrating how to use a function as instructions for an agent.
+演示如何将函数用作 agent 的指令。
 """
 
 from textwrap import dedent
@@ -12,27 +12,26 @@ from agno.models.openai import OpenAIChat
 from agno.run import RunContext
 
 
-# This will be our instructions function
+# 这将是我们的指令函数
 def get_run_instructions(run_context: RunContext) -> str:
-    """Build instructions for the Agent based on the run context."""
+    """基于运行上下文为 Agent 构建指令。"""
     if not run_context.session_state:
-        return "You are a helpful game development assistant that can answer questions about coding and game design."
+        return "你是一个乐于助人的游戏开发助手，可以回答有关编码和游戏设计的问题。"
 
     game_genre = run_context.session_state.get("game_genre", "")
     difficulty_level = run_context.session_state.get("difficulty_level", "")
 
     return dedent(
         f"""
-        You are a specialized game development assistant.
-        The team is currently working on a {game_genre} game.
-        The current project difficulty level is set to {difficulty_level}.
-        Please tailor your responses to match this genre and complexity level when providing
-        coding advice, design suggestions, or technical guidance."""
+        你是一个专业的游戏开发助手。
+        团队目前正在开发一个 {game_genre} 游戏。
+        当前项目难度级别设置为 {difficulty_level}。
+        在提供编码建议、设计建议或技术指导时，请根据此类型和复杂性级别定制你的响应。"""
     )
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 game_development_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -40,7 +39,7 @@ game_development_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     game_development_agent.print_response(

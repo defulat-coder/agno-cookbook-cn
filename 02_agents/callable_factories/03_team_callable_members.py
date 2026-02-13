@@ -1,8 +1,8 @@
 """
-Team Callable Members
+Team 可调用成员
 =====================
-Pass a function as `members` to a Team. The team composition
-is decided at run time based on session_state.
+将函数作为 `members` 传递给 Team。团队组成
+根据 session_state 在运行时决定。
 """
 
 from agno.agent import Agent
@@ -10,26 +10,26 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create the Team Members
+# 创建团队成员
 # ---------------------------------------------------------------------------
 
 writer = Agent(
     name="Writer",
     role="Content writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions=["Write clear, concise content."],
+    instructions=["编写清晰、简洁的内容。"],
 )
 
 researcher = Agent(
     name="Researcher",
     role="Research analyst",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions=["Research topics and summarize findings."],
+    instructions=["研究主题并总结发现。"],
 )
 
 
 def pick_members(session_state: dict):
-    """Include the researcher only when needed."""
+    """仅在需要时包含 researcher。"""
     needs_research = session_state.get("needs_research", False)
     print(f"--> needs_research={needs_research}")
 
@@ -39,7 +39,7 @@ def pick_members(session_state: dict):
 
 
 # ---------------------------------------------------------------------------
-# Create the Team
+# 创建团队
 # ---------------------------------------------------------------------------
 
 team = Team(
@@ -47,12 +47,12 @@ team = Team(
     model=OpenAIChat(id="gpt-4o-mini"),
     members=pick_members,
     cache_callables=False,
-    instructions=["Coordinate the team to complete the task."],
+    instructions=["协调团队完成任务。"],
 )
 
 
 # ---------------------------------------------------------------------------
-# Run the Team
+# 运行团队
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

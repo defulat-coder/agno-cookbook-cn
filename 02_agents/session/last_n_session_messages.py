@@ -1,8 +1,8 @@
 """
-Last N Session Messages
+最近 N 条 Session 消息
 =============================
 
-Last N Session Messages.
+最近 N 条 Session 消息示例。
 """
 
 import asyncio
@@ -13,24 +13,24 @@ from agno.db.sqlite import AsyncSqliteDb
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
-# Remove the tmp db file before running the script
+# 在运行脚本之前删除临时数据库文件
 if os.path.exists("tmp/data.db"):
     os.remove("tmp/data.db")
 
-# Create agents for different users to demonstrate user-specific session history
+# 为不同的用户创建 Agent 以演示用户特定的 session 历史
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     db=AsyncSqliteDb(db_file="tmp/data.db"),
-    search_session_history=True,  # allow searching previous sessions
-    num_history_sessions=2,  # only include the last 2 sessions in the search to avoid context length issues
+    search_session_history=True,  # 允许搜索以前的 session
+    num_history_sessions=2,  # 仅在搜索中包含最近 2 个 session 以避免上下文长度问题
 )
 
 
 async def main():
-    # User 1 sessions
-    print("=== User 1 Sessions ===")
+    # 用户 1 的 session
+    print("=== 用户 1 的 Session ===")
     await agent.aprint_response(
         "What is the capital of South Africa?",
         session_id="user1_session_1",
@@ -43,8 +43,8 @@ async def main():
         "What is the capital of France?", session_id="user1_session_3", user_id="user_1"
     )
 
-    # User 2 sessions
-    print("\n=== User 2 Sessions ===")
+    # 用户 2 的 session
+    print("\n=== 用户 2 的 Session ===")
     await agent.aprint_response(
         "What is the population of India?",
         session_id="user2_session_1",
@@ -54,10 +54,10 @@ async def main():
         "What is the currency of Japan?", session_id="user2_session_2", user_id="user_2"
     )
 
-    # Now test session history search - each user should only see their own sessions
-    print("\n=== Testing Session History Search ===")
+    # 现在测试 session 历史搜索 - 每个用户应该只看到他们自己的 session
+    print("\n=== 测试 Session 历史搜索 ===")
     print(
-        "User 1 asking about previous conversations (should only see capitals, not population/currency):"
+        "用户 1 询问之前的对话（应该只看到首都，而不是人口/货币）:"
     )
     await agent.aprint_response(
         "What did I discuss in my previous conversations?",
@@ -66,7 +66,7 @@ async def main():
     )
 
     print(
-        "\nUser 2 asking about previous conversations (should only see population/currency, not capitals):"
+        "\n用户 2 询问之前的对话（应该只看到人口/货币，而不是首都）:"
     )
     await agent.aprint_response(
         "What did I discuss in my previous conversations?",
@@ -76,7 +76,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(main())

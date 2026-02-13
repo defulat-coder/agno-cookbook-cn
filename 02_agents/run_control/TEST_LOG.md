@@ -1,85 +1,85 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间：2026-02-10 UTC
 
-Pattern Check: Checked 8 file(s) in cookbook/02_agents/run_control. Violations: 0
+模式检查：在 cookbook/02_agents/run_control 中检查了 8 个文件。违规：0
 
 ### agent_serialization.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### cancel_run.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### concurrent_execution.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### debug.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### metrics.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### retries.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### tool_call_limit.py
 
-**Status:** FAIL
+**状态：** 失败
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Failed with Anthropic API authentication error (401 Unauthorized). Environment issue -- ANTHROPIC_API_KEY is invalid.
+**结果：** Anthropic API 认证错误（401 未授权）失败。环境问题 -- ANTHROPIC_API_KEY 无效。
 
 ---
 
 ### tool_choice.py
 
-**Status:** FAIL
+**状态：** 失败
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 作为可运行的示例使用 `.venvs/demo/bin/python` 执行。
 
-**Result:** Failed with Anthropic API authentication error (401 Unauthorized). Environment issue -- ANTHROPIC_API_KEY is invalid.
+**结果：** Anthropic API 认证错误（401 未授权）失败。环境问题 -- ANTHROPIC_API_KEY 无效。
 
 ---

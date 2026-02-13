@@ -1,8 +1,8 @@
 """
-Output Guardrail
+输出护栏
 =============================
 
-Output Guardrail.
+输出护栏示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.run.agent import RunOutput
 
 
 def enforce_non_empty_output(run_output: RunOutput) -> None:
-    """Reject empty or very short responses."""
+    """拒绝空或过短的响应。"""
     content = (run_output.content or "").strip()
     if len(content) < 20:
         raise OutputCheckError(
@@ -22,7 +22,7 @@ def enforce_non_empty_output(run_output: RunOutput) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Output-Checked Agent",
@@ -31,7 +31,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("Summarize the key ideas in clean architecture.", stream=True)

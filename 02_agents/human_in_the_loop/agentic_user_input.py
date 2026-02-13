@@ -1,8 +1,8 @@
 """
-Agentic User Input
+Agent 式用户输入
 =============================
 
-Human-in-the-Loop: Allowing users to provide input externally.
+人机协作：允许用户在外部提供输入。
 """
 
 from typing import Any, Dict, List
@@ -23,21 +23,21 @@ class EmailTools(Toolkit):
         )
 
     def send_email(self, subject: str, body: str, to_address: str) -> str:
-        """Send an email to the given address with the given subject and body.
+        """向指定地址发送带有指定主题和正文的电子邮件。
 
         Args:
-            subject (str): The subject of the email.
-            body (str): The body of the email.
-            to_address (str): The address to send the email to.
+            subject (str): 电子邮件的主题。
+            body (str): 电子邮件的正文。
+            to_address (str): 发送电子邮件的地址。
         """
         return f"Sent email to {to_address} with subject {subject} and body {body}"
 
     def get_emails(self, date_from: str, date_to: str) -> list[dict[str, str]]:
-        """Get all emails between the given dates.
+        """获取指定日期之间的所有电子邮件。
 
         Args:
-            date_from (str): The start date (in YYYY-MM-DD format).
-            date_to (str): The end date (in YYYY-MM-DD format).
+            date_from (str): 开始日期（YYYY-MM-DD 格式）。
+            date_to (str): 结束日期（YYYY-MM-DD 格式）。
         """
         return [
             {
@@ -56,7 +56,7 @@ class EmailTools(Toolkit):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -66,37 +66,37 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_response = agent.run(
         "Send an email with the body 'What is the weather in Tokyo?'"
     )
 
-    # We use a while loop to continue the running until the agent is satisfied with the user input
+    # 我们使用 while 循环继续运行，直到 agent 对用户输入满意为止
     while run_response.is_paused:
         for requirement in run_response.active_requirements:
             if requirement.needs_user_input:
                 input_schema: List[UserInputField] = requirement.user_input_schema  # type: ignore
 
                 for field in input_schema:
-                    # Get user input for each field in the schema
+                    # 为 schema 中的每个字段获取用户输入
                     field_type = field.field_type  # type: ignore
                     field_description = field.description  # type: ignore
 
-                    # Display field information to the user
+                    # 向用户显示字段信息
                     print(f"\nField: {field.name}")  # type: ignore
                     print(f"Description: {field_description}")
                     print(f"Type: {field_type}")
 
-                    # Get user input
+                    # 获取用户输入
                     if field.value is None:  # type: ignore
                         user_value = input(f"Please enter a value for {field.name}: ")  # type: ignore
                     else:
                         print(f"Value: {field.value}")  # type: ignore
                         user_value = field.value  # type: ignore
 
-                    # Update the field value
+                    # 更新字段值
                     field.value = user_value  # type: ignore
 
         run_response = agent.continue_run(
@@ -115,23 +115,23 @@ if __name__ == "__main__":
                 input_schema: Dict[str, Any] = requirement.user_input_schema  # type: ignore
 
                 for field in input_schema:
-                    # Get user input for each field in the schema
+                    # 为 schema 中的每个字段获取用户输入
                     field_type = field.field_type  # type: ignore
                     field_description = field.description  # type: ignore
 
-                    # Display field information to the user
+                    # 向用户显示字段信息
                     print(f"\nField: {field.name}")  # type: ignore
                     print(f"Description: {field_description}")
                     print(f"Type: {field_type}")
 
-                    # Get user input
+                    # 获取用户输入
                     if field.value is None:  # type: ignore
                         user_value = input(f"Please enter a value for {field.name}: ")  # type: ignore
                     else:
                         print(f"Value: {field.value}")  # type: ignore
                         user_value = field.value  # type: ignore
 
-                    # Update the field value
+                    # 更新字段值
                     field.value = user_value  # type: ignore
 
         run_response = agent.continue_run(

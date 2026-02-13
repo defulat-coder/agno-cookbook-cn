@@ -1,8 +1,8 @@
 """
-Dynamic Tools
+动态工具
 =============================
 
-Dynamic Tools.
+动态工具示例。
 """
 
 from datetime import datetime
@@ -13,7 +13,7 @@ from agno.run import RunContext
 
 
 def get_runtime_tools(run_context: RunContext):
-    """Return tools dynamically based on session state."""
+    """根据 session state 动态返回工具。"""
 
     def get_time() -> str:
         return datetime.utcnow().isoformat()
@@ -26,7 +26,7 @@ def get_runtime_tools(run_context: RunContext):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Dynamic Tools Agent",
@@ -35,7 +35,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

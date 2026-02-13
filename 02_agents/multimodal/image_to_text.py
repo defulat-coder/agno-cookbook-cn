@@ -1,8 +1,8 @@
 """
-Image To Text
+图像转文字
 =============================
 
-Image to Text Example.
+图像转文字示例。
 """
 
 from pathlib import Path
@@ -12,7 +12,7 @@ from agno.media import Image
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -22,7 +22,7 @@ agent = Agent(
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

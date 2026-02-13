@@ -1,8 +1,8 @@
 """
-Agentic Session State
+Agentic Session State 示例
 =============================
 
-Agentic Session State.
+Agentic Session State。
 """
 
 from agno.agent import Agent
@@ -11,18 +11,18 @@ from agno.models.openai import OpenAIChat
 
 db = SqliteDb(db_file="tmp/agents.db")
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="o3-mini"),
     db=db,
     session_state={"shopping_list": []},
-    add_session_state_to_context=True,  # Required so the agent is aware of the session state
+    add_session_state_to_context=True,  # 必须，以便 Agent 感知 session state
     enable_agentic_state=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("Add milk, eggs, and bread to the shopping list")

@@ -1,16 +1,16 @@
 # 01_quickstart
 
-Starter examples for creating and running agents with core settings.
+创建和运行 Agent 的核心配置入门示例。
 
-## Files
-- `agent_with_instructions.py` - Demonstrates agent with instructions.
-- `agent_with_tools.py` - Demonstrates agent with tools.
-- `basic_agent.py` - Demonstrates basic agent.
+## 文件
+- `agent_with_instructions.py` - 演示带指令的 Agent。
+- `agent_with_tools.py` - 演示带工具的 Agent。
+- `basic_agent.py` - 演示基础 Agent。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (including `OPENAI_API_KEY`).
-- Create the demo environment with `./scripts/demo_setup.sh`, then run cookbooks with `.venvs/demo/bin/python`.
-- Some examples require optional local services (for example pgvector) or provider-specific API keys.
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（包括 `OPENAI_API_KEY`）。
+- 使用 `./scripts/demo_setup.sh` 创建演示环境，然后使用 `.venvs/demo/bin/python` 运行 cookbook。
+- 某些示例需要可选的本地服务（例如 pgvector）或特定提供商的 API 密钥。
 
-## Run
+## 运行
 - `.venvs/demo/bin/python cookbook/02_agents/<directory>/<file>.py`

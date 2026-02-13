@@ -1,8 +1,8 @@
 """
-Cancel Run
+取消运行
 =============================
 
-Example demonstrating how to cancel a running agent execution.
+演示如何取消正在运行的 agent 执行的示例。
 """
 
 import threading
@@ -16,17 +16,17 @@ from agno.run.base import RunStatus
 
 def long_running_task(agent: Agent, run_id_container: dict):
     """
-    Simulate a long-running agent task that can be cancelled.
+    模拟一个可以被取消的长时间运行的 agent 任务。
 
     Args:
-        agent: The agent to run
-        run_id_container: Dictionary to store the run_id for cancellation
+        agent: 要运行的 agent
+        run_id_container: 用于存储 run_id 以便取消的字典
 
     Returns:
-        Dictionary with run results and status
+        包含运行结果和状态的字典
     """
     try:
-        # Start the agent run - this simulates a long task
+        # 启动 agent 运行 - 这模拟了一个长任务
         final_response = None
         content_pieces = []
 
@@ -42,7 +42,7 @@ def long_running_task(agent: Agent, run_id_container: dict):
             if chunk.event == RunEvent.run_content:
                 print(chunk.content, end="", flush=True)
                 content_pieces.append(chunk.content)
-            # When the run is cancelled, a `RunEvent.run_cancelled` event is emitted
+            # 当运行被取消时，会触发 `RunEvent.run_cancelled` 事件
             elif chunk.event == RunEvent.run_cancelled:
                 print(f"\n[CANCELLED] Run was cancelled: {chunk.run_id}")
                 run_id_container["result"] = {
@@ -57,7 +57,7 @@ def long_running_task(agent: Agent, run_id_container: dict):
             elif hasattr(chunk, "status") and chunk.status == RunStatus.completed:
                 final_response = chunk
 
-        # If we get here, the run completed successfully
+        # 如果执行到这里，说明运行成功完成
         if final_response:
             run_id_container["result"] = {
                 "status": final_response.status.value
@@ -92,12 +92,12 @@ def long_running_task(agent: Agent, run_id_container: dict):
 
 def cancel_after_delay(agent: Agent, run_id_container: dict, delay_seconds: int = 3):
     """
-    Cancel the agent run after a specified delay.
+    在指定延迟后取消 agent 运行。
 
     Args:
-        agent: The agent whose run should be cancelled
-        run_id_container: Dictionary containing the run_id to cancel
-        delay_seconds: How long to wait before cancelling
+        agent: 需要取消运行的 agent
+        run_id_container: 包含要取消的 run_id 的字典
+        delay_seconds: 取消前等待的秒数
     """
     print(f"[TIMER] Will cancel run in {delay_seconds} seconds...")
     time.sleep(delay_seconds)
@@ -117,54 +117,54 @@ def cancel_after_delay(agent: Agent, run_id_container: dict, delay_seconds: int 
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def main():
-    """Main function demonstrating run cancellation."""
+    """演示运行取消的主函数。"""
 
-    # Initialize the agent with a model
+    # 使用模型初始化 agent
 
     # ---------------------------------------------------------------------------
-    # Create Agent
+    # 创建 Agent
     # ---------------------------------------------------------------------------
 
     agent = Agent(
         name="StorytellerAgent",
-        model=OpenAIChat(id="o3-mini"),  # Use a model that can generate long responses
+        model=OpenAIChat(id="o3-mini"),  # 使用能够生成长响应的模型
         description="An agent that writes detailed stories",
     )
 
     print("Starting agent run cancellation example...")
     print("=" * 50)
 
-    # Container to share run_id between threads
+    # 用于在线程间共享 run_id 的容器
     run_id_container = {}
 
-    # Start the agent run in a separate thread
+    # 在独立线程中启动 agent 运行
     agent_thread = threading.Thread(
         target=lambda: long_running_task(agent, run_id_container), name="AgentRunThread"
     )
 
-    # Start the cancellation thread
+    # 启动取消线程
     cancel_thread = threading.Thread(
         target=cancel_after_delay,
-        args=(agent, run_id_container, 8),  # Cancel after 5 seconds
+        args=(agent, run_id_container, 8),  # 8 秒后取消
         name="CancelThread",
     )
 
-    # Start both threads
+    # 启动两个线程
     print("[START] Starting agent run thread...")
     agent_thread.start()
 
     print("[START] Starting cancellation thread...")
     cancel_thread.start()
 
-    # Wait for both threads to complete
+    # 等待两个线程完成
     print("[WAIT] Waiting for threads to complete...")
     agent_thread.join()
     cancel_thread.join()
 
-    # Print the results
+    # 打印结果
     print("\n" + "=" * 50)
     print("RESULTS:")
     print("=" * 50)
@@ -193,8 +193,8 @@ def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Run the main example
+    # 运行主示例
     main()

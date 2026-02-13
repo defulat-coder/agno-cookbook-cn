@@ -1,8 +1,8 @@
 """
-Confirmation Required
+需要确认
 =============================
 
-Human-in-the-Loop (HITL): Adding User Confirmation to Tool Calls.
+人机协作（HITL）：为工具调用添加用户确认。
 """
 
 import json

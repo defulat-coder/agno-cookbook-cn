@@ -1,8 +1,8 @@
 """
-Dynamic Session State
+动态 Session State 示例
 =============================
 
-Dynamic Session State.
+动态 Session State。
 """
 
 import json
@@ -60,11 +60,11 @@ def customer_management_hook(run_context: RunContext, arguments: Dict[str, Any])
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def run_test():
     # ---------------------------------------------------------------------------
-    # Create Agent
+    # 创建 Agent
     # ---------------------------------------------------------------------------
 
     agent = Agent(
@@ -81,14 +81,14 @@ def run_test():
     log_info(f" Prompting: '{prompt}'")
     agent.print_response(prompt, stream=False)
 
-    log_info("\n--- TEST ANALYSIS ---")
+    log_info("\n--- 测试分析 ---")
     log_info(
-        "Check logs for the second tool call. The system prompt will NOT contain customer '789'."
+        "检查日志中的第二次工具调用。系统提示词将不包含客户 '789'。"
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_test()

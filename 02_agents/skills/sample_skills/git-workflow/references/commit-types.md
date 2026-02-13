@@ -1,17 +1,17 @@
-# Commit Types Reference
+# Commit 类型参考
 
-## Primary Types
+## 主要类型
 
-| Type | Description | Example |
+| 类型 | 描述 | 示例 |
 |------|-------------|---------|
-| `feat` | A new feature for the user | `feat(cart): add checkout button` |
-| `fix` | A bug fix for the user | `fix(login): correct password validation` |
-| `docs` | Documentation only changes | `docs(readme): update installation steps` |
-| `style` | Formatting, missing semicolons, etc. | `style(api): format with prettier` |
-| `refactor` | Code change that neither fixes a bug nor adds a feature | `refactor(auth): simplify token logic` |
-| `perf` | Performance improvement | `perf(query): add database index` |
-| `test` | Adding or updating tests | `test(api): add user endpoint tests` |
-| `chore` | Maintenance tasks | `chore(deps): update lodash to 4.17.21` |
+| `feat` | 用户新功能 | `feat(cart): add checkout button` |
+| `fix` | 用户 bug 修复 | `fix(login): correct password validation` |
+| `docs` | 仅文档修改 | `docs(readme): update installation steps` |
+| `style` | 格式化、缺少分号等 | `style(api): format with prettier` |
+| `refactor` | 既不修复 bug 也不添加功能的代码修改 | `refactor(auth): simplify token logic` |
+| `perf` | 性能改进 | `perf(query): add database index` |
+| `test` | 添加或更新测试 | `test(api): add user endpoint tests` |
+| `chore` | 维护任务 | `chore(deps): update lodash to 4.17.21` |
 
 ## Additional Types (Optional)
 

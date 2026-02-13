@@ -1,8 +1,8 @@
 """
-Agent Serialization
+Agent 序列化
 =============================
 
-Agent Serialization.
+Agent 序列化。
 """
 
 from agno.agent import Agent
@@ -10,12 +10,12 @@ from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 agent_db = SqliteDb(db_file="tmp/agents.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     id="serialization-demo-agent",
@@ -25,7 +25,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     config = agent.to_dict()

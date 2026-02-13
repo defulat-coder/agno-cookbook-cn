@@ -1,33 +1,33 @@
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 #!/usr/bin/env python3
 """
-Commit Message
+提交消息
 =============================
 
-Validate or generate conventional commit messages.
+验证或生成约定式提交消息。
 """
 
 import json
 import sys
 
 COMMIT_TYPES = {
-    "feat": "A new feature",
-    "fix": "A bug fix",
-    "docs": "Documentation changes",
-    "style": "Formatting, no code change",
-    "refactor": "Code restructuring",
-    "perf": "Performance improvement",
-    "test": "Adding/updating tests",
-    "chore": "Maintenance tasks",
-    "build": "Build system changes",
-    "ci": "CI/CD changes",
+    "feat": "新功能",
+    "fix": "Bug 修复",
+    "docs": "文档修改",
+    "style": "格式化，不改变代码逻辑",
+    "refactor": "代码重构",
+    "perf": "性能改进",
+    "test": "添加/更新测试",
+    "chore": "维护任务",
+    "build": "构建系统修改",
+    "ci": "CI/CD 修改",
 }
 
 
 def validate(message: str) -> dict:
-    """Validate a commit message."""
+    """验证提交消息。"""
     errors = []
     warnings = []
 
@@ -37,7 +37,7 @@ def validate(message: str) -> dict:
 
     subject = lines[0]
 
-    # Check format: type: description
+    # 检查格式：type: description
     if ":" not in subject:
         errors.append("Missing ':' separator (expected 'type: description')")
     else:
@@ -60,7 +60,7 @@ def validate(message: str) -> dict:
 
 
 def generate(commit_type: str, description: str, scope: str = None) -> dict:
-    """Generate a commit message."""
+    """生成提交消息。"""
     if commit_type not in COMMIT_TYPES:
         return {
             "error": f"Unknown type '{commit_type}'. Valid: {', '.join(COMMIT_TYPES.keys())}"
@@ -75,12 +75,12 @@ def generate(commit_type: str, description: str, scope: str = None) -> dict:
 
 
 def list_types() -> dict:
-    """List all valid commit types."""
+    """列出所有有效的提交类型。"""
     return {"types": COMMIT_TYPES}
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     try:

@@ -1,23 +1,23 @@
 """
-Agent With Instructions
+带指令的 Agent
 =============================
 
-Agent With Instructions Quickstart.
+带指令的 Agent 快速入门。
 """
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Agent Instructions
+# Agent 指令
 # ---------------------------------------------------------------------------
 instructions = """\
-You are a concise assistant.
-Answer with exactly 3 bullet points when possible.\
+你是一个简洁的助手。
+尽可能用正好 3 个要点来回答。\
 """
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Instruction-Tuned Agent",
@@ -26,7 +26,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("How can I improve my Python debugging workflow?", stream=True)

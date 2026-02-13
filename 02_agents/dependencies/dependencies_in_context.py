@@ -1,8 +1,8 @@
 """
-Dependencies In Context
+上下文中的依赖
 =============================
 
-Dependencies In Context.
+上下文中的依赖示例。
 """
 
 import json
@@ -13,14 +13,14 @@ from agno.models.openai import OpenAIChat
 
 
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
-    """Fetch and return the top stories from HackerNews.
+    """从 HackerNews 获取并返回热门故事。
 
     Args:
-        num_stories: Number of top stories to retrieve (default: 5)
+        num_stories: 要检索的热门故事数量（默认：5）
     Returns:
-        JSON string containing story details (title, url, score, etc.)
+        包含故事详情（标题、URL、评分等）的 JSON 字符串
     """
-    # Get top stories
+    # 获取热门故事
     stories = [
         {
             k: v
@@ -29,7 +29,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
             )
             .json()
             .items()
-            if k != "kids"  # Exclude discussion threads
+            if k != "kids"  # 排除讨论线程
         }
         for id in httpx.get(
             "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -38,25 +38,25 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个可以访问实时 HackerNews 数据的上下文感知 Agent
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the dependencies is resolved when the agent is run,
-    # think of it as dependency injection for Agents
+    # dependencies 中的每个函数在 agent 运行时被解析，
+    # 可以将其视为 Agent 的依赖注入
     dependencies={"top_hackernews_stories": get_top_hackernews_stories},
-    # We can add the entire dependencies dictionary to the user message
+    # 我们可以将整个 dependencies 字典添加到用户消息中
     add_dependencies_to_context=True,
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Example usage
+    # 使用示例
     agent.print_response(
         "Summarize the top stories on HackerNews and identify any interesting trends.",
         stream=True,

@@ -1,134 +1,134 @@
-# Agno Agents Cookbook - Developer Guide
+# Agno Agents Cookbook - 开发者指南
 
-Welcome to the **Agno Agents Cookbook** - your comprehensive guide to building intelligent AI agents with Agno. This cookbook contains practical examples, patterns, and best practices for creating powerful AI applications using Agno's agent framework.
+欢迎使用 **Agno Agents Cookbook** - 这是您使用 Agno 构建智能 AI Agent 的综合指南。本 cookbook 包含实用示例、模式和最佳实践，帮助您使用 Agno 的 agent 框架创建强大的 AI 应用程序。
 
-- [Features](#features)
-  - [Tool Integration](#tool-integration)
-  - [RAG & Knowledge](#rag--knowledge)
+- [特性](#特性)
+  - [Tool 集成](#tool-集成)
+  - [RAG 与知识库](#rag-与知识库)
   - [Human-in-the-Loop](#human-in-the-loop)
-  - [Multimodal Capabilities](#multimodal-capabilities)
-  - [Async & Performance](#async--performance)
-  - [State Management](#state-management)
-  - [Event Handling & Streaming](#event-handling--streaming)
-  - [Parser & Output Models](#parser--output-models)
-  - [Advanced Patterns](#advanced-patterns)
+  - [多模态能力](#多模态能力)
+  - [异步与性能](#异步与性能)
+  - [状态管理](#状态管理)
+  - [事件处理与流式输出](#事件处理与流式输出)
+  - [Parser 与 Output Models](#parser-与-output-models)
+  - [高级模式](#高级模式)
 
-### Key Agent Features
+### 核心 Agent 特性
 
-| Feature | Description 
+| 特性 | 描述 
 |---------|-------------
-| **Memory** | Persistent conversation history and learning 
-| **Tools** | External API integration and function calling 
-| **State Management** | Session-based context and data persistence 
-| **Multimodal** | Image, audio, video processing capabilities 
-| **Human-in-the-Loop** | User confirmation and input workflows 
-| **Async Support** | High-performance concurrent operations 
-| **RAG Integration** | Knowledge retrieval and augmented generation
+| **Memory** | 持久化对话历史与学习能力 
+| **Tools** | 外部 API 集成与函数调用 
+| **State Management** | 基于会话的上下文与数据持久化 
+| **Multimodal** | 图像、音频、视频处理能力 
+| **Human-in-the-Loop** | 用户确认与输入工作流 
+| **Async Support** | 高性能并发操作 
+| **RAG Integration** | 知识检索与增强生成
 
 
-### Tool Integration
-**External APIs, functions, and capabilities**
+### Tool 集成
+**外部 API、函数和能力**
 
-Agents can use Agno ToolKits, custom functions, or build custom Toolkit classes for complex integrations.
+Agent 可以使用 Agno ToolKits、自定义函数，或为复杂集成构建自定义 Toolkit 类。
 
-**Examples:**
-- See `cookbook/90_tools/` for tool integration patterns
+**示例：**
+- 查看 `cookbook/90_tools/` 了解 tool 集成模式
 
-### RAG & Knowledge
-**Retrieval-Augmented Generation and knowledge systems**
+### RAG 与知识库
+**检索增强生成与知识系统**
 
-Connect agents to vector databases and knowledge bases for intelligent document retrieval and question answering.
+将 agent 连接到向量数据库和知识库，实现智能文档检索与问答。
 
-**Examples:**
-- [`rag/traditional_rag_lancedb.py`](./rag/traditional_rag_lancedb.py) - Vector-based knowledge retrieval
-- [`rag/agentic_rag_pgvector.py`](./rag/agentic_rag_pgvector.py) - Agentic RAG with Pgvector
-- [`rag/agentic_rag_with_reranking.py`](./rag/agentic_rag_with_reranking.py) - Enhanced retrieval with reranking
+**示例：**
+- [`rag/traditional_rag_lancedb.py`](./rag/traditional_rag_lancedb.py) - 基于向量的知识检索
+- [`rag/agentic_rag_pgvector.py`](./rag/agentic_rag_pgvector.py) - 使用 Pgvector 的 Agentic RAG
+- [`rag/agentic_rag_with_reranking.py`](./rag/agentic_rag_with_reranking.py) - 带重排序的增强检索
 
-See all examples [here](./rag) 
+查看所有示例 [这里](./rag) 
 
 ### Human-in-the-Loop
-**User confirmation, input, and interactive workflows**
+**用户确认、输入和交互式工作流**
 
-Build agents that can pause for user confirmation, collect dynamic input, or integrate with external systems requiring human oversight.
+构建可以暂停等待用户确认、收集动态输入或集成需要人工监督的外部系统的 agent。
 
-**Examples:**
-- [`human_in_the_loop/confirmation_required.py`](./human_in_the_loop/confirmation_required.py) - Tool execution confirmation
-- [`human_in_the_loop/user_input_required.py`](./human_in_the_loop/user_input_required.py) - Dynamic user input collection
-- [`human_in_the_loop/external_tool_execution.py`](./human_in_the_loop/external_tool_execution.py) - External system integration
+**示例：**
+- [`human_in_the_loop/confirmation_required.py`](./human_in_the_loop/confirmation_required.py) - Tool 执行确认
+- [`human_in_the_loop/user_input_required.py`](./human_in_the_loop/user_input_required.py) - 动态用户输入收集
+- [`human_in_the_loop/external_tool_execution.py`](./human_in_the_loop/external_tool_execution.py) - 外部系统集成
 
-See all examples [here](./human_in_the_loop)
+查看所有示例 [这里](./human_in_the_loop)
 
-### Multimodal Capabilities
-**Image, audio, and video processing**
+### 多模态能力
+**图像、音频和视频处理**
 
-Process and analyze multiple media types including images, audio files, and video content.
+处理和分析多种媒体类型，包括图像、音频文件和视频内容。
 
-**Examples:**
-- [`multimodal/image_to_text.py`](./multimodal/image_to_text.py) - Image analysis and description
-- [`multimodal/audio_sentiment_analysis.py`](./multimodal/audio_sentiment_analysis.py) - Audio processing
-- [`multimodal/video_caption_agent.py`](./multimodal/video_caption_agent.py) - Video content understanding
+**示例：**
+- [`multimodal/image_to_text.py`](./multimodal/image_to_text.py) - 图像分析与描述
+- [`multimodal/audio_sentiment_analysis.py`](./multimodal/audio_sentiment_analysis.py) - 音频处理
+- [`multimodal/video_caption_agent.py`](./multimodal/video_caption_agent.py) - 视频内容理解
 
-See all examples [here](./multimodal)
+查看所有示例 [这里](./multimodal)
 
-### Async & Performance
-**High-performance and concurrent operations**
+### 异步与性能
+**高性能和并发操作**
 
-Build high-performance agents with async support for concurrent operations and real-time streaming.
+构建支持异步操作的高性能 agent，实现并发操作和实时流式输出。
 
-**Examples:**
-- [`async/basic.py`](./async/basic.py) - Basic async agent usage
-- [`async/gather_agents.py`](./async/gather_agents.py) - Concurrent agent execution
-- [`async/streaming.py`](./async/streaming.py) - Real-time streaming responses
+**示例：**
+- [`async/basic.py`](./async/basic.py) - 基础异步 agent 用法
+- [`async/gather_agents.py`](./async/gather_agents.py) - 并发 agent 执行
+- [`async/streaming.py`](./async/streaming.py) - 实时流式响应
 
-See all examples [here](./async)
+查看所有示例 [这里](./async)
 
-### State Management
-**Session persistence and context management**
+### 状态管理
+**会话持久化与上下文管理**
 
-Maintain conversation state across sessions, store user data, and manage multi-turn interactions with persistent context.
+维护跨会话的对话状态，存储用户数据，并通过持久化上下文管理多轮交互。
 
-**Examples:**
-- [`state/session_state_basic.py`](./state/session_state_basic.py) - Basic session state usage
-- [`state/session_state_in_instructions.py`](./state/session_state_in_instructions.py) - Using state in instructions
-- [`state/session_state_multiple_users.py`](./state/session_state_multiple_users.py) - Multi-user scenarios
+**示例：**
+- [`state/session_state_basic.py`](./state/session_state_basic.py) - 基础会话状态用法
+- [`state/session_state_in_instructions.py`](./state/session_state_in_instructions.py) - 在指令中使用状态
+- [`state/session_state_multiple_users.py`](./state/session_state_multiple_users.py) - 多用户场景
 
-See all examples [here](./state)
+查看所有示例 [这里](./state)
 
-### Event Handling & Streaming
-**Real-time event monitoring and streaming**
+### 事件处理与流式输出
+**实时事件监控与流式传输**
 
-Capture agent events during streaming for monitoring, debugging, or building interactive UIs with real-time updates.
+在流式输出期间捕获 agent 事件，用于监控、调试或构建具有实时更新的交互式 UI。
 
-**Examples:**
-- [`events/basic_agent_events.py`](./events/basic_agent_events.py) - Tool call event handling
-- [`events/reasoning_agent_events.py`](./events/reasoning_agent_events.py) - Reasoning event capture
+**示例：**
+- [`events/basic_agent_events.py`](./events/basic_agent_events.py) - Tool 调用事件处理
+- [`events/reasoning_agent_events.py`](./events/reasoning_agent_events.py) - 推理事件捕获
 
-### Parser & Output Models
-**Specialized models for different processing stages**
+### Parser 与 Output Models
+**针对不同处理阶段的专用模型**
 
-Use different models for reasoning vs parsing structured outputs, or for generating final responses, optimizing for cost and performance.
+为推理与解析结构化输出使用不同的模型，或为生成最终响应使用专用模型，优化成本和性能。
 
-**Parser Model Benefits:**
-- Cost optimization with cheaper parsing models
-- Better structured output consistency
-- Separate reasoning from parsing concerns
+**Parser Model 优势：**
+- 使用更便宜的解析模型优化成本
+- 更好的结构化输出一致性
+- 将推理与解析关注点分离
 
-**Output Model Benefits:**
-- Quality control for final responses
-- Style consistency across different use cases
-- Cost management for expensive final generation
+**Output Model 优势：**
+- 最终响应的质量控制
+- 不同用例的风格一致性
+- 昂贵最终生成的成本管理
 
-**Examples:**
-- [`other/parse_model.py`](./other/parse_model.py) - Parser model for structured outputs
-- [`other/output_model.py`](./other/output_model.py) - Output model for final responses
+**示例：**
+- [`other/parse_model.py`](./other/parse_model.py) - 用于结构化输出的 Parser model
+- [`other/output_model.py`](./other/output_model.py) - 用于最终响应的 Output model
 
-### Other Patterns
+### 其他模式
 
-Some other patterns include database integration, session management, and dependency injection for production applications.
+其他一些模式包括数据库集成、会话管理以及用于生产应用的依赖注入。
 
-**Examples:**
-- [`db/`](./db/) - Database integration patterns
-- [`session/`](./session/) - Advanced session management  
-- [`dependencies/`](./dependencies/) - Dependency injection patterns
+**示例：**
+- [`db/`](./db/) - 数据库集成模式
+- [`session/`](./session/) - 高级会话管理  
+- [`dependencies/`](./dependencies/) - 依赖注入模式
 
 ---

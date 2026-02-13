@@ -1,8 +1,8 @@
 """
-Agentic Rag With Reasoning
+Agentic RAG 带推理
 =============================
 
-Demonstrates agentic RAG with reranking and explicit reasoning tools.
+演示带有重排序和显式推理工具的 agentic RAG。
 """
 
 import asyncio
@@ -16,10 +16,10 @@ from agno.tools.reasoning import ReasoningTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
-    # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，将嵌入存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -30,14 +30,14 @@ knowledge = Knowledge(
 )
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # 当为 Agent 提供 `knowledge` 时，Agentic RAG 默认启用。
     knowledge=knowledge,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # search_knowledge=True 使 Agent 能够按需搜索
+    # search_knowledge 默认为 True
     search_knowledge=True,
     tools=[ReasoningTools(add_instructions=True)],
     instructions=[
@@ -48,7 +48,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(

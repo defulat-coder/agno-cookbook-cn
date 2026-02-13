@@ -1,8 +1,8 @@
 """
-Tool Call Compression
+工具调用压缩
 =============================
 
-Tool Call Compression.
+演示工具调用压缩功能。
 """
 
 from agno.agent import Agent
@@ -11,31 +11,31 @@ from agno.models.openai import OpenAIResponses
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIResponses(id="gpt-5-nano"),
     tools=[WebSearchTools()],
-    description="Specialized in tracking competitor activities",
-    instructions="Use the search tools and always use the latest information and data.",
+    description="专门跟踪竞争对手活动",
+    instructions="使用搜索工具，始终使用最新的信息和数据。",
     db=SqliteDb(db_file="tmp/dbs/tool_call_compression.db"),
-    compress_tool_results=True,  # Enable tool call compression
+    compress_tool_results=True,  # 启用工具调用压缩
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(
         """
-        Use the search tools and always for the latest information and data.
-        Research recent activities (last 3 months) for these AI companies:
+        使用搜索工具，始终获取最新的信息和数据。
+        研究这些 AI 公司最近（过去 3 个月）的活动：
 
-        1. OpenAI - product launches, partnerships, pricing
-        2. Anthropic - new features, enterprise deals, funding
-        3. Google DeepMind - research breakthroughs, product releases
-        4. Meta AI - open source releases, research papers
+        1. OpenAI - 产品发布、合作伙伴关系、定价
+        2. Anthropic - 新功能、企业交易、融资
+        3. Google DeepMind - 研究突破、产品发布
+        4. Meta AI - 开源发布、研究论文
 
-        For each, find specific actions with dates and numbers.""",
+        对于每个公司，查找具体行动及其日期和数字。""",
         stream=True,
     )

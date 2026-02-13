@@ -1,8 +1,8 @@
 """
-01 Create Cultural Knowledge
+01 创建文化知识
 =============================
 
-Create cultural knowledge to use with your Agents.
+创建文化知识以供你的 Agents 使用。
 """
 
 from agno.culture.manager import CultureManager
@@ -11,56 +11,56 @@ from agno.models.openai import OpenAIResponses
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Step 1. Initialize the database used for storing cultural knowledge
+# 步骤 1. 初始化用于存储文化知识的数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/demo.db")
 
 # ---------------------------------------------------------------------------
-# Step 2. Create the Culture Manager
+# 步骤 2. 创建文化管理器
 # ---------------------------------------------------------------------------
-# The CultureManager distills reusable insights into the shared cultural layer
-# that your Agents can access for consistent reasoning and behavior.
+# CultureManager 将可重用的洞察提炼为共享的文化层
+# 你的 Agents 可以访问这些文化知识以保持一致的推理和行为。
 culture_manager = CultureManager(
     db=db,
     model=OpenAIResponses(id="gpt-5.2"),
 )
 
 # ---------------------------------------------------------------------------
-# Step 3. Create cultural knowledge from a message
+# 步骤 3. 从消息创建文化知识
 # ---------------------------------------------------------------------------
-# You can feed in any insight, principle, or lesson you’d like the system to remember.
-# The model will generalize it into structured cultural knowledge entries.
+# 你可以输入任何你希望系统记住的洞察、原则或经验。
+# 模型会将其泛化为结构化的文化知识条目。
 #
-# For example:
-# - Communication best practices
-# - Decision-making patterns
-# - Design or engineering principles
+# 例如：
+# - 沟通最佳实践
+# - 决策模式
+# - 设计或工程原则
 #
-# Try to phrase inputs as *reusable truths* or *guiding principles*,
-# not one-off observations.
+# 尽量将输入表述为*可重用的真理*或*指导原则*，
+# 而非一次性观察。
 message = (
-    "All technical guidance should follow the 'Operational Thinking' principle:\n"
+    "所有技术指导都应遵循'操作性思维'原则：\n"
     "\n"
-    "1. **State the Objective** — What outcome are we trying to achieve and why.\n"
-    "2. **Show the Procedure** — List clear, reproducible steps (prefer commands or configs).\n"
-    "3. **Surface Pitfalls** — Mention what usually fails and how to detect it early.\n"
-    "4. **Define Validation** — How to confirm it’s working (logs, tests, metrics).\n"
-    "5. **Close the Loop** — Suggest next iterations or improvements.\n"
+    "1. **陈述目标** — 我们试图实现什么结果以及为什么。\n"
+    "2. **展示过程** — 列出清晰、可复现的步骤（优先使用命令或配置）。\n"
+    "3. **揭示陷阱** — 提及通常会失败的地方以及如何及早发现。\n"
+    "4. **定义验证** — 如何确认它正在运行（日志、测试、指标）。\n"
+    "5. **闭合循环** — 建议下一步迭代或改进。\n"
     "\n"
-    "Keep answers short, structured, and directly actionable. Avoid general theory unless "
-    "it informs an operational decision."
+    "保持答案简短、结构化且直接可操作。避免一般性理论，除非"
+    "它为操作决策提供信息。"
 )
 
 culture_manager.create_cultural_knowledge(message=message)
 
 # ---------------------------------------------------------------------------
-# Step 4. Retrieve and inspect the stored cultural knowledge
+# 步骤 4. 检索并检查存储的文化知识
 # ---------------------------------------------------------------------------
 cultural_knowledge = culture_manager.get_all_knowledge()
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("\n=== Cultural Knowledge Entries ===")
+    print("\n=== 文化知识条目 ===")
     pprint(cultural_knowledge)

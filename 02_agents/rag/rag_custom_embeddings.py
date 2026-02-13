@@ -1,8 +1,8 @@
 """
-Rag Custom Embeddings
+RAG 自定义嵌入
 =============================
 
-This cookbook is an implementation of Agentic RAG using Sentence Transformer Reranker with multilingual data.
+本示例使用 Sentence Transformer Reranker 实现 Agentic RAG，支持多语言数据。
 """
 
 from agno.agent import Agent
@@ -46,7 +46,7 @@ for result in search_results:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -61,7 +61,7 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     test_queries = [

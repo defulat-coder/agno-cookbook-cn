@@ -1,8 +1,8 @@
 """
-Session State Multiple Users
+Session State 多用户示例
 =============================
 
-This example demonstrates how to maintain state for each user in a multi-user environment.
+此示例演示如何在多用户环境中为每个用户维护状态。
 """
 
 import json
@@ -12,13 +12,13 @@ from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
 from agno.run import RunContext
 
-# In-memory database to store user shopping lists
-# Organized by user ID and session ID
+# 内存数据库用于存储用户购物清单
+# 按用户 ID 和会话 ID 组织
 shopping_list = {}
 
 
 def add_item(run_context: RunContext, item: str) -> str:
-    """Add an item to the current user's shopping list."""
+    """向当前用户的购物清单添加一个商品。"""
 
     current_user_id = run_context.session_state["current_user_id"]
     current_session_id = run_context.session_state["current_session_id"]
@@ -30,7 +30,7 @@ def add_item(run_context: RunContext, item: str) -> str:
 
 
 def remove_item(run_context: RunContext, item: str) -> str:
-    """Remove an item from the current user's shopping list."""
+    """从当前用户的购物清单中删除一个商品。"""
 
     current_user_id = run_context.session_state["current_user_id"]
     current_session_id = run_context.session_state["current_session_id"]
@@ -49,7 +49,7 @@ def remove_item(run_context: RunContext, item: str) -> str:
 
 
 def get_shopping_list(run_context: RunContext) -> str:
-    """Get the current user's shopping list."""
+    """获取当前用户的购物清单。"""
 
     if run_context.session_state is None:
         run_context.session_state = {}
@@ -59,15 +59,15 @@ def get_shopping_list(run_context: RunContext) -> str:
     return f"Shopping list for user {current_user_id} and session {current_session_id}: \n{json.dumps(shopping_list[current_user_id][current_session_id], indent=2)}"
 
 
-# Create an Agent that maintains state
+# 创建一个维护状态的 Agent
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     db=SqliteDb(db_file="tmp/data.db"),
     tools=[add_item, remove_item, get_shopping_list],
-    # Reference the in-memory database
+    # 引用内存数据库
     instructions=[
         "Current User ID: {current_user_id}",
         "Current Session ID: {current_session_id}",
@@ -80,10 +80,10 @@ user_id_2 = "mark_smith"
 user_id_3 = "carmen_sandiago"
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Example usage
+    # 使用示例
     agent.print_response(
         "Add milk, eggs, and bread to the shopping list",
         stream=True,
@@ -115,7 +115,7 @@ if __name__ == "__main__":
         session_id="user_2_session_1",
     )
 
-    # What is on Mark Smith's shopping list?
+    # Mark Smith 的购物清单上有什么？
     agent.print_response(
         "What is on Mark Smith's shopping list?",
         stream=True,
@@ -123,7 +123,7 @@ if __name__ == "__main__":
         session_id="user_2_session_1",
     )
 
-    # New session, so new shopping list
+    # 新会话，所以是新购物清单
     agent.print_response(
         "Add chicken and soup to my list.",
         stream=True,

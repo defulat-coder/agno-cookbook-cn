@@ -1,8 +1,8 @@
 """
-Confirmation Toolkit
+确认 Toolkit
 =============================
 
-Human-in-the-Loop: Adding User Confirmation to Tool Calls.
+人机协作：为工具调用添加用户确认。
 """
 
 from agno.agent import Agent
@@ -16,7 +16,7 @@ from rich.prompt import Prompt
 console = Console()
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -26,14 +26,14 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_response = agent.run("What is the current stock price of Apple?")
     if run_response.is_paused:  # Or agent.run_response.is_paused
         for requirement in run_response.active_requirements:
             if requirement.needs_confirmation:
-                # Ask for confirmation
+                # 请求确认
                 console.print(
                     f"Tool name [bold blue]{requirement.tool_execution.tool_name}({requirement.tool_execution.tool_args})[/] requires confirmation."
                 )

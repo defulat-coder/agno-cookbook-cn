@@ -1,27 +1,27 @@
 """
-Retries
+重试
 =============================
 
-Example demonstrating how to set up retries with an Agent.
+演示如何为 Agent 设置重试机制的示例。
 """
 
 from agno.agent import Agent
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Web Search Agent",
     role="Search the web for information",
     tools=[WebSearchTools()],
-    retries=3,  # The Agent run will be retried 3 times in case of error.
-    delay_between_retries=1,  # Delay between retries in seconds.
-    exponential_backoff=True,  # If True, the delay between retries is doubled each time.
+    retries=3,  # 在发生错误时，Agent 运行将重试 3 次。
+    delay_between_retries=1,  # 重试之间的延迟（秒）。
+    exponential_backoff=True,  # 如果为 True，每次重试之间的延迟会加倍。
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

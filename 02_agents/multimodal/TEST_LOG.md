@@ -1,105 +1,105 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间: 2026-02-10 UTC
 
-Pattern Check: Checked 10 file(s) in cookbook/02_agents/multimodal. Violations: 0
+模式检查: 已检查 cookbook/02_agents/multimodal 目录下的 10 个文件。违规数: 0
 
 ### audio_input_output.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### audio_sentiment_analysis.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### audio_streaming.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### audio_to_text.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### image_to_audio.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### image_to_image.py
 
-**Status:** FAIL
+**状态:** 失败
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Failed with import dependency error: `fal_client` not installed. Please install using `pip install fal-client`.
+**结果:** 导入依赖错误失败：未安装 `fal_client`。请使用 `pip install fal-client` 安装。
 
 ---
 
 ### image_to_structured_output.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### image_to_text.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### media_input_for_tool.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### video_caption.py
 
-**Status:** FAIL
+**状态:** 失败
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 执行，作为可运行的示例代码。
 
-**Result:** Failed with import dependency error: `moviepy` not installed. Please install using `pip install moviepy ffmpeg`.
+**结果:** 导入依赖错误失败：未安装 `moviepy`。请使用 `pip install moviepy ffmpeg` 安装。
 
 ---

@@ -1,8 +1,8 @@
 """
-Post Hook Output
+Post Hook 输出处理示例
 =============================
 
-Example demonstrating output validation using post-hooks with Agno Agent.
+演示使用 post-hooks 进行输出验证的 Agno Agent 示例。
 """
 
 import asyncio
@@ -15,7 +15,7 @@ from pydantic import BaseModel
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 class OutputValidationResult(BaseModel):
     is_complete: bool
@@ -27,24 +27,24 @@ class OutputValidationResult(BaseModel):
 
 def validate_response_quality(run_output: RunOutput) -> None:
     """
-    Post-hook: Validate the agent's response for quality and safety.
+    Post-hook：验证 Agent 响应的质量和安全性。
 
-    This hook checks:
-    - Response completeness (not too short or vague)
-    - Professional tone and language
-    - Safety and appropriateness of content
+    此 hook 检查：
+    - 响应完整性（不能太短或太模糊）
+    - 专业语气和措辞
+    - 内容的安全性和适当性
 
-    Raises OutputCheckError if validation fails.
+    如果验证失败则抛出 OutputCheckError。
     """
 
-    # Skip validation for empty responses
+    # 跳过空响应的验证
     if not run_output.content or len(run_output.content.strip()) < 10:
         raise OutputCheckError(
             "Response is too short or empty",
             check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
         )
 
-    # Create a validation agent
+    # 创建一个验证 Agent
     validator_agent = Agent(
         name="Output Validator",
         model=OpenAIChat(id="gpt-4o-mini"),
@@ -68,7 +68,7 @@ def validate_response_quality(run_output: RunOutput) -> None:
 
     result = validation_result.content
 
-    # Check validation results and raise errors for failures
+    # 检查验证结果，如果失败则抛出错误
     if not result.is_complete:
         raise OutputCheckError(
             f"Response is incomplete. Concerns: {', '.join(result.concerns)}",
@@ -96,9 +96,9 @@ def validate_response_quality(run_output: RunOutput) -> None:
 
 def simple_length_validation(run_output: RunOutput) -> None:
     """
-    Simple post-hook: Basic validation for response length.
+    简单 post-hook：响应长度的基本验证。
 
-    Ensures responses are neither too short nor excessively long.
+    确保响应既不太短也不过长。
     """
     content = run_output.content.strip()
 
@@ -116,11 +116,11 @@ def simple_length_validation(run_output: RunOutput) -> None:
 
 
 async def main():
-    """Demonstrate output validation post-hooks."""
+    """演示输出验证 post-hooks。"""
     print("Output Validation Post-Hook Example")
     print("=" * 60)
 
-    # Agent with comprehensive output validation
+    # 带有综合输出验证的 Agent
     agent_with_validation = Agent(
         name="Customer Support Agent",
         model=OpenAIChat(id="gpt-4o-mini"),
@@ -132,7 +132,7 @@ async def main():
         ],
     )
 
-    # Agent with simple validation only
+    # 只带有简单验证的 Agent
     agent_simple = Agent(
         name="Simple Agent",
         model=OpenAIChat(id="gpt-4o-mini"),
@@ -142,7 +142,7 @@ async def main():
         ],
     )
 
-    # Test 1: Good response (should pass validation)
+    # 测试 1：良好的响应（应通过验证）
     print("\n[TEST 1] Well-formed response")
     print("-" * 40)
     try:
@@ -154,11 +154,11 @@ async def main():
         print(f"[ERROR] Validation failed: {e}")
         print(f"   Trigger: {e.check_trigger}")
 
-    # Test 2: Force a short response (should fail simple validation)
+    # 测试 2：强制短响应（应该未通过简单验证）
     print("\n[TEST 2] Too brief response")
     print("-" * 40)
     try:
-        # Use a more constrained instruction to get a brief response
+        # 使用更受限的指令来获得简短响应
         brief_agent = Agent(
             name="Brief Agent",
             model=OpenAIChat(id="gpt-4o-mini"),
@@ -170,7 +170,7 @@ async def main():
         print(f"[ERROR] Validation failed: {e}")
         print(f"   Trigger: {e.check_trigger}")
 
-    # Test 3: Normal response with simple validation
+    # 测试 3：带有简单验证的正常响应
     print("\n[TEST 3] Normal response with simple validation")
     print("-" * 40)
     try:
@@ -184,7 +184,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,14 +1,14 @@
 """
-Example demonstrating background execution with structured output.
+演示带有结构化输出的后台执行示例。
 
-Combines background execution (non-blocking, async) with Pydantic output_schema
-so the completed run returns typed, structured data.
+将后台执行（非阻塞、异步）与 Pydantic output_schema 结合，
+使完成的运行返回类型化的结构化数据。
 
-Requirements:
-- PostgreSQL running (./cookbook/scripts/run_pgvector.sh)
-- OPENAI_API_KEY set
+要求：
+- 运行 PostgreSQL（./cookbook/scripts/run_pgvector.sh）
+- 设置 OPENAI_API_KEY
 
-Usage:
+使用方法：
     .venvs/demo/bin/python cookbook/02_agents/other/background_execution_structured.py
 """
 
@@ -22,7 +22,7 @@ from agno.run.base import RunStatus
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
-# Output Schema
+# 输出 Schema
 # ---------------------------------------------------------------------------
 
 
@@ -38,7 +38,7 @@ class CityFactsResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Config
+# 配置
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(
@@ -48,36 +48,36 @@ db = PostgresDb(
 
 
 # ---------------------------------------------------------------------------
-# Create and Run Background Examples
+# 创建并运行后台示例
 # ---------------------------------------------------------------------------
 
 
 async def example_structured_background_run():
-    """Background run that returns structured data via output_schema."""
+    """通过 output_schema 返回结构化数据的后台运行。"""
     print("=" * 60)
-    print("Background Execution with Structured Output")
+    print("带有结构化输出的后台执行")
     print("=" * 60)
 
     agent = Agent(
         name="CityFactsAgent",
         model=OpenAIChat(id="gpt-4o-mini"),
-        description="An agent that provides structured facts about cities.",
+        description="提供城市结构化信息的 agent。",
         db=db,
     )
 
-    # Start a background run with structured output
+    # 启动带有结构化输出的后台运行
     run_output = await agent.arun(
-        "Give me facts about Tokyo, Paris, and New York.",
+        "给我提供关于东京、巴黎和纽约的信息。",
         output_schema=CityFactsResponse,
         background=True,
     )
 
     print(f"Run ID: {run_output.run_id}")
-    print(f"Status: {run_output.status}")
+    print(f"状态: {run_output.status}")
     assert run_output.status == RunStatus.pending
 
-    # Poll for completion
-    print("\nPolling for completion...")
+    # 轮询完成状态
+    print("\n轮询完成中...")
     for i in range(30):
         await asyncio.sleep(1)
         result = await agent.aget_run_output(
@@ -85,15 +85,15 @@ async def example_structured_background_run():
             session_id=run_output.session_id,
         )
         if result is None:
-            print(f"  [{i + 1}s] Not in DB yet")
+            print(f"  [{i + 1}s] 尚未在数据库中")
             continue
 
-        print(f"  [{i + 1}s] Status: {result.status}")
+        print(f"  [{i + 1}s] 状态: {result.status}")
 
         if result.status == RunStatus.completed:
-            print("\nCompleted! Structured output:")
+            print("\n完成！结构化输出:")
 
-            # Parse the JSON content into our Pydantic model
+            # 解析 JSON 内容为 Pydantic 模型
             try:
                 content = result.content
                 if isinstance(content, str):
@@ -103,50 +103,50 @@ async def example_structured_background_run():
                 parsed = CityFactsResponse.model_validate(content)
                 for city_fact in parsed.cities:
                     print(f"\n  {city_fact.city}, {city_fact.country}")
-                    print(f"    Population: {city_fact.population}")
-                    print(f"    Fun fact: {city_fact.fun_fact}")
+                    print(f"    人口: {city_fact.population}")
+                    print(f"    趣闻: {city_fact.fun_fact}")
             except Exception:
-                print(f"  Raw content: {result.content}")
+                print(f"  原始内容: {result.content}")
             break
         elif result.status == RunStatus.error:
-            print(f"\nFailed: {result.content}")
+            print(f"\n失败: {result.content}")
             break
     else:
-        print("\nTimed out waiting for completion")
+        print("\n等待完成超时")
 
 
 async def example_multiple_background_runs():
-    """Launch multiple background runs concurrently and collect results."""
+    """同时启动多个后台运行并收集结果。"""
     from uuid import uuid4
 
     print()
     print("=" * 60)
-    print("Multiple Concurrent Background Runs")
+    print("多个并发后台运行")
     print("=" * 60)
 
     agent = Agent(
         name="QuizAgent",
         model=OpenAIChat(id="gpt-4o-mini"),
-        description="An agent that answers trivia questions.",
+        description="回答问答题的 agent。",
         db=db,
     )
 
     questions = [
-        "What is the tallest mountain in the world? Answer in one sentence.",
-        "What is the deepest ocean trench? Answer in one sentence.",
-        "What is the longest river in the world? Answer in one sentence.",
+        "世界上最高的山是什么？一句话回答。",
+        "最深的海沟是什么？一句话回答。",
+        "世界上最长的河流是什么？一句话回答。",
     ]
 
-    # Launch all runs concurrently, each with its own session to avoid conflicts
+    # 同时启动所有运行，每个都有自己的会话以避免冲突
     runs = []
     for question in questions:
         session_id = str(uuid4())
         run_output = await agent.arun(question, background=True, session_id=session_id)
         runs.append(run_output)
-        print(f"Launched: {run_output.run_id} - {question[:50]}...")
+        print(f"已启动: {run_output.run_id} - {question[:50]}...")
 
-    # Poll all runs until all complete
-    print("\nWaiting for all runs to complete...")
+    # 轮询所有运行直到全部完成
+    print("\n等待所有运行完成...")
     results = {}
     for attempt in range(30):
         await asyncio.sleep(1)
@@ -166,23 +166,23 @@ async def example_multiple_background_runs():
         if all_done:
             break
 
-    # Print results
-    print(f"\nCompleted {len(results)}/{len(runs)} runs:")
+    # 打印结果
+    print(f"\n完成 {len(results)}/{len(runs)} 个运行:")
     for i, run in enumerate(runs):
         result = results.get(run.run_id)
         if result:
-            print(f"\n  Q: {questions[i]}")
-            print(f"  A: {result.content}")
-            print(f"  Status: {result.status}")
+            print(f"\n  问题: {questions[i]}")
+            print(f"  答案: {result.content}")
+            print(f"  状态: {result.status}")
         else:
-            print(f"\n  Q: {questions[i]}")
-            print("  Status: Still running or not found")
+            print(f"\n  问题: {questions[i]}")
+            print("  状态: 仍在运行或未找到")
 
 
 async def main():
     await example_structured_background_run()
     await example_multiple_background_runs()
-    print("\nAll examples completed!")
+    print("\n所有示例完成！")
 
 
 if __name__ == "__main__":

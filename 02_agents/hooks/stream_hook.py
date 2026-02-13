@@ -1,8 +1,8 @@
 """
-Stream Hook
+Stream Hook 示例
 =============================
 
-Example demonstrating sending a notification to the user after an agent generates a response.
+演示在 Agent 生成响应后向用户发送通知的示例。
 """
 
 import asyncio
@@ -16,7 +16,7 @@ from agno.tools.yfinance import YFinanceTools
 
 def send_notification(run_output: RunOutput, run_context: RunContext) -> None:
     """
-    Post-hook: Send a notification to the user.
+    Post-hook：向用户发送通知。
     """
     if run_context.metadata is None:
         return
@@ -27,19 +27,19 @@ def send_notification(run_output: RunOutput, run_context: RunContext) -> None:
 
 def send_email(email: str, content: str) -> None:
     """
-    Send an email to the user. Mock, just for the example.
+    向用户发送电子邮件。模拟的，仅用于示例。
     """
     print(f"Sending email to {email}: {content}")
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 async def main():
-    # Agent with comprehensive output validation
+    # 带有综合输出验证的 Agent
 
     # ---------------------------------------------------------------------------
-    # Create Agent
+    # 创建 Agent
     # ---------------------------------------------------------------------------
 
     agent = Agent(
@@ -54,7 +54,7 @@ async def main():
         ],
     )
 
-    # Run the agent
+    # 运行 Agent
     await agent.aprint_response(
         "Generate a financial report for Apple (AAPL).",
         user_id="user_123",
@@ -64,7 +64,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(main())

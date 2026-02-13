@@ -1,8 +1,8 @@
 """
-Session Summary
+Session 摘要
 =============================
 
-This example shows how to use the session summary to store the conversation summary.
+此示例展示如何使用 session 摘要来存储对话摘要。
 """
 
 from agno.agent.agent import Agent
@@ -14,10 +14,10 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 db = PostgresDb(db_url=db_url, session_table="sessions")
 
-# Method 1: Set enable_session_summaries to True
+# 方法 1: 将 enable_session_summaries 设置为 True
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -27,7 +27,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("Hi my name is John and I live in New York")
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     print(agent.get_session_summary(session_id="session_123"))
 
-    # Method 2: Set session_summary_manager
+    # 方法 2: 设置 session_summary_manager
 
     # session_summary_manager = SessionSummaryManager(model=OpenAIChat(id="gpt-4o-mini"))
 

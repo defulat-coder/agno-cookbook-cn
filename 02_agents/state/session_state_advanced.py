@@ -1,8 +1,8 @@
 """
-Session State Advanced
+Session State 高级示例
 =============================
 
-Session State Advanced.
+Session State 高级用法。
 """
 
 from textwrap import dedent
@@ -13,10 +13,10 @@ from agno.models.openai import OpenAIChat
 from agno.run import RunContext
 
 
-# Define tools to manage our shopping list
+# 定义管理购物清单的工具函数
 def add_item(run_context: RunContext, item: str) -> str:
-    """Add an item to the shopping list and return confirmation."""
-    # Add the item if it's not already in the list
+    """向购物清单添加一个商品并返回确认信息。"""
+    # 如果商品不在清单中则添加
     if run_context.session_state is None:
         run_context.session_state = {}
 
@@ -30,11 +30,11 @@ def add_item(run_context: RunContext, item: str) -> str:
 
 
 def remove_item(run_context: RunContext, item: str) -> str:
-    """Remove an item from the shopping list by name."""
+    """从购物清单中按名称删除一个商品。"""
     if run_context.session_state is None:
         run_context.session_state = {}
 
-    # Case-insensitive search
+    # 不区分大小写的搜索
     for i, list_item in enumerate(run_context.session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             run_context.session_state["shopping_list"].pop(i)
@@ -44,7 +44,7 @@ def remove_item(run_context: RunContext, item: str) -> str:
 
 
 def list_items(run_context: RunContext) -> str:
-    """List all items in the shopping list."""
+    """列出购物清单中的所有商品。"""
     if run_context.session_state is None:
         run_context.session_state = {}
 
@@ -57,17 +57,17 @@ def list_items(run_context: RunContext) -> str:
     return f"Current shopping list:\n{items_text}"
 
 
-# Create a Shopping List Manager Agent that maintains state
+# 创建一个维护状态的购物清单管理 Agent
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="o3-mini"),
-    # Initialize the session state with an empty shopping list (default session state for all sessions)
+    # 使用空购物清单初始化 session state（所有会话的默认 session state）
     session_state={"shopping_list": []},
     db=SqliteDb(db_file="tmp/example.db"),
     tools=[add_item, remove_item, list_items],
-    # You can use variables from the session state in the instructions
+    # 你可以在 instructions 中使用 session state 的变量
     instructions=dedent("""\
         Your job is to manage a shopping list.
 
@@ -79,10 +79,10 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Example usage
+    # 使用示例
     agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
     print(f"Session state: {agent.get_session_state()}")
 

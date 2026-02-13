@@ -1,8 +1,8 @@
 """
-Audio Input Output
+音频输入输出
 =============================
 
-Audio Input Output.
+演示音频输入输出功能。
 """
 
 import requests
@@ -12,14 +12,14 @@ from agno.models.openai import OpenAIChat
 from agno.utils.audio import write_audio_to_file
 from rich.pretty import pprint
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并转换为 base64 编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
 wav_data = response.content
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(
@@ -31,7 +31,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_response = agent.run(

@@ -1,16 +1,16 @@
 # dependencies
 
-Examples for runtime dependency injection and dynamic runtime inputs.
+运行时依赖注入和动态运行时输入的示例。
 
-## Files
-- `dependencies_in_context.py` - Demonstrates dependencies in context.
-- `dependencies_in_tools.py` - Demonstrates dependencies in tools.
-- `dynamic_tools.py` - Demonstrates dynamic tools.
+## 文件
+- `dependencies_in_context.py` - 演示上下文中的依赖。
+- `dependencies_in_tools.py` - 演示工具中的依赖。
+- `dynamic_tools.py` - 演示动态工具。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (including `OPENAI_API_KEY`).
-- Create the demo environment with `./scripts/demo_setup.sh`, then run cookbooks with `.venvs/demo/bin/python`.
-- Some examples require optional local services (for example pgvector) or provider-specific API keys.
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（包括 `OPENAI_API_KEY`）。
+- 使用 `./scripts/demo_setup.sh` 创建演示环境，然后使用 `.venvs/demo/bin/python` 运行 cookbook。
+- 一些示例需要可选的本地服务（例如 pgvector）或特定提供商的 API 密钥。
 
-## Run
+## 运行
 - `.venvs/demo/bin/python cookbook/02_agents/<directory>/<file>.py`

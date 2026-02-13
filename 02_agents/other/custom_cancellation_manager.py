@@ -1,14 +1,13 @@
 """
-Example demonstrating a custom cancellation manager.
+演示自定义取消管理器的示例。
 
-Shows how to extend BaseRunCancellationManager to implement your own
-cancellation backend (e.g., a database, a message queue, an API, etc.).
+展示如何扩展 BaseRunCancellationManager 来实现你自己的
+取消后端（例如，数据库、消息队列、API 等）。
 
-This example creates a file-based cancellation manager that persists
-cancellation state to a JSON file, which could be shared across processes
-via a network filesystem.
+此示例创建一个基于文件的取消管理器，将取消状态
+持久化到 JSON 文件，可以通过网络文件系统在进程间共享。
 
-Usage:
+使用方法：
     .venvs/demo/bin/python cookbook/02_agents/other/custom_cancellation_manager.py
 """
 
@@ -27,39 +26,39 @@ from agno.run.cancel import set_cancellation_manager
 from agno.run.cancellation_management.base import BaseRunCancellationManager
 
 # ---------------------------------------------------------------------------
-# Create Custom Cancellation Manager
+# 创建自定义取消管理器
 # ---------------------------------------------------------------------------
 
 
 class FileBasedCancellationManager(BaseRunCancellationManager):
-    """A cancellation manager that persists state to a JSON file.
+    """将状态持久化到 JSON 文件的取消管理器。
 
-    This is a simple example showing how to build a custom backend.
-    In production, you might use a database, Redis, or an API instead.
+    这是一个展示如何构建自定义后端的简单示例。
+    在生产环境中，你可能会使用数据库、Redis 或 API。
     """
 
     def __init__(self, file_path: str):
         self._file_path = Path(file_path)
         self._lock = threading.Lock()
-        # Initialize file if it doesn't exist
+        # 如果文件不存在则初始化
         if not self._file_path.exists():
             self._write_state({})
 
     def _read_state(self) -> Dict[str, bool]:
-        """Read the cancellation state from the file."""
+        """从文件读取取消状态。"""
         try:
             return json.loads(self._file_path.read_text())
         except (json.JSONDecodeError, FileNotFoundError):
             return {}
 
     def _write_state(self, state: Dict[str, bool]) -> None:
-        """Write the cancellation state to the file."""
+        """将取消状态写入文件。"""
         self._file_path.write_text(json.dumps(state, indent=2))
 
     def register_run(self, run_id: str) -> None:
         with self._lock:
             state = self._read_state()
-            # Use setdefault to preserve cancel-before-start intent
+            # 使用 setdefault 保留启动前取消意图
             state.setdefault(run_id, False)
             self._write_state(state)
 
@@ -108,41 +107,41 @@ class FileBasedCancellationManager(BaseRunCancellationManager):
 
 
 # ---------------------------------------------------------------------------
-# Run the Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 
 def main():
-    """Demonstrate the custom file-based cancellation manager."""
+    """演示自定义的基于文件的取消管理器。"""
 
-    # Create a temporary file for cancellation state
+    # 创建一个临时文件用于取消状态
     with tempfile.NamedTemporaryFile(suffix=".json", delete=False, mode="w") as f:
         state_file = f.name
         f.write("{}")
 
-    print(f"Cancellation state file: {state_file}")
+    print(f"取消状态文件: {state_file}")
     print("=" * 50)
 
-    # Set up the custom cancellation manager
+    # 设置自定义取消管理器
     manager = FileBasedCancellationManager(file_path=state_file)
     set_cancellation_manager(manager)
-    print("Custom file-based cancellation manager configured\n")
+    print("已配置自定义的基于文件的取消管理器\n")
 
-    # Create an agent
+    # 创建一个 agent
     agent = Agent(
         name="StoryAgent",
         model=OpenAIChat(id="gpt-4o-mini"),
-        description="An agent that writes stories",
+        description="编写故事的 agent",
     )
 
-    # Container for sharing state between threads
+    # 用于在线程间共享状态的容器
     run_id_container: dict = {}
 
     def run_agent():
         content_pieces = []
         for chunk in agent.run(
-            "Write a long story about a wizard learning Python programming. "
-            "Make it detailed with lots of dialogue.",
+            "写一个关于巫师学习 Python 编程的长故事。"
+            "要详细并包含大量对话。",
             stream=True,
         ):
             if "run_id" not in run_id_container and chunk.run_id:
@@ -164,17 +163,17 @@ def main():
         if run_id:
             print(f"\n\n[CANCEL] Cancelling run {run_id} via file-based manager...")
 
-            # Show the state file before cancellation
+            # 显示取消前的状态文件
             state = manager.get_active_runs()
             print(f"[STATE] Before cancel: {state}")
 
             agent.cancel_run(run_id)
 
-            # Show the state file after cancellation
+            # 显示取消后的状态文件
             state = manager.get_active_runs()
             print(f"[STATE] After cancel: {state}")
 
-    # Start both threads
+    # 启动两个线程
     agent_thread = threading.Thread(target=run_agent)
     cancel_thread = threading.Thread(target=cancel_after_delay)
 
@@ -184,13 +183,13 @@ def main():
     agent_thread.join()
     cancel_thread.join()
 
-    # Final state
+    # 最终状态
     print("\n" + "=" * 50)
     print("RESULTS:")
     print(f"  Was cancelled: {run_id_container.get('cancelled', 'unknown')}")
     print(f"  Final state file contents: {manager.get_active_runs()}")
 
-    # Cleanup
+    # 清理
     Path(state_file).unlink(missing_ok=True)
     print("\nExample completed!")
 

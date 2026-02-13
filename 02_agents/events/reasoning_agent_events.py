@@ -1,8 +1,8 @@
 """
-Reasoning Agent Events
+推理 Agent 事件
 =============================
 
-Reasoning Agent Events.
+推理 Agent 事件示例。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.agent.agent import Agent
 from agno.models.openai.chat import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 finance_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -49,14 +49,14 @@ async def run_agent_with_events(prompt: str):
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     task = (
-        "Analyze the key factors that led to the signing of the Treaty of Versailles in 1919. "
-        "Discuss the political, economic, and social impacts of the treaty on Germany and how it "
-        "contributed to the onset of World War II. Provide a nuanced assessment that includes "
-        "multiple historical perspectives."
+        "分析 1919 年《凡尔赛条约》签署的关键因素。"
+        "讨论该条约对德国的政治、经济和社会影响，以及它如何"
+        "促成了第二次世界大战的爆发。提供一个细致的评估，包括"
+        "多种历史视角。"
     )
     asyncio.run(
         run_agent_with_events(

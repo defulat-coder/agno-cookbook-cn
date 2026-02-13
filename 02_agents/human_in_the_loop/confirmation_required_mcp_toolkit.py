@@ -1,17 +1,17 @@
-"""Human-in-the-Loop: Adding User Confirmation to Tool Calls
+"""人机协作：为工具调用添加用户确认
 
-This example shows how to implement human-in-the-loop functionality with MCP Servers in your Agno tools.
-It shows how to:
-- Handle user confirmation during tool execution
-- Gracefully cancel operations based on user choice
+此示例展示了如何在 Agno 工具中使用 MCP Server 实现人机协作功能。
+它展示了如何：
+- 在工具执行期间处理用户确认
+- 根据用户选择优雅地取消操作
 
-Some practical applications:
-- Confirming sensitive operations before execution
-- Reviewing API calls before they're made
-- Validating data transformations
-- Approving automated actions in critical systems
+一些实际应用：
+- 在执行之前确认敏感操作
+- 在进行 API 调用之前审查它们
+- 验证数据转换
+- 在关键系统中批准自动化操作
 
-Run `uv pip install openai httpx rich agno` to install dependencies.
+运行 `uv pip install openai httpx rich agno` 来安装依赖项。
 """
 
 import asyncio

@@ -1,8 +1,8 @@
 """
-Basic Agent Events
+基本 Agent 事件
 =============================
 
-Basic Agent Events.
+基本 Agent 事件示例。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.models.openai.chat import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 finance_agent = Agent(
     id="finance-agent",
@@ -52,7 +52,7 @@ async def run_agent_with_events(prompt: str):
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(

@@ -1,8 +1,8 @@
 """
-Audio Sentiment Analysis
+音频情感分析
 =============================
 
-Audio Sentiment Analysis.
+演示音频情感分析功能。
 """
 
 import requests
@@ -12,7 +12,7 @@ from agno.media import Audio
 from agno.models.google import Gemini
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=Gemini(id="gemini-3-flash-preview"),
@@ -30,10 +30,10 @@ response = requests.get(url)
 audio_content = response.content
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Give a sentiment analysis of this audio conversation. Use speaker A, speaker B to identify speakers.
+    # 对此音频对话进行情感分析。使用说话人 A、说话人 B 来标识说话者。
     agent.print_response(
         "Give a sentiment analysis of this audio conversation. Use speaker A, speaker B to identify speakers.",
         audio=[Audio(content=audio_content)],

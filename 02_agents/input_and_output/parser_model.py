@@ -1,8 +1,8 @@
 """
-Parser Model
+解析模型
 =============================
 
-Parser Model.
+演示如何使用单独的解析模型来处理结构化输出。
 """
 
 import random
@@ -64,17 +64,17 @@ class NationalParkAdventure(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),
-    description="You help people plan amazing national park adventures and provide detailed park guides.",
+    description="你帮助人们规划精彩的国家公园冒险，并提供详细的公园指南。",
     output_schema=NationalParkAdventure,
     parser_model=OpenAIChat(id="gpt-4o"),
 )
 
 
-# Get the response in a variable
+# 在变量中获取响应
 national_parks = [
     "Yellowstone National Park",
     "Yosemite National Park",
@@ -89,10 +89,10 @@ national_parks = [
 ]
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Get the response in a variable
+    # 在变量中获取响应
     run: RunOutput = agent.run(
         national_parks[random.randint(0, len(national_parks) - 1)]
     )

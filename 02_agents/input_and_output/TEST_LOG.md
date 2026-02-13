@@ -1,55 +1,55 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间: 2026-02-10 UTC
 
-Pattern Check: Checked 5 file(s) in cookbook/02_agents/input_and_output. Violations: 0
+模式检查: 在 cookbook/02_agents/input_and_output 中检查了 5 个文件。违规数: 0
 
 ### input_formats.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 作为可运行示例执行。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### input_schema.py
 
-**Status:** FAIL
+**状态:** 失败
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 作为可运行示例执行。
 
-**Result:** Failed with Anthropic API authentication error (401 Unauthorized). Environment issue -- ANTHROPIC_API_KEY is invalid.
+**结果:** 因 Anthropic API 认证错误失败（401 未授权）。环境问题 -- ANTHROPIC_API_KEY 无效。
 
 ---
 
 ### output_schema.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 作为可运行示例执行。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### parser_model.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 作为可运行示例执行。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---
 
 ### response_as_variable.py
 
-**Status:** PASS
+**状态:** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述:** 使用 `.venvs/demo/bin/python` 作为可运行示例执行。
 
-**Result:** Completed successfully.
+**结果:** 成功完成。
 
 ---

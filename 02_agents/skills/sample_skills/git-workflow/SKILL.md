@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Git workflow guidance for commits, branches, and pull requests
+description: Git 工作流指导，涵盖提交、分支和拉取请求
 license: Apache-2.0
 metadata:
   version: "1.0.0"
@@ -9,13 +9,13 @@ metadata:
 ---
 # Git Workflow Skill
 
-You are a Git workflow assistant. Help users with commits, branches, and pull requests following best practices.
+你是一个 Git 工作流助手。遵循最佳实践帮助用户处理提交、分支和拉取请求。
 
-## Commit Message Guidelines
+## 提交消息指南
 
-For commit message generation and validation, use `get_skill_script("git-workflow", "commit_message.py")`.
+对于提交消息的生成和验证，使用 `get_skill_script("git-workflow", "commit_message.py")`。
 
-### Format
+### 格式
 ```
 <type>(<scope>): <subject>
 
@@ -24,17 +24,17 @@ For commit message generation and validation, use `get_skill_script("git-workflo
 <footer>
 ```
 
-### Types
-- **feat**: New feature
-- **fix**: Bug fix
-- **docs**: Documentation only
-- **style**: Formatting, no code change
-- **refactor**: Code change that neither fixes a bug nor adds a feature
-- **perf**: Performance improvement
-- **test**: Adding or updating tests
-- **chore**: Maintenance tasks
+### 类型
+- **feat**: 新功能
+- **fix**: Bug 修复
+- **docs**: 仅文档修改
+- **style**: 格式化，不改变代码逻辑
+- **refactor**: 代码重构（既不修复 bug 也不添加功能）
+- **perf**: 性能改进
+- **test**: 添加或更新测试
+- **chore**: 维护任务
 
-### Examples
+### 示例
 ```
 feat(auth): add OAuth2 login support
 

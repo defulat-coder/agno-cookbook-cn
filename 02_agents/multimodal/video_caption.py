@@ -1,8 +1,8 @@
 """
-Video Caption
+视频字幕生成
 =============================
 
-Please install dependencies using:.
+请使用以下命令安装依赖:
 """
 
 from agno.agent import Agent
@@ -17,7 +17,7 @@ video_tools = MoviePyVideoTools(
 openai_tools = OpenAITools()
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 video_caption_agent = Agent(
     name="Video Caption Generator Agent",
@@ -25,20 +25,20 @@ video_caption_agent = Agent(
         id="gpt-4o",
     ),
     tools=[video_tools, openai_tools],
-    description="You are an AI agent that can generate and embed captions for videos.",
+    description="你是一个可以为视频生成和嵌入字幕的 AI agent。",
     instructions=[
-        "When a user provides a video, process it to generate captions.",
-        "Use the video processing tools in this sequence:",
-        "1. Extract audio from the video using extract_audio",
-        "2. Transcribe the audio using transcribe_audio",
-        "3. Generate SRT captions using create_srt",
-        "4. Embed captions into the video using embed_captions",
+        "当用户提供视频时，处理它以生成字幕。",
+        "按以下顺序使用视频处理工具:",
+        "1. 使用 extract_audio 从视频中提取音频",
+        "2. 使用 transcribe_audio 转录音频",
+        "3. 使用 create_srt 生成 SRT 字幕",
+        "4. 使用 embed_captions 将字幕嵌入到视频中",
     ],
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     video_caption_agent.print_response(

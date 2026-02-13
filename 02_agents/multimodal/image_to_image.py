@@ -1,8 +1,8 @@
 """
-Image To Image
+图像转图像
 =============================
 
-Image To Image.
+演示图像转图像功能。
 """
 
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.fal import FalTools
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -19,15 +19,15 @@ agent = Agent(
     tools=[FalTools()],
     markdown=True,
     instructions=[
-        "You have to use the `image_to_image` tool to generate the image.",
-        "You are an AI agent that can generate images using the Fal AI API.",
-        "You will be given a prompt and an image URL.",
-        "You have to return the image URL as provided, don't convert it to markdown or anything else.",
+        "你必须使用 `image_to_image` 工具来生成图像。",
+        "你是一个可以使用 Fal AI API 生成图像的 AI agent。",
+        "你将获得一个提示词和一个图像 URL。",
+        "你必须按原样返回图像 URL，不要将其转换为 markdown 或其他格式。",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(

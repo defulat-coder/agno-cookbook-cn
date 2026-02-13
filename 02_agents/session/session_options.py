@@ -1,8 +1,8 @@
 """
-Session Options
+Session 选项
 =============================
 
-Simple example demonstrating store_history_messages option.
+演示 store_history_messages 选项的简单示例。
 """
 
 from agno.agent import Agent
@@ -11,19 +11,19 @@ from agno.models.openai import OpenAIChat
 from agno.utils.pprint import pprint_run_response
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     db=SqliteDb(db_file="tmp/example_no_history.db"),
-    add_history_to_context=True,  # Use history during execution
+    add_history_to_context=True,  # 在执行期间使用历史
     num_history_runs=3,
-    store_history_messages=False,  # Don't store history messages in database
+    store_history_messages=False,  # 不在数据库中存储历史消息
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("\n=== First Run: Establishing context ===")
@@ -34,12 +34,12 @@ if __name__ == "__main__":
     response2 = agent.run("What is my name and what do I love?")
     pprint_run_response(response2)
 
-    # Check what was stored
+    # 检查存储的内容
     stored_run = agent.get_last_run_output()
     if stored_run and stored_run.messages:
         history_messages = [m for m in stored_run.messages if m.from_history]
-        print("\n Storage Info:")
-        print(f"   Total messages stored: {len(stored_run.messages)}")
-        print(f"   History messages: {len(history_messages)} (scrubbed!)")
-        print("\n History was used during execution (agent knew the answer)")
-        print("   but history messages are NOT stored in the database!")
+        print("\n 存储信息:")
+        print(f"   存储的消息总数: {len(stored_run.messages)}")
+        print(f"   历史消息: {len(history_messages)} (已清除!)")
+        print("\n 执行期间使用了历史（Agent 知道答案）")
+        print("   但历史消息不会存储在数据库中！")

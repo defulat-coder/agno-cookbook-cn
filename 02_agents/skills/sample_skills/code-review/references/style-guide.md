@@ -1,37 +1,37 @@
-# Python Style Guide
+# Python 风格指南
 
-## Naming Conventions
+## 命名约定
 
-### Variables and Functions
-- Use `snake_case` for variables and functions
-- Use descriptive names that explain the purpose
-- Avoid single-letter names except for loop counters
+### 变量和函数
+- 变量和函数使用 `snake_case`
+- 使用描述性名称来解释用途
+- 除了循环计数器外避免使用单字母名称
 
 ```python
-# Good
+# 好
 user_count = 10
 def calculate_total_price(items):
     pass
 
-# Bad
+# 不好
 uc = 10
 def calc(i):
     pass
 ```
 
-### Classes
-- Use `PascalCase` for class names
-- Use nouns that describe what the class represents
+### 类
+- 类名使用 `PascalCase`
+- 使用名词来描述类所代表的内容
 
 ```python
-# Good
+# 好
 class UserAccount:
     pass
 
 class OrderProcessor:
     pass
 
-# Bad
+# 不好
 class user_account:
     pass
 
@@ -39,104 +39,104 @@ class Process:
     pass
 ```
 
-### Constants
-- Use `UPPER_SNAKE_CASE` for constants
-- Define at module level
+### 常量
+- 常量使用 `UPPER_SNAKE_CASE`
+- 在模块级别定义
 
 ```python
-# Good
+# 好
 MAX_RETRY_COUNT = 3
 DEFAULT_TIMEOUT = 30
 
-# Bad
+# 不好
 maxRetryCount = 3
 default_timeout = 30
 ```
 
-## Code Organization
+## 代码组织
 
-### Imports
-- Group imports in this order: standard library, third-party, local
-- Sort alphabetically within each group
-- Use absolute imports
+### 导入
+- 按以下顺序分组导入：标准库、第三方库、本地库
+- 在每组内按字母顺序排序
+- 使用绝对导入
 
 ```python
-# Standard library
+# 标准库
 import os
 import sys
 from typing import List, Optional
 
-# Third-party
+# 第三方库
 import requests
 from pydantic import BaseModel
 
-# Local
+# 本地库
 from myapp.models import User
 from myapp.utils import helper
 ```
 
-### Function Length
-- Keep functions under 50 lines
-- If longer, consider breaking into smaller functions
-- Each function should do one thing well
+### 函数长度
+- 函数保持在 50 行以下
+- 如果更长，考虑拆分成更小的函数
+- 每个函数应该做好一件事
 
-### Documentation
-- Use docstrings for public functions and classes
-- Follow Google or NumPy docstring style
-- Include parameter types and return types
+### 文档
+- 为公共函数和类使用 docstring
+- 遵循 Google 或 NumPy docstring 风格
+- 包含参数类型和返回类型
 
 ```python
 def process_user_data(user_id: str, include_history: bool = False) -> dict:
-    """Process user data and return formatted result.
+    """处理用户数据并返回格式化的结果。
 
     Args:
-        user_id: The unique identifier for the user.
-        include_history: Whether to include user history. Defaults to False.
+        user_id: 用户的唯一标识符。
+        include_history: 是否包含用户历史。默认为 False。
 
     Returns:
-        A dictionary containing the processed user data.
+        包含处理后用户数据的字典。
 
     Raises:
-        ValueError: If user_id is empty or invalid.
+        ValueError: 如果 user_id 为空或无效。
     """
     pass
 ```
 
-## Error Handling
+## 错误处理
 
-### Be Specific
-- Catch specific exceptions, not bare `except:`
-- Include helpful error messages
+### 要具体
+- 捕获特定的异常，而不是裸的 `except:`
+- 包含有帮助的错误消息
 
 ```python
-# Good
+# 好
 try:
     result = process_data(data)
 except ValueError as e:
-    logger.error(f"Invalid data format: {e}")
+    logger.error(f"无效的数据格式: {e}")
     raise
 except ConnectionError as e:
-    logger.error(f"Failed to connect: {e}")
+    logger.error(f"连接失败: {e}")
     return None
 
-# Bad
+# 不好
 try:
     result = process_data(data)
 except:
     pass
 ```
 
-## Security
+## 安全性
 
-### Never Hardcode Secrets
-- Use environment variables or secret managers
-- Never commit credentials to version control
+### 永远不要硬编码秘密
+- 使用环境变量或秘密管理器
+- 永远不要将凭证提交到版本控制
 
 ```python
-# Good
+# 好
 import os
 api_key = os.environ.get("API_KEY")
 
-# Bad
+# 不好
 api_key = "sk-1234567890abcdef"
 ```

@@ -1,8 +1,8 @@
 """
-Dependencies In Tools
+工具中的依赖
 =============================
 
-Example showing how tools can access dependencies passed to the agent.
+示例展示工具如何访问传递给 agent 的依赖。
 """
 
 from datetime import datetime
@@ -13,7 +13,7 @@ from agno.run import RunContext
 
 
 def get_current_context() -> dict:
-    """Get current contextual information like time, weather, etc."""
+    """获取当前上下文信息，如时间、天气等。"""
     return {
         "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "timezone": "PST",
@@ -23,17 +23,17 @@ def get_current_context() -> dict:
 
 def analyze_user(user_id: str, run_context: RunContext) -> str:
     """
-    Analyze a specific user's profile and provide insights.
+    分析特定用户的个人资料并提供洞察。
 
-    This tool analyzes user behavior and preferences using available data sources.
-    Call this tool with the user_id you want to analyze.
+    该工具使用可用的数据源分析用户行为和偏好。
+    使用要分析的 user_id 调用此工具。
 
     Args:
-        user_id: The user ID to analyze (e.g., 'john_doe', 'jane_smith')
-        run_context: The run context containing dependencies (automatically provided)
+        user_id: 要分析的用户 ID（例如 'john_doe'、'jane_smith'）
+        run_context: 包含依赖的运行上下文（自动提供）
 
     Returns:
-        Detailed analysis and insights about the user
+        关于用户的详细分析和洞察
     """
     dependencies = run_context.dependencies
     if not dependencies:
@@ -43,18 +43,18 @@ def analyze_user(user_id: str, run_context: RunContext) -> str:
 
     results = [f"=== USER ANALYSIS FOR {user_id.upper()} ==="]
 
-    # Use user profile data if available
+    # 如果可用，使用用户资料数据
     if "user_profile" in dependencies:
         profile_data = dependencies["user_profile"]
         results.append(f"Profile Data: {profile_data}")
 
-        # Add analysis based on the profile
+        # 根据资料添加分析
         if profile_data.get("role"):
             results.append(
                 f"Professional Analysis: {profile_data['role']} with expertise in {', '.join(profile_data.get('preferences', []))}"
             )
 
-    # Use current context data if available
+    # 如果可用，使用当前上下文数据
     if "current_context" in dependencies:
         context_data = dependencies["current_context"]
         results.append(f"Current Context: {context_data}")
@@ -67,9 +67,9 @@ def analyze_user(user_id: str, run_context: RunContext) -> str:
     return "\n\n".join(results)
 
 
-# Create an agent with the analysis tool function
+# 使用分析工具函数创建一个 agent
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -77,16 +77,16 @@ agent = Agent(
     name="User Analysis Agent",
     description="An agent specialized in analyzing users using integrated data sources.",
     instructions=[
-        "You are a user analysis expert with access to user analysis tools.",
-        "When asked to analyze any user, use the analyze_user tool.",
-        "This tool has access to user profiles and current context through integrated data sources.",
-        "After getting tool results, provide additional insights and recommendations based on the analysis.",
-        "Be thorough in your analysis and explain what the tool found.",
+        "你是一个用户分析专家，可以访问用户分析工具。",
+        "当被要求分析任何用户时，使用 analyze_user 工具。",
+        "该工具通过集成的数据源访问用户资料和当前上下文。",
+        "获取工具结果后，根据分析提供额外的洞察和建议。",
+        "在分析中要详尽，并解释工具发现了什么。",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("=== Tool Dependencies Access Example ===\n")

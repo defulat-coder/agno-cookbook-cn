@@ -1,75 +1,75 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间：2026-02-10 UTC
 
-Pattern Check: Checked 7 file(s) in cookbook/02_agents/state. Violations: 0
+模式检查：已检查 cookbook/02_agents/state 中的 7 个文件。违规：0
 
 ### agentic_session_state.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### dynamic_session_state.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_advanced.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_basic.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_events.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_manual_update.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### session_state_multiple_users.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---

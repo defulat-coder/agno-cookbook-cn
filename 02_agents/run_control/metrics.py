@@ -1,8 +1,8 @@
 """
-Metrics
+指标
 =============================
 
-Metrics.
+指标统计。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.tools.yfinance import YFinanceTools
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -23,21 +23,21 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Get the run response directly from the non-streaming call
+    # 直接从非流式调用中获取运行响应
     run_response = agent.run("What is the stock price of NVDA")
     print("Tool execution completed successfully!")
 
-    # Print metrics per message
+    # 打印每条消息的指标
     if run_response and run_response.messages:
         for message in run_response.messages:
             if message.role == "assistant":
                 if message.content:
                     print(
                         f"Message: {message.content[:100]}..."
-                    )  # Truncate for readability
+                    )  # 截断以便阅读
                 elif message.tool_calls:
                     print(f"Tool calls: {len(message.tool_calls)} tool call(s)")
                 print("---" * 5, "Message Metrics", "---" * 5)
@@ -47,14 +47,14 @@ if __name__ == "__main__":
                     print("No metrics available for this message")
                 print("---" * 20)
 
-    # Print the run metrics
+    # 打印运行指标
     print("---" * 5, "Run Metrics", "---" * 5)
     if run_response and run_response.metrics:
         pprint(run_response.metrics)
     else:
         print("No run metrics available")
 
-    # Print the session metrics
+    # 打印会话指标
     print("---" * 5, "Session Metrics", "---" * 5)
     try:
         session_metrics = agent.get_session_metrics()

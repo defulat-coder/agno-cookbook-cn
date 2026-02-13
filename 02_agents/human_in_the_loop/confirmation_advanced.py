@@ -1,8 +1,8 @@
 """
-Confirmation Advanced
+高级确认
 =============================
 
-Human-in-the-Loop: Adding User Confirmation to Tool Calls.
+人机协作：为工具调用添加用户确认。
 """
 
 import json
@@ -22,13 +22,13 @@ console = Console()
 
 @tool(requires_confirmation=True)
 def get_top_hackernews_stories(num_stories: int) -> str:
-    """Fetch top stories from Hacker News.
+    """从 Hacker News 获取热门故事。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 要检索的故事数量
 
     Returns:
-        str: JSON string containing story details
+        str: 包含故事详情的 JSON 字符串
     """
     # Fetch top story IDs
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
@@ -48,7 +48,7 @@ def get_top_hackernews_stories(num_stories: int) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -61,7 +61,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_response = agent.run(

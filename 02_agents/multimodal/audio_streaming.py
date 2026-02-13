@@ -1,8 +1,8 @@
 """
-Audio Streaming
+音频流式传输
 =============================
 
-Audio Streaming.
+演示音频流式传输功能。
 """
 
 import base64
@@ -12,14 +12,14 @@ from typing import Iterator
 from agno.agent import Agent, RunOutputEvent
 from agno.models.openai import OpenAIChat
 
-# Audio Configuration
+# 音频配置
 SAMPLE_RATE = 24000  # Hz (24kHz)
-CHANNELS = 1  # Mono (Change to 2 if Stereo)
-SAMPLE_WIDTH = 2  # Bytes (16 bits)
+CHANNELS = 1  # 单声道（如果是立体声改为 2）
+SAMPLE_WIDTH = 2  # 字节（16 位）
 
-# Provide the agent with the audio file and audio configuration and get result as text + audio
+# 向 agent 提供音频文件和音频配置，获取文本 + 音频结果
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(
@@ -28,12 +28,12 @@ agent = Agent(
         audio={
             "voice": "alloy",
             "format": "pcm16",
-        },  # Only pcm16 is supported with streaming
+        },  # 流式传输仅支持 pcm16
     ),
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     output_stream: Iterator[RunOutputEvent] = agent.run(
@@ -42,13 +42,13 @@ if __name__ == "__main__":
 
     filename = "tmp/response_stream.wav"
 
-    # Open the file once in append-binary mode
+    # 以追加二进制模式打开文件一次
     with wave.open(str(filename), "wb") as wav_file:
         wav_file.setnchannels(CHANNELS)
         wav_file.setsampwidth(SAMPLE_WIDTH)
         wav_file.setframerate(SAMPLE_RATE)
 
-        # Iterate over generated audio
+        # 迭代生成的音频
         for response in output_stream:
             response_audio = response.response_audio  # type: ignore
             if response_audio:

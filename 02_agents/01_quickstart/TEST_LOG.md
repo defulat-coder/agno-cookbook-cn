@@ -1,35 +1,35 @@
-# TEST LOG
+# 测试日志
 
-Generated: 2026-02-10 UTC
+生成时间：2026-02-10 UTC
 
-Pattern Check: Checked 3 file(s) in cookbook/02_agents/01_quickstart. Violations: 0
+模式检查：检查了 cookbook/02_agents/01_quickstart 中的 3 个文件。违规：0
 
 ### basic_agent.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### agent_with_instructions.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
 
 ### agent_with_tools.py
 
-**Status:** PASS
+**状态：** 通过
 
-**Description:** Executed with `.venvs/demo/bin/python` as a cookbook runnable example.
+**描述：** 使用 `.venvs/demo/bin/python` 作为 cookbook 可运行示例执行。
 
-**Result:** Completed successfully.
+**结果：** 成功完成。
 
 ---
