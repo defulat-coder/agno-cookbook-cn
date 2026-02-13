@@ -1,0 +1,66 @@
+[project]
+name = "agno-cookbook"
+version = "0.1.0"
+description = "Agno Cookbook - Examples and tutorials"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "agno",
+]
+
+[dependency-groups]
+quickstart = [
+    "chromadb",
+    "fastapi[standard]",
+    "google-genai",
+    "mcp",
+    "nest-asyncio",
+    "openinference-instrumentation-agno",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "pgvector",
+    "pillow",
+    "psycopg[binary]",
+    "sqlalchemy",
+    "yfinance",
+]
+demo = [
+    "anthropic",
+    "duckduckgo-search",
+    "duckdb",
+    "exa-py",
+    "openai",
+    "pgvector",
+    "psycopg[binary]",
+    "sqlalchemy",
+    "yfinance",
+]
+learning = [
+    "anthropic",
+    "chromadb",
+    "fastapi[standard]",
+    "google-genai",
+    "mcp",
+    "nest-asyncio",
+    "openai",
+    "openinference-instrumentation-agno",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "pgvector",
+    "pillow",
+    "psycopg[binary]",
+    "sqlalchemy",
+]
+mcp-toolbox = [
+    "fastapi",
+    "mcp",
+    "openai",
+    "sqlalchemy",
+    "toolbox-core",
+]
+all = [
+    {include-group = "quickstart"},
+    {include-group = "demo"},
+    {include-group = "learning"},
+    {include-group = "mcp-toolbox"},
+]
