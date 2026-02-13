@@ -1,18 +1,18 @@
 """
-Agent with Structured Output - Finance Agent with Typed Responses
+结构化输出 Agent - 带类型化响应的金融 Agent
 ==================================================================
-This example shows how to get structured, typed responses from your agent.
-Instead of free-form text, you get a Pydantic model you can trust.
+本示例展示如何从 Agent 获取结构化的类型响应。
+不再是自由格式的文本，而是可信赖的 Pydantic 模型。
 
-Perfect for building pipelines, UIs, or integrations where you need
-predictable data shapes. Parse it, store it, display it — no regex required.
+非常适合构建数据管道、UI 或集成场景，当你需要
+可预测的数据结构时。直接解析、存储、展示——无需正则表达式。
 
-Key concepts:
-- output_schema: A Pydantic model defining the response structure
-- The agent's response will always match this schema
-- Access structured data via response.content
+核心概念：
+- output_schema：定义响应结构的 Pydantic 模型
+- Agent 的响应将始终符合此 schema
+- 通过 response.content 访问结构化数据
 
-Example prompts to try:
+可尝试的示例提示：
 - "Analyze NVDA"
 - "Give me a report on Tesla"
 - "What's the investment case for Apple?"
@@ -27,16 +27,16 @@ from agno.tools.yfinance import YFinanceTools
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
-# Storage Configuration
+# 存储配置
 # ---------------------------------------------------------------------------
 agent_db = SqliteDb(db_file="tmp/agents.db")
 
 
 # ---------------------------------------------------------------------------
-# Structured Output Schema
+# 结构化输出 Schema
 # ---------------------------------------------------------------------------
 class StockAnalysis(BaseModel):
-    """Structured output for stock analysis."""
+    """股票分析的结构化输出。"""
 
     ticker: str = Field(..., description="Stock ticker symbol (e.g., NVDA)")
     company_name: str = Field(..., description="Full company name")
@@ -54,36 +54,36 @@ class StockAnalysis(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Agent Instructions
+# Agent 指令
 # ---------------------------------------------------------------------------
 instructions = """\
-You are a Finance Agent — a data-driven analyst who retrieves market data,
-computes key ratios, and produces concise, decision-ready insights.
+你是一个金融 Agent——一个数据驱动的分析师，负责获取市场数据、
+计算关键指标，并提供简洁的、可供决策的洞察。
 
-## Workflow
+## 工作流程
 
-1. Retrieve
-   - Fetch: price, change %, market cap, P/E, EPS, 52-week range
-   - Get all required fields for the analysis
+1. 获取数据
+   - 获取：价格、涨跌幅、市值、市盈率、每股收益、52周范围
+   - 获取分析所需的所有字段
 
-2. Analyze
-   - Identify 2-3 key drivers (what's working)
-   - Identify 2-3 key risks (what could go wrong)
-   - Facts only, no speculation
+2. 分析
+   - 识别 2-3 个关键驱动因素（哪些方面表现好）
+   - 识别 2-3 个关键风险（哪些可能出问题）
+   - 仅陈述事实，不做投机
 
-3. Recommend
-   - Based on the data, provide a clear recommendation
-   - Be decisive but note this is not personalized advice
+3. 推荐
+   - 基于数据提供明确的建议
+   - 态度果断，但注明这不是个性化建议
 
-## Rules
+## 规则
 
-- Source: Yahoo Finance
-- Missing data? Use null for optional fields, estimate for required
-- Recommendation must be one of: Strong Buy, Buy, Hold, Sell, Strong Sell\
+- 数据来源：Yahoo Finance
+- 数据缺失？可选字段使用 null，必填字段进行估算
+- 推荐必须是以下之一：Strong Buy、Buy、Hold、Sell、Strong Sell\
 """
 
 # ---------------------------------------------------------------------------
-# Create the Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent_with_structured_output = Agent(
     name="Agent with Structured Output",
@@ -99,16 +99,16 @@ agent_with_structured_output = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run the Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Get structured output
+    # 获取结构化输出
     response = agent_with_structured_output.run("Analyze NVIDIA")
 
-    # Access the typed data
+    # 访问类型化数据
     analysis: StockAnalysis = response.content
 
-    # Use it programmatically
+    # 以编程方式使用数据
     print(f"\n{'=' * 60}")
     print(f"Stock Analysis: {analysis.company_name} ({analysis.ticker})")
     print(f"{'=' * 60}")
@@ -127,28 +127,28 @@ if __name__ == "__main__":
     print(f"{'=' * 60}\n")
 
 # ---------------------------------------------------------------------------
-# More Examples
+# 更多示例
 # ---------------------------------------------------------------------------
 """
-Structured output is perfect for:
+结构化输出非常适合以下场景：
 
-1. Building UIs
+1. 构建 UI
    analysis = agent.run("Analyze TSLA").content
    render_stock_card(analysis)
 
-2. Storing in databases
+2. 存入数据库
    db.insert("analyses", analysis.model_dump())
 
-3. Comparing stocks
+3. 比较股票
    nvda = agent.run("Analyze NVDA").content
    amd = agent.run("Analyze AMD").content
    if nvda.pe_ratio < amd.pe_ratio:
        print(f"{nvda.ticker} is cheaper by P/E")
 
-4. Building pipelines
+4. 构建数据管道
    tickers = ["AAPL", "GOOGL", "MSFT"]
    analyses = [agent.run(f"Analyze {t}").content for t in tickers]
 
-The schema guarantees you always get the fields you expect.
-No parsing, no surprises.
+Schema 保证你始终获得预期的字段。
+无需解析，没有意外。
 """

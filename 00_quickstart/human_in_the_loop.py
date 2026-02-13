@@ -1,24 +1,24 @@
 """
-Human in the Loop - Confirm Before Taking Action
+人机协作 - 执行操作前确认
 ================================================
-This example shows how to require user confirmation before executing
-certain tools. Critical for actions that are irreversible or sensitive.
+本示例展示如何在执行某些工具前要求用户确认。
+对于不可逆或敏感的操作来说至关重要。
 
-We'll build on our self-learning agent, and ask for user confirmation before saving a learning.
+我们将在自学习 Agent 的基础上进行扩展，在保存学习心得前请求用户确认。
 
-Key concepts:
-- @tool(requires_confirmation=True): Mark tools that need approval
-- run_response.active_requirements: Check for pending confirmations
-- requirement.confirm() / requirement.reject(): Approve or deny
-- agent.continue_run(): Resume execution after decision
+核心概念：
+- @tool(requires_confirmation=True)：标记需要审批的工具
+- run_response.active_requirements：检查待确认的请求
+- requirement.confirm() / requirement.reject()：批准或拒绝
+- agent.continue_run()：在用户做出决定后继续执行
 
-Some practical applications:
-- Confirming sensitive operations before execution
-- Reviewing API calls before they're made
-- Validating data transformations
-- Approving automated actions in critical systems
+实际应用场景：
+- 执行敏感操作前进行确认
+- API 调用前进行审核
+- 验证数据转换
+- 审批关键系统中的自动化操作
 
-Example prompts to try:
+可尝试的示例提示：
 - "What's a good P/E ratio for tech stocks? Save that insight."
 - "Analyze NVDA and save any insights"
 - "What learnings do we have saved?"
@@ -42,12 +42,12 @@ from rich.console import Console
 from rich.prompt import Prompt
 
 # ---------------------------------------------------------------------------
-# Storage Configuration
+# 存储配置
 # ---------------------------------------------------------------------------
 agent_db = SqliteDb(db_file="tmp/agents.db")
 
 # ---------------------------------------------------------------------------
-# Knowledge Base for Learnings
+# 学习心得知识库
 # ---------------------------------------------------------------------------
 learnings_kb = Knowledge(
     name="Agent Learnings HITL",
@@ -65,20 +65,20 @@ learnings_kb = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Custom Tool: Save Learning (requires confirmation)
+# 自定义工具：保存学习心得（需要确认）
 # ---------------------------------------------------------------------------
 @tool(requires_confirmation=True)
 def save_learning(title: str, learning: str) -> str:
     """
-    Save a reusable insight to the knowledge base for future reference.
-    This action requires user confirmation before executing.
+    将可复用的洞察保存到知识库以供日后参考。
+    此操作在执行前需要用户确认。
 
     Args:
-        title: Short descriptive title (e.g., "Tech stock P/E benchmarks")
-        learning: The insight to save — be specific and actionable
+        title: 简短的描述性标题（例如 "Tech stock P/E benchmarks"）
+        learning: 要保存的洞察——需具体且可操作
 
     Returns:
-        Confirmation message
+        确认消息
     """
     if not title or not title.strip():
         return "Cannot save: title is required"
@@ -102,41 +102,41 @@ def save_learning(title: str, learning: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Agent Instructions
+# Agent 指令
 # ---------------------------------------------------------------------------
 instructions = """\
-You are a Finance Agent that learns and improves over time.
+你是一个能持续学习和改进的金融 Agent。
 
-You have two special abilities:
-1. Search your knowledge base for previously saved learnings
-2. Save new insights using the save_learning tool
+你有两项特殊能力：
+1. 搜索知识库中之前保存的学习心得
+2. 使用 save_learning 工具保存新的洞察
 
-## Workflow
+## 工作流程
 
-1. Check Knowledge First
-   - Before answering, search for relevant prior learnings
-   - Apply any relevant insights to your response
+1. 先检查知识库
+   - 回答前，搜索相关的历史学习心得
+   - 将相关洞察应用到回答中
 
-2. Gather Information
-   - Use YFinance tools for market data
-   - Combine with your knowledge base insights
+2. 收集信息
+   - 使用 YFinance 工具获取市场数据
+   - 结合知识库中的洞察
 
-3. Save Valuable Insights
-   - If you discover something reusable, save it with save_learning
-   - The user will be asked to confirm before it's saved
-   - Good learnings are specific, actionable, and generalizable
+3. 保存有价值的洞察
+   - 如果发现可复用的内容，使用 save_learning 保存
+   - 保存前会请求用户确认
+   - 好的学习心得应当具体、可操作、可推广
 
-## What Makes a Good Learning
+## 什么是好的学习心得
 
-- Specific: "Tech P/E ratios typically range 20-35x" not "P/E varies"
-- Actionable: Can be applied to future questions
-- Reusable: Useful beyond this one conversation
+- 具体："科技股市盈率通常在 20-35 倍之间"，而非"市盈率各不相同"
+- 可操作：能应用于未来的问题
+- 可复用：不仅限于这次对话
 
-Don't save: Raw data, one-off facts, or obvious information.\
+不要保存：原始数据、一次性事实或显而易见的信息。\
 """
 
 # ---------------------------------------------------------------------------
-# Create the Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 human_in_the_loop_agent = Agent(
     name="Agent with Human in the Loop",
@@ -156,21 +156,21 @@ human_in_the_loop_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run the Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     console = Console()
 
-    # Ask a question that might trigger a save
+    # 提一个可能触发保存操作的问题
     run_response = human_in_the_loop_agent.run(
         "What's a healthy P/E ratio for tech stocks? Save that insight."
     )
 
-    # Print the initial response content (the actual answer)
+    # 打印初始响应内容（实际的回答）
     if run_response.content:
         pprint.pprint_run_response(run_response)
 
-    # Handle any confirmation requirements
+    # 处理需要确认的请求
     if run_response.active_requirements:
         for requirement in run_response.active_requirements:
             if requirement.needs_confirmation:
@@ -197,43 +197,43 @@ if __name__ == "__main__":
                     requirement.confirm()
                     console.print("[green]Approved[/green]")
 
-        # Continue the run with the user's decisions
+        # 使用用户的决定继续运行
         run_response = human_in_the_loop_agent.continue_run(
             run_id=run_response.run_id,
             requirements=run_response.requirements,
         )
 
-        # Print the final response after tool execution
+        # 打印工具执行后的最终响应
         pprint.pprint_run_response(run_response)
 
 # ---------------------------------------------------------------------------
-# More Examples
+# 更多示例
 # ---------------------------------------------------------------------------
 """
-Human-in-the-loop patterns:
+人机协作模式：
 
-1. Confirmation for sensitive actions
+1. 敏感操作确认
    @tool(requires_confirmation=True)
    def delete_file(path: str) -> str:
        ...
 
-2. Confirmation for external calls
+2. 外部调用确认
    @tool(requires_confirmation=True)
    def send_email(to: str, subject: str, body: str) -> str:
        ...
 
-3. Confirmation for financial transactions
+3. 金融交易确认
    @tool(requires_confirmation=True)
    def place_order(ticker: str, quantity: int, side: str) -> str:
        ...
 
-The pattern:
-1. Mark tool with @tool(requires_confirmation=True)
-2. Run agent with agent.run()
-3. Loop through run_response.active_requirements
-4. Check requirement.needs_confirmation
-5. Call requirement.confirm() or requirement.reject()
-6. Call agent.continue_run() with requirements
+实现模式：
+1. 使用 @tool(requires_confirmation=True) 标记工具
+2. 使用 agent.run() 运行 Agent
+3. 遍历 run_response.active_requirements
+4. 检查 requirement.needs_confirmation
+5. 调用 requirement.confirm() 或 requirement.reject()
+6. 调用 agent.continue_run() 并传入 requirements
 
-This gives you full control over which actions execute.
+这让你可以完全控制哪些操作会被执行。
 """

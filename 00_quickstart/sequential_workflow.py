@@ -1,18 +1,18 @@
 """
-Sequential Workflow - Stock Research Pipeline
+顺序工作流 - 股票研究管道
 ==============================================
-This example shows how to create a workflow with sequential steps.
-Each step is handled by a specialized agent, and outputs flow to the next step.
+本示例展示如何创建具有顺序步骤的工作流。
+每个步骤由专门的 Agent 处理，输出传递到下一个步骤。
 
-Different from Teams (agents collaborate dynamically), Workflows give you
-explicit control over execution order and data flow.
+与团队（Agent 动态协作）不同，工作流让你
+显式控制执行顺序和数据流向。
 
-Key concepts:
-- Workflow: Orchestrates a sequence of steps
-- Step: Wraps an agent with a specific task
-- Steps execute in order, each building on the previous
+核心概念：
+- Workflow（工作流）：编排一系列步骤
+- Step（步骤）：将 Agent 包装为特定任务
+- 步骤按顺序执行，每一步基于前一步的结果
 
-Example prompts to try:
+可尝试的示例提示：
 - "Analyze NVDA"
 - "Research Tesla for investment"
 - "Give me a report on Apple"
@@ -25,28 +25,28 @@ from agno.tools.yfinance import YFinanceTools
 from agno.workflow import Step, Workflow
 
 # ---------------------------------------------------------------------------
-# Storage Configuration
+# 存储配置
 # ---------------------------------------------------------------------------
 workflow_db = SqliteDb(db_file="tmp/agents.db")
 
 # ---------------------------------------------------------------------------
-# Step 1: Data Gatherer — Fetches raw market data
+# 步骤 1：数据采集器 — 获取原始市场数据
 # ---------------------------------------------------------------------------
 data_agent = Agent(
     name="Data Gatherer",
     model=Gemini(id="gemini-3-flash-preview"),
     tools=[YFinanceTools()],
     instructions="""\
-You are a data gathering agent. Your job is to fetch comprehensive market data.
+你是一个数据采集 Agent。你的任务是获取全面的市场数据。
 
-For the requested stock, gather:
-- Current price and daily change
-- Market cap and volume
-- P/E ratio, EPS, and other key ratios
-- 52-week high and low
-- Recent price trends
+对于请求的股票，采集：
+- 当前价格和日涨跌幅
+- 市值和成交量
+- 市盈率、每股收益和其他关键比率
+- 52周最高价和最低价
+- 近期价格趋势
 
-Present the raw data clearly. Don't analyze — just gather and organize.\
+清晰地呈现原始数据。不要分析——只负责采集和整理。\
 """,
     db=workflow_db,
     add_datetime_to_context=True,
@@ -61,21 +61,21 @@ data_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Step 2: Analyst — Interprets the data
+# 步骤 2：分析师 — 解读数据
 # ---------------------------------------------------------------------------
 analyst_agent = Agent(
     name="Analyst",
     model=Gemini(id="gemini-3-flash-preview"),
     instructions="""\
-You are a financial analyst. You receive raw market data from the data team.
+你是一名金融分析师。你从数据团队获取原始市场数据。
 
-Your job is to:
-- Interpret the key metrics (is the P/E high or low for this sector?)
-- Identify strengths and weaknesses
-- Note any red flags or positive signals
-- Compare to typical industry benchmarks
+你的任务是：
+- 解读关键指标（该板块的市盈率是偏高还是偏低？）
+- 识别优势和劣势
+- 标注任何警示信号或积极信号
+- 与典型行业基准进行对比
 
-Provide analysis, not recommendations. Be objective and data-driven.\
+提供分析，不提供建议。保持客观和数据驱动。\
 """,
     db=workflow_db,
     add_datetime_to_context=True,
@@ -90,22 +90,22 @@ analysis_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Step 3: Report Writer — Produces final output
+# 步骤 3：报告撰写者 — 生成最终输出
 # ---------------------------------------------------------------------------
 report_agent = Agent(
     name="Report Writer",
     model=Gemini(id="gemini-3-flash-preview"),
     instructions="""\
-You are a report writer. You receive analysis from the research team.
+你是一名报告撰写者。你从研究团队获取分析结果。
 
-Your job is to:
-- Synthesize the analysis into a clear investment brief
-- Lead with a one-line summary
-- Include a recommendation (Buy/Hold/Sell) with rationale
-- Keep it concise — max 200 words
-- End with key metrics in a small table
+你的任务是：
+- 将分析综合成清晰的投资简报
+- 以一行摘要开头
+- 包含建议（买入/持有/卖出）及理由
+- 保持简洁——最多 200 字
+- 以关键指标的小表格结尾
 
-Write for a busy investor who wants the bottom line fast.\
+为忙碌的投资者写作，他们想快速看到结论。\
 """,
     db=workflow_db,
     add_datetime_to_context=True,
@@ -121,20 +121,20 @@ report_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Create the Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 sequential_workflow = Workflow(
     name="Sequential Workflow",
     description="Three-step research pipeline: Data → Analysis → Report",
     steps=[
-        data_step,  # Step 1: Gather data
-        analysis_step,  # Step 2: Analyze data
-        report_step,  # Step 3: Write report
+        data_step,  # 步骤 1：采集数据
+        analysis_step,  # 步骤 2：分析数据
+        report_step,  # 步骤 3：撰写报告
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Run the Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     sequential_workflow.print_response(
@@ -143,28 +143,28 @@ if __name__ == "__main__":
     )
 
 # ---------------------------------------------------------------------------
-# More Examples
+# 更多示例
 # ---------------------------------------------------------------------------
 """
-Workflow vs Team:
+工作流 vs 团队：
 
-- Workflow: Explicit step order, predictable execution, clear data flow
-- Team: Dynamic collaboration, leader decides who does what
+- 工作流：显式的步骤顺序，可预测的执行，清晰的数据流
+- 团队：动态协作，领导决定谁做什么
 
-Use Workflow when:
-- Steps must happen in a specific order
-- Each step has a clear, specialized role
-- You want predictable, repeatable execution
-- Output from step N feeds into step N+1
+何时使用工作流：
+- 步骤必须按特定顺序执行
+- 每个步骤有明确的专门角色
+- 需要可预测、可重复的执行
+- 步骤 N 的输出流入步骤 N+1
 
-Use Team when:
-- Agents need to collaborate dynamically
-- The leader should decide who to involve
-- Tasks benefit from back-and-forth discussion
+何时使用团队：
+- Agent 需要动态协作
+- 领导应决定让谁参与
+- 任务受益于来回讨论
 
-Advanced workflow features (not shown here):
-- Parallel: Run steps concurrently
-- Condition: Run steps only if criteria met
-- Loop: Repeat steps until condition met
-- Router: Dynamically select which step to run
+高级工作流功能（本示例未展示）：
+- Parallel（并行）：并发运行步骤
+- Condition（条件）：仅在满足条件时运行步骤
+- Loop（循环）：重复步骤直到满足条件
+- Router（路由）：动态选择运行哪个步骤
 """

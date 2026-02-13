@@ -1,70 +1,70 @@
-# Prompt: Improve Agno Test Suite
+# 提示词：改进 Agno 测试套件
 
-You are improving the test suite for the **Agno** AI agent framework. Your primary goal is to **eliminate flaky tests** (mostly caused by API rate limits in integration tests) and **add new unit tests** for coverage gaps.
+你正在改进 **Agno** AI Agent 框架的测试套件。你的主要目标是**消除不稳定的测试**（大多由集成测试中的 API 速率限制引起）并**为覆盖率空白添加新的单元测试**。
 
 ---
 
-## Environment Setup
+## 环境设置
 
-Run these commands at the start of every session, in order:
+在每个会话开始时按顺序运行以下命令：
 
 ```bash
-# 1. Load environment variables (API keys, etc.)
+# 1. 加载环境变量（API 密钥等）
 direnv allow
 eval "$(direnv export bash 2>/dev/null)"
 
-# 2. Activate the test virtual environment
+# 2. 激活测试虚拟环境
 source .venv/bin/activate
 
-# 3. If .venv doesn't exist, create it first:
+# 3. 如果 .venv 不存在，先创建它：
 #    ./scripts/test_setup.sh
 
-# 4. Install any missing libraries as needed:
+# 4. 按需安装缺失的库：
 #    uv pip install <package>
 ```
 
 ---
 
-## Running Tests
+## 运行测试
 
 ```bash
-# Full unit test suite with coverage
+# 完整单元测试套件（带覆盖率）
 ./scripts/test.sh
 
-# Single subdirectory
+# 单个子目录
 pytest libs/agno/tests/unit/<subdir> -v
 
-# Single file
+# 单个文件
 pytest libs/agno/tests/unit/<path>/test_file.py -v
 
-# Single test
+# 单个测试
 pytest libs/agno/tests/unit/<path>/test_file.py::TestClass::test_name -v
 
-# With output visible
+# 显示输出
 pytest ... -s
 
-# Stop on first failure
+# 首次失败即停止
 pytest ... -x
 
-# Integration tests (require API keys via direnv)
+# 集成测试（需要通过 direnv 提供 API 密钥）
 pytest libs/agno/tests/integration/<subdir> -v
 
-# Coverage for a specific module
+# 特定模块的覆盖率
 pytest libs/agno/tests/unit/<subdir> --cov=libs/agno/agno/<module> --cov-report=term-missing -v
 ```
 
 ---
 
-## Test Suite Structure
+## 测试套件结构
 
 ```
 libs/agno/tests/
-├── unit/           # ~240 files, fully mocked, no real API calls
-├── integration/    # ~360 files, real API calls, real databases
-└── system/         # ~24 files, end-to-end with running services
+├── unit/           # 约 240 个文件，完全 mock，不进行真实 API 调用
+├── integration/    # 约 360 个文件，真实 API 调用，真实数据库
+└── system/         # 约 24 个文件，端到端测试，需要运行中的服务
 ```
 
-**Pytest config** is in `libs/agno/pyproject.toml`:
+**Pytest 配置** 在 `libs/agno/pyproject.toml` 中：
 ```toml
 [tool.pytest.ini_options]
 log_cli = true
@@ -72,34 +72,34 @@ asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 ```
 
-**Key fixtures** live in:
-- `libs/agno/tests/integration/conftest.py` — shared DB fixtures, async client reset
-- `libs/agno/tests/unit/*/conftest.py` — per-module fixtures
+**关键 fixtures** 位于：
+- `libs/agno/tests/integration/conftest.py` — 共享的数据库 fixtures、异步客户端重置
+- `libs/agno/tests/unit/*/conftest.py` — 按模块的 fixtures
 
 ---
 
-## The Flakiness Problem
+## 不稳定问题
 
-**Root cause:** Integration tests make real API calls to 35+ LLM providers. Rate limits (HTTP 429) cause intermittent failures that are NOT bugs in the code.
+**根本原因：** 集成测试向 35+ 个 LLM 提供商发起真实 API 调用。速率限制（HTTP 429）导致间歇性失败，这并非代码 bug。
 
-### Current State of Rate Limit Protection
+### 速率限制保护的现状
 
-**Only 4 out of 35 model providers have rate-limit protection:**
+**35 个模型提供商中只有 4 个有速率限制保护：**
 - `libs/agno/tests/integration/models/google/conftest.py`
 - `libs/agno/tests/integration/models/groq/conftest.py`
 - `libs/agno/tests/integration/models/cerebras/conftest.py`
 - `libs/agno/tests/integration/models/sambanova/conftest.py`
 
-**31 providers have ZERO protection**, including the most heavily used ones: OpenAI, Anthropic, Azure, AWS, Meta, Deepseek, Mistral, Cohere, xAI, etc.
+**31 个提供商完全没有保护**，包括最常用的：OpenAI、Anthropic、Azure、AWS、Meta、Deepseek、Mistral、Cohere、xAI 等。
 
-The protection pattern is a `conftest.py` pytest hook that converts rate-limit failures into skips:
+保护模式是一个 `conftest.py` pytest 钩子，将速率限制失败转换为跳过：
 
 ```python
 import pytest
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Skip tests that hit <Provider> rate limits (429) instead of failing."""
+    """将触发 <提供商> 速率限制（429）的测试跳过而非失败。"""
     outcome = yield
     report = outcome.get_result()
     if report.when == "call" and report.failed:
@@ -110,12 +110,12 @@ def pytest_runtest_makereport(item, call):
             combined = (error_msg + full_repr + sections_text).lower()
             if any(p in combined for p in ["429", "rate limit", "rate_limit", "quota", "resource_exhausted"]):
                 report.outcome = "skipped"
-                report.longrepr = ("", -1, "Skipped: <Provider> rate limit (429)")
+                report.longrepr = ("", -1, "Skipped: <提供商> rate limit (429)")
 ```
 
-### Additional Issue: No Retry/Backoff on Most Tests
+### 额外问题：大多数测试没有重试/退避机制
 
-Google integration tests configure retry/backoff on the Agent:
+Google 集成测试在 Agent 上配置了重试/退避：
 ```python
 agent = Agent(
     model=Gemini(id="gemini-2.0-flash"),
@@ -124,19 +124,19 @@ agent = Agent(
 )
 ```
 
-But OpenAI, Anthropic, and most other provider tests do NOT:
+但 OpenAI、Anthropic 和大多数其他提供商的测试没有：
 ```python
-# No backoff — a single 429 = test failure
+# 没有退避——单次 429 = 测试失败
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"), telemetry=False)
 ```
 
 ---
 
-## Task 1: Add Rate-Limit Protection to All Integration Model Tests
+## 任务 1：为所有集成模型测试添加速率限制保护
 
-**For every provider directory under `libs/agno/tests/integration/models/` that does NOT already have a `conftest.py` with the rate-limit hook**, create one.
+**对 `libs/agno/tests/integration/models/` 下每个还没有带速率限制钩子的 `conftest.py` 的提供商目录**，创建一个。
 
-The full list of provider directories to check:
+需要检查的完整提供商目录列表：
 ```
 aimlapi, anthropic, aws, azure, cerebras*, cohere, cometapi, dashscope,
 deepinfra, deepseek, fireworks, google*, groq*, huggingface, ibm, langdb,
@@ -144,37 +144,37 @@ litellm, litellm_openai, lmstudio, meta, mistral, nebius, nvidia, ollama,
 openai, openrouter, perplexity, portkey, sambanova*, together, vercel,
 vertexai, vllm, xai
 
-(* = already has protection)
+(* = 已有保护)
 ```
 
-**For each unprotected directory:**
+**对每个未受保护的目录：**
 
-1. Check if a `conftest.py` already exists in that directory
-2. If it exists, ADD the `pytest_runtest_makereport` hook to it (don't overwrite existing fixtures)
-3. If it doesn't exist, CREATE a new `conftest.py` with just the hook
-4. Use the provider name in the skip message (e.g., `"Skipped: OpenAI rate limit (429)"`)
+1. 检查该目录中是否已存在 `conftest.py`
+2. 如果存在，将 `pytest_runtest_makereport` 钩子添加进去（不要覆盖已有的 fixtures）
+3. 如果不存在，创建一个仅包含该钩子的新 `conftest.py`
+4. 在跳过消息中使用提供商名称（例如 `"Skipped: OpenAI rate limit (429)"`）
 
-**Also add the hook to these non-model integration test directories** that make real API calls:
-- `libs/agno/tests/integration/agent/` (uses OpenAI)
-- `libs/agno/tests/integration/teams/` (uses OpenAI)
-- `libs/agno/tests/integration/workflows/` (uses OpenAI)
-- `libs/agno/tests/integration/embedder/` (uses OpenAI)
+**同时为以下发起真实 API 调用的非模型集成测试目录添加钩子：**
+- `libs/agno/tests/integration/agent/`（使用 OpenAI）
+- `libs/agno/tests/integration/teams/`（使用 OpenAI）
+- `libs/agno/tests/integration/workflows/`（使用 OpenAI）
+- `libs/agno/tests/integration/embedder/`（使用 OpenAI）
 - `libs/agno/tests/integration/reranker/`
 
-For these, use a generic message: `"Skipped: rate limit (429)"`.
+对于这些，使用通用消息：`"Skipped: rate limit (429)"`。
 
 ---
 
-## Task 2: Add Retry/Backoff to Integration Tests That Lack It
+## 任务 2：为缺少重试/退避的集成测试添加
 
-For integration tests that create real Agent instances without retry config, add `retries` and `exponential_backoff`:
+对于创建了真实 Agent 实例但没有重试配置的集成测试，添加 `retries` 和 `exponential_backoff`：
 
-**Before:**
+**修改前：**
 ```python
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"), telemetry=False)
 ```
 
-**After:**
+**修改后：**
 ```python
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -185,7 +185,7 @@ agent = Agent(
 )
 ```
 
-**Scope:** Apply this to tests under:
+**范围：** 应用到以下目录的测试：
 - `libs/agno/tests/integration/models/openai/`
 - `libs/agno/tests/integration/models/anthropic/`
 - `libs/agno/tests/integration/models/azure/`
@@ -196,62 +196,62 @@ agent = Agent(
 - `libs/agno/tests/integration/models/xai/`
 - `libs/agno/tests/integration/models/together/`
 - `libs/agno/tests/integration/models/meta/`
-- Any other provider tests that instantiate Agents without retry config
-- `libs/agno/tests/integration/agent/` (all agent integration tests)
-- `libs/agno/tests/integration/teams/` (all team integration tests)
-- `libs/agno/tests/integration/workflows/` (all workflow integration tests)
+- 其他所有实例化 Agent 但没有重试配置的提供商测试
+- `libs/agno/tests/integration/agent/`（所有 Agent 集成测试）
+- `libs/agno/tests/integration/teams/`（所有团队集成测试）
+- `libs/agno/tests/integration/workflows/`（所有工作流集成测试）
 
-**Use fixtures where possible.** If a file already has a model fixture like:
+**尽可能使用 fixtures。** 如果文件已有模型 fixture 如：
 ```python
 @pytest.fixture(scope="module")
 def openai_model():
     return OpenAIChat(id="gpt-4o-mini")
 ```
 
-Then add retry config to the Agent creation, not the model fixture. The Agent-level config is preferred.
+则将重试配置添加到 Agent 创建处，而非模型 fixture。优先使用 Agent 级别的配置。
 
-**For tests that create Agents inline** (not via fixture), add the retry params directly.
+**对于内联创建 Agent 的测试**（不通过 fixture），直接添加重试参数。
 
-**Do NOT add retries to:**
-- Tests that specifically test error handling (e.g., `test_exception_handling`)
-- Tests that explicitly test retry behavior (e.g., `test_retries.py`)
-- Unit tests (they're all mocked)
+**不要为以下添加重试：**
+- 专门测试错误处理的测试（例如 `test_exception_handling`）
+- 明确测试重试行为的测试（例如 `test_retries.py`）
+- 单元测试（它们都是 mock 的）
 
 ---
 
-## Task 3: Fix or Remove Genuinely Flaky Unit Tests
+## 任务 3：修复或移除真正不稳定的单元测试
 
-Run the full unit test suite and fix any failures:
+运行完整的单元测试套件并修复所有失败：
 
 ```bash
 pytest libs/agno/tests/unit/ -v 2>&1
 ```
 
-**IMPORTANT: Only modify test files, not production code in `libs/agno/agno/`.**
+**重要：只修改测试文件，不要修改 `libs/agno/agno/` 中的生产代码。**
 
-### Known Failure Patterns (fix these first)
+### 已知失败模式（优先修复这些）
 
-**1. Environment variable leaking into default arguments**
+**1. 环境变量泄漏到默认参数**
 
-A tool class uses `getenv("SOME_KEY")` as a default parameter value in `__init__`. Default args are evaluated at import time, so any value set by direnv gets baked in permanently. Tests that manipulate `os.environ` at runtime can't override it.
+工具类在 `__init__` 中使用 `getenv("SOME_KEY")` 作为默认参数值。默认参数在导入时求值，因此 direnv 设置的任何值都会被永久固定。运行时操作 `os.environ` 的测试无法覆盖它。
 
-Example: `libs/agno/agno/tools/jina.py`:
+示例：`libs/agno/agno/tools/jina.py`：
 ```python
 def __init__(self, api_key: Optional[str] = getenv("JINA_API_KEY"), ...):
 ```
 
-Fix: In the test, pass the value explicitly and don't rely on the default. Or use `monkeypatch.setattr` to patch the module-level default before construction. Or use `monkeypatch.delenv` / `monkeypatch.setenv` combined with re-importing.
+修复方式：在测试中显式传值，不依赖默认值。或使用 `monkeypatch.setattr` 在构造前 patch 模块级别的默认值。或使用 `monkeypatch.delenv` / `monkeypatch.setenv` 结合重新导入。
 
-Known files: `libs/agno/tests/unit/tools/test_jina.py`
+已知文件：`libs/agno/tests/unit/tools/test_jina.py`
 
-**2. `time.time` mock exhaustion (StopIteration)**
+**2. `time.time` mock 耗尽（StopIteration）**
 
-Tests mock `time.time` with `side_effect=[list of values]`, but Python's `logging` module calls `time.time()` internally in `LogRecord.__init__`. These hidden calls consume values from the mock, causing `StopIteration`.
+测试使用 `side_effect=[值列表]` mock `time.time`，但 Python 的 `logging` 模块在 `LogRecord.__init__` 中内部调用 `time.time()`。这些隐藏调用消耗了 mock 中的值，导致 `StopIteration`。
 
-Fix: Use a callable that never exhausts instead of a finite list:
+修复方式：使用永不耗尽的可调用对象替代有限列表：
 ```python
-# Instead of: mock_time.side_effect = [0, 0, 1, 2, 3, 4, 5, 6]
-# Use:
+# 不要用：mock_time.side_effect = [0, 0, 1, 2, 3, 4, 5, 6]
+# 改用：
 call_count = 0
 def fake_time():
     nonlocal call_count
@@ -261,134 +261,134 @@ def fake_time():
 mock_time.side_effect = fake_time
 ```
 
-Or use `itertools.count()` or a generator that never exhausts.
+或使用 `itertools.count()` 或永不耗尽的生成器。
 
-Known files: `libs/agno/tests/unit/tools/test_opencv.py`
+已知文件：`libs/agno/tests/unit/tools/test_opencv.py`
 
-**3. Patching the class being tested (no-op patches)**
+**3. Patch 被测类本身（无效 patch）**
 
-Tests do `with patch("agno.tools.jina.JinaReaderTools"):` but then call `JinaReaderTools()` using the already-imported reference. This patch does nothing useful.
+测试执行 `with patch("agno.tools.jina.JinaReaderTools"):`，但随后使用已导入的引用调用 `JinaReaderTools()`。这个 patch 没有实际作用。
 
-Fix: Remove these no-op patches entirely.
+修复方式：完全移除这些无效的 patch。
 
-Known files: `libs/agno/tests/unit/tools/test_jina.py`
+已知文件：`libs/agno/tests/unit/tools/test_jina.py`
 
-**4. Rate limit / network issues in unit tests**
+**4. 单元测试中的速率限制/网络问题**
 
-Tests making real HTTP calls may fail due to rate limits or network issues.
+发起真实 HTTP 调用的测试可能因速率限制或网络问题而失败。
 
-Fix: Ensure all external calls are properly mocked. Unit tests should never hit the network.
+修复方式：确保所有外部调用都被正确 mock。单元测试绝不应该访问网络。
 
-### General Flakiness Patterns
+### 通用不稳定模式
 
-| Pattern | Fix |
-|---------|-----|
-| Tests that depend on execution order | Add proper fixtures / setup |
-| Tests with hardcoded file paths | Use `tmp_path` or `tempfile` fixtures |
-| Async tests with event loop conflicts | The `reset_async_client` autouse fixture in integration conftest handles this; check if unit tests need similar |
-| Tests that mock interfaces that have changed | Update mock to match current signature |
-| Import errors from optional dependencies | Add `@pytest.mark.skipif` guards |
+| 模式 | 修复方式 |
+|------|----------|
+| 依赖执行顺序的测试 | 添加正确的 fixtures / setup |
+| 使用硬编码文件路径的测试 | 使用 `tmp_path` 或 `tempfile` fixtures |
+| 事件循环冲突的异步测试 | 集成 conftest 中的 `reset_async_client` autouse fixture 处理了这个；检查单元测试是否需要类似的处理 |
+| Mock 了已变更接口的测试 | 更新 mock 以匹配当前签名 |
+| 可选依赖导致的导入错误 | 添加 `@pytest.mark.skipif` 守卫 |
 
-**If a test is fundamentally unreliable and cannot be made deterministic, remove it** and note what it was testing so a replacement can be written.
+**如果测试根本不可靠且无法确定性化，移除它**并记录它测试的内容，以便编写替代测试。
 
 ---
 
-## Task 4: Add New Unit Tests for Coverage Gaps
+## 任务 4：为覆盖率空白添加新的单元测试
 
-After stabilizing existing tests, check coverage:
+稳定现有测试后，检查覆盖率：
 
 ```bash
 pytest libs/agno/tests/unit/ --cov=libs/agno/agno --cov-report=term-missing -v
 ```
 
-Focus new tests on **core modules** with the most impact:
+新测试聚焦于影响最大的**核心模块**：
 
-1. **`agno/agent/`** — Agent initialization, run lifecycle, tool dispatch, error handling
-2. **`agno/models/base.py`** — Retry logic, error classification, backoff calculation
-3. **`agno/team/`** — Team coordination, member routing, delegation
-4. **`agno/memory/`** — Memory storage, retrieval, summarization
-5. **`agno/knowledge/`** — Knowledge base loading, chunking, retrieval
+1. **`agno/agent/`** — Agent 初始化、运行生命周期、工具分发、错误处理
+2. **`agno/models/base.py`** — 重试逻辑、错误分类、退避计算
+3. **`agno/team/`** — 团队协调、成员路由、委派
+4. **`agno/memory/`** — 记忆存储、检索、摘要
+5. **`agno/knowledge/`** — 知识库加载、分块、检索
 
-### Test Writing Guidelines
+### 测试编写指南
 
-- Follow existing patterns in neighboring test files
-- Use class-based organization: `class TestFeatureName:`
-- Use `@pytest.mark.parametrize` for multiple inputs
-- Mock ALL external dependencies — unit tests must never make network calls
-- Write both sync AND async variants for public methods
-- Use descriptive names: `test_<what>_<condition>_<expected_result>`
-- Don't use f-strings where there are no variables
-- Don't use emojis in test output or comments
+- 遵循相邻测试文件中的现有模式
+- 使用基于类的组织：`class TestFeatureName:`
+- 使用 `@pytest.mark.parametrize` 处理多种输入
+- Mock 所有外部依赖——单元测试绝不能发起网络调用
+- 为公共方法编写同步和异步两种变体
+- 使用描述性命名：`test_<什么>_<条件>_<预期结果>`
+- 没有变量时不使用 f-string
+- 测试输出或注释中不使用 emoji
 
 ---
 
-## Task 5: Verify Everything Passes
+## 任务 5：验证全部通过
 
-After all changes, run:
+完成所有修改后运行：
 
 ```bash
-# Full unit test suite
+# 完整单元测试套件
 ./scripts/test.sh
 
-# Integration tests (expect some skips from rate limits — that's the point)
+# 集成测试（预期有些跳过来自速率限制——这正是目的）
 pytest libs/agno/tests/integration/ -v 2>&1 | tail -50
 
-# Formatting and validation
+# 格式化和验证
 ./scripts/format.sh
 ./scripts/validate.sh
 ```
 
-**Success criteria:**
-- All unit tests pass (zero failures)
-- Integration test failures are ONLY from missing API keys or services, never from rate limits (those should be skipped)
-- `format.sh` and `validate.sh` pass clean
+**成功标准：**
+- 所有单元测试通过（零失败）
+- 集成测试失败仅来自缺失的 API 密钥或服务，绝不来自速率限制（那些应该被跳过）
+- `format.sh` 和 `validate.sh` 干净通过
 
 ---
 
-## Rules
+## 规则
 
-- **Only modify test files** — do not change production code in `libs/agno/agno/`
-- Keep fixes minimal and targeted
-- Don't add unnecessary dependencies
-- Run `format.sh` and `validate.sh` after making changes
-
----
-
-## Working Order
-
-Process tasks in this order:
-
-1. **Task 1** first (rate-limit conftest hooks) — biggest bang for buck, purely additive
-2. **Task 2** next (retry/backoff on agents) — reduces rate-limit hits in the first place
-3. **Task 3** then (fix broken unit tests) — stabilize the base
-4. **Task 4** last (new unit tests) — build on a stable foundation
-5. **Task 5** final verification
+- **只修改测试文件** — 不要更改 `libs/agno/agno/` 中的生产代码
+- 修复保持最小化和有针对性
+- 不添加不必要的依赖
+- 修改后运行 `format.sh` 和 `validate.sh`
 
 ---
 
-## Output
+## 工作顺序
 
-Maintain a running log at `.context/test-improvement-log.md` with:
+按以下顺序处理任务：
+
+1. **任务 1** 优先（速率限制 conftest 钩子）— 收益最大，纯粹的增量添加
+2. **任务 2** 其次（Agent 上的重试/退避）— 从源头减少速率限制触发
+3. **任务 3** 然后（修复不通过的单元测试）— 稳定基础
+4. **任务 4** 最后（新单元测试）— 在稳定基础上构建
+5. **任务 5** 最终验证
+
+---
+
+## 输出
+
+在 `.context/test-improvement-log.md` 中维护一个运行日志：
 
 ```markdown
-## Rate-Limit Protection Added
-- [ ] provider_name — conftest.py created/updated
+## 已添加速率限制保护
+- [ ] 提供商名称 — conftest.py 已创建/更新
 
-## Retry/Backoff Added
-- [ ] path/to/test_file.py — N agents updated
+## 已添加重试/退避
+- [ ] path/to/test_file.py — N 个 Agent 已更新
 
-## Tests Fixed
-- [ ] path/to/test_file.py::test_name — description of fix
+## 已修复的测试
+- [ ] path/to/test_file.py::test_name — 修复描述
 
-## Tests Removed
-- [ ] path/to/test_file.py::test_name — reason for removal
+## 已移除的测试
+- [ ] path/to/test_file.py::test_name — 移除原因
 
-## Tests Added
-- [ ] path/to/test_file.py::test_name — what gap it fills
+## 已添加的测试
+- [ ] path/to/test_file.py::test_name — 填补了什么空白
 
-## Final Status
-- Unit tests: PASS/FAIL (N passed, N failed, N skipped)
-- Integration tests: PASS/FAIL (N passed, N failed, N skipped)
-- format.sh: PASS/FAIL
-- validate.sh: PASS/FAIL
+## 最终状态
+- 单元测试：通过/失败（N 通过，N 失败，N 跳过）
+- 集成测试：通过/失败（N 通过，N 失败，N 跳过）
+- format.sh：通过/失败
+- validate.sh：通过/失败
 ```

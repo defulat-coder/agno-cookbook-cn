@@ -1,13 +1,13 @@
 """
-Agent with Tools - Finance Agent
+带工具的 Agent - 金融 Agent
 =================================
-Your first Agno agent: a data-driven financial analyst that retrieves
-market data, computes key metrics, and delivers concise insights.
+你的第一个 Agno Agent：一个数据驱动的金融分析师，可获取
+市场数据、计算关键指标并提供简洁的洞察。
 
-This example shows how to give an agent tools to interact with external
-data sources. The agent uses YFinanceTools to fetch real-time market data.
+本示例展示如何为 Agent 提供工具以与外部数据源交互。
+Agent 使用 YFinanceTools 获取实时市场数据。
 
-Example prompts to try:
+可尝试的示例提示：
 - "What's the current price of AAPL?"
 - "Compare NVDA and AMD — which looks stronger?"
 - "Give me a quick investment brief on Microsoft"
@@ -20,42 +20,42 @@ from agno.models.google import Gemini
 from agno.tools.yfinance import YFinanceTools
 
 # ---------------------------------------------------------------------------
-# Agent Instructions
+# Agent 指令
 # ---------------------------------------------------------------------------
 instructions = """\
-You are a Finance Agent — a data-driven analyst who retrieves market data,
-computes key ratios, and produces concise, decision-ready insights.
+你是一个金融 Agent——一个数据驱动的分析师，负责获取市场数据、
+计算关键指标，并提供简洁的、可供决策的洞察。
 
-## Workflow
+## 工作流程
 
-1. Clarify
-   - Identify tickers from company names (e.g., Apple → AAPL)
-   - If ambiguous, ask
+1. 澄清
+   - 从公司名称识别股票代码（例如 Apple → AAPL）
+   - 如有歧义，请询问
 
-2. Retrieve
-   - Fetch: price, change %, market cap, P/E, EPS, 52-week range
-   - For comparisons, pull the same fields for each ticker
+2. 获取数据
+   - 获取：价格、涨跌幅、市值、市盈率、每股收益、52周范围
+   - 对比分析时，为每只股票获取相同字段
 
-3. Analyze
-   - Compute ratios (P/E, P/S, margins) when not already provided
-   - Key drivers and risks — 2-3 bullets max
-   - Facts only, no speculation
+3. 分析
+   - 在未提供时计算比率（市盈率、市销率、利润率）
+   - 关键驱动因素和风险——最多 2-3 条
+   - 仅陈述事实，不做投机
 
-4. Present
-   - Lead with a one-line summary
-   - Use tables for multi-stock comparisons
-   - Keep it tight
+4. 呈现
+   - 以一行摘要开头
+   - 多股对比使用表格
+   - 保持精炼
 
-## Rules
+## 规则
 
-- Source: Yahoo Finance. Always note the timestamp.
-- Missing data? Say "N/A" and move on.
-- No personalized advice — add disclaimer when relevant.
-- No emojis.\
+- 数据来源：Yahoo Finance。始终标注时间戳。
+- 数据缺失？标注"N/A"，继续。
+- 不提供个性化建议——相关时添加免责声明。
+- 不使用 emoji。\
 """
 
 # ---------------------------------------------------------------------------
-# Create the Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent_with_tools = Agent(
     name="Agent with Tools",
@@ -67,7 +67,7 @@ agent_with_tools = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run the Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_with_tools.print_response(
@@ -75,23 +75,23 @@ if __name__ == "__main__":
     )
 
 # ---------------------------------------------------------------------------
-# More Examples
+# 更多示例
 # ---------------------------------------------------------------------------
 """
-Try these prompts:
+可尝试以下提示：
 
-1. Single Stock Analysis
+1. 单只股票分析
    "What's Apple's current valuation? Is it expensive?"
 
-2. Comparison
+2. 股票对比
    "Compare Google and Microsoft as investments"
 
-3. Sector Overview
+3. 板块概览
    "Show me key metrics for the top AI stocks: NVDA, AMD, GOOGL, MSFT"
 
-4. Quick Check
+4. 快速查询
    "What's Tesla trading at today?"
 
-5. Deep Dive
+5. 深度分析
    "Break down Amazon's financials — revenue, margins, and growth"
 """

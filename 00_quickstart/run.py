@@ -1,39 +1,39 @@
 """
-Agent OS - Web Interface for Your Agents
+Agent OS - Agent 的 Web 界面
 =========================================
-This file starts an Agent OS server that provides a web interface for all
-the agents, teams, and workflows in this Quick Start guide.
+本文件启动一个 Agent OS 服务器，为本快速入门指南中的
+所有 Agent、团队和工作流提供 Web 界面。
 
-What is Agent OS?
+什么是 Agent OS？
 -----------------
-Agent OS is Agno's runtime that lets you:
-- Chat with your agents through a beautiful web UI
-- Explore session history
-- Monitor traces and debug agent behavior
-- Manage knowledge bases and memories
-- Switch between agents, teams, and workflows
+Agent OS 是 Agno 的运行时，让你可以：
+- 通过美观的 Web UI 与 Agent 对话
+- 浏览会话历史
+- 监控追踪信息并调试 Agent 行为
+- 管理知识库和记忆
+- 在 Agent、团队和工作流之间切换
 
-How to Use
+使用方法
 ----------
-1. Start the server:
+1. 启动服务器：
    python cookbook/00_quickstart/run.py
 
-2. Visit https://os.agno.com in your browser
+2. 在浏览器中访问 https://os.agno.com
 
-3. Add your local endpoint: http://localhost:7777
+3. 添加你的本地端点：http://localhost:7777
 
-4. Select any agent, team, or workflow and start chatting
+4. 选择任意 Agent、团队或工作流并开始对话
 
-Prerequisites
+前置条件
 -------------
-- All agents from this quick start are registered automatically
-- For the knowledge agent, load the knowledge base first:
+- 本快速入门中的所有 Agent 会自动注册
+- 对于知识库 Agent，需要先加载知识库：
   python cookbook/00_quickstart/agent_search_over_knowledge.py
 
-Learn More
+了解更多
 ----------
-- Agent OS Overview: https://docs.agno.com/agent-os/overview
-- Agno Documentation: https://docs.agno.com
+- Agent OS 概览：https://docs.agno.com/agent-os/overview
+- Agno 文档：https://docs.agno.com
 """
 
 from pathlib import Path
@@ -53,12 +53,12 @@ from multi_agent_team import multi_agent_team
 from sequential_workflow import sequential_workflow
 
 # ---------------------------------------------------------------------------
-# AgentOS Config
+# AgentOS 配置
 # ---------------------------------------------------------------------------
 config_path = str(Path(__file__).parent.joinpath("config.yaml"))
 
 # ---------------------------------------------------------------------------
-# Create AgentOS
+# 创建 AgentOS
 # ---------------------------------------------------------------------------
 agent_os = AgentOS(
     id="Quick Start AgentOS",
@@ -82,7 +82,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run AgentOS
+# 运行 AgentOS
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_os.serve(app="run:app", reload=True)
