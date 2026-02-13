@@ -1,8 +1,8 @@
 """
-Change State On Run
+运行时更改 State
 ===================
 
-Demonstrates per-run session state overrides for different users/sessions.
+演示针对不同用户/session 的每次运行 session state 覆盖。
 """
 
 from agno.db.in_memory import InMemoryDb

@@ -1,51 +1,51 @@
-# Test Log: knowledge
+# 测试日志：knowledge
 
-> Updated: 2026-02-08 15:49:52
+> 更新时间：2026-02-08 15:49:52
 
-## Pattern Check
+## 模式检查
 
-**Status:** PASS
+**状态：** PASS
 
-**Result:** Checked 4 file(s) in /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/knowledge. Violations: 0
+**结果：** 在 /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/knowledge 中检查了 4 个文件。违规：0
 
 ---
 
 ### 01_team_with_knowledge.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/knowledge/01_team_with_knowledge.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/knowledge/01_team_with_knowledge.py`。
 
-**Result:** Exited with code 1. Tail: rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
+**结果：** 退出代码 1。尾部：rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
 
 ---
 
 ### 02_team_with_knowledge_filters.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/knowledge/02_team_with_knowledge_filters.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/knowledge/02_team_with_knowledge_filters.py`。
 
-**Result:** Exited with code 1. Tail: rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
+**结果：** 退出代码 1。尾部：rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
 
 ---
 
 ### 03_team_with_agentic_knowledge_filters.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/knowledge/03_team_with_agentic_knowledge_filters.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/knowledge/03_team_with_agentic_knowledge_filters.py`。
 
-**Result:** Exited with code 1. Tail: rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
+**结果：** 退出代码 1。尾部：rom agno.vectordb.lancedb.lance_db import LanceDb, SearchType |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/vectordb/lancedb/lance_db.py", line 11, in <module> |     raise ImportError("`lancedb` not installed. Please install using `pip install lancedb`") | ImportError: `lancedb` not installed. Please install using `pip install lancedb`
 
 ---
 
 ### 04_team_with_custom_retriever.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/knowledge/04_team_with_custom_retriever.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/knowledge/04_team_with_custom_retriever.py`。
 
-**Result:** Timed out before completion. Tail:                                                        | DEBUG =========================== user ===========================               | DEBUG Research the concept of AI agents, including their roles, functionalities, |       and examples from the knowledge base.                                      | DEBUG Creating new sync OpenAI client for model gpt-4o
+**结果：** 在完成前超时。尾部：                                                       | DEBUG =========================== user ===========================               | DEBUG Research the concept of AI agents, including their roles, functionalities, |       and examples from the knowledge base.                                      | DEBUG Creating new sync OpenAI client for model gpt-4o
 
 ---

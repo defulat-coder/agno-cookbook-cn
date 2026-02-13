@@ -1,8 +1,8 @@
 """
-Confirmation Required
+需要确认
 =============================
 
-Demonstrates team-level pause/continue flow for confirmation-required member tools.
+演示需要确认的成员工具的团队级暂停/继续流。
 """
 
 from agno.agent import Agent

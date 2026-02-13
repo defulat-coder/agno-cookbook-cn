@@ -1,8 +1,8 @@
 """
-Audio Sentiment Analysis
+音频情感分析
 ========================
 
-Demonstrates team-based transcription and sentiment analysis for audio conversations.
+演示基于团队的音频对话转录和情感分析。
 """
 
 import requests

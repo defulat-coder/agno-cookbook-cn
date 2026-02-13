@@ -1,16 +1,15 @@
 """
-Team Learning: Decision Logging
+团队学习：决策日志
 ================================
-Teams can log decisions for auditing, debugging, and learning
-using the DecisionLogStore.
+团队可以使用 DecisionLogStore 记录决策以进行审计、调试和学习。
 
-Decision logs capture:
-- What decision was made
-- Reasoning and alternatives considered
-- Context and outcomes
+决策日志捕获：
+- 做出了什么决策
+- 推理和考虑的替代方案
+- 上下文和结果
 
-This is useful for teams where traceability matters,
-like architecture decisions, security reviews, or compliance.
+这对于可追溯性很重要的团队很有用，
+如架构决策、安全审查或合规。
 """
 
 from agno.agent import Agent

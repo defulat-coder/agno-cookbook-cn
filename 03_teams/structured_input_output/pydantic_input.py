@@ -1,8 +1,8 @@
 """
-Pydantic Input
+Pydantic 输入
 ==============
 
-Demonstrates passing validated Pydantic models as team inputs.
+演示将经过验证的 Pydantic 模型作为团队输入传递。
 """
 
 from typing import List

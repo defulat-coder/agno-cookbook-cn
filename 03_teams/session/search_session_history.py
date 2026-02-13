@@ -1,8 +1,8 @@
 """
-Search Session History
+搜索 Session 历史记录
 ======================
 
-Demonstrates searching prior sessions with user-scoped history access.
+演示搜索先前 session，并具有用户范围的历史记录访问权限。
 """
 
 import asyncio
@@ -13,13 +13,13 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 if os.path.exists("tmp/data.db"):
     os.remove("tmp/data.db")
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     model=OpenAIChat(id="gpt-5.2"),
@@ -31,10 +31,10 @@ team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def main() -> None:
-    print("=== User 1 Sessions ===")
+    print("=== 用户 1 Sessions ===")
     await team.aprint_response(
         "What is the capital of South Africa?",
         session_id="user1_session_1",
@@ -51,7 +51,7 @@ async def main() -> None:
         user_id="user_1",
     )
 
-    print("\n=== User 2 Sessions ===")
+    print("\n=== 用户 2 Sessions ===")
     await team.aprint_response(
         "What is the population of India?",
         session_id="user2_session_1",
@@ -63,9 +63,9 @@ async def main() -> None:
         user_id="user_2",
     )
 
-    print("\n=== Testing Session History Search ===")
+    print("\n=== 测试 Session 历史记录搜索 ===")
     print(
-        "User 1 asking about previous conversations (should only see capitals, not population/currency):"
+        "用户 1 询问先前的对话（应该只看到首都相关内容，看不到人口/货币）："
     )
     await team.aprint_response(
         "What did I discuss in my previous conversations?",
@@ -74,7 +74,7 @@ async def main() -> None:
     )
 
     print(
-        "\nUser 2 asking about previous conversations (should only see population/currency, not capitals):"
+        "\n用户 2 询问先前的对话（应该只看到人口/货币，看不到首都）："
     )
     await team.aprint_response(
         "What did I discuss in my previous conversations?",

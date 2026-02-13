@@ -1,8 +1,8 @@
 """
-Team Metrics
+团队指标
 =============================
 
-Demonstrates retrieving team, session, and member-level execution metrics.
+演示检索团队、session 和成员级执行指标。
 """
 
 from agno.agent import Agent

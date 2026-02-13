@@ -1,8 +1,8 @@
 """
-Dependencies In Tools
+工具中的依赖项
 =============================
 
-Demonstrates passing dependencies at runtime and accessing them inside team tools.
+演示在运行时传递依赖项并在团队工具内访问它们。
 """
 
 from datetime import datetime

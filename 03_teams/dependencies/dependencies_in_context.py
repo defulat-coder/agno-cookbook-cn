@@ -1,8 +1,8 @@
 """
-Dependencies In Context
+上下文中的依赖项
 =============================
 
-Demonstrates team-level dependencies referenced directly in instructions and member context.
+演示在指令和成员上下文中直接引用的团队级依赖项。
 """
 
 from datetime import datetime

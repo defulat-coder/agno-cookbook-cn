@@ -1,8 +1,8 @@
 """
-Distributed RAG With LanceDB
+分布式 RAG LanceDB
 ============================
 
-Demonstrates distributed team-based RAG with primary and context retrieval over LanceDB.
+演示在 LanceDB 上使用主要和上下文检索的分布式基于团队的 RAG。
 """
 
 import asyncio

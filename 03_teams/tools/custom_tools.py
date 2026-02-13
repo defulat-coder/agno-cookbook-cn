@@ -1,8 +1,8 @@
 """
-Custom Tools
+自定义工具
 ============
 
-Demonstrates a team using a custom FAQ tool plus web-search fallback.
+演示使用自定义 FAQ 工具加网络搜索回退的团队。
 """
 
 from agno.agent import Agent

@@ -1,11 +1,11 @@
 """
-Basic Tasks Mode Example
+基础任务模式示例
 
-Demonstrates `mode=tasks` where the team leader autonomously:
-1. Decomposes the user's goal into discrete tasks
-2. Assigns each task to the best member agent
-3. Executes tasks sequentially
-4. Synthesizes results into a final response
+演示 `mode=tasks`，其中团队 leader 自主地：
+1. 将用户的目标分解为离散任务
+2. 将每个任务分配给最佳成员 agent
+3. 顺序执行任务
+4. 将结果合成为最终响应
 
 """
 

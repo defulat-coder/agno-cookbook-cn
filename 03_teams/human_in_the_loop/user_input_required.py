@@ -1,8 +1,8 @@
 """
-User Input Required
+需要用户输入
 =============================
 
-Demonstrates collecting required user input during paused team tool execution.
+演示在暂停的团队工具执行期间收集所需的用户输入。
 """
 
 from agno.agent import Agent

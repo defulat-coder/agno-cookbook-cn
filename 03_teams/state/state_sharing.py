@@ -1,8 +1,8 @@
 """
-State Sharing
+State 共享
 =============================
 
-Demonstrates sharing session state and member interactions across team members.
+演示在团队成员之间共享 session state 和成员交互。
 """
 
 from agno.agent import Agent

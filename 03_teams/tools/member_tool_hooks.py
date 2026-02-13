@@ -1,8 +1,8 @@
 """
-Member Tool Hooks
+成员工具 Hook
 =================
 
-Demonstrates permission-aware tool hooks that gate member delegation.
+演示控制成员委托的权限感知工具 hook。
 """
 
 from typing import Any, Callable

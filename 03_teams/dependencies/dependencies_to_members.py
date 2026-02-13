@@ -1,8 +1,8 @@
 """
-Dependencies To Members
+传递给成员的依赖项
 =============================
 
-Demonstrates passing dependencies on run and propagating them to member agents.
+演示在运行时传递依赖项并将它们传播到成员 agent。
 """
 
 from datetime import datetime

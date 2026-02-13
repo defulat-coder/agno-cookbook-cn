@@ -1,8 +1,8 @@
 """
-Team With Memory Manager
+带 Memory Manager 的团队
 ========================
 
-Demonstrates persistent team memory updates through MemoryManager.
+演示通过 MemoryManager 进行持久化团队记忆更新。
 """
 
 from uuid import uuid4

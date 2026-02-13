@@ -1,8 +1,7 @@
 """
-Coordinate Mode with Tools
+带工具的协调模式
 
-Demonstrates coordination where member agents have specialized tools.
-The team leader delegates to the right member based on what tools are needed.
+演示成员 agent 具有专用工具的协调。团队 leader 根据需要哪些工具委托给正确的成员。
 
 """
 

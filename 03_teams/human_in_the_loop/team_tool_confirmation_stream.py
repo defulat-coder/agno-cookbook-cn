@@ -1,13 +1,8 @@
-"""Team HITL Streaming: Tool on the team itself requiring confirmation.
+"""团队工具确认流式传输
 
-This example demonstrates HITL for tools provided directly to the Team
-(not to member agents) in streaming mode. When the team leader decides
-to use a tool that requires confirmation, the entire team run pauses
-until the human confirms.
+此示例演示在流式模式下直接提供给 Team（而非成员 agent）的工具的 HITL。当团队 leader 决定使用需要确认的工具时，整个团队运行会暂停，直到人工确认。
 
-Note: For team-level tools (not member agent tools), you can use either
-isinstance(event, TeamRunPausedEvent) or event.is_paused since there's
-no member agent pause to confuse it with.
+注意：对于团队级工具（而非成员 agent 工具），您可以使用 isinstance(event, TeamRunPausedEvent) 或 event.is_paused，因为没有成员 agent 暂停需要混淆。
 """
 
 from agno.agent import Agent

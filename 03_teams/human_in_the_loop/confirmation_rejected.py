@@ -1,8 +1,8 @@
-"""Team HITL: Rejecting a member agent tool call.
+"""
+确认被拒绝
+=============================
 
-This example demonstrates how the team handles rejection of a tool
-call. After rejection, the team continues and the model responds
-acknowledging the rejection.
+演示团队处理工具调用拒绝的方式。拒绝后，团队继续，模型响应确认拒绝。
 """
 
 from agno.agent import Agent

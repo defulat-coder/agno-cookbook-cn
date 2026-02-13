@@ -1,41 +1,41 @@
-# Test Log: search_coordination
+# 测试日志：search_coordination
 
-> Updated: 2026-02-08 15:49:52
+> 更新时间：2026-02-08 15:49:52
 
-## Pattern Check
+## 模式检查
 
-**Status:** PASS
+**状态：** PASS
 
-**Result:** Checked 3 file(s) in /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/search_coordination. Violations: 0
+**结果：** 在 /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/search_coordination 中检查了 3 个文件。违规：0
 
 ---
 
 ### 01_coordinated_agentic_rag.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/search_coordination/01_coordinated_agentic_rag.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/search_coordination/01_coordinated_agentic_rag.py`。
 
-**Result:** Exited with code 1. Tail: |     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
+**结果：** 退出代码 1。尾部：|     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
 
 ---
 
 ### 02_coordinated_reasoning_rag.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/search_coordination/02_coordinated_reasoning_rag.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/search_coordination/02_coordinated_reasoning_rag.py`。
 
-**Result:** Exited with code 1. Tail: |     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
+**结果：** 退出代码 1。尾部：|     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
 
 ---
 
 ### 03_distributed_infinity_search.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/search_coordination/03_distributed_infinity_search.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/search_coordination/03_distributed_infinity_search.py`。
 
-**Result:** Exited with code 1. Tail: |     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
+**结果：** 退出代码 1。尾部：|     from agno.knowledge.embedder.cohere import CohereEmbedder |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/knowledge/embedder/cohere.py", line 13, in <module> |     raise ImportError("`cohere` not installed. Please install using `pip install cohere`.") | ImportError: `cohere` not installed. Please install using `pip install cohere`.
 
 ---

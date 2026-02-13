@@ -1,9 +1,6 @@
-"""Team HITL: Tool on the team itself requiring confirmation.
+"""团队工具确认
 
-This example demonstrates HITL for tools provided directly to the Team
-(not to member agents). When the team leader decides to use a tool
-that requires confirmation, the entire team run pauses until the
-human confirms.
+此示例演示直接提供给 Team（而非成员 agent）的工具的 HITL。当团队 leader 决定使用需要确认的工具时，整个团队运行会暂停，直到人工确认。
 """
 
 from agno.agent import Agent

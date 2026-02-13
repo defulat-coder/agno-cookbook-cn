@@ -1,8 +1,8 @@
 """
-Overwrite Stored Session State
+覆盖存储的 Session State
 ==============================
 
-Demonstrates replacing persisted session_state with run-time session_state.
+演示用运行时 session_state 替换持久化的 session_state。
 """
 
 from agno.db.sqlite import SqliteDb

@@ -1,14 +1,14 @@
 """
-Team Learning: Always Mode
+团队学习：Always 模式
 ==========================
-Set learning=True on a Team to enable automatic learning.
+在 Team 上设置 learning=True 以启用自动学习。
 
-The team automatically captures:
-- User profile: name, role, preferences
-- User memory: observations, context, patterns
+团队自动捕获：
+- 用户配置文件：姓名、角色、偏好
+- 用户记忆：观察、上下文、模式
 
-Extraction runs in parallel after each response.
-This is the simplest way to add learning to a team.
+提取在每次响应后并行运行。
+这是向团队添加学习的最简单方法。
 """
 
 from agno.agent import Agent

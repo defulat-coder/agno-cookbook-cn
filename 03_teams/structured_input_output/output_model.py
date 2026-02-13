@@ -1,8 +1,8 @@
 """
-Output Model
+输出模型
 ============
 
-Demonstrates setting a dedicated model for final team response generation.
+演示为最终团队响应生成设置专用模型。
 """
 
 from agno.agent import Agent

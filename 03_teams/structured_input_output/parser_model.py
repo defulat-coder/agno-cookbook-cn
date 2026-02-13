@@ -1,8 +1,8 @@
 """
-Parser Model
+Parser 模型
 ============
 
-Demonstrates parser-model assisted team output parsing into rich schemas.
+演示 parser-model 辅助将团队输出解析为丰富的 schema。
 """
 
 import random

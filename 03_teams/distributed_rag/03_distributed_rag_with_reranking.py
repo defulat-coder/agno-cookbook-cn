@@ -1,8 +1,8 @@
 """
-Distributed RAG With Reranking
+分布式 RAG 重排序
 ==============================
 
-Demonstrates distributed RAG with hybrid retrieval and Cohere reranking.
+演示使用混合检索和 Cohere 重排序的分布式 RAG。
 """
 
 import asyncio

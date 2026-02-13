@@ -1,8 +1,8 @@
 """
-Image To Structured Output
+图像转结构化输出
 ==========================
 
-Demonstrates collaborative visual analysis with structured movie script output.
+演示具有结构化电影脚本输出的协作视觉分析。
 """
 
 from typing import List

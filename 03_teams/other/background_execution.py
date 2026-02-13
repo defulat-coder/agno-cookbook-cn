@@ -1,15 +1,13 @@
 """
-Example demonstrating background execution with a Team.
+使用 Team 进行后台执行的示例。
 
-Background execution allows you to start a team run that returns immediately
-with a PENDING status, while the actual work continues in the background.
-You can then poll for completion or cancel the run.
+后台执行允许您启动立即返回 PENDING 状态的团队运行，而实际工作在后台继续。然后您可以轮询完成或取消运行。
 
-Requirements:
-- PostgreSQL running (./cookbook/scripts/run_pgvector.sh)
-- OPENAI_API_KEY set
+要求：
+- PostgreSQL 正在运行 (./cookbook/scripts/run_pgvector.sh)
+- 设置 OPENAI_API_KEY
 
-Usage:
+用法：
     .venvs/demo/bin/python cookbook/03_teams/other/background_execution.py
 """
 

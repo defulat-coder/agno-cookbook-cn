@@ -1,8 +1,8 @@
 """
-Coordinated Reasoning RAG
+协调的推理 RAG
 =========================
 
-Demonstrates distributed reasoning roles for coordinated RAG responses.
+演示用于协调 RAG 响应的分布式推理角色。
 """
 
 from agno.agent import Agent

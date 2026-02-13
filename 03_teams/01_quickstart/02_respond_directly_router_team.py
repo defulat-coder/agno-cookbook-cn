@@ -1,8 +1,8 @@
 """
-Respond Directly Router Team
+直接响应路由团队
 =============================
 
-Demonstrates routing multilingual requests to specialized members with direct responses.
+演示将多语言请求路由到专门成员并直接响应的功能。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 english_agent = Agent(
     name="English Agent",
@@ -46,7 +46,7 @@ german_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 multi_language_team = Team(
     name="Multi Language Team",
@@ -62,52 +62,52 @@ multi_language_team = Team(
     ],
     markdown=True,
     instructions=[
-        "You are a language router that directs questions to the appropriate language agent.",
-        "If the user asks in a language whose agent is not a team member, respond in English with:",
+        "你是一个语言路由器，将问题引导到合适的语言 agent。",
+        "如果用户使用的语言的 agent 不在团队成员中，用英语回复：",
         "'I can only answer in the following languages: English, Spanish, Japanese, French and German. Please ask your question in one of these languages.'",
-        "Always check the language of the user's input before routing to an agent.",
-        "For unsupported languages like Italian, respond in English with the above message.",
+        "在路由到 agent 之前，始终检查用户输入的语言。",
+        "对于不支持的语言（如意大利语），用英语回复上述消息。",
     ],
     show_members_responses=True,
 )
 
 
 async def run_async_router() -> None:
-    # Ask "How are you?" in all supported languages
+    # 用所有支持的语言询问 "你好吗？"
     await multi_language_team.aprint_response(
         "How are you?",
-        stream=True,  # English
+        stream=True,  # 英语
     )
 
     await multi_language_team.aprint_response(
         "你好吗？",
-        stream=True,  # Chinese
+        stream=True,  # 中文
     )
 
     await multi_language_team.aprint_response(
         "お元気ですか?",
-        stream=True,  # Japanese
+        stream=True,  # 日语
     )
 
     await multi_language_team.aprint_response("Comment allez-vous?", stream=True)
 
     await multi_language_team.aprint_response(
         "Wie geht es Ihnen?",
-        stream=True,  # German
+        stream=True,  # 德语
     )
 
     await multi_language_team.aprint_response(
         "Come stai?",
-        stream=True,  # Italian
+        stream=True,  # 意大利语
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # --- Sync ---
+    # --- 同步 ---
     multi_language_team.print_response("How are you?", stream=True)
 
-    # --- Async ---
+    # --- 异步 ---
     asyncio.run(run_async_router())

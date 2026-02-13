@@ -1,8 +1,8 @@
 """
-Pre Hook Input
+Pre Hook 输入
 =============================
 
-Demonstrates input validation and transformation pre-hooks for team runs.
+演示团队运行的输入验证和转换 pre-hook。
 """
 
 from typing import Optional
@@ -28,29 +28,29 @@ class TeamInputValidationResult(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 def comprehensive_team_input_validation(run_input: TeamRunInput, team: Team) -> None:
-    """Validate input relevance, safety, and collaboration suitability for teams."""
+    """验证输入的相关性、安全性和团队协作适用性。"""
 
-    team_info = f"Team '{team.name}' with {len(team.members)} members: "
+    team_info = f"团队 '{team.name}' 有 {len(team.members)} 个成员: "
     team_info += ", ".join([member.name for member in team.members])
 
     validator_agent = Agent(
         name="Team Input Validator",
         model=OpenAIChat(id="gpt-5.2"),
         instructions=[
-            "You are a team input validation specialist. Analyze user requests for team execution:",
-            "1. RELEVANCE: Ensure the request is appropriate for this specific team's capabilities",
-            "2. TEAM BENEFIT: Verify the request genuinely benefits from multiple team members collaborating",
-            "3. DETAIL: Check if there's enough information for effective team coordination",
-            "4. SAFETY: Ensure the request is safe and appropriate for team execution",
+            "你是一个团队输入验证专家。分析团队执行的用户请求：",
+            "1. 相关性：确保请求适合此特定团队的能力",
+            "2. 团队收益：验证请求确实从多个团队成员协作中受益",
+            "3. 详细程度：检查是否有足够的信息进行有效的团队协调",
+            "4. 安全性：确保请求对团队执行是安全和适当的",
             "",
-            "Consider whether a single agent could handle this just as effectively.",
-            "Teams work best for complex, multi-faceted problems requiring diverse expertise.",
-            "Provide a confidence score (0.0-1.0) for your assessment.",
+            "考虑单个 agent 是否可以同样有效地处理这个问题。",
+            "团队最适合需要多样化专业知识的复杂、多方面问题。",
+            "为你的评估提供置信度分数（0.0-1.0）。",
             "",
-            "Be thorough but not overly restrictive - allow legitimate team requests through.",
+            "要彻底但不要过度限制 - 允许合法的团队请求通过。",
         ],
         output_schema=TeamInputValidationResult,
     )
@@ -99,9 +99,9 @@ def transform_team_input(
     user_id: Optional[str] = None,
     debug_mode: Optional[bool] = None,
 ) -> None:
-    """Rewrite input to better target team member collaboration."""
+    """重写输入以更好地针对团队成员协作。"""
     log_debug(
-        f"Transforming team input: {run_input.input_content} for user {user_id} and session {session.session_id}"
+        f"转换团队输入: {run_input.input_content} for user {user_id} and session {session.session_id}"
     )
 
     team_capabilities = []
@@ -111,20 +111,20 @@ def transform_team_input(
         else:
             team_capabilities.append(f"- {member.name}")
 
-    team_context = f"Team '{team.name}' with members:\n" + "\n".join(team_capabilities)
+    team_context = f"团队 '{team.name}' 成员:\n" + "\n".join(team_capabilities)
 
     transformer_agent = Agent(
         name="Team Input Transformer",
         model=OpenAIChat(id="gpt-5.2"),
         instructions=[
-            "You are a team input transformation specialist.",
-            "Rewrite user requests to maximize the collective capabilities of the team.",
-            "Consider how different team members can contribute to addressing the request.",
-            "Break down complex requests into components that different specialists can handle.",
-            "Keep the input comprehensive but well-structured for team collaboration.",
-            "Maintain the original intent while optimizing for team-based execution.",
-            "Do not add prefix/suffix wrappers around the request.",
-            "Address your output to the target team and end with: Please give me advice based on this request.",
+            "你是一个团队输入转换专家。",
+            "重写用户请求以最大化团队的集体能力。",
+            "考虑不同团队成员如何为处理请求做出贡献。",
+            "将复杂请求分解为不同专家可以处理的组件。",
+            "保持输入全面但结构良好，以便团队协作。",
+            "在优化基于团队的执行的同时保持原始意图。",
+            "不要在请求周围添加前缀/后缀包装器。",
+            "将你的输出发送给目标团队，并以：请根据此请求给我建议。",
         ],
         debug_mode=debug_mode,
     )
@@ -145,59 +145,59 @@ def transform_team_input(
 
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 frontend_agent = Agent(
     name="Frontend Developer",
     model=OpenAIChat(id="gpt-5.2"),
-    description="Expert in React, TypeScript, and modern frontend development",
+    description="React、TypeScript 和现代前端开发专家",
 )
 
 backend_agent = Agent(
     name="Backend Developer",
     model=OpenAIChat(id="gpt-5.2"),
-    description="Specialist in Node.js, APIs, databases, and server architecture",
+    description="Node.js、API、数据库和服务器架构专家",
 )
 
 devops_agent = Agent(
     name="DevOps Engineer",
     model=OpenAIChat(id="gpt-5.2"),
-    description="Expert in deployment, CI/CD, cloud infrastructure, and monitoring",
+    description="部署、CI/CD、云基础设施和监控专家",
 )
 
 research_agent = Agent(
     name="Research Analyst",
     model=OpenAIChat(id="gpt-5.2"),
-    role="Expert in market research, data analysis, and competitive intelligence",
+    role="市场研究、数据分析和竞争情报专家",
 )
 
 strategy_agent = Agent(
     name="Strategy Consultant",
     model=OpenAIChat(id="gpt-5.2"),
-    role="Specialist in business strategy, planning, and decision frameworks",
+    role="商业战略、规划和决策框架专家",
 )
 
 financial_agent = Agent(
     name="Financial Advisor",
     model=OpenAIChat(id="gpt-5.2"),
-    role="Expert in financial planning, investment analysis, and risk assessment",
+    role="财务规划、投资分析和风险评估专家",
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 dev_team = Team(
     name="Software Development Team",
     members=[frontend_agent, backend_agent, devops_agent],
     pre_hooks=[comprehensive_team_input_validation],
-    description="A full-stack software development team providing comprehensive technical solutions.",
+    description="提供全面技术解决方案的全栈软件开发团队。",
     instructions=[
-        "Collaborate to provide complete software development guidance:",
-        "Frontend Developer: Handle UI/UX, client-side architecture, and user experience",
-        "Backend Developer: Cover server logic, APIs, databases, and system design",
-        "DevOps Engineer: Address deployment, scaling, monitoring, and infrastructure",
+        "协作提供完整的软件开发指导：",
+        "前端开发人员：处理 UI/UX、客户端架构和用户体验",
+        "后端开发人员：涵盖服务器逻辑、API、数据库和系统设计",
+        "DevOps 工程师：处理部署、扩展、监控和基础设施",
         "",
-        "Work together to deliver production-ready solutions.",
+        "共同提供生产就绪的解决方案。",
     ],
 )
 
@@ -207,22 +207,22 @@ consulting_team = Team(
     members=[research_agent, strategy_agent, financial_agent],
     pre_hooks=[transform_team_input],
     instructions=[
-        "Work collaboratively to provide comprehensive business insights.",
-        "Coordinate your expertise to deliver actionable business advice.",
-        "Give the user advice based on their request.",
+        "协作提供全面的商业见解。",
+        "协调你的专业知识，提供可操作的商业建议。",
+        "根据他们的请求给用户建议。",
     ],
     debug_mode=True,
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 def main() -> None:
-    print("Team Input Pre-Hook Examples")
+    print("团队输入 Pre-Hook 示例")
     print("=" * 60)
 
-    print("\n[TEST 1] Complex software project (valid team request)")
+    print("\n[测试 1] 复杂软件项目（有效的团队请求）")
     print("-" * 40)
     try:
         response = dev_team.run(

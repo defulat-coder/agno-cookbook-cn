@@ -1,8 +1,8 @@
 """
-Distributed RAG With PgVector
+分布式 RAG PgVector
 =============================
 
-Demonstrates distributed team-based RAG using PostgreSQL + pgvector.
+演示使用 PostgreSQL + pgvector 的分布式基于团队的 RAG。
 """
 
 from agno.agent import Agent

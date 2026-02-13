@@ -1,8 +1,8 @@
 """
-Cancel Run
+取消运行
 =============================
 
-Demonstrates cancelling an in-flight team run from a separate thread.
+演示从单独的线程取消正在运行的团队。
 """
 
 import threading

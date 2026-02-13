@@ -1,8 +1,8 @@
 """
-Share Session With Agent
+与 Agent 共享 Session
 ========================
 
-Demonstrates sharing one session across team and single-agent interactions.
+演示在团队和单 agent 交互之间共享一个 session。
 """
 
 import uuid
@@ -13,23 +13,23 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = InMemoryDb()
 
 
 def get_weather(city: str) -> str:
-    """Get the weather for the given city."""
+    """获取给定城市的天气。"""
     return f"The weather in {city} is sunny."
 
 
 def get_activities(city: str) -> str:
-    """Get the activities for the given city."""
+    """获取给定城市的活动。"""
     return f"The activities in {city} are swimming and hiking."
 
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="City Planner Agent",
@@ -55,7 +55,7 @@ activities_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     name="City Planner Team",
@@ -67,7 +67,7 @@ team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     session_id = str(uuid.uuid4())

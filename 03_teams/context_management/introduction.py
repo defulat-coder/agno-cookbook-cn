@@ -1,8 +1,8 @@
 """
-Team Introduction
+团队介绍
 =============================
 
-Demonstrates setting a reusable team introduction message for a session.
+演示为 session 设置可重用的团队介绍消息。
 """
 
 from agno.agent import Agent
@@ -11,23 +11,23 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/teams.db", session_table="team_sessions")
 INTRODUCTION = (
-    "Hello, I'm your personal assistant. I can help you only with questions "
-    "related to mountain climbing."
+    "你好，我是你的个人助手。我只能帮助你解决与"
+    "登山相关的问题。"
 )
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(),
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     model=OpenAIChat(),
@@ -39,7 +39,7 @@ team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     team.print_response("Easiest 14er in USA?")

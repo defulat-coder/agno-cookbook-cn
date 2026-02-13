@@ -1,8 +1,8 @@
 """
-Video Caption Generation
+视频字幕生成
 ========================
 
-Demonstrates team-based video caption generation and embedding workflow.
+演示基于团队的视频字幕生成和嵌入工作流。
 """
 
 from agno.agent import Agent

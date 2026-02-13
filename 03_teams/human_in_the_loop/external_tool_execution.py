@@ -1,8 +1,8 @@
 """
-External Tool Execution
+外部工具执行
 =============================
 
-Demonstrates resolving external tool execution requirements in team flows.
+演示在团队流中解决外部工具执行要求。
 """
 
 from agno.agent import Agent

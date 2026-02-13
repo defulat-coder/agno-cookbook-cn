@@ -1,16 +1,15 @@
 """
-Team Learning: Session Planning
+团队学习：Session 规划
 ================================
-Teams can track session goals and progress using SessionContext
-with planning mode enabled.
+团队可以在启用规划模式的情况下使用 SessionContext 跟踪 session 目标和进度。
 
-Planning mode captures:
-- Current goal and sub-tasks
-- Plan steps with completion status
-- Progress markers across turns
+规划模式捕获：
+- 当前目标和子任务
+- 具有完成状态的计划步骤
+- 跨轮次的进度标记
 
-This is useful for teams that work on multi-step tasks like
-deployment pipelines, project planning, or onboarding flows.
+这对于处理多步骤任务的团队很有用，如
+部署管道、项目规划或入职流程。
 """
 
 from agno.agent import Agent

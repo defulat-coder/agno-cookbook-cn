@@ -1,8 +1,8 @@
 """
-Concurrent Member Agents
+并发成员 Agent
 =============================
 
-Demonstrates concurrent delegation to team members with streamed member events.
+演示并发委托给团队成员，并流式传输成员事件。
 """
 
 import asyncio
@@ -15,43 +15,43 @@ from agno.tools.hackernews import HackerNewsTools
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
-    role="Handle hackernews requests",
+    role="处理 hackernews 请求",
     model=OpenAIChat(id="gpt-4.1"),
     tools=[HackerNewsTools()],
-    instructions="Always include sources",
+    instructions="始终包含来源",
     stream=True,
     stream_events=True,
 )
 
 news_agent = Agent(
     name="News Agent",
-    role="Handle news requests and current events analysis",
+    role="处理新闻请求和当前事件分析",
     model=OpenAIChat(id="gpt-4.1"),
     tools=[WebSearchTools()],
     instructions=[
-        "Use tables to display news information and findings.",
-        "Clearly state the source and publication date.",
-        "Focus on delivering current and relevant news insights.",
+        "使用表格显示新闻信息和发现。",
+        "清楚地说明来源和发布日期。",
+        "专注于提供当前和相关的新闻见解。",
     ],
     stream=True,
     stream_events=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Reasoning Research Team",
     model=OpenAIChat(id="gpt-4.1"),
     members=[hackernews_agent, news_agent],
     instructions=[
-        "Collaborate to provide comprehensive research and news insights",
-        "Research latest world news and hackernews posts",
-        "Use tables and charts to display data clearly and professionally",
+        "协作提供全面的研究和新闻见解",
+        "研究最新的世界新闻和 hackernews 帖子",
+        "使用表格和图表清晰专业地展示数据",
     ],
     markdown=True,
     show_members_responses=True,
@@ -60,7 +60,7 @@ research_team = Team(
 
 
 async def test() -> None:
-    print("Starting agent run...")
+    print("启动 agent 运行...")
     start_time = time.time()
 
     generator = research_team.arun(
@@ -84,11 +84,11 @@ async def test() -> None:
                 print(f"[{current_time:.2f}s] {event.event}")
 
     total_time = time.time() - start_time
-    print(f"Total execution time: {total_time:.2f}s")
+    print(f"总执行时间: {total_time:.2f}s")
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(test())

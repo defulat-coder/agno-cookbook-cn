@@ -1,8 +1,7 @@
 """
-Tasks with Dependencies Example
+带依赖的任务示例
 
-Demonstrates task mode with dependency chains. The team leader creates tasks
-where later tasks depend on earlier ones, ensuring correct execution order.
+演示具有依赖链的任务模式。团队 leader 创建任务，其中后面的任务依赖于前面的任务，确保正确的执行顺序。
 
 """
 

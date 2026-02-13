@@ -1,8 +1,8 @@
 """
-Team Streaming
+团队流式传输
 ==============
 
-Demonstrates sync and async streaming responses from a team.
+演示团队的同步和异步流式响应。
 """
 
 import asyncio
@@ -14,12 +14,12 @@ from agno.tools.yfinance import YFinanceTools
 from agno.utils.pprint import apprint_run_response
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 stock_searcher = Agent(
     name="Stock Searcher",
     model=OpenAIChat("o3-mini"),
-    role="Searches the web for information on a stock.",
+    role="在网络上搜索股票信息。",
     tools=[
         YFinanceTools(
             include_tools=["get_current_stock_price", "get_analyst_recommendations"],
@@ -30,7 +30,7 @@ stock_searcher = Agent(
 company_info_agent = Agent(
     name="Company Info Searcher",
     model=OpenAIChat("o3-mini"),
-    role="Searches the web for information on a company.",
+    role="在网络上搜索公司信息。",
     tools=[
         YFinanceTools(
             include_tools=["get_company_info", "get_company_news"],
@@ -39,7 +39,7 @@ company_info_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     name="Stock Research Team",
@@ -51,7 +51,7 @@ team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def streaming_with_arun() -> None:
     await apprint_run_response(
@@ -64,7 +64,7 @@ async def streaming_with_aprint_response() -> None:
 
 
 if __name__ == "__main__":
-    # Sync streaming
+    # 同步流式传输
     team.print_response(
         "What is the current stock price of NVDA?",
         stream=True,
@@ -76,6 +76,6 @@ if __name__ == "__main__":
         show_member_responses=False,
     )
 
-    # Async streaming
+    # 异步流式传输
     asyncio.run(streaming_with_arun())
     # asyncio.run(streaming_with_aprint_response())

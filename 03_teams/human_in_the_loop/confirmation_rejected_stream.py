@@ -1,11 +1,8 @@
-"""Team HITL Streaming: Rejecting a member agent tool call.
+"""确认被拒绝流式传输
 
-This example demonstrates how the team handles rejection of a tool
-call in streaming mode. After rejection, the team continues and the
-model responds acknowledging the rejection.
+此示例演示团队在流式模式下如何处理工具调用的拒绝。拒绝后，团队继续，模型响应确认拒绝。
 
-Note: When streaming with member agents, use isinstance() with TeamRunPausedEvent
-to distinguish the team's pause from member agent pauses.
+注意：与成员 agent 流式传输时，使用 isinstance() 与 TeamRunPausedEvent 以区分团队的暂停和成员 agent 的暂停。
 """
 
 from agno.agent import Agent

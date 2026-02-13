@@ -1,8 +1,8 @@
 """
-Async Tools
+异步工具
 ===========
 
-Demonstrates async team execution with mixed research and scraping tools.
+演示具有混合研究和抓取工具的异步团队执行。
 """
 
 import asyncio

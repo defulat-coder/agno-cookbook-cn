@@ -1,8 +1,8 @@
 """
-Image To Image Transformation
+图像到图像转换
 =============================
 
-Demonstrates collaborative style planning and image transformation.
+演示协作风格规划和图像转换。
 """
 
 from agno.agent import Agent

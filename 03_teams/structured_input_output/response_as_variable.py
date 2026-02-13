@@ -1,8 +1,8 @@
 """
-Response As Variable
+响应作为变量
 ====================
 
-Demonstrates capturing typed team responses as variables for downstream logic.
+演示将类型化的团队响应捕获为变量用于下游逻辑。
 """
 
 from agno.agent import Agent

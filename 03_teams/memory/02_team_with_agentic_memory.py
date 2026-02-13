@@ -1,8 +1,8 @@
 """
-Team With Agentic Memory
+带 Agentic Memory 的团队
 ========================
 
-Demonstrates team-level agentic memory creation and updates during runs.
+演示在运行期间进行团队级 agentic 记忆创建和更新。
 """
 
 from agno.agent import Agent

@@ -1,8 +1,8 @@
 """
-Remote Team
+远程团队
 =============================
 
-Demonstrates calling and streaming a team hosted on a remote AgentOS instance.
+演示调用和流式传输托管在远程 AgentOS 实例上的团队。
 """
 
 import asyncio

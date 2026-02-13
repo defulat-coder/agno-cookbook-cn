@@ -1,8 +1,8 @@
 """
-Pydantic Output
+Pydantic 输出
 ===============
 
-Demonstrates team-level typed output using Pydantic schemas.
+演示使用 Pydantic schema 的团队级类型化输出。
 """
 
 from agno.agent import Agent

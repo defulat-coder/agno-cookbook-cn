@@ -1,8 +1,8 @@
 """
-Team With Agentic Knowledge Filters
+带 Agentic 知识库过滤器的团队
 ===================================
 
-Demonstrates AI-driven dynamic knowledge filtering for team retrieval.
+演示用于团队检索的 AI 驱动的动态知识过滤。
 """
 
 from agno.agent import Agent

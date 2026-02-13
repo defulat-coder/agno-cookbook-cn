@@ -1,8 +1,8 @@
 """
-Audio To Text
+音频转文本
 =============================
 
-Demonstrates team-based audio transcription and follow-up content analysis.
+演示基于团队的音频转录和后续内容分析。
 """
 
 import requests

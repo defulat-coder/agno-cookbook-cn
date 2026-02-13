@@ -1,8 +1,8 @@
 """
-Broadcast Mode
+广播模式
 =============================
 
-Demonstrates delegating the same task to all members using TeamMode.broadcast.
+演示使用 TeamMode.broadcast 将相同任务委托给所有成员。
 """
 
 from agno.agent import Agent
@@ -10,28 +10,28 @@ from agno.models.openai import OpenAIResponses
 from agno.team import Team, TeamMode
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 product_manager = Agent(
     name="Product Manager",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Assess user and business impact",
+    role="评估用户和业务影响",
 )
 
 engineer = Agent(
     name="Engineer",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Assess technical feasibility and risks",
+    role="评估技术可行性和风险",
 )
 
 designer = Agent(
     name="Designer",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Assess UX implications and usability",
+    role="评估用户体验影响和可用性",
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 broadcast_team = Team(
     name="Broadcast Review Team",
@@ -39,16 +39,16 @@ broadcast_team = Team(
     model=OpenAIResponses(id="gpt-5.2"),
     mode=TeamMode.broadcast,
     instructions=[
-        "Each member must independently evaluate the same request.",
-        "Provide concise recommendations from your specialist perspective.",
-        "Highlight tradeoffs and open risks clearly.",
+        "每个成员必须独立评估相同的请求。",
+        "从你的专业角度提供简洁的建议。",
+        "清楚地突出权衡和开放风险。",
     ],
     markdown=True,
     show_members_responses=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     broadcast_team.print_response(

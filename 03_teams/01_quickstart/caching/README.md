@@ -1,12 +1,12 @@
-# Caching
+# Caching（缓存）
 
-Examples for team response caching in quickstart flows.
+快速入门流程中的团队响应缓存示例。
 
-## Prerequisites
+## 前置条件
 
-- Load environment variables (for example, OPENAI_API_KEY) via direnv allow.
-- Use .venvs/demo/bin/python to run cookbook examples.
+- 通过 direnv allow 加载环境变量（例如 OPENAI_API_KEY）。
+- 使用 .venvs/demo/bin/python 运行手册示例。
 
-## Files
+## 文件说明
 
-- cache_team_response.py - Demonstrates member and team leader response caching.
+- cache_team_response.py - 演示成员和团队领导响应缓存。

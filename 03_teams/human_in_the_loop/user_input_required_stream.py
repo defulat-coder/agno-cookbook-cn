@@ -1,11 +1,8 @@
-"""Team HITL Streaming: Member agent tool requiring user input.
+"""流式传输需要用户输入
 
-This example demonstrates how a team pauses when a member agent's tool
-needs additional information from the user before it can be executed
-in streaming mode.
+此示例演示当成员 agent 的工具在流式模式下需要来自用户的附加信息才能执行时团队如何暂停。
 
-Note: When streaming with member agents, use isinstance() with TeamRunPausedEvent
-to distinguish the team's pause from member agent pauses.
+注意：与成员 agent 流式传输时，使用 isinstance() 与 TeamRunPausedEvent 以区分团队的暂停和成员 agent 的暂停。
 """
 
 from agno.agent import Agent

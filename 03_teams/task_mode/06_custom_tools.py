@@ -1,10 +1,10 @@
 """
-Task Mode with Custom Tools
+带自定义工具的任务模式
 
-Demonstrates task mode where member agents use custom Python function tools.
-Shows how agents with specialized tools can be orchestrated via tasks.
+演示成员 agent 使用自定义 Python 函数工具的任务模式。
+展示如何通过任务编排具有专用工具的 agent。
 
-Run: .venvs/demo/bin/python cookbook/03_teams/task_mode/06_custom_tools.py
+运行：.venvs/demo/bin/python cookbook/03_teams/task_mode/06_custom_tools.py
 """
 
 from agno.agent import Agent

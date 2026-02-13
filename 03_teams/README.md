@@ -1,32 +1,32 @@
-# Agent Teams
+# Agent Teams（Agent 团队）
 
-Cookbooks for building multi-agent teams in Agno.
+在 Agno 中构建多 Agent 团队的实例手册。
 
-## Prerequisites
+## 前置条件
 
-- Load environment variables with `direnv allow` (for example `OPENAI_API_KEY`).
-- Use `.venvs/demo/bin/python` to run examples.
-- Some examples require external services (for example PostgreSQL, LanceDB, Infinity server, or AgentOS remote instances).
+- 使用 `direnv allow` 加载环境变量（例如 `OPENAI_API_KEY`）。
+- 使用 `.venvs/demo/bin/python` 运行示例。
+- 某些示例需要外部服务（例如 PostgreSQL、LanceDB、Infinity 服务器或 AgentOS 远程实例）。
 
-## Directories
+## 目录说明
 
-- `01_quickstart/` - Core team coordination patterns, including route/broadcast/tasks and nested teams.
-- `context_compression/` - Tool-result compression and compression manager usage.
-- `context_management/` - Context filtering, introductions, and few-shot context.
-- `dependencies/` - Runtime dependencies in context, tools, and member flows.
-- `distributed_rag/` - Multi-member distributed retrieval with PgVector/LanceDB/reranking.
-- `guardrails/` - Prompt-injection, moderation, and PII protections.
-- `hooks/` - Input pre-hooks, output post-hooks, and stream hooks.
-- `human_in_the_loop/` - Confirmation, external execution, and user-input-required flows.
-- `knowledge/` - Team knowledge, filters, and custom retrievers.
-- `memory/` - Memory manager, agentic memory, and LearningMachine examples.
-- `metrics/` - Team/session/member metrics inspection.
-- `multimodal/` - Audio, image, and video workflows.
-- `reasoning/` - Multi-purpose reasoning team patterns.
-- `run_control/` - Cancellation, retries, model inheritance, and remote teams.
-- `search_coordination/` - Coordinated RAG/search patterns across members.
-- `session/` - Session persistence, options, summaries, and history search.
-- `state/` - Shared session state across members and nested teams.
-- `streaming/` - Response streaming and event monitoring.
-- `structured_input_output/` - Structured input/output schemas, overrides, and streaming.
-- `tools/` - Custom tools and tool hook patterns.
+- `01_quickstart/` - 核心团队协调模式，包括路由/广播/任务和嵌套团队。
+- `context_compression/` - 工具结果压缩和压缩管理器使用。
+- `context_management/` - 上下文过滤、引入和少样本上下文。
+- `dependencies/` - 上下文、工具和成员流程中的运行时依赖。
+- `distributed_rag/` - 使用 PgVector/LanceDB/重排序的多成员分布式检索。
+- `guardrails/` - 提示注入、内容审核和 PII 保护。
+- `hooks/` - 输入前钩子、输出后钩子和流钩子。
+- `human_in_the_loop/` - 确认、外部执行和需要用户输入的流程。
+- `knowledge/` - 团队知识、过滤器和自定义检索器。
+- `memory/` - 内存管理器、Agentic 记忆和 LearningMachine 示例。
+- `metrics/` - 团队/会话/成员指标检查。
+- `multimodal/` - 音频、图像和视频工作流。
+- `reasoning/` - 多用途推理团队模式。
+- `run_control/` - 取消、重试、模型继承和远程团队。
+- `search_coordination/` - 成员间协调的 RAG/搜索模式。
+- `session/` - 会话持久化、选项、摘要和历史搜索。
+- `state/` - 成员和嵌套团队间共享的会话状态。
+- `streaming/` - 响应流和事件监控。
+- `structured_input_output/` - 结构化输入/输出模式、覆盖和流式传输。
+- `tools/` - 自定义工具和工具钩子模式。

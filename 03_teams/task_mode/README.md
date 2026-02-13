@@ -1,34 +1,34 @@
-# Task Mode for Teams
+# Task Mode for Teams（团队任务模式）
 
-Task mode (`mode=TeamMode.tasks`) enables autonomous task-based execution where the team leader:
+任务模式（`mode=TeamMode.tasks`）启用基于任务的自主执行，团队领导将：
 
-1. **Decomposes** a user's goal into discrete tasks
-2. **Assigns** tasks to the most capable member agents
-3. **Executes** tasks with proper dependency ordering
-4. **Runs tasks in parallel** when they are independent
-5. **Synthesizes** results into a final response
+1. **分解**用户目标为离散任务
+2. **分配**任务给最有能力的成员 agent
+3. **执行**具有适当依赖顺序的任务
+4. **并行运行任务**（当它们彼此独立时）
+5. **综合**结果为最终响应
 
-## Quick Start
+## 快速开始
 
 ```bash
 .venvs/demo/bin/python cookbook/03_teams/task_mode/01_basic_task_mode.py
 ```
 
-## Examples
+## 示例
 
-| File | Description |
+| 文件 | 描述 |
 |------|-------------|
-| `01_basic_task_mode.py` | Basic task decomposition with research, writing, and review |
-| `02_parallel_tasks.py` | Parallel execution of independent analysis tasks |
-| `03_task_mode_with_tools.py` | Task mode with tool-equipped agents (web search) |
-| `04_async_task_mode.py` | Async task mode using `arun()` |
-| `05_dependency_chain.py` | Complex dependency chains in a product launch pipeline |
-| `06_custom_tools.py` | Agents with custom Python function tools (financial calculators) |
-| `07_multi_run_session.py` | Multi-run session persistence across sequential requests |
+| `01_basic_task_mode.py` | 基本任务分解，包括研究、写作和审查 |
+| `02_parallel_tasks.py` | 独立分析任务的并行执行 |
+| `03_task_mode_with_tools.py` | 带工具的任务模式（网络搜索）|
+| `04_async_task_mode.py` | 使用 `arun()` 的异步任务模式 |
+| `05_dependency_chain.py` | 产品发布流程中的复杂依赖链 |
+| `06_custom_tools.py` | 带自定义 Python 函数工具的 agent（财务计算器）|
+| `07_multi_run_session.py` | 跨顺序请求的多运行会话持久化 |
 
-## Key Concepts
+## 关键概念
 
-### Creating a Task-Mode Team
+### 创建任务模式团队
 
 ```python
 from agno.team.team import Team
@@ -39,24 +39,24 @@ team = Team(
     mode=TeamMode.tasks,
     model=OpenAIChat(id="gpt-4o"),
     members=[agent1, agent2],
-    max_iterations=10,  # max task loop iterations
+    max_iterations=10,  # 最大任务循环迭代次数
 )
 ```
 
-### Available Tools (auto-provided to team leader)
+### 可用工具（自动提供给团队领导）
 
-- `create_task` - Create a new task with title, description, assignee, and dependencies
-- `execute_task` - Execute a single task by delegating to a member agent
-- `execute_tasks_parallel` - Execute multiple independent tasks concurrently
-- `update_task_status` - Manually update a task's status
-- `list_tasks` - View all tasks and their current status
-- `add_task_note` - Add notes to a task
-- `mark_all_complete` - Signal that the overall goal is achieved
+- `create_task` - 创建新任务，包括标题、描述、负责人和依赖项
+- `execute_task` - 通过委派给成员 agent 执行单个任务
+- `execute_tasks_parallel` - 并发执行多个独立任务
+- `update_task_status` - 手动更新任务状态
+- `list_tasks` - 查看所有任务及其当前状态
+- `add_task_note` - 向任务添加备注
+- `mark_all_complete` - 标记总体目标已完成
 
-### Task Dependencies
+### 任务依赖
 
-Tasks can declare dependencies using `depends_on` (list of task IDs). A task with unresolved dependencies is automatically marked as `blocked` and cannot be executed until all dependencies are completed.
+任务可以使用 `depends_on`（任务 ID 列表）声明依赖项。带有未解决依赖项的任务会自动标记为 `blocked`，并且在所有依赖项完成之前无法执行。
 
-### Parallel Execution
+### 并行执行
 
-When tasks are independent (no dependencies on each other), the team leader can use `execute_tasks_parallel` to run them concurrently, significantly reducing total execution time.
+当任务彼此独立（没有相互依赖）时，团队领导可以使用 `execute_tasks_parallel` 并发运行它们，从而显著减少总执行时间。

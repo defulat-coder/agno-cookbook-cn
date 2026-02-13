@@ -1,8 +1,8 @@
 """
-Coordinated Agentic RAG
+协调的 Agentic RAG
 =======================
 
-Demonstrates coordinated team search, analysis, and synthesis over shared knowledge.
+演示对共享知识的协调团队搜索、分析和综合。
 """
 
 from agno.agent import Agent

@@ -1,9 +1,8 @@
-"""Team HITL Async Streaming: Member agent tool requiring confirmation.
+"""异步流式传输需要确认
 
-Same as confirmation_required_stream.py but uses async run/continue_run.
+与 confirmation_required_stream.py 相同，但使用异步 run/continue_run。
 
-Note: When streaming with member agents, use isinstance() with TeamRunPausedEvent
-to distinguish the team's pause from member agent pauses.
+注意：与成员 agent 流式传输时，使用 isinstance() 与 TeamRunPausedEvent 以区分团队的暂停和成员 agent 的暂停。
 """
 
 import asyncio

@@ -1,11 +1,9 @@
 """
-Task Dependencies Example
+任务依赖示例
 
-Demonstrates complex task dependency chains in task mode. The team leader
-creates tasks where later tasks depend on earlier ones, ensuring proper
-execution order. Shows how the system handles blocked tasks.
+演示任务模式中的复杂任务依赖链。团队 leader 创建任务，其中后面的任务依赖于前面的任务，确保正确的执行顺序。展示系统如何处理被阻止的任务。
 
-Run: .venvs/demo/bin/python cookbook/03_teams/task_mode/05_dependency_chain.py
+运行：.venvs/demo/bin/python cookbook/03_teams/task_mode/05_dependency_chain.py
 """
 
 from agno.agent import Agent

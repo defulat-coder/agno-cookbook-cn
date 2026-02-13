@@ -1,13 +1,13 @@
-# metrics
+# metrics（指标）
 
-Examples for team workflows in metrics.
+metrics 中团队工作流的示例。
 
-## Prerequisites
+## 前置条件
 
-- Load environment variables (for example, OPENAI_API_KEY) via direnv allow.
-- Use .venvs/demo/bin/python to run cookbook examples.
-- Some examples require additional services (for example PostgreSQL, LanceDB, or Infinity server) as noted in file docstrings.
+- 通过 direnv allow 加载环境变量（例如 OPENAI_API_KEY）。
+- 使用 .venvs/demo/bin/python 运行手册示例。
+- 某些示例需要额外的服务（例如 PostgreSQL、LanceDB 或 Infinity 服务器），如文件文档字符串中所述。
 
-## Files
+## 文件说明
 
-- 01_team_metrics.py - Demonstrates team metrics.
+- 01_team_metrics.py - 演示团队指标。

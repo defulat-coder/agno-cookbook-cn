@@ -1,8 +1,8 @@
 """
-OpenAI Moderation
+OpenAI 内容审核
 =============================
 
-Demonstrates OpenAI moderation guardrails for team inputs.
+演示团队输入的 OpenAI 内容审核护栏。
 """
 
 import asyncio
@@ -15,15 +15,15 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 basic_team = Team(
     name="Basic Moderated Team",
     members=[],
     model=OpenAIChat(id="gpt-5.2"),
     pre_hooks=[OpenAIModerationGuardrail()],
-    description="A team with basic OpenAI content moderation.",
-    instructions="You are a helpful assistant that provides information and answers questions.",
+    description="具有基本 OpenAI 内容审核的团队。",
+    instructions="你是一个提供信息和回答问题的有用助手。",
 )
 
 custom_team = Team(
@@ -40,20 +40,20 @@ custom_team = Team(
             ]
         )
     ],
-    description="A team that only moderates violence and hate speech.",
-    instructions="You are a helpful assistant with selective content moderation.",
+    description="仅审核暴力和仇恨言论的团队。",
+    instructions="你是一个具有选择性内容审核的有用助手。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def main() -> None:
-    """Demonstrate OpenAI moderation guardrails functionality."""
-    print("OpenAI Moderation Guardrails Demo")
+    """演示 OpenAI 内容审核护栏功能。"""
+    print("OpenAI 内容审核护栏演示")
     print("=" * 50)
 
-    print("\n[TEST 1] Normal request without policy violations")
+    print("\n[测试 1] 无违规策略的正常请求")
     print("-" * 50)
 
     try:

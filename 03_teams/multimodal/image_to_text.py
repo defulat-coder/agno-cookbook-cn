@@ -1,8 +1,8 @@
 """
-Image To Text
+图像转文本
 =============================
 
-Demonstrates collaborative image analysis and narrative generation.
+演示协作图像分析和叙事生成。
 """
 
 from pathlib import Path

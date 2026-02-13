@@ -1,8 +1,8 @@
 """
-JSON Schema Output
+JSON Schema 输出
 ==================
 
-Demonstrates provider-native JSON schema output for team responses.
+演示团队响应的提供商原生 JSON schema 输出。
 """
 
 from agno.agent import Agent

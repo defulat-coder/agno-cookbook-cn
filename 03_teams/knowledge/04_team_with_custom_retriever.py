@@ -1,8 +1,8 @@
 """
-Team With Custom Retriever
+带自定义检索器的团队
 ==========================
 
-Demonstrates a custom team knowledge retriever that uses runtime dependencies.
+演示使用运行时依赖项的自定义团队知识检索器。
 """
 
 from typing import Optional

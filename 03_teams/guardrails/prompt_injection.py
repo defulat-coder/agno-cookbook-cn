@@ -1,8 +1,8 @@
 """
-Prompt Injection
+提示词注入
 =============================
 
-Demonstrates prompt-injection guardrails for team input validation.
+演示团队输入验证的提示词注入护栏。
 """
 
 from agno.exceptions import InputCheckError
@@ -11,27 +11,27 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     name="Guardrails Demo Team",
     model=OpenAIChat(id="gpt-5.2"),
     pre_hooks=[PromptInjectionGuardrail()],
     members=[],
-    description="A team that tells jokes and provides helpful information.",
-    instructions="You are a friendly assistant that tells jokes and provides helpful information. Always maintain a positive and helpful tone.",
+    description="一个讲笑话并提供有用信息的团队。",
+    instructions="你是一个友好的助手，讲笑话并提供有用的信息。始终保持积极和乐于助人的语气。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 def main() -> None:
-    """Demonstrate the prompt injection guardrails functionality."""
-    print("Prompt Injection Guardrails Demo")
+    """演示提示词注入护栏功能。"""
+    print("提示词注入护栏演示")
     print("=" * 50)
 
-    print("\n[TEST 1] Normal request")
+    print("\n[测试 1] 正常请求")
     print("-" * 30)
     try:
         team.print_response(

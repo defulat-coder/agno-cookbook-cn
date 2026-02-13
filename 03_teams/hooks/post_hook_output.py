@@ -1,8 +1,8 @@
 """
-Post Hook Output
+Post Hook 输出
 =============================
 
-Demonstrates output validation and transformation post-hooks for team runs.
+演示团队运行的输出验证和转换 post-hook。
 """
 
 import asyncio
@@ -36,10 +36,10 @@ class FormattedTeamResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 def validate_team_response_quality(run_output: TeamRunOutput, team: Team) -> None:
-    """Validate team output quality and collaboration consistency."""
+    """验证团队输出质量和协作一致性。"""
 
     if not run_output.content or len(run_output.content.strip()) < 20:
         raise OutputCheckError(
@@ -129,7 +129,7 @@ def validate_team_response_quality(run_output: TeamRunOutput, team: Team) -> Non
 
 
 def simple_team_coordination_check(run_output: TeamRunOutput, team: Team) -> None:
-    """Apply lightweight checks for evidence of team collaboration."""
+    """对团队协作证据应用轻量级检查。"""
     content = run_output.content.strip() if run_output.content else ""
 
     team_indicators = [
@@ -164,7 +164,7 @@ def simple_team_coordination_check(run_output: TeamRunOutput, team: Team) -> Non
 
 
 def add_team_metadata(run_output: TeamRunOutput, team: Team) -> None:
-    """Add team metadata to output for transparency."""
+    """为透明度向输出添加团队元数据。"""
     content = run_output.content.strip() if run_output.content else ""
 
     team_members = [member.name for member in team.members]
@@ -211,7 +211,7 @@ def add_collaboration_summary(run_output: TeamRunOutput, team: Team) -> None:
 
 
 def structure_team_response(run_output: TeamRunOutput, team: Team) -> None:
-    """Reformat output into a structured, action-oriented summary."""
+    """将输出重新格式化为结构化的、面向行动的摘要。"""
     formatter_agent = Agent(
         name="Team Response Formatter",
         model=OpenAIChat(id="gpt-5.2"),
@@ -282,7 +282,7 @@ def structure_team_response(run_output: TeamRunOutput, team: Team) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team_with_validation = Team(
     name="Legal Advisory Team",
@@ -290,27 +290,27 @@ team_with_validation = Team(
         Agent(
             name="Corporate Lawyer",
             model=OpenAIChat(id="gpt-5.2"),
-            description="Expert in corporate law, contracts, and compliance",
+            description="公司法、合同和合规专家",
         ),
         Agent(
             name="Tax Attorney",
             model=OpenAIChat(id="gpt-5.2"),
-            description="Specialist in tax law, regulations, and planning",
+            description="税法、法规和规划专家",
         ),
         Agent(
             name="Risk Analyst",
             model=OpenAIChat(id="gpt-5.2"),
-            description="Expert in legal risk assessment and mitigation",
+            description="法律风险评估和缓解专家",
         ),
     ],
     post_hooks=[validate_team_response_quality],
     instructions=[
-        "Collaborate to provide comprehensive legal guidance:",
-        "Corporate Lawyer: Address legal structure, compliance, and contracts",
-        "Tax Attorney: Cover tax implications and optimization strategies",
-        "Risk Analyst: Identify and assess legal risks and mitigation approaches",
+        "协作提供全面的法律指导：",
+        "公司律师：处理法律结构、合规和合同",
+        "税务律师：涵盖税务影响和优化策略",
+        "风险分析师：识别和评估法律风险及缓解方法",
         "",
-        "Work together to provide coordinated legal advice that leverages all expertise areas.",
+        "共同提供利用所有专业领域的协调法律建议。",
     ],
 )
 
@@ -407,13 +407,13 @@ consulting_team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def main() -> None:
-    print("Team Output Post-Hook Examples")
+    print("团队输出 Post-Hook 示例")
     print("=" * 60)
 
-    print("\n[TEST 1] Well-coordinated legal team response")
+    print("\n[测试 1] 协调良好的法律团队响应")
     print("-" * 40)
     try:
         await team_with_validation.aprint_response(

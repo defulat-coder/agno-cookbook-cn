@@ -1,8 +1,8 @@
 """
-Model Inheritance
+模型继承
 =============================
 
-Demonstrates how member models inherit from parent team models.
+演示成员模型如何从父团队模型继承。
 """
 
 from agno.agent import Agent

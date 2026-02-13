@@ -1,9 +1,7 @@
 """
-Broadcast Mode for Parallel Research Sweep
+并行研究扫描的广播模式
 
-Demonstrates broadcast mode for gathering information from multiple sources
-simultaneously. Each agent specializes in a different source, and the leader
-merges findings into a comprehensive report.
+演示用于同时从多个来源收集信息的广播模式。每个 agent 专门研究不同的来源，leader 将发现合并为综合报告。
 
 """
 

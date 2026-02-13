@@ -1,8 +1,8 @@
 """
-Nested Shared State
+嵌套共享 State
 ===================
 
-Demonstrates hierarchical teams that coordinate over shared session state.
+演示在共享 session state 上协调的分层团队。
 """
 
 from agno.agent import Agent

@@ -1,11 +1,11 @@
 """
-Task Mode with Tool-Equipped Agents
+带工具的任务模式 Agent
 
-Demonstrates task mode where member agents have real tools. The team leader
-creates tasks and delegates them to agents that use web search to gather
-information.
+演示成员 agent 拥有实际工具的任务模式。团队领导者
+创建任务并将它们委托给使用网络搜索收集
+信息的 agent。
 
-Run: .venvs/demo/bin/python cookbook/03_teams/task_mode/03_task_mode_with_tools.py
+运行: .venvs/demo/bin/python cookbook/03_teams/task_mode/03_task_mode_with_tools.py
 """
 
 from agno.agent import Agent
@@ -14,32 +14,32 @@ from agno.team.mode import TeamMode
 from agno.team.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# -- Tool-equipped agents -----------------------------------------------------
+# -- 配备工具的 agent -----------------------------------------------------
 
 web_researcher = Agent(
     name="Web Researcher",
-    role="Searches the web for current information",
+    role="在网络上搜索当前信息",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
     instructions=[
-        "You are a web researcher.",
-        "Use DuckDuckGo to search for current, relevant information.",
-        "Summarize findings clearly with key facts and sources.",
+        "你是一名网络研究员。",
+        "使用 DuckDuckGo 搜索当前相关信息。",
+        "清楚地总结发现，包括关键事实和来源。",
     ],
 )
 
 summarizer = Agent(
     name="Summarizer",
-    role="Synthesizes information into clear summaries",
+    role="将信息综合为清晰的摘要",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=[
-        "You are an expert summarizer.",
-        "Take detailed information and distill it into a clear, structured summary.",
-        "Highlight the most important points.",
+        "你是一名专业的摘要专家。",
+        "获取详细信息并将其提炼为清晰、结构化的摘要。",
+        "突出最重要的要点。",
     ],
 )
 
-# -- Task-mode team -----------------------------------------------------------
+# -- 任务模式团队 -----------------------------------------------------------
 
 research_team = Team(
     name="Research Team",
@@ -47,18 +47,18 @@ research_team = Team(
     model=OpenAIChat(id="gpt-4o"),
     members=[web_researcher, summarizer],
     instructions=[
-        "You are a research team leader.",
-        "For research requests:",
-        "1. Create search tasks for the Web Researcher to gather information.",
-        "2. Once research is done, create a task for the Summarizer to compile findings.",
-        "3. Set proper dependencies -- summarization depends on research being complete.",
+        "你是一个研究团队领导者。",
+        "对于研究请求：",
+        "1. 为网络研究员创建搜索任务以收集信息。",
+        "2. 研究完成后，为摘要专家创建一个任务来汇编发现。",
+        "3. 设置适当的依赖关系 -- 摘要依赖于研究完成。",
     ],
     show_members_responses=True,
     markdown=True,
     max_iterations=10,
 )
 
-# -- Run ---------------------------------------------------------------------
+# -- 运行 ---------------------------------------------------------------------
 
 if __name__ == "__main__":
     research_team.print_response(

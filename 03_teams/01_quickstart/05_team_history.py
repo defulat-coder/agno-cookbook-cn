@@ -1,8 +1,8 @@
 """
-Team History
+团队历史记录
 =============================
 
-Demonstrates sharing team history with member agents across a session.
+演示在 session 中与成员 agent 共享团队历史记录。
 """
 
 from uuid import uuid4
@@ -13,57 +13,57 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 german_agent = Agent(
     name="German Agent",
-    role="You answer German questions.",
+    role="你回答德语问题。",
     model=OpenAIChat(id="o3-mini"),
 )
 
 spanish_agent = Agent(
     name="Spanish Agent",
-    role="You answer Spanish questions.",
+    role="你回答西班牙语问题。",
     model=OpenAIChat(id="o3-mini"),
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 multi_lingual_q_and_a_team = Team(
     name="Multi Lingual Q and A Team",
     model=OpenAIChat("o3-mini"),
     members=[german_agent, spanish_agent],
     instructions=[
-        "You are a multi lingual Q and A team that can answer questions in English and Spanish. You MUST delegate the task to the appropriate member based on the language of the question.",
-        "If the question is in German, delegate to the German agent. If the question is in Spanish, delegate to the Spanish agent.",
-        "Always translate the response from the appropriate language to English and show both the original and translated responses.",
+        "你是一个多语言问答团队，可以回答英语和西班牙语的问题。你必须根据问题的语言将任务委托给合适的成员。",
+        "如果问题是德语，委托给德语 agent。如果问题是西班牙语，委托给西班牙语 agent。",
+        "始终将来自相应语言的响应翻译成英语，并显示原始响应和翻译后的响应。",
     ],
     db=SqliteDb(
         db_file="tmp/multi_lingual_q_and_a_team.db"
-    ),  # Add a database to store the conversation history. This is a requirement for history to work correctly.
-    pass_user_input_to_members=True,  # Send input directly to members (replaces determine_input_for_members=False).
+    ),  # 添加数据库以存储对话历史记录。这是历史记录正常工作的必要条件。
+    pass_user_input_to_members=True,  # 将输入直接发送给成员（替代 determine_input_for_members=False）。
     respond_directly=True,
-    add_team_history_to_members=True,  # Send all interactions between the user and the team to the member agents.
+    add_team_history_to_members=True,  # 将用户和团队之间的所有交互发送给成员 agent。
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     session_id = f"conversation_{uuid4()}"
 
-    # First give information to the team
-    # Ask question in German
+    # 首先向团队提供信息
+    # 用德语提问
     multi_lingual_q_and_a_team.print_response(
         "Hallo, wie heißt du? Meine Name ist John.",
         stream=True,
         session_id=session_id,
     )
 
-    # Then watch them recall the information (the question below states:
-    # "Tell me a 2-sentence story using my name")
-    # Follow up in Spanish
+    # 然后观察他们回忆起信息（下面的问题是：
+    # "用我的名字给我讲一个 2 句话的故事"）
+    # 用西班牙语跟进
     multi_lingual_q_and_a_team.print_response(
         "Cuéntame una historia de 2 oraciones usando mi nombre real.",
         stream=True,

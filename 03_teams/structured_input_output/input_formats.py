@@ -1,8 +1,8 @@
 """
-Input Formats
+输入格式
 =============================
 
-Demonstrates different input formats accepted by team run methods.
+演示团队运行方法接受的不同输入格式。
 """
 
 from agno.agent import Agent

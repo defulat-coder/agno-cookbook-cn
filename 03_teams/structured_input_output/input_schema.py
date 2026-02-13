@@ -1,8 +1,8 @@
 """
-Input Schema
+输入 Schema
 ============
 
-Demonstrates team-level automatic input validation using input_schema.
+演示使用 input_schema 进行团队级自动输入验证。
 """
 
 from typing import List

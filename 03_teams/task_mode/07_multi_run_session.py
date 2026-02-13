@@ -1,11 +1,9 @@
 """
-Multi-Run Session with Task Mode
+带任务模式的多次运行 Session
 
-Demonstrates that task state persists across multiple runs within the same
-session. The first run creates and executes tasks; the second run can
-reference prior task results.
+演示任务状态在同一 session 内的多次运行中持久化。第一次运行创建并执行任务；第二次运行可以引用先前的任务结果。
 
-Run: .venvs/demo/bin/python cookbook/03_teams/task_mode/07_multi_run_session.py
+运行：.venvs/demo/bin/python cookbook/03_teams/task_mode/07_multi_run_session.py
 """
 
 from agno.agent import Agent

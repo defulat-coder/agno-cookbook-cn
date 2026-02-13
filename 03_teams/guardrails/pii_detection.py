@@ -1,8 +1,8 @@
 """
-PII Detection
+PII 检测
 =============================
 
-Demonstrates PII detection guardrails for team input protection.
+演示团队输入保护的 PII 检测护栏。
 """
 
 from agno.exceptions import InputCheckError
@@ -11,15 +11,15 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 blocking_team = Team(
     name="Privacy-Protected Team",
     members=[],
     model=OpenAIChat(id="gpt-5.2"),
     pre_hooks=[PIIDetectionGuardrail()],
-    description="A team that helps with customer service while protecting privacy.",
-    instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
+    description="在保护隐私的同时帮助客户服务的团队。",
+    instructions="你是一个有用的客户服务助手。始终保护用户隐私并适当处理敏感信息。",
 )
 
 masked_team = Team(
@@ -27,20 +27,20 @@ masked_team = Team(
     members=[],
     model=OpenAIChat(id="gpt-5.2"),
     pre_hooks=[PIIDetectionGuardrail(mask_pii=True)],
-    description="A team that helps with customer service while protecting privacy.",
-    instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
+    description="在保护隐私的同时帮助客户服务的团队。",
+    instructions="你是一个有用的客户服务助手。始终保护用户隐私并适当处理敏感信息。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 def main() -> None:
-    """Demonstrate PII detection guardrails functionality."""
-    print("PII Detection Guardrails Demo")
+    """演示 PII 检测护栏功能。"""
+    print("PII 检测护栏演示")
     print("=" * 50)
 
-    print("\n[TEST 1] Normal request without PII")
+    print("\n[测试 1] 无 PII 的正常请求")
     print("-" * 30)
     try:
         blocking_team.print_response(

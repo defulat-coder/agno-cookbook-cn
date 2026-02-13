@@ -1,41 +1,41 @@
-# Test Log: context_management
+# 测试日志：context_management
 
-> Updated: 2026-02-08 15:49:52
+> 更新时间：2026-02-08 15:49:52
 
-## Pattern Check
+## 模式检查
 
-**Status:** PASS
+**状态：** PASS
 
-**Result:** Checked 3 file(s) in /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/context_management. Violations: 0
+**结果：** 在 /Users/ab/conductor/workspaces/agno/colombo/cookbook/03_teams/context_management 中检查了 3 个文件。违规：0
 
 ---
 
 ### few_shot_learning.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/context_management/few_shot_learning.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/context_management/few_shot_learning.py`。
 
-**Result:** Executed successfully. Duration: 36.24s. Tail:                            ┃ | ┃ Could you please reply with your account details so we can proceed? Thank    ┃ | ┃ you for your patience.                                                       ┃ | ┃                                                                              ┃ | ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+**结果：** 执行成功。耗时：36.24s。尾部：                           ┃ | ┃ Could you please reply with your account details so we can proceed? Thank    ┃ | ┃ you for your patience.                                                       ┃ | ┃                                                                              ┃ | ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 ---
 
 ### filter_tool_calls_from_history.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/context_management/filter_tool_calls_from_history.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/context_management/filter_tool_calls_from_history.py`。
 
-**Result:** Executed successfully. Duration: 108.62s. Tail: db/sqlite/sqlite.py", line 1039, in upsert_session |     raise e |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/db/sqlite/sqlite.py", line 998, in upsert_session |     return TeamSession.from_dict(session_raw) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | NameError: name 'requirements' is not defined. Did you mean: 'RunRequirement'?
+**结果：** 执行成功。耗时：108.62s。尾部：db/sqlite/sqlite.py", line 1039, in upsert_session |     raise e |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/db/sqlite/sqlite.py", line 998, in upsert_session |     return TeamSession.from_dict(session_raw) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | NameError: name 'requirements' is not defined. Did you mean: 'RunRequirement'?
 
 ---
 
 ### introduction.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed `.venvs/demo/bin/python cookbook/03_teams/context_management/introduction.py`.
+**描述：** 执行 `.venvs/demo/bin/python cookbook/03_teams/context_management/introduction.py`。
 
-**Result:** Executed successfully. Duration: 47.79s. Tail: db/sqlite/sqlite.py", line 1039, in upsert_session |     raise e |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/db/sqlite/sqlite.py", line 998, in upsert_session |     return TeamSession.from_dict(session_raw) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | NameError: name 'requirements' is not defined. Did you mean: 'RunRequirement'?
+**结果：** 执行成功。耗时：47.79s。尾部：db/sqlite/sqlite.py", line 1039, in upsert_session |     raise e |   File "/Users/ab/conductor/workspaces/agno/colombo/libs/agno/agno/db/sqlite/sqlite.py", line 998, in upsert_session |     return TeamSession.from_dict(session_raw) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | NameError: name 'requirements' is not defined. Did you mean: 'RunRequirement'?
 
 ---

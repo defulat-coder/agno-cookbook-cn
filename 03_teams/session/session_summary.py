@@ -1,8 +1,8 @@
 """
-Session Summary
+Session 摘要
 =============================
 
-Demonstrates session summary creation, context reuse, and async summary retrieval.
+演示 session 摘要创建、上下文重用和异步摘要检索。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 sync_db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 sync_db = PostgresDb(db_url=sync_db_url, session_table="sessions")
@@ -22,13 +22,13 @@ async_db_url = "postgresql+psycopg_async://ai:ai@localhost:5532/ai"
 async_db = AsyncPostgresDb(db_url=async_db_url, session_table="sessions")
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 sync_agent = Agent(model=OpenAIChat(id="o3-mini"))
 async_agent = Agent(model=OpenAIChat(id="gpt-5.2"))
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 summary_team = Team(
     model=OpenAIChat(id="o3-mini"),
@@ -55,30 +55,30 @@ async_summary_team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def run_async_summary_demo() -> None:
-    print("Running first interaction...")
+    print("运行第一次交互...")
     await async_summary_team.aprint_response(
         "Hi my name is Jane and I work as a software engineer"
     )
 
-    print("\nRunning second interaction...")
+    print("\n运行第二次交互...")
     await async_summary_team.aprint_response(
         "I enjoy coding in Python and building AI applications"
     )
 
-    print("\nRetrieving session summary asynchronously...")
+    print("\n异步检索 session 摘要...")
     summary = await async_summary_team.aget_session_summary(
         session_id="async_team_session_summary"
     )
 
     if summary:
-        print(f"\nSession Summary: {summary.summary}")
+        print(f"\nSession 摘要: {summary.summary}")
         if summary.topics:
-            print(f"Topics: {', '.join(summary.topics)}")
+            print(f"主题: {', '.join(summary.topics)}")
     else:
-        print("No session summary found")
+        print("未找到 session 摘要")
 
 
 if __name__ == "__main__":

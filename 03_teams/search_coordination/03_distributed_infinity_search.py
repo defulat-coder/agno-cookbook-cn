@@ -1,8 +1,8 @@
 """
-Distributed Infinity Search
+分布式 Infinity 搜索
 ===========================
 
-Demonstrates distributed search coordination with Infinity reranking.
+演示使用 Infinity 重排序的分布式搜索协调。
 """
 
 from agno.agent import Agent

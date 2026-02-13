@@ -1,8 +1,7 @@
 """
-Parallel Tasks Execution Example
+并行任务执行示例
 
-Demonstrates task mode with parallel execution. The team leader creates
-independent tasks that can run concurrently, then synthesizes results.
+演示具有并行执行的任务模式。团队 leader 创建可以并发运行的独立任务，然后综合结果。
 
 """
 

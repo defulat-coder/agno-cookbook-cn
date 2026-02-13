@@ -1,8 +1,8 @@
 """
-Filter Tool Calls From History
+从历史记录中过滤工具调用
 ==============================
 
-Demonstrates limiting historical tool call results in team context.
+演示限制团队上下文中的历史工具调用结果。
 """
 
 from textwrap import dedent
@@ -14,52 +14,52 @@ from agno.team import Team
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 tech_researcher = Agent(
     name="Alex",
-    role="Technology Researcher",
+    role="技术研究员",
     instructions=dedent("""
-        You specialize in technology and AI research.
-        - Focus on latest developments, trends, and breakthroughs
-        - Provide concise, data-driven insights
-        - Cite your sources
+        你专注于技术和 AI 研究。
+        - 关注最新发展、趋势和突破
+        - 提供简洁、数据驱动的见解
+        - 引用你的来源
     """).strip(),
 )
 
 business_analyst = Agent(
     name="Sarah",
-    role="Business Analyst",
+    role="商业分析师",
     instructions=dedent("""
-        You specialize in business and market analysis.
-        - Focus on companies, markets, and economic trends
-        - Provide actionable business insights
-        - Include relevant data and statistics
+        你专注于商业和市场分析。
+        - 关注公司、市场和经济趋势
+        - 提供可操作的商业见解
+        - 包括相关数据和统计信息
     """).strip(),
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Research Team",
     model=OpenAIChat("gpt-4o"),
     members=[tech_researcher, business_analyst],
-    tools=[WebSearchTools()],  # Team uses DuckDuckGo for research
-    description="Research team that investigates topics and provides analysis.",
+    tools=[WebSearchTools()],  # 团队使用 DuckDuckGo 进行研究
+    description="调查主题并提供分析的研究团队。",
     instructions=dedent("""
-        You are a research coordinator that investigates topics comprehensively.
+        你是一个全面调查主题的研究协调员。
 
-        Your Process:
-        1. Use DuckDuckGo to search for a lot of information on the topic.
-        2. Delegate detailed analysis to the appropriate specialist
-        3. Synthesize research findings with specialist insights
+        你的流程：
+        1. 使用 DuckDuckGo 搜索大量关于主题的信息。
+        2. 将详细分析委托给合适的专家
+        3. 将研究发现与专家见解综合
 
-        Guidelines:
-        - Always start with web research using your DuckDuckGo tools. Try to get as much information as possible.
-        - Choose the right specialist based on the topic (tech vs business)
-        - Combine your research with specialist analysis
-        - Provide comprehensive, well-sourced responses
+        指南：
+        - 始终使用你的 DuckDuckGo 工具开始网络研究。尽可能获取更多信息。
+        - 根据主题（技术 vs 商业）选择合适的专家
+        - 将你的研究与专家分析结合
+        - 提供全面、有据可查的响应
     """).strip(),
     db=SqliteDb(db_file="tmp/research_team.db"),
     session_id="research_session",
@@ -71,7 +71,7 @@ research_team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     research_team.print_response(

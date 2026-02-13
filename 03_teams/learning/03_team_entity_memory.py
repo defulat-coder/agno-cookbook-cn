@@ -1,16 +1,15 @@
 """
-Team Learning: Entity Memory
+团队学习：实体记忆
 =============================
-Teams can track entities (people, projects, companies) across conversations
-using the EntityMemory store.
+团队可以使用 EntityMemory 存储跟踪跨对话的实体（人员、项目、公司）。
 
-Entity memory captures:
-- Facts about entities
-- Events involving entities
-- Relationships between entities
+实体记忆捕获：
+- 关于实体的事实
+- 涉及实体的事件
+- 实体之间的关系
 
-This is useful for teams that deal with complex multi-entity contexts
-like project management, CRM, or research coordination.
+这对于处理复杂多实体上下文的团队很有用，
+如项目管理、CRM 或研究协调。
 """
 
 from agno.agent import Agent

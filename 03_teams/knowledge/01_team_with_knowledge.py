@@ -1,8 +1,8 @@
 """
-Team With Knowledge
+带知识库的团队
 =============================
 
-Demonstrates a team that combines knowledge-base retrieval with web search support.
+演示结合知识库检索和网络搜索支持的团队。
 """
 
 from pathlib import Path

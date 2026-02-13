@@ -1,8 +1,8 @@
 """
-Basic Coordination
+基础协作
 =============================
 
-Demonstrates coordinated team workflows for both sync and async execution patterns.
+演示团队协调工作流，支持同步和异步执行模式。
 """
 
 import asyncio
@@ -26,45 +26,45 @@ class Article(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 sync_hn_researcher = Agent(
     name="HackerNews Researcher",
     model=OpenAIChat("gpt-5.2"),
-    role="Gets top stories from hackernews.",
+    role="从 hackernews 获取热门故事。",
     tools=[HackerNewsTools()],
 )
 
 sync_article_reader = Agent(
     name="Article Reader",
     model=OpenAIChat("gpt-5.2"),
-    role="Reads articles from URLs.",
+    role="从 URL 读取文章。",
     tools=[Newspaper4kTools()],
 )
 
 async_hn_researcher = Agent(
     name="HackerNews Researcher",
     model=OpenAIChat("o3-mini"),
-    role="Gets top stories from hackernews.",
+    role="从 hackernews 获取热门故事。",
     tools=[HackerNewsTools()],
 )
 
 async_web_searcher = Agent(
     name="Web Searcher",
     model=OpenAIChat("o3-mini"),
-    role="Searches the web for information on a topic",
+    role="在网络上搜索主题相关信息",
     tools=[WebSearchTools()],
     add_datetime_to_context=True,
 )
 
 async_article_reader = Agent(
     name="Article Reader",
-    role="Reads articles from URLs.",
+    role="从 URL 读取文章。",
     tools=[Newspaper4kTools()],
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 sync_hn_team = Team(
     name="HackerNews Team",
@@ -88,11 +88,11 @@ async_hn_team = Team(
     model=OpenAIChat("o3"),
     members=[async_hn_researcher, async_web_searcher, async_article_reader],
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the article reader to read the links for the stories to get more information.",
-        "Important: you must provide the article reader with the links to read.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hackernews 上搜索用户询问的内容。",
+        "然后，让文章阅读器读取故事链接以获取更多信息。",
+        "重要：你必须向文章阅读器提供要读取的链接。",
+        "接着，让网络搜索器搜索每个故事以获取更多信息。",
+        "最后，提供一个深思熟虑且引人入胜的摘要。",
     ],
     output_schema=Article,
     add_member_tools_to_context=False,
@@ -108,13 +108,13 @@ async def run_async_coordination() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # --- Sync ---
+    # --- 同步 ---
     sync_hn_team.print_response(
         input="Write an article about the top 2 stories on hackernews", stream=True
     )
 
-    # --- Async ---
+    # --- 异步 ---
     asyncio.run(run_async_coordination())

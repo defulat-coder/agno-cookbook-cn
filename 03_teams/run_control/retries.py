@@ -1,8 +1,8 @@
 """
-Retries
+重试
 =============================
 
-Demonstrates team retry configuration for transient run errors.
+演示针对临时运行错误的团队重试配置。
 """
 
 from agno.agent import Agent

@@ -1,8 +1,8 @@
 """
-Tool Hooks
+工具 Hook
 ==========
 
-Demonstrates team/member tool hooks for logging delegation and tool execution timing.
+演示用于记录委托和工具执行时间的团队/成员工具 hook。
 """
 
 import time

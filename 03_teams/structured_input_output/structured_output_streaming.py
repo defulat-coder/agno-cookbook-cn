@@ -1,8 +1,8 @@
 """
-Structured Output Streaming
+结构化输出流式传输
 ===========================
 
-Demonstrates sync and async streaming with structured team outputs.
+演示具有结构化团队输出的同步和异步流式传输。
 """
 
 import asyncio

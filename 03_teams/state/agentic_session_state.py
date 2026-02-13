@@ -2,7 +2,7 @@
 Agentic Session State
 =====================
 
-Demonstrates team and member agentic state updates on shared session state.
+演示团队和成员在共享 session state 上的 agentic state 更新。
 """
 
 from agno.agent import Agent

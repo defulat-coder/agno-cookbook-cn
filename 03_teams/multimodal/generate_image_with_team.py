@@ -1,8 +1,8 @@
 """
-Generate Image With Team
+使用团队生成图像
 ========================
 
-Demonstrates collaborative prompt optimization and DALL-E image generation.
+演示协作提示优化和 DALL-E 图像生成。
 """
 
 from typing import Iterator

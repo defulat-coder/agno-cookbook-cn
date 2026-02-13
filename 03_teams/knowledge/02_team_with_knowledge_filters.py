@@ -1,8 +1,8 @@
 """
-Team With Knowledge Filters
+带知识库过滤器的团队
 ===========================
 
-Demonstrates static metadata-based knowledge filtering in team retrieval.
+演示在团队检索中基于静态元数据的知识过滤。
 """
 
 from agno.agent import Agent

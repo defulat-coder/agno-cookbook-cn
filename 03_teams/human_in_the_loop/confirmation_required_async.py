@@ -1,6 +1,8 @@
-"""Team HITL: Async member agent tool confirmation.
+"""
+异步需要确认
+=============================
 
-Same as confirmation_required.py but uses async run/continue_run.
+与 confirmation_required.py 相同，但使用异步 run/continue_run。
 """
 
 import asyncio

@@ -1,8 +1,7 @@
 """
-Specialist Router Example
+专家路由器示例
 
-Demonstrates routing to domain specialist agents. The team leader analyzes
-the user's question and routes it to the most qualified specialist.
+演示路由到领域专家 agent。团队 leader 分析用户的问题并将其路由到最合格的专家。
 
 """
 

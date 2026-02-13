@@ -1,11 +1,8 @@
-"""Team HITL Streaming: Member agent tool with external execution.
+"""外部工具执行流式传输
 
-This example demonstrates how a team pauses when a member agent's tool
-requires external execution in streaming mode. The tool result is provided
-by the caller rather than being executed by the agent.
+此示例演示当成员 agent 的工具在流式模式下需要外部执行时团队如何暂停。工具结果由调用者提供，而不是由 agent 执行。
 
-Note: When streaming with member agents, use isinstance() with TeamRunPausedEvent
-to distinguish the team's pause from member agent pauses.
+注意：与成员 agent 流式传输时，使用 isinstance() 与 TeamRunPausedEvent 以区分团队的暂停和成员 agent 的暂停。
 """
 
 import shlex

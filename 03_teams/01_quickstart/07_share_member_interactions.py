@@ -1,8 +1,8 @@
 """
-Share Member Interactions
+共享成员交互
 =============================
 
-Demonstrates sharing interactions among team members during execution.
+演示在执行期间在团队成员之间共享交互。
 """
 
 from uuid import uuid4
@@ -14,10 +14,10 @@ from agno.team import Team
 
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 def get_user_profile() -> dict:
-    """Get the user profile."""
+    """获取用户配置文件。"""
     return {
         "name": "John Doe",
         "email": "john.doe@example.com",
@@ -30,48 +30,48 @@ def get_user_profile() -> dict:
 
 user_profile_agent = Agent(
     name="User Profile Agent",
-    role="You are a user profile agent that can retrieve information about the user and the user's account.",
+    role="你是一个用户配置文件 agent，可以检索关于用户和用户账户的信息。",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[get_user_profile],
 )
 
 technical_support_agent = Agent(
     name="Technical Support Agent",
-    role="You are a technical support agent that can answer questions about the technical support.",
+    role="你是一个技术支持 agent，可以回答关于技术支持的问题。",
     model=OpenAIChat(id="gpt-5.2"),
 )
 
 billing_agent = Agent(
     name="Billing Agent",
-    role="You are a billing agent that can answer questions about the billing.",
+    role="你是一个账单 agent，可以回答关于账单的问题。",
     model=OpenAIChat(id="gpt-5.2"),
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 support_team = Team(
     name="Technical Support Team",
     model=OpenAIChat("o3-mini"),
     members=[user_profile_agent, technical_support_agent, billing_agent],
     instructions=[
-        "You are a technical support team for a Facebook account that can answer questions about the technical support and billing for Facebook.",
-        "Get the user's profile information first if the question is about the user's profile or account.",
+        "你是一个 Facebook 账户的技术支持团队，可以回答关于 Facebook 技术支持和账单的问题。",
+        "如果问题是关于用户配置文件或账户的，首先获取用户的配置文件信息。",
     ],
     db=SqliteDb(
         db_file="tmp/technical_support_team.db"
-    ),  # Add a database to store the conversation history.
-    share_member_interactions=True,  # Send member interactions during the current run.
+    ),  # 添加数据库以存储对话历史记录。
+    share_member_interactions=True,  # 在当前运行期间发送成员交互。
     show_members_responses=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     session_id = f"conversation_{uuid4()}"
 
-    # Ask question about technical support
+    # 询问关于技术支持的问题
     support_team.print_response(
         "What is my billing address and how do I change it?",
         stream=True,

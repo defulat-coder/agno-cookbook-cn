@@ -1,8 +1,8 @@
 """
-Stream Hook
+流式 Hook
 =============================
 
-Demonstrates post-hook notifications after team response generation.
+演示团队响应生成后的 post-hook 通知。
 """
 
 import asyncio
@@ -15,15 +15,15 @@ from agno.tools.yfinance import YFinanceTools
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 def send_email(email: str, content: str) -> None:
-    """Send an email to the user. Mock implementation for example purposes."""
-    print(f"Sending email to {email}: {content}")
+    """向用户发送电子邮件。示例用途的模拟实现。"""
+    print(f"发送电子邮件到 {email}: {content}")
 
 
 def send_notification(run_output: TeamRunOutput, run_context: RunContext) -> None:
-    """Post-hook: Send a notification to the user."""
+    """Post-hook: 向用户发送通知。"""
     if run_context.metadata is None:
         return
     email = run_context.metadata.get("email")
@@ -32,7 +32,7 @@ def send_notification(run_output: TeamRunOutput, run_context: RunContext) -> Non
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team = Team(
     name="Financial Report Team",
@@ -41,15 +41,15 @@ team = Team(
     post_hooks=[send_notification],
     tools=[YFinanceTools()],
     instructions=[
-        "You are a helpful financial report team of agents.",
-        "Generate a financial report for the given company.",
-        "Keep it short and concise.",
+        "你是一个有用的财务报告 agent 团队。",
+        "为给定公司生成财务报告。",
+        "保持简短明了。",
     ],
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def main() -> None:
     await team.aprint_response(

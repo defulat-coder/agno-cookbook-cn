@@ -1,8 +1,8 @@
 """
-Reasoning Multi Purpose Team
+推理多用途团队
 ============================
 
-Demonstrates multi-purpose team reasoning with both sync and async patterns.
+演示具有同步和异步模式的多用途团队推理。
 """
 
 import asyncio

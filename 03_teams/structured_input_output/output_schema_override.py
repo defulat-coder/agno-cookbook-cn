@@ -1,8 +1,8 @@
 """
-Output Schema Override
+输出 Schema 覆盖
 ======================
 
-Demonstrates per-run output_schema overrides across sync/async and streaming modes.
+演示跨同步/异步和流式模式的每次运行 output_schema 覆盖。
 """
 
 import asyncio

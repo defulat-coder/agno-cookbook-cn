@@ -1,8 +1,8 @@
 """
-Nested Teams
+嵌套团队
 =============================
 
-Demonstrates using teams as members in a higher-level coordinating team.
+演示在更高级别的协调团队中使用团队作为成员。
 """
 
 from agno.agent import Agent
@@ -10,30 +10,30 @@ from agno.models.openai import OpenAIResponses
 from agno.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 research_agent = Agent(
     name="Research Agent",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Gather references and source material",
+    role="收集参考资料和源材料",
 )
 
 analysis_agent = Agent(
     name="Analysis Agent",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Extract key findings and implications",
+    role="提取关键发现和影响",
 )
 
 writing_agent = Agent(
     name="Writing Agent",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Draft polished narrative output",
+    role="起草精致的叙述性输出",
 )
 
 editing_agent = Agent(
     name="Editing Agent",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Improve clarity and structure",
+    role="提高清晰度和结构",
 )
 
 research_team = Team(
@@ -41,8 +41,8 @@ research_team = Team(
     members=[research_agent, analysis_agent],
     model=OpenAIResponses(id="gpt-5.2"),
     instructions=[
-        "Collect relevant information and summarize evidence.",
-        "Highlight key takeaways and uncertainties.",
+        "收集相关信息并总结证据。",
+        "突出关键要点和不确定性。",
     ],
 )
 
@@ -51,28 +51,28 @@ writing_team = Team(
     members=[writing_agent, editing_agent],
     model=OpenAIResponses(id="gpt-5.2"),
     instructions=[
-        "Draft and refine final output from provided research.",
-        "Keep language concise and decision-oriented.",
+        "根据提供的研究起草和完善最终输出。",
+        "保持语言简洁并面向决策。",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 parent_team = Team(
     name="Program Team",
     members=[research_team, writing_team],
     model=OpenAIResponses(id="gpt-5.2"),
     instructions=[
-        "Coordinate nested teams to deliver a single coherent response.",
-        "Ask Research Team for evidence first, then Writing Team for synthesis.",
+        "协调嵌套团队以提供单一连贯的响应。",
+        "首先向研究团队寻求证据，然后向写作团队寻求综合。",
     ],
     markdown=True,
     show_members_responses=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     parent_team.print_response(

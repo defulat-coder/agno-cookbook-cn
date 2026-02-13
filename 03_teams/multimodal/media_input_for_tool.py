@@ -1,8 +1,8 @@
 """
-Media Input For Tool
+工具的媒体输入
 ====================
 
-Demonstrates team tools accessing uploaded media files directly.
+演示团队工具直接访问上传的媒体文件。
 """
 
 from typing import Optional, Sequence

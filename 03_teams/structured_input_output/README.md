@@ -1,22 +1,22 @@
-# structured input output
+# structured input output（结构化输入输出）
 
-Examples for team workflows in structured_input_output.
+structured_input_output 中团队工作流的示例。
 
-## Prerequisites
+## 前置条件
 
-- Load environment variables (for example, OPENAI_API_KEY) via direnv allow.
-- Use .venvs/demo/bin/python to run cookbook examples.
-- Some examples require additional services (for example PostgreSQL, LanceDB, or Infinity server) as noted in file docstrings.
+- 通过 direnv allow 加载环境变量（例如 OPENAI_API_KEY）。
+- 使用 .venvs/demo/bin/python 运行手册示例。
+- 某些示例需要额外的服务（例如 PostgreSQL、LanceDB 或 Infinity 服务器），如文件文档字符串中所述。
 
-## Files
+## 文件说明
 
-- input_formats.py - Demonstrates input formats.
-- input_schema.py - Demonstrates input schema.
-- json_schema_output.py - Demonstrates json schema output.
-- output_model.py - Demonstrates output model.
-- output_schema_override.py - Demonstrates output schema override.
-- parser_model.py - Demonstrates parser model.
-- pydantic_input.py - Demonstrates pydantic input.
-- pydantic_output.py - Demonstrates pydantic output.
-- response_as_variable.py - Demonstrates response as variable.
-- structured_output_streaming.py - Demonstrates structured output streaming.
+- input_formats.py - 演示输入格式。
+- input_schema.py - 演示输入模式。
+- json_schema_output.py - 演示 JSON 模式输出。
+- output_model.py - 演示输出模型。
+- output_schema_override.py - 演示输出模式覆盖。
+- parser_model.py - 演示解析器模型。
+- pydantic_input.py - 演示 Pydantic 输入。
+- pydantic_output.py - 演示 Pydantic 输出。
+- response_as_variable.py - 演示响应作为变量。
+- structured_output_streaming.py - 演示结构化输出流式传输。

@@ -1,14 +1,14 @@
 """
-Team Learning: Configured Stores
+团队学习：配置的存储
 =================================
-Configure specific learning stores on a Team using LearningMachine.
+使用 LearningMachine 在 Team 上配置特定的学习存储。
 
-This example enables:
-- UserProfile (ALWAYS mode): Captures structured user fields
-- UserMemory (AGENTIC mode): Team uses tools to save observations
-- SessionContext (ALWAYS mode): Tracks session goals and progress
+此示例启用：
+- UserProfile (ALWAYS 模式)：捕获结构化用户字段
+- UserMemory (AGENTIC 模式)：团队使用工具保存观察
+- SessionContext (ALWAYS 模式)：跟踪 session 目标和进度
 
-Each store can be independently configured with its own mode.
+每个存储都可以使用自己的模式独立配置。
 """
 
 from agno.agent import Agent

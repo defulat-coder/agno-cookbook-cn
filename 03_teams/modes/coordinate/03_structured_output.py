@@ -1,8 +1,7 @@
 """
-Coordinate Mode with Structured Output
+带结构化输出的协调模式
 
-Demonstrates coordination that produces a Pydantic-validated structured response.
-The team leader coordinates members and formats the final output to match a schema.
+演示产生 Pydantic 验证的结构化响应的协调。团队 leader 协调成员并格式化最终输出以匹配 schema。
 
 """
 

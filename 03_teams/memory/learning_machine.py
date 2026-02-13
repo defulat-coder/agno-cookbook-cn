@@ -1,8 +1,8 @@
 """
-Learning Machine
+学习机器
 =============================
 
-Demonstrates team learning with LearningMachine and user profile extraction.
+演示使用 LearningMachine 和用户配置文件提取的团队学习。
 """
 
 from agno.agent import Agent

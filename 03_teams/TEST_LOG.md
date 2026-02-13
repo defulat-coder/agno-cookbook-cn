@@ -1,11 +1,11 @@
-# Test Log: 03_teams
+# 测试日志：03_teams
 
-> Tests not yet run. Run each directory cookbook and update this log.
+> 测试尚未运行。请运行各目录的示例手册并更新此日志。
 
-### Directory-level validation
+### 目录级验证
 
-**Status:** PENDING
+**状态：** 待处理
 
-**Description:** Run cookbook structure checks and representative examples for all 03_teams subdirectories.
+**描述：** 对所有 03_teams 子目录运行手册结构检查和代表性示例。
 
 ---

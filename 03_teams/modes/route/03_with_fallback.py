@@ -1,8 +1,7 @@
 """
-Route Mode with Fallback Agent
+带回退 Agent 的路由模式
 
-Demonstrates routing with a general-purpose fallback agent that handles
-requests when no specialist is a clear match.
+演示带有通用回退 agent 的路由，当没有专家明显匹配时处理请求。
 
 """
 

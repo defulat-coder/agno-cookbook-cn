@@ -1,8 +1,8 @@
 """
-Task Mode
+任务模式
 =============================
 
-Demonstrates autonomous task decomposition and execution using TeamMode.tasks.
+演示使用 TeamMode.tasks 进行自主任务分解和执行。
 """
 
 from agno.agent import Agent
@@ -10,28 +10,28 @@ from agno.models.openai import OpenAIResponses
 from agno.team import Team, TeamMode
 
 # ---------------------------------------------------------------------------
-# Create Members
+# 创建成员
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Research requirements and gather references",
+    role="研究需求并收集参考资料",
 )
 
 architect = Agent(
     name="Architect",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Design execution plans and task dependencies",
+    role="设计执行计划和任务依赖关系",
 )
 
 writer = Agent(
     name="Writer",
     model=OpenAIResponses(id="gpt-5.2"),
-    role="Write concise delivery summaries",
+    role="编写简洁的交付摘要",
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 tasks_team = Team(
     name="Task Execution Team",
@@ -39,17 +39,17 @@ tasks_team = Team(
     model=OpenAIResponses(id="gpt-5.2"),
     mode=TeamMode.tasks,
     instructions=[
-        "Break goals into clear tasks with dependencies before starting.",
-        "Assign each task to the most appropriate member.",
-        "Track task completion and surface blockers explicitly.",
-        "Provide a final consolidated summary with completed tasks.",
+        "在开始之前将目标分解为具有依赖关系的清晰任务。",
+        "将每个任务分配给最合适的成员。",
+        "跟踪任务完成情况并明确显示阻塞因素。",
+        "提供包含已完成任务的最终综合摘要。",
     ],
     markdown=True,
     show_members_responses=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     tasks_team.print_response(

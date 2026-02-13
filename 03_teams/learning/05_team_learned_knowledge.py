@@ -1,15 +1,14 @@
 """
-Team Learning: Learned Knowledge
+团队学习：学习的知识
 =================================
-Teams can build a shared knowledge base from conversations using
-LearnedKnowledge with a vector database.
+团队可以使用向量数据库的 LearnedKnowledge 从对话中构建共享知识库。
 
-The team uses tools to:
-- save_learning: Store reusable insights, best practices, and lessons
-- search_learnings: Find and apply prior knowledge to new questions
+团队使用工具：
+- save_learning：存储可重用的见解、最佳实践和经验教训
+- search_learnings：查找并将先前知识应用于新问题
 
-This is useful for teams that accumulate institutional knowledge
-like engineering best practices, incident learnings, or design patterns.
+这对于积累机构知识的团队很有用，
+如工程最佳实践、事件学习或设计模式。
 """
 
 from agno.agent import Agent

@@ -1,10 +1,10 @@
 """
-Async Task Mode Example
+异步任务模式示例
 
-Demonstrates task mode using the async API (arun / aprint_response).
-Useful for applications that need non-blocking execution, such as web servers.
+演示使用异步 API (arun / aprint_response) 的任务模式。
+适用于需要非阻塞执行的应用程序，例如网络服务器。
 
-Run: .venvs/demo/bin/python cookbook/03_teams/task_mode/04_async_task_mode.py
+运行：.venvs/demo/bin/python cookbook/03_teams/task_mode/04_async_task_mode.py
 """
 
 import asyncio
