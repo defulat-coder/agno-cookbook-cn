@@ -44,32 +44,60 @@ description: Translate Python project files (comments, docstrings, instructions,
 
 ## 工作流程
 
-### 单个目录（< 10 个文件）
-1. 用 `Glob` 找到所有 `.py` 和 `.md` 文件
+### 小型目录（< 20 个文件）
+1. 并行 `Glob` 查找 `.py` 和 `.md` 文件
 2. 逐文件 `Read` + `StrReplace` 翻译
-3. Markdown 用 `StrReplace` 逐段替换（不用 Write）
+3. Markdown 用 `Write` 整体写入（效率更高）
 
-### 大型目录（> 10 个文件）
-1. **并行 Glob**：同时查找 `.py` 和 `.md` 文件
-2. **按功能模块分组**：把相关目录组合成 2-4 个批次
-3. **并行启动 Task**：每个 Task 处理 1-2 个目录（推荐 4 个并行任务）
-4. **Task 提示词模板**：
-   ```
-   翻译 <目录路径> 目录下所有 .py 和 .md 文件的英文内容为中文。
-   
-   翻译规则：
-   1. Python文件：翻译注释、docstring、instructions变量内容，保留代码逻辑
-   2. Markdown文件：全文翻译
-   3. 技术术语保留英文：Agent、Workflow、Knowledge、Storage、Memory等
-   4. 用StrReplace逐段替换，保持格式
-   
-   完成后告诉我翻译了哪些内容。
-   ```
+### 中型目录（20-50 个文件）
+1. 先并行 `Glob` `.py` 和 `.md`
+2. **分离处理**：
+   - Python 文件：启动 1 个 Task
+   - Markdown 文件：启动 1 个 Task（单独处理，效率高）
+3. 两个 Task 并行运行
 
-### 根目录 + 子目录结构
-- 根目录文件单独处理（通常只有 README.md）
-- 按子目录分组并行处理
-- 例：`02_agents/` 拆分为 4 组并行任务
+### 大型目录（> 50 个文件）
+1. **分析文件分布**：先 `Glob` 统计各子目录文件数
+2. **按文件类型拆分**：
+   - Python 文件：启动 1 个 Task，内部按功能模块批量处理
+   - Markdown 文件：启动 1 个 Task，全部一起处理（md 文件通常少）
+3. **Python Task 策略**：
+   - 优先翻译高频使用目录（01_quickstart、session、tools、knowledge）
+   - 次要目录可批量快速处理（仅翻译 docstring + instructions）
+   - 使用 `resume` 参数持续推进，直到全部完成
+
+### Task 提示词模板
+
+**Python 文件 Task：**
+```
+翻译 <目录路径> 目录下所有 Python 文件的英文内容为中文。
+
+需要翻译：
+- 模块顶部 docstring
+- 行内注释 # ...
+- 函数/类 docstring  
+- instructions/additional_instructions 等 prompt 变量内容
+
+不翻译：
+- 代码逻辑、变量名、import
+- Pydantic Field description
+- role 参数值
+
+技术术语统一：Agent、Team（团队）、Workflow（工作流）、Knowledge（知识库）、Storage（存储）、Memory（记忆）、Tool（工具）
+
+使用 StrReplace 逐段替换。完成后报告翻译的文件数和目录。
+```
+
+**Markdown 文件 Task：**
+```
+翻译 <目录路径> 目录下所有 Markdown 文件的英文内容为中文。
+
+全文翻译：标题、段落、列表、表格。代码块中的注释也翻译，代码本身不翻译。
+
+技术术语保留英文或附中文说明：Agent、Team（团队）、Workflow（工作流）等。
+
+使用 Write 直接写入翻译后内容。完成后报告翻译的文件数。
+```
 
 ## 翻译原则
 
@@ -99,22 +127,56 @@ description: Translate Python project files (comments, docstrings, instructions,
   - Hook → Hook
   - Event → 事件
 
-## 性能优化
+## 性能优化与实战经验
 
-### 并行处理策略
-- **小型任务**（< 10 文件）：直接顺序处理
-- **中型任务**（10-50 文件）：2-4 个并行 Task
-- **大型任务**（> 50 文件）：按功能模块拆分，4 个并行 Task
+### 文件类型分离策略（关键优化）
+- **Python 和 Markdown 分别处理**：两种文件翻译方式不同，分离后效率更高
+  - Python：细致翻译，逐段 StrReplace
+  - Markdown：整体翻译，Write 直接写入
+- **并行启动 2 个 Task**：Python Task + Markdown Task 同时运行
 
-### 实战经验
-1. **优先并行 Glob**：同时查找 `.py` 和 `.md` 避免等待
-2. **合理分组**：相关目录分到同一 Task（如 session/caching/logging 一组）
-3. **Task 数量控制**：最多 4 个并行，避免超载
-4. **subagent_type**：使用 `generalPurpose`
-5. **避免 Write**：Markdown 也用 `StrReplace`，保持一致性
+### Task 数量与分组
+- **小型任务**（< 20 文件）：不启动 Task，直接处理
+- **中型任务**（20-50 文件）：2 个 Task（py + md 分离）
+- **大型任务**（> 50 文件）：2 个 Task + resume 持续推进
+  - **避免启动 4 个并行 Task**：实际效率不如 2 个 Task + 多次 resume
+  - **原因**：大量文件导致每个 Task 都很重，4 个并行容易超时或不完整
 
-### Task 提示词要点
-- 明确目录列表
-- 说明翻译规则（4 条核心规则）
-- 要求报告翻译内容
-- 保持简洁清晰
+### Resume 策略（大型任务核心）
+1. **首次启动**：2 个 Task（py + md）
+2. **检查完成度**：Task 返回后查看是否全部完成
+3. **继续推进**：对未完成的 Task 使用 `resume` 参数继续
+4. **重复直到完成**：通常 2-3 轮 resume 可完成 100+ 文件
+
+示例：
+```python
+# 首次启动
+Task(prompt="翻译所有Python文件...", subagent_type="generalPurpose")
+
+# 若未完成，resume 继续
+Task(
+    prompt="继续翻译剩余70个文件...", 
+    resume="agent-id-from-first-call",
+    subagent_type="generalPurpose"
+)
+```
+
+### 翻译优先级（大型目录）
+在 Python Task 中按优先级翻译：
+1. **高频使用**（必须完整）：01_quickstart、session、tools、knowledge
+2. **核心功能**（详细翻译）：context、hooks、guardrails、memory
+3. **扩展功能**（快速翻译）：仅 docstring + instructions
+
+### 实战经验总结
+1. ✅ **先 Glob 两次**：并行查找 py 和 md，避免串行等待
+2. ✅ **Markdown 用 Write**：比 StrReplace 快得多
+3. ✅ **Python 用 StrReplace**：保持格式和结构
+4. ✅ **2 Task + Resume**：比 4 Task 并行更可控、更可靠
+5. ✅ **检查进度后 Resume**：Task 返回后立即检查完成度，未完成则继续
+6. ❌ **避免 4 个并行 Task**：大量文件时每个 Task 都太重，容易中断
+7. ❌ **避免过细拆分**：10 个小 Task 不如 2 个大 Task + resume
+
+### Token 管理
+- **中小型任务**：单次会话完成（< 50k tokens）
+- **大型任务**：2-3 轮 resume，每轮消耗 30-50k tokens
+- **超大型任务**：可能需要新会话继续，但已翻译部分已提交
