@@ -1,19 +1,17 @@
 """
-Daily Brief Workflow
+每日简报工作流
 =====================
 
-Scheduled morning workflow that compiles a personalized daily briefing.
-Pulls from calendar, email, research, and data to give the user a complete
-picture of their day.
+定时早间工作流，编制个性化的每日简报。
+从日历、邮件、调研和数据中提取信息，为用户呈现一天的全貌。
 
-Steps:
-1. Parallel: Calendar scan + Email digest + News/Research
-2. Synthesize into a daily brief
+步骤:
+1. 并行：扫描日历 + 邮件摘要 + 新闻/调研
+2. 综合生成每日简报
 
-Since we don't have Google OAuth credentials, calendar and email data
-is provided via mock tools.
+由于没有 Google OAuth 凭据，日历和邮件数据通过模拟工具提供。
 
-Test:
+测试:
     python -m workflows.daily_brief.workflow
 """
 
@@ -25,13 +23,13 @@ from agno.workflow import Step, Workflow
 from agno.workflow.parallel import Parallel
 
 # ---------------------------------------------------------------------------
-# Mock Tools (no Google OAuth available)
+# 模拟工具（无 Google OAuth 可用）
 # ---------------------------------------------------------------------------
 
 
-@tool(description="Get today's calendar events. Returns mock data for demo purposes.")
+@tool(description="获取今日日历事件。为演示目的返回模拟数据。")
 def get_todays_calendar() -> str:
-    """Returns mock calendar events for the day."""
+    """返回当日模拟的日历事件。"""
     return """
 Today's Calendar (Thursday, February 6, 2025):
 
@@ -62,9 +60,9 @@ Today's Calendar (Thursday, February 6, 2025):
 """
 
 
-@tool(description="Get today's email digest. Returns mock data for demo purposes.")
+@tool(description="获取今日邮件摘要。为演示目的返回模拟数据。")
 def get_email_digest() -> str:
-    """Returns mock email digest for the day."""
+    """返回当日模拟的邮件摘要。"""
     return """
 Email Digest (last 24 hours):
 
@@ -95,17 +93,17 @@ FYI:
 
 
 # ---------------------------------------------------------------------------
-# Workflow Agents
+# 工作流 Agent
 # ---------------------------------------------------------------------------
 calendar_agent = Agent(
     name="Calendar Scanner",
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[get_todays_calendar],
     instructions=[
-        "You scan today's calendar and produce a concise summary.",
-        "For each meeting, note: time, who's involved, what to prepare.",
-        "Flag any back-to-back meetings or scheduling conflicts.",
-        "Highlight the most important meeting of the day.",
+        "你负责扫描今日日历并生成简明摘要。",
+        "对每个会议，记录：时间、参会人、需要准备的内容。",
+        "标记任何连续会议或日程冲突。",
+        "突出当日最重要的会议。",
     ],
 )
 
@@ -114,10 +112,10 @@ email_agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[get_email_digest],
     instructions=[
-        "You process the email digest and produce a prioritized summary.",
-        "Categorize: urgent/action required/FYI.",
-        "For action items, note what specifically needs to be done.",
-        "Connect emails to today's calendar when relevant.",
+        "你负责处理邮件摘要并生成按优先级排列的总结。",
+        "分类：紧急/需要行动/仅供参考。",
+        "对于行动项，具体说明需要做什么。",
+        "在相关时将邮件与今日日历关联起来。",
     ],
 )
 
@@ -126,10 +124,10 @@ news_agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[DuckDuckGoTools()],
     instructions=[
-        "You scan for relevant news and industry updates.",
-        "Focus on: AI/ML developments, competitor news, market trends.",
-        "Keep it brief -- 3-5 most relevant items.",
-        "Include source links.",
+        "你负责扫描相关新闻和行业动态。",
+        "重点关注：AI/ML 发展、竞争对手新闻、市场趋势。",
+        "保持简洁——3-5 条最相关的内容。",
+        "附上来源链接。",
     ],
 )
 
@@ -137,31 +135,31 @@ synthesizer = Agent(
     name="Brief Synthesizer",
     model=OpenAIResponses(id="gpt-5.2"),
     instructions=[
-        "You compile inputs from calendar, email, and news into a cohesive daily brief.",
+        "你负责将日历、邮件和新闻的输入汇编为连贯的每日简报。",
         "",
-        "Structure the brief as:",
-        "## Today at a Glance",
-        "- One-line summary of the day",
+        "按以下结构组织简报：",
+        "## 今日概览",
+        "- 一句话总结今天的安排",
         "",
-        "## Priority Actions",
-        "- Top 3-5 things that need attention today (from email + calendar)",
+        "## 优先行动",
+        "- 今天需要关注的 3-5 件最重要的事（来自邮件 + 日历）",
         "",
-        "## Schedule",
-        "- Today's meetings with prep notes",
+        "## 日程安排",
+        "- 今日会议及准备事项",
         "",
-        "## Inbox Highlights",
-        "- Key emails summarized",
+        "## 收件箱重点",
+        "- 关键邮件摘要",
         "",
-        "## Industry Pulse",
-        "- Brief news summary",
+        "## 行业动态",
+        "- 简要新闻摘要",
         "",
-        "Keep it scannable. The user should be able to read this in 2 minutes.",
+        "保持内容可快速浏览。用户应能在 2 分钟内读完。",
     ],
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Workflow
+# 工作流
 # ---------------------------------------------------------------------------
 daily_brief_workflow = Workflow(
     id="daily-brief",

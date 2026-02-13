@@ -1,12 +1,11 @@
 """
-Support Team
+支持团队
 =============
 
-Ace + Scout + Dash working together to handle incoming questions. The team
-leader routes questions to the right agents and produces accurate, well-sourced
-responses.
+Ace + Scout + Dash 协同处理传入的问题。团队领导将问题路由给合适的 Agent，
+并生成准确、有据可查的回复。
 
-Test:
+测试:
     python -m teams.support.team
 """
 
@@ -18,7 +17,7 @@ from agno.team.team import Team
 from db import get_postgres_db
 
 # ---------------------------------------------------------------------------
-# Team
+# 团队
 # ---------------------------------------------------------------------------
 support_team = Team(
     id="support-team",
@@ -28,17 +27,17 @@ support_team = Team(
     members=[ace, scout, dash],
     respond_directly=True,
     instructions=[
-        "You lead a support team that handles incoming questions by routing them to the right specialist:",
-        "- Ace: Response agent. Route here for drafting replies to emails, messages, or questions where tone and style matter.",
-        "- Scout: Enterprise knowledge navigator. Route here for questions about internal docs, policies, runbooks, architecture.",
-        "- Dash: Data analyst. Route here for data questions, SQL queries, metrics, and analytical tasks.",
+        "你领导一个支持团队，通过将传入的问题路由给合适的专家来处理：",
+        "- Ace：回复 Agent。将需要撰写邮件、消息或对语气和风格有要求的回复任务路由到此。",
+        "- Scout：企业知识库导航 Agent。将关于内部文档、政策、运维手册、架构的问题路由到此。",
+        "- Dash：数据分析 Agent。将数据问题、SQL 查询、指标和分析任务路由到此。",
         "",
-        "Routing rules:",
-        "- Data/metrics/SQL questions -> Dash",
-        "- Internal knowledge/policy/docs questions -> Scout",
-        "- Drafting responses/emails/messages -> Ace",
-        "- If unclear, prefer Scout for factual questions and Ace for communication tasks.",
-        "- If the question needs multiple agents, route to the primary one.",
+        "路由规则：",
+        "- 数据/指标/SQL 问题 -> Dash",
+        "- 内部知识/政策/文档问题 -> Scout",
+        "- 撰写回复/邮件/消息 -> Ace",
+        "- 如果不确定，事实性问题优先交给 Scout，沟通任务优先交给 Ace。",
+        "- 如果问题需要多个 Agent 协作，交给最主要的那个。",
     ],
     show_members_responses=True,
     markdown=True,

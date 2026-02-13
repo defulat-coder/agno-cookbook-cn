@@ -1,7 +1,7 @@
 """
-Registry for the Agno demo.
+Agno 演示注册表。
 
-Provides shared tools, models, and database connections for AgentOS.
+为 AgentOS 提供共享的工具、模型和数据库连接。
 """
 
 from agno.models.openai import OpenAIResponses

@@ -1,111 +1,111 @@
-# Common Search Patterns
+# 常见搜索模式
 
-## Finding Policies and Handbooks
+## 查找政策和手册
 
-**Best approach:**
-1. Start with S3 `company-docs/policies/`
-2. Search for the policy name or related terms
-3. Read the full document, not just snippets
+**最佳做法：**
+1. 从 S3 `company-docs/policies/` 开始
+2. 搜索政策名称或相关术语
+3. 阅读完整文档，而不仅仅是片段
 
-**Known locations:**
-- Employee Handbook: `s3://company-docs/policies/employee-handbook.md`
-- PTO Policy: In the Employee Handbook, Section 4
-- Data Retention: `s3://company-docs/policies/data-retention.md`
-- Security Policy: `s3://company-docs/policies/security-policy.md`
+**已知位置：**
+- 员工手册：`s3://company-docs/policies/employee-handbook.md`
+- 带薪休假政策：在员工手册第 4 节
+- 数据保留：`s3://company-docs/policies/data-retention.md`
+- 安全政策：`s3://company-docs/policies/security-policy.md`
 
-**Gotcha:** PTO info is in the Employee Handbook, not a standalone doc.
-
----
-
-## Finding Runbooks and Procedures
-
-**Best approach:**
-1. Start with S3 `engineering-docs/runbooks/`
-2. Search for the procedure name
-3. Read the full runbook
-
-**Known locations:**
-- Deployment: `s3://engineering-docs/runbooks/deployment.md`
-- Incident Response: `s3://engineering-docs/runbooks/incident-response.md`
-- On-Call Guide: `s3://engineering-docs/runbooks/oncall-guide.md`
+**注意：** 带薪休假信息在员工手册中，不是独立文档。
 
 ---
 
-## Finding OKRs and Planning Docs
+## 查找运行手册和流程
 
-**Best approach:**
-1. Start with S3 `company-docs/planning/`
-2. Search for the quarter (Q1, Q2, Q3, Q4) and year
-3. Read the full OKR document
+**最佳做法：**
+1. 从 S3 `engineering-docs/runbooks/` 开始
+2. 搜索流程名称
+3. 阅读完整运行手册
 
-**Known locations:**
-- Q4 2024 OKRs: `s3://company-docs/planning/q4-2024-okrs.md`
-- Company Strategy: `s3://company-docs/planning/2024-strategy.md`
-
----
-
-## Finding Technical Documentation
-
-**Best approach:**
-1. Start with S3 `engineering-docs/architecture/`
-2. For RFCs, check `engineering-docs/rfcs/`
-3. For wikis, fallback to Notion
-
-**Known locations:**
-- System Overview: `s3://engineering-docs/architecture/system-overview.md`
-- API Design: `s3://engineering-docs/architecture/api-design.md`
-- RFCs: `s3://engineering-docs/rfcs/`
+**已知位置：**
+- 部署：`s3://engineering-docs/runbooks/deployment.md`
+- 事件响应：`s3://engineering-docs/runbooks/incident-response.md`
+- 值班指南：`s3://engineering-docs/runbooks/oncall-guide.md`
 
 ---
 
-## Finding Recent Decisions
+## 查找 OKR 和规划文档
 
-**Best approach:**
-1. Start with Slack - search relevant channels
-2. Look for threads with many replies
-3. Cross-reference with documented decisions
+**最佳做法：**
+1. 从 S3 `company-docs/planning/` 开始
+2. 搜索季度（Q1、Q2、Q3、Q4）和年份
+3. 阅读完整 OKR 文档
 
-**Typical locations:**
-- Slack: #product-decisions, #engineering, #leadership
-- Notion: Decision Log or Meeting Notes
-
----
-
-## Finding Who Knows Something
-
-**Best approach:**
-1. Start with Slack - find recent discussions
-2. Note who participated actively
-3. Check Notion for page owners
+**已知位置：**
+- 2024 Q4 OKR：`s3://company-docs/planning/q4-2024-okrs.md`
+- 公司战略：`s3://company-docs/planning/2024-strategy.md`
 
 ---
 
-## Multi-Source Search Strategy
+## 查找技术文档
 
-When information might be anywhere:
+**最佳做法：**
+1. 从 S3 `engineering-docs/architecture/` 开始
+2. RFC 请查看 `engineering-docs/rfcs/`
+3. 维基类内容可回退到 Notion
 
-1. **Identify the information type**
-   - Policies/formal docs → S3
-   - Discussions/decisions → Slack
-   - Living docs/wikis → Notion
-   - Spreadsheets → Google Drive
-
-2. **Search primary source first**
-
-3. **Note timestamps** — Newer info may supersede older
-
-4. **Cross-reference** — Important decisions often exist in multiple places
-
-5. **Save what you learn** — If the location was surprising, save it
+**已知位置：**
+- 系统概览：`s3://engineering-docs/architecture/system-overview.md`
+- API 设计：`s3://engineering-docs/architecture/api-design.md`
+- RFC：`s3://engineering-docs/rfcs/`
 
 ---
 
-## Handling "Not Found" Results
+## 查找近期决策
 
-If search returns nothing:
+**最佳做法：**
+1. 从 Slack 开始 —— 搜索相关频道
+2. 查找回复较多的主题
+3. 与已记录的决策交叉对照
 
-1. **Try synonyms** — "PTO" vs "vacation" vs "time off"
-2. **Broaden the search** — Remove specific terms
-3. **Check other sources** — Info might be in a different system
-4. **Check parent documents** — Info might be in a section of a larger doc
-5. **Ask for clarification** — User might know the exact location
+**常见位置：**
+- Slack：#product-decisions、#engineering、#leadership
+- Notion：决策日志或会议笔记
+
+---
+
+## 查找谁了解某件事
+
+**最佳做法：**
+1. 从 Slack 开始 —— 查找近期讨论
+2. 记录积极参与的人
+3. 在 Notion 中查看页面负责人
+
+---
+
+## 多源搜索策略
+
+当信息可能存在于任何地方时：
+
+1. **识别信息类型**
+   - 政策/正式文档 → S3
+   - 讨论/决策 → Slack
+   - 活文档/维基 → Notion
+   - 电子表格 → Google Drive
+
+2. **优先搜索主要来源**
+
+3. **注意时间戳** —— 较新的信息可能取代较旧的
+
+4. **交叉对照** —— 重要决策往往存在于多个地方
+
+5. **保存所学** —— 如果位置出乎意料，请保存下来
+
+---
+
+## 处理「未找到」结果
+
+如果搜索无结果：
+
+1. **尝试同义词** —— 「PTO」vs「vacation」vs「time off」
+2. **扩大搜索范围** —— 去掉具体术语
+3. **检查其他来源** —— 信息可能在其他系统中
+4. **检查父文档** —— 信息可能在更大文档的某一节中
+5. **请求澄清** —— 用户可能知道确切位置

@@ -1,8 +1,8 @@
 """
-Agno Demo - AgentOS Entrypoint
+Agno 演示 - AgentOS 入口
 ================================
 
-Serves all demo agents, teams, and workflows via AgentOS.
+通过 AgentOS 提供所有演示 Agent、团队和工作流的服务。
 """
 
 from pathlib import Path

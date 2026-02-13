@@ -1,16 +1,16 @@
 """
-Meeting Prep Workflow
+会议准备工作流
 ======================
 
-Triggered before a specific meeting. Does deep preparation by researching
-attendees, pulling relevant docs, gathering context, and producing talking points.
+在特定会议前触发。通过调研与会者、获取相关文档、收集背景信息并生成讨论要点，
+完成深度会议准备。
 
-Steps:
-1. Parse meeting details
-2. Parallel: Research attendees + Pull internal context + Gather external context
-3. Synthesize into a meeting prep brief
+步骤:
+1. 解析会议详情
+2. 并行：调研与会者 + 获取内部资料 + 收集外部背景
+3. 综合生成会议准备简报
 
-Test:
+测试:
     python -m workflows.meeting_prep.workflow
 """
 
@@ -22,16 +22,16 @@ from agno.workflow import Step, Workflow
 from agno.workflow.parallel import Parallel
 
 # ---------------------------------------------------------------------------
-# Mock Tools
+# 模拟工具
 # ---------------------------------------------------------------------------
 
 
 @tool(
-    description="Look up meeting details from the calendar. Returns mock data for demo purposes."
+    description="从日历中查询会议详情。为演示目的返回模拟数据。"
 )
 def get_meeting_details(meeting_topic: str) -> str:
-    """Returns mock meeting details."""
-    # Provide a realistic meeting scenario
+    """返回模拟的会议详情。"""
+    # 提供一个贴近真实的会议场景
     return """
 Meeting Details:
   Title: Product Strategy Review
@@ -66,10 +66,10 @@ Meeting Details:
 
 
 @tool(
-    description="Get internal documents related to a topic. Returns mock data for demo purposes."
+    description="获取与主题相关的内部文档。为演示目的返回模拟数据。"
 )
 def get_internal_docs(topic: str) -> str:
-    """Returns mock internal documents."""
+    """返回模拟的内部文档。"""
     return f"""
 Related Internal Documents for: {topic}
 
@@ -102,16 +102,16 @@ Related Internal Documents for: {topic}
 
 
 # ---------------------------------------------------------------------------
-# Workflow Agents
+# 工作流 Agent
 # ---------------------------------------------------------------------------
 meeting_parser = Agent(
     name="Meeting Parser",
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[get_meeting_details],
     instructions=[
-        "You parse meeting details and identify what preparation is needed.",
-        "Extract: attendees, agenda items, previous action items, open questions.",
-        "Output a structured summary of what needs to be researched and prepared.",
+        "你负责解析会议详情并确定需要做哪些准备工作。",
+        "提取：与会者、议程项目、上次的行动项、待解决问题。",
+        "输出一份结构化的摘要，说明需要调研和准备的内容。",
     ],
 )
 
@@ -120,10 +120,10 @@ attendee_researcher = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[DuckDuckGoTools()],
     instructions=[
-        "You research meeting attendees to provide context for the meeting.",
-        "For each attendee, find: recent public activity, company news, relevant background.",
-        "Focus on information that's relevant to the meeting topic.",
-        "For internal colleagues, note their role and recent contributions.",
+        "你负责调研与会者，为会议提供背景信息。",
+        "对每位与会者，查找：近期公开动态、公司新闻、相关背景。",
+        "重点关注与会议主题相关的信息。",
+        "对于内部同事，记录其职位和近期贡献。",
     ],
 )
 
@@ -132,9 +132,9 @@ context_gatherer = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[get_internal_docs],
     instructions=[
-        "You gather internal documents and data relevant to the meeting.",
-        "Pull metrics, previous decisions, action items, and relevant docs.",
-        "Summarize each document's key points relevant to the meeting agenda.",
+        "你负责收集与会议相关的内部文档和数据。",
+        "获取指标、历史决策、行动项和相关文档。",
+        "总结每份文档中与会议议程相关的要点。",
     ],
 )
 
@@ -143,10 +143,10 @@ external_researcher = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     tools=[DuckDuckGoTools()],
     instructions=[
-        "You research external context relevant to the meeting topics.",
-        "Look for: market trends, competitor moves, industry benchmarks.",
-        "Focus on information that could inform decisions in the meeting.",
-        "Keep findings brief and actionable.",
+        "你负责调研与会议主题相关的外部背景信息。",
+        "关注：市场趋势、竞争对手动态、行业基准。",
+        "重点收集能为会议决策提供参考的信息。",
+        "保持调研结果简洁且可操作。",
     ],
 )
 
@@ -154,37 +154,37 @@ prep_synthesizer = Agent(
     name="Prep Synthesizer",
     model=OpenAIResponses(id="gpt-5.2"),
     instructions=[
-        "You compile all research into a meeting prep brief.",
+        "你负责将所有调研结果汇编为会议准备简报。",
         "",
-        "Structure the brief as:",
-        "## Meeting Overview",
-        "- Who, what, when, where",
+        "按以下结构组织简报：",
+        "## 会议概览",
+        "- 参会人、议题、时间、地点",
         "",
-        "## Attendee Context",
-        "- Brief on each attendee and their likely priorities",
+        "## 与会者背景",
+        "- 每位与会者的简介及其可能关注的优先事项",
         "",
-        "## Key Data Points",
-        "- Metrics and facts you should have at your fingertips",
+        "## 关键数据要点",
+        "- 你应当随时掌握的指标和事实",
         "",
-        "## Previous Decisions & Action Items",
-        "- What was decided last time and status of action items",
+        "## 历史决策与行动项",
+        "- 上次会议的决策及行动项的完成状态",
         "",
-        "## Recommended Talking Points",
-        "- 5-7 specific points to raise, with supporting data",
+        "## 建议讨论要点",
+        "- 5-7 个具体要点，附支撑数据",
         "",
-        "## Potential Questions to Expect",
-        "- Questions others might ask you, with suggested responses",
+        "## 可能被问到的问题",
+        "- 其他人可能提出的问题及建议回答",
         "",
-        "## Decision Points",
-        "- Decisions that need to be made in this meeting",
+        "## 决策要点",
+        "- 本次会议需要做出的决定",
         "",
-        "Keep it actionable. This is a cheat sheet for walking into the meeting prepared.",
+        "保持内容可操作。这是一份让你有备而来的会议速查手册。",
     ],
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Workflow
+# 工作流
 # ---------------------------------------------------------------------------
 meeting_prep_workflow = Workflow(
     id="meeting-prep",

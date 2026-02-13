@@ -1,8 +1,8 @@
 """
-Test cases for evaluating all demo agents.
+用于评估所有演示 Agent 的测试用例。
 
-Each test case targets a specific agent and checks for expected strings
-in the response. Tests are organized by agent/component.
+每个测试用例针对一个特定的 Agent，检查响应中是否包含预期字符串。
+测试用例按 Agent/组件分组组织。
 """
 
 from dataclasses import dataclass
@@ -10,17 +10,17 @@ from dataclasses import dataclass
 
 @dataclass
 class TestCase:
-    """A test case for evaluating a demo component."""
+    """用于评估演示组件的测试用例。"""
 
-    agent: str  # Agent/team/workflow ID
+    agent: str  # Agent/团队/工作流 ID
     question: str
     expected_strings: list[str]
     category: str
-    match_mode: str = "all"  # "all" = all must match, "any" = at least one must match
+    match_mode: str = "all"  # "all" = 全部匹配, "any" = 至少匹配一个
 
 
 # ---------------------------------------------------------------------------
-# Agent Test Cases
+# Agent 测试用例
 # ---------------------------------------------------------------------------
 
 DASH_TESTS: list[TestCase] = [
@@ -122,7 +122,7 @@ ACE_TESTS: list[TestCase] = [
 ]
 
 # ---------------------------------------------------------------------------
-# Team Test Cases
+# 团队测试用例
 # ---------------------------------------------------------------------------
 
 RESEARCH_TEAM_TESTS: list[TestCase] = [
@@ -145,7 +145,7 @@ SUPPORT_TEAM_TESTS: list[TestCase] = [
 ]
 
 # ---------------------------------------------------------------------------
-# Workflow Test Cases
+# 工作流测试用例
 # ---------------------------------------------------------------------------
 
 DAILY_BRIEF_TESTS: list[TestCase] = [
@@ -169,7 +169,7 @@ MEETING_PREP_TESTS: list[TestCase] = [
 ]
 
 # ---------------------------------------------------------------------------
-# All test cases combined
+# 所有测试用例汇总
 # ---------------------------------------------------------------------------
 
 ALL_TEST_CASES: list[TestCase] = (
@@ -187,7 +187,7 @@ ALL_TEST_CASES: list[TestCase] = (
 
 CATEGORIES = sorted(set(tc.category for tc in ALL_TEST_CASES))
 
-# Agent-specific test collections for targeted evaluation
+# 按 Agent 分组的测试集合，用于定向评估
 AGENT_TESTS: dict[str, list[TestCase]] = {
     "dash": DASH_TESTS,
     "scout": SCOUT_TESTS,

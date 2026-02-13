@@ -1,7 +1,7 @@
 """
-Run evaluations against demo agents, teams, and workflows.
+对演示 Agent、团队和工作流运行评估。
 
-Usage:
+用法:
     python -m evals.run_evals
     python -m evals.run_evals --agent dash
     python -m evals.run_evals --agent seek --verbose
@@ -42,7 +42,7 @@ console = Console()
 
 
 def get_component(agent_id: str):
-    """Get the agent, team, or workflow instance by ID."""
+    """根据 ID 获取 Agent、团队或工作流实例。"""
     if agent_id == "dash":
         from agents.dash import dash
 
@@ -100,13 +100,13 @@ def get_component(agent_id: str):
 
 
 def check_strings(response: str, expected: list[str], mode: str = "all") -> list[str]:
-    """Check which expected strings are missing from the response."""
+    """检查响应中缺少哪些预期字符串。"""
     response_lower = response.lower()
     missing = [v for v in expected if v.lower() not in response_lower]
     if mode == "any":
-        # For "any" mode, all are "missing" only if none matched
+        # "any" 模式下，只有全部未匹配时才视为"缺失"
         if len(missing) < len(expected):
-            return []  # At least one matched
+            return []  # 至少匹配了一个
     return missing
 
 
@@ -115,8 +115,8 @@ def run_evals(
     category: str | None = None,
     verbose: bool = False,
 ) -> tuple[int, int, int]:
-    """Run evaluation suite."""
-    # Select tests
+    """运行评估套件。"""
+    # 选择测试用例
     if agent:
         tests = AGENT_TESTS.get(agent, [])
         if not tests:
@@ -208,7 +208,7 @@ def run_evals(
 
 
 def display_results(results: list[EvalResult], verbose: bool):
-    """Display results table."""
+    """显示结果表格。"""
     table = Table(title="Results", show_lines=True)
     table.add_column("Status", style="bold", width=6)
     table.add_column("Agent", style="dim", width=14)
@@ -255,7 +255,7 @@ def display_results(results: list[EvalResult], verbose: bool):
 
 
 def display_summary(results: list[EvalResult], total_duration: float):
-    """Display summary statistics."""
+    """显示汇总统计信息。"""
     passed = sum(1 for r in results if r["status"] == "PASS")
     failed = sum(1 for r in results if r["status"] == "FAIL")
     errors = sum(1 for r in results if r["status"] == "ERROR")
@@ -282,7 +282,7 @@ def display_summary(results: list[EvalResult], total_duration: float):
         )
     )
 
-    # Agent breakdown
+    # 按 Agent 分组明细
     agents = sorted(set(r["agent"] for r in results))
     if len(agents) > 1:
         agent_table = Table(title="By Agent", show_header=True)
@@ -311,18 +311,18 @@ def display_summary(results: list[EvalResult], total_duration: float):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run demo evaluations")
+    parser = argparse.ArgumentParser(description="运行演示评估")
     parser.add_argument(
         "--agent",
         "-a",
         choices=list(AGENT_TESTS.keys()),
-        help="Run tests for a specific agent",
+        help="针对指定 Agent 运行测试",
     )
     parser.add_argument(
-        "--category", "-c", choices=CATEGORIES, help="Filter by category"
+        "--category", "-c", choices=CATEGORIES, help="按分类筛选测试用例"
     )
     parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Show full responses on failure"
+        "--verbose", "-v", action="store_true", help="失败时显示完整响应"
     )
     args = parser.parse_args()
 

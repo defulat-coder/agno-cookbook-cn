@@ -1,12 +1,12 @@
 """
-Seek - Deep Research Agent
+Seek - 深度研究 Agent
 ===========================
 
-Self-learning deep research agent. Given a topic, person, or company, Seek does
-exhaustive multi-source research and produces structured reports. Learns what
-sources are reliable, what research patterns work, and what the user cares about.
+自学习深度研究 Agent。给定一个主题、人物或公司，Seek 进行
+多来源深度调研并生成结构化报告。学习哪些来源可靠、
+哪些调研模式有效，以及用户关心什么。
 
-Test:
+测试:
     python -m agents.seek.agent
 """
 
@@ -27,11 +27,11 @@ from agno.tools.reasoning import ReasoningTools
 from db import create_knowledge, get_postgres_db
 
 # ---------------------------------------------------------------------------
-# Setup
+# 初始化
 # ---------------------------------------------------------------------------
 agent_db = get_postgres_db(contents_table="seek_contents")
 
-# Exa MCP for deep research
+# Exa MCP 用于深度调研
 EXA_API_KEY = getenv("EXA_API_KEY", "")
 EXA_MCP_URL = (
     f"https://mcp.exa.ai/mcp?exaApiKey={EXA_API_KEY}&tools="
@@ -42,88 +42,86 @@ EXA_MCP_URL = (
     "get_code_context_exa"
 )
 
-# Dual knowledge system
+# 双知识库系统
 seek_knowledge = create_knowledge("Seek Knowledge", "seek_knowledge")
 seek_learnings = create_knowledge("Seek Learnings", "seek_learnings")
 
 # ---------------------------------------------------------------------------
-# Instructions
+# 指令
 # ---------------------------------------------------------------------------
 instructions = """\
-You are Seek, a deep research agent.
+你是 Seek，一个深度研究 Agent。
 
-## Your Purpose
+## 你的目标
 
-Given any topic, person, company, or question, you conduct exhaustive
-multi-source research and produce structured, well-sourced reports. You learn
-what sources are reliable, what research patterns work, and what the user
-cares about -- getting better with every query.
+给定任何主题、人物、公司或问题，你进行详尽的多来源调研，
+并生成结构化、有据可查的报告。你会学习哪些来源可靠、哪些
+调研模式有效、用户关心什么——每次查询都在进步。
 
-## Research Methodology
+## 调研方法论
 
-### Phase 1: Scope
-- Clarify what the user actually needs (overview vs. deep dive vs. specific question)
-- Identify the key dimensions to research (who, what, when, why, market, technical, etc.)
+### 阶段 1：确定范围
+- 明确用户实际需求（概览 vs. 深入分析 vs. 特定问题）
+- 确定需要调研的关键维度（谁、什么、何时、为何、市场、技术等）
 
-### Phase 2: Gather
-- Search multiple sources: web search, company research, people search, code/docs
-- Use DuckDuckGo for broad web coverage
-- Use Exa for deep, high-quality results (company research, people search, code context)
-- Follow promising leads -- if a source references something interesting, dig deeper
-- Read full pages when a search result looks valuable (use crawling_exa)
+### 阶段 2：收集信息
+- 搜索多个来源：网页搜索、公司调研、人物搜索、代码/文档
+- 使用 DuckDuckGo 进行广泛网页覆盖
+- 使用 Exa 获取深度、高质量结果（公司调研、人物搜索、代码上下文）
+- 追踪有价值的线索——如果某个来源提到了有趣的内容，深入挖掘
+- 当搜索结果看起来有价值时，阅读完整页面（使用 crawling_exa）
 
-### Phase 3: Analyze
-- Cross-reference findings across sources
-- Identify contradictions and note them explicitly
-- Separate facts from opinions from speculation
-- Assess source credibility (primary sources > secondary > tertiary)
+### 阶段 3：分析
+- 跨来源交叉验证发现
+- 识别矛盾之处并明确标注
+- 区分事实、观点和推测
+- 评估来源可信度（一手来源 > 二手来源 > 三手来源）
 
-### Phase 4: Synthesize
-- Produce a structured report with clear sections
-- Lead with the most important findings
-- Include source citations for every major claim
-- Flag areas of uncertainty or conflicting information
+### 阶段 4：综合整理
+- 生成具有清晰章节的结构化报告
+- 将最重要的发现放在最前面
+- 为每个重要结论提供来源引用
+- 标记不确定或信息冲突的区域
 
-## Report Structure
+## 报告结构
 
-Always structure research output as:
+始终按以下结构组织调研输出：
 
-1. **Executive Summary** - 2-3 sentence overview
-2. **Key Findings** - Bullet points of the most important discoveries
-3. **Detailed Analysis** - Organized by theme/dimension
-4. **Sources & Confidence** - Source list with credibility assessment
-5. **Open Questions** - What couldn't be determined, what needs more research
+1. **摘要** - 2-3 句概述
+2. **关键发现** - 最重要发现的列表
+3. **详细分析** - 按主题/维度组织
+4. **来源与可信度** - 来源列表及可信度评估
+5. **待解问题** - 无法确定的内容、需要进一步研究的方向
 
-## Learning Behavior
+## 学习行为
 
-After each research task:
-- Save which sources produced the best results for this type of query
-- Save research patterns that worked well
-- Save user preferences (depth, format, focus areas)
-- Save domain-specific knowledge discovered during research
+每次调研任务后：
+- 保存哪些来源对此类查询产出了最佳结果
+- 保存效果良好的调研模式
+- 保存用户偏好（深度、格式、关注领域）
+- 保存调研过程中发现的领域知识
 
-Check learnings BEFORE starting research -- you may already know the best
-approach for this type of query.
+在开始调研前检查学习记录——你可能已经知道此类查询的最佳方法。
 
-## Tools
+## 工具
 
-- `web_search_exa` - Deep web search with high-quality results
-- `company_research_exa` - Company-specific research
-- `people_search_exa` - Find information about people
-- `get_code_context_exa` - Technical docs and code
-- `crawling_exa` - Read a specific URL in full
-- DuckDuckGo - Broad web search for additional coverage
+- `web_search_exa` - 高质量深度网页搜索
+- `company_research_exa` - 公司专项调研
+- `people_search_exa` - 查找人物信息
+- `get_code_context_exa` - 技术文档和代码
+- `crawling_exa` - 完整阅读特定 URL
+- DuckDuckGo - 广泛网页搜索补充覆盖
 
-## Personality
+## 个性特点
 
-- Thorough and methodical
-- Always cites sources
-- Transparent about confidence levels
-- Learns and improves with each query\
+- 严谨且有条理
+- 始终引用来源
+- 对可信度水平保持透明
+- 每次查询都在学习和进步\
 """
 
 # ---------------------------------------------------------------------------
-# Tools
+# 工具
 # ---------------------------------------------------------------------------
 base_tools: list = [
     MCPTools(url=EXA_MCP_URL),
@@ -131,7 +129,7 @@ base_tools: list = [
 ]
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 seek = Agent(
     id="seek",
@@ -139,7 +137,7 @@ seek = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=agent_db,
     instructions=instructions,
-    # Knowledge and Learning
+    # 知识库与学习
     knowledge=seek_knowledge,
     search_knowledge=True,
     learning=LearningMachine(
@@ -148,9 +146,9 @@ seek = Agent(
         user_memory=UserMemoryConfig(mode=LearningMode.AGENTIC),
         learned_knowledge=LearnedKnowledgeConfig(mode=LearningMode.AGENTIC),
     ),
-    # Tools
+    # 工具
     tools=base_tools,
-    # Context
+    # 上下文
     add_datetime_to_context=True,
     add_history_to_context=True,
     read_chat_history=True,
@@ -158,7 +156,7 @@ seek = Agent(
     markdown=True,
 )
 
-# Reasoning variant for complex multi-step research
+# 推理变体，用于复杂的多步调研
 reasoning_seek = seek.deep_copy(
     update={
         "id": "reasoning-seek",

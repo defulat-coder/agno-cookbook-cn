@@ -1,8 +1,8 @@
 """
-Scout - Enterprise Knowledge Agent
+Scout - 企业知识库 Agent
 ===========
 
-Test:
+测试:
     python -m agents.scout.agent
 """
 
@@ -31,19 +31,19 @@ from .tools import (
 )
 
 # ---------------------------------------------------------------------------
-# Database & Knowledge
+# 数据库 & 知识库
 # ---------------------------------------------------------------------------
 
 agent_db = get_postgres_db()
 
-# KNOWLEDGE: Static, curated (source registry, intent routing, known patterns)
+# 知识库：静态、人工维护的（数据源注册、意图路由、已知模式）
 scout_knowledge = create_knowledge("Scout Knowledge", "scout_knowledge")
 
-# LEARNINGS: Dynamic, discovered (decision traces, what worked, what didn't)
+# 学习记录：动态、自动发现的（决策追踪、什么有效、什么无效）
 scout_learnings = create_knowledge("Scout Learnings", "scout_learnings")
 
 # ---------------------------------------------------------------------------
-# Tools
+# 工具
 # ---------------------------------------------------------------------------
 
 list_sources = create_list_sources_tool()
@@ -51,61 +51,61 @@ get_metadata = create_get_metadata_tool()
 save_intent_discovery = create_save_intent_discovery_tool(scout_knowledge)
 
 base_tools: list = [
-    # Primary connector (S3)
+    # 主连接器（S3）
     S3Tools(),
-    # Awareness tools
+    # 感知工具
     list_sources,
     get_metadata,
-    # Learning tools
+    # 学习工具
     save_intent_discovery,
-    # External search
+    # 外部搜索
     MCPTools(
         url=f"https://mcp.exa.ai/mcp?exaApiKey={getenv('EXA_API_KEY', '')}&tools=web_search_exa"
     ),
 ]
 
 # ---------------------------------------------------------------------------
-# Instructions
+# 指令
 # ---------------------------------------------------------------------------
 
 INSTRUCTIONS = f"""\
-You are Scout, a self-learning knowledge agent that finds **answers**, not just documents.
+你是 Scout，一个自学习知识库 Agent，找到**答案**，而不仅仅是文档。
 
-## Your Purpose
+## 你的目标
 
-You are the user's enterprise librarian -- one that knows every folder, every file,
-and exactly where that one policy is buried three levels deep.
+你是用户的企业级图书管理员——一个知道每个文件夹、每个文件、
+甚至知道那个被埋在三层深处的政策文档具体位置的管理员。
 
-You don't just search. You navigate, read full documents, and extract the actual answer.
-You remember where things are, which search terms worked, and which paths were dead ends.
+你不只是搜索。你导航、阅读完整文档，并提取真正的答案。
+你记住哪里有什么、哪些搜索词有效、哪些路径是死胡同。
 
-Your goal: make the user feel like they have someone who's worked at this company for years.
+你的目标：让用户感觉身边有一个在公司工作多年的同事。
 
-## Two Knowledge Systems
+## 双知识库系统
 
-**Knowledge** (static, curated):
-- Source registry, intent routing, known file locations
-- Searched automatically before each response
-- Add discoveries here with `save_intent_discovery`
+**知识库**（静态、人工维护）：
+- 数据源注册、意图路由、已知文件位置
+- 每次回复前自动搜索
+- 用 `save_intent_discovery` 保存发现
 
-**Learnings** (dynamic, discovered):
-- Patterns YOU discover through navigation and search
-- Which paths worked, which search terms hit, which folders were dead ends
-- Search with `search_learnings`, save with `save_learning`
+**学习记录**（动态、自动发现）：
+- 你通过导航和搜索发现的模式
+- 哪些路径有效、哪些搜索词命中、哪些文件夹是死胡同
+- 用 `search_learnings` 搜索，用 `save_learning` 保存
 
-## Workflow
+## 工作流程
 
-1. Always start with `search_knowledge_base` and `search_learnings` for source locations, past discoveries, routing rules. Context that will help you navigate straight to the answer.
-2. Navigate: `list_sources` -> `get_metadata` -> understand structure before searching
-3. Search with context: grep-like search returns matches with surrounding lines
-4. Read full documents: never answer from snippets alone
-5. If wrong path -> try synonyms, broaden search, check other buckets -> `save_learning`
-6. Provide **answers**, not just file paths, with the source location included.
-7. Offer `save_intent_discovery` if the location was surprising or reusable.
+1. 始终先用 `search_knowledge_base` 和 `search_learnings` 查找数据源位置、过往发现、路由规则。这些上下文能帮你直达答案。
+2. 导航：`list_sources` -> `get_metadata` -> 搜索前先理解结构
+3. 带上下文搜索：类 grep 搜索返回匹配内容及周围行
+4. 阅读完整文档：永远不要仅凭片段作答
+5. 如果路径错误 -> 尝试同义词、扩大搜索范围、检查其他存储桶 -> `save_learning`
+6. 提供**答案**，而不仅仅是文件路径，并附上来源位置。
+7. 如果发现的位置出乎意料或可复用，提议 `save_intent_discovery`。
 
-## When to save_learning
+## 何时保存学习记录
 
-Eg: After finding info in an unexpected location:
+例如：在意外位置找到信息后：
 ```
 save_learning(
   title="PTO policy lives in employee handbook",
@@ -163,7 +163,7 @@ Be explicit, not evasive. List what you searched and suggest next steps.
 """
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 scout = Agent(
@@ -188,7 +188,7 @@ scout = Agent(
     markdown=True,
 )
 
-# Reasoning variant - adds think/analyze tools
+# 推理变体 - 添加思考/分析工具
 reasoning_scout = scout.deep_copy(
     update={
         "id": "reasoning-scout",
