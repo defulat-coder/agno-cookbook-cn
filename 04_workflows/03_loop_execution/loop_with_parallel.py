@@ -1,8 +1,8 @@
 """
-Loop With Parallel
+带并行的循环
 ==================
 
-Demonstrates a loop body that mixes `Parallel` and sequential steps before final content generation.
+演示在最终内容生成之前混合了 `Parallel` 和顺序步骤的循环体。
 """
 
 import asyncio
@@ -15,66 +15,66 @@ from agno.workflow import Loop, Parallel, Step, Workflow
 from agno.workflow.types import StepOutput
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 research_agent = Agent(
     name="Research Agent",
-    role="Research specialist",
+    role="研究专员",
     tools=[HackerNewsTools(), WebSearchTools()],
-    instructions="You are a research specialist. Research the given topic thoroughly.",
+    instructions="你是一位研究专员。彻底研究给定的主题。",
     markdown=True,
 )
 
 analysis_agent = Agent(
     name="Analysis Agent",
-    role="Data analyst",
-    instructions="You are a data analyst. Analyze and summarize research findings.",
+    role="数据分析师",
+    instructions="你是一位数据分析师。分析和总结研究发现。",
     markdown=True,
 )
 
 content_agent = Agent(
     name="Content Agent",
-    role="Content creator",
-    instructions="You are a content creator. Create engaging content based on research.",
+    role="内容创作者",
+    instructions="你是一位内容创作者。基于研究创建引人入胜的内容。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_hackernews_step = Step(
     name="Research HackerNews",
     agent=research_agent,
-    description="Research trending topics on HackerNews",
+    description="研究 HackerNews 上的热门主题",
 )
 
 research_web_step = Step(
     name="Research Web",
     agent=research_agent,
-    description="Research additional information from web sources",
+    description="从网络来源研究额外信息",
 )
 
 trend_analysis_step = Step(
     name="Trend Analysis",
     agent=analysis_agent,
-    description="Analyze trending patterns in the research",
+    description="分析研究中的趋势模式",
 )
 
 sentiment_analysis_step = Step(
     name="Sentiment Analysis",
     agent=analysis_agent,
-    description="Analyze sentiment and opinions from the research",
+    description="分析研究中的情感和观点",
 )
 
 content_step = Step(
     name="Create Content",
     agent=content_agent,
-    description="Create content based on research findings",
+    description="基于研究发现创建内容",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Loop Evaluator
+# 定义循环评估器
 # ---------------------------------------------------------------------------
 def research_evaluator(outputs: List[StepOutput]) -> bool:
     if not outputs:
@@ -83,22 +83,22 @@ def research_evaluator(outputs: List[StepOutput]) -> bool:
     total_content_length = sum(len(output.content or "") for output in outputs)
     if total_content_length > 500:
         print(
-            f"[PASS] Research evaluation passed - found substantial content ({total_content_length} chars total)"
+            f"[通过] 研究评估通过 - 找到大量内容（总共 {total_content_length} 字符）"
         )
         return True
 
     print(
-        f"[FAIL] Research evaluation failed - need more substantial research (current: {total_content_length} chars)"
+        f"[失败] 研究评估失败 - 需要更多实质性研究（当前：{total_content_length} 字符）"
     )
     return False
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Advanced Research and Content Workflow",
-    description="Research topics with parallel execution in a loop until conditions are met, then create content",
+    description="在循环中使用并行执行研究主题，直到满足条件，然后创建内容",
     steps=[
         Loop(
             name="Research Loop with Parallel Execution",
@@ -108,7 +108,7 @@ workflow = Workflow(
                     research_web_step,
                     trend_analysis_step,
                     name="Parallel Research & Analysis",
-                    description="Execute research and analysis in parallel for efficiency",
+                    description="并行执行研究和分析以提高效率",
                 ),
                 sentiment_analysis_step,
             ],
@@ -120,25 +120,25 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     input_text = (
         "Research the latest trends in AI and machine learning, then create a summary"
     )
 
-    # Sync
+    # 同步运行
     workflow.print_response(
         input=input_text,
     )
 
-    # Sync Streaming
+    # 同步流式运行
     workflow.print_response(
         input=input_text,
         stream=True,
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         workflow.aprint_response(
             input=input_text,

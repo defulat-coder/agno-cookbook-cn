@@ -1,33 +1,33 @@
-# TEST_LOG for cookbook/04_workflows/06_advanced_concepts/background_execution
+# cookbook/04_workflows/06_advanced_concepts/background_execution 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### background_poll.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG *** Agent Run End: 279bd889-9bd2-42b5-9b88-1d665ea235cd ****
+**结果：** 35秒后超时。DEBUG *** Agent Run End: 279bd889-9bd2-42b5-9b88-1d665ea235cd ****
 
 ---
 
 ### websocket_client.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: startup, timeout: 8s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：startup，超时：8s）。
 
-**Result:** Startup validation completed. [ERROR] Failed to connect: Multiple exceptions: [Errno 61] Connect call failed
+**结果：** 启动验证完成。[ERROR] Failed to connect: Multiple exceptions: [Errno 61] Connect call failed
 
 ---
 
 ### websocket_server.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: startup, timeout: 8s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：startup，超时：8s）。
 
-**Result:** Startup validation only; process terminated after 8.14s. INFO: Finished server process [29101]
+**结果：** 仅启动验证；进程在 8.14秒后终止。INFO: Finished server process [29101]
 
 ---

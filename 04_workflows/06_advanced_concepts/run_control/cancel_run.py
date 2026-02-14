@@ -1,8 +1,8 @@
 """
-Cancel Run
+取消运行
 ==========
 
-Demonstrates starting a workflow run in one thread and cancelling it from another.
+演示在一个线程中启动工作流运行并从另一个线程取消它。
 """
 
 import threading

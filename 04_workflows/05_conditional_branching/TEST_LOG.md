@@ -1,83 +1,83 @@
-# TEST_LOG for cookbook/04_workflows/05_conditional_branching
+# cookbook/04_workflows/05_conditional_branching 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### loop_in_choices.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. ┃ Jupyter, in particular, is exceptional for data visualization and ┃
+**结果：** 执行成功。┃ Jupyter, in particular, is exceptional for data visualization and ┃
 
 ---
 
 ### nested_choices.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 2.8s
+**结果：** 执行成功。Completed in 2.8s
 
 ---
 
 ### router_basic.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG ********************** TOOL METRICS **********************
+**结果：** 35秒后超时。DEBUG ********************** TOOL METRICS **********************
 
 ---
 
 ### router_with_loop.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Creating new async OpenAI client for model gpt-4o
+**结果：** 35秒后超时。DEBUG Creating new async OpenAI client for model gpt-4o
 
 ---
 
 ### selector_media_pipeline.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Running: generate_image(prompt=...)
+**结果：** 35秒后超时。DEBUG Running: generate_image(prompt=...)
 
 ---
 
 ### selector_types.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 2.4s
+**结果：** 执行成功。Completed in 2.4s
 
 ---
 
 ### step_choices_parameter.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 1.7s
+**结果：** 执行成功。Completed in 1.7s
 
 ---
 
 ### string_selector.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 8.4s
+**结果：** 执行成功。Completed in 8.4s
 
 ---

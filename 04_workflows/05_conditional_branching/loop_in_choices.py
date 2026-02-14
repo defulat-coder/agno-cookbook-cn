@@ -1,8 +1,8 @@
 """
-Loop In Choices
+选择中的循环
 ===============
 
-Demonstrates using a `Loop` component as one of the router choices.
+演示将 `Loop` 组件用作路由器选择之一。
 """
 
 from typing import List, Union
@@ -16,22 +16,22 @@ from agno.workflow.types import StepInput, StepOutput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 draft_writer = Agent(
     name="draft_writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Write a draft on the given topic. Keep it concise.",
+    instructions="撰写关于给定主题的草稿。保持简洁。",
 )
 
 refiner = Agent(
     name="refiner",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Refine and improve the given draft. Make it more polished.",
+    instructions="改进和完善给定的草稿。使其更加精炼。",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 quick_response = Step(
     name="quick_response",
@@ -46,7 +46,7 @@ refinement_loop = Loop(
 
 
 # ---------------------------------------------------------------------------
-# Define Router Selector
+# 定义路由器选择器
 # ---------------------------------------------------------------------------
 def loop_selector(
     step_input: StepInput,
@@ -62,7 +62,7 @@ def loop_selector(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Loop Choice Routing",
@@ -76,7 +76,7 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     workflow.print_response(

@@ -1,8 +1,8 @@
 """
-State With Team
+与团队共享状态
 ===============
 
-Demonstrates shared session state across team and agent steps for project-step lifecycle management.
+演示跨团队和 Agent 步骤共享会话状态以进行项目步骤生命周期管理。
 """
 
 from agno.agent.agent import Agent

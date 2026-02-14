@@ -1,8 +1,8 @@
 """
-Early Stop Condition
+提前停止条件
 ====================
 
-Demonstrates stopping an entire workflow from inside a `Condition` branch.
+演示从 `Condition` 分支内部停止整个工作流。
 """
 
 from agno.agent import Agent
@@ -12,22 +12,22 @@ from agno.workflow.condition import Condition
 from agno.workflow.types import StepInput, StepOutput
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
-    instructions="Research the given topic thoroughly and provide detailed findings.",
+    instructions="彻底研究给定主题并提供详细发现。",
     tools=[WebSearchTools()],
 )
 
 writer = Agent(
     name="Writer",
-    instructions="Create engaging content based on research findings.",
+    instructions="根据研究发现创建吸引人的内容。",
 )
 
 reviewer = Agent(
     name="Reviewer",
-    instructions="Review and improve the written content.",
+    instructions="审查并改进撰写的内容。",
 )
 
 

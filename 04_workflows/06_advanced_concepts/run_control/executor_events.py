@@ -1,8 +1,8 @@
 """
-Executor Events
+执行器事件
 ===============
 
-Demonstrates filtering internal executor events during streamed workflow runs.
+演示在流式工作流运行期间过滤内部执行器事件。
 """
 
 from agno.agent import Agent

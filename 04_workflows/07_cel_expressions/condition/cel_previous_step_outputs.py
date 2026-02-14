@@ -1,10 +1,10 @@
-"""Condition with CEL: branch based on a named step's output.
+"""使用 CEL 的条件：基于命名步骤的输出进行分支。
 ==========================================================
 
-Uses previous_step_outputs map to check the output of a specific
-step by name, enabling multi-step pipelines with conditional logic.
+使用 previous_step_outputs 映射按名称检查特定步骤的输出，
+使多步骤管道能够具有条件逻辑。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,31 +20,31 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Research the topic. If the topic involves safety risks, include SAFETY_REVIEW_NEEDED in your response.",
+    instructions="研究该主题。如果主题涉及安全风险，在响应中包含 SAFETY_REVIEW_NEEDED。",
     markdown=True,
 )
 
 safety_reviewer = Agent(
     name="Safety Reviewer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Review the research for safety concerns and provide recommendations.",
+    instructions="审查研究的安全问题并提供建议。",
     markdown=True,
 )
 
 publisher = Agent(
     name="Publisher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Prepare the research for publication.",
+    instructions="准备研究以供发布。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Previous Step Outputs Condition",
@@ -52,7 +52,7 @@ workflow = Workflow(
         Step(name="Research", agent=researcher),
         Condition(
             name="Safety Check",
-            # Check the Research step output by name
+            # 按名称检查 Research 步骤输出
             evaluator='previous_step_outputs.Research.contains("SAFETY_REVIEW_NEEDED")',
             steps=[
                 Step(name="Safety Review", agent=safety_reviewer),
@@ -63,14 +63,14 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Safe topic (skips safety review) ---")
+    print("--- 安全主题（跳过安全审查）---")
     workflow.print_response(input="Write about gardening tips for beginners.")
     print()
 
-    print("--- Safety-sensitive topic (triggers safety review) ---")
+    print("--- 安全敏感主题（触发安全审查）---")
     workflow.print_response(
         input="Write about handling hazardous chemicals in a home lab."
     )

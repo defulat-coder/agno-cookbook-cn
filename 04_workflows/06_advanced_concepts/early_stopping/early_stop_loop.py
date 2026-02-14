@@ -1,8 +1,8 @@
 """
-Early Stop Loop
+提前停止循环
 ===============
 
-Demonstrates stopping a looped workflow early using a safety-check step.
+演示使用安全检查步骤提前停止循环工作流。
 """
 
 from typing import List
@@ -14,20 +14,20 @@ from agno.workflow import Loop, Step, Workflow
 from agno.workflow.types import StepInput, StepOutput
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 research_agent = Agent(
     name="Research Agent",
-    role="Research specialist",
+    role="研究专家",
     tools=[HackerNewsTools(), WebSearchTools()],
-    instructions="You are a research specialist. Research the given topic thoroughly.",
+    instructions="你是一位研究专家。彻底研究给定主题。",
     markdown=True,
 )
 
 content_agent = Agent(
     name="Content Agent",
-    role="Content creator",
-    instructions="You are a content creator. Create engaging content based on research.",
+    role="内容创作者",
+    instructions="你是一位内容创作者。根据研究创建吸引人的内容。",
     markdown=True,
 )
 

@@ -1,43 +1,43 @@
-# TEST_LOG for cookbook/04_workflows/06_advanced_concepts/early_stopping
+# cookbook/04_workflows/06_advanced_concepts/early_stopping 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### early_stop_basic.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. ┃ • Endpoint breakdown: top routes by latency and errors ┃
+**结果：** 35秒后超时。┃ • Endpoint breakdown: top routes by latency and errors ┃
 
 ---
 
 ### early_stop_condition.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. ddgs.exceptions.DDGSException: No results found.
+**结果：** 执行成功。ddgs.exceptions.DDGSException: No results found.
 
 ---
 
 ### early_stop_loop.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 14.3s
+**结果：** 执行成功。Completed in 14.3s
 
 ---
 
 ### early_stop_parallel.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. ┃ responsible for AI-driven errors or harms. ┃
+**结果：** 执行成功。┃ responsible for AI-driven errors or harms. ┃
 
 ---

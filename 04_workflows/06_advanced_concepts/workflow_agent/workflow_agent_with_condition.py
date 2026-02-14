@@ -1,8 +1,8 @@
 """
-Workflow Agent With Condition
+带条件的工作流 Agent
 =============================
 
-Demonstrates using `WorkflowAgent` together with a conditional step in the workflow graph.
+演示将 `WorkflowAgent` 与工作流图中的条件步骤一起使用。
 """
 
 import asyncio

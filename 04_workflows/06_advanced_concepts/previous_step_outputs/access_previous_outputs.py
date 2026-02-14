@@ -1,8 +1,8 @@
 """
-Access Previous Outputs
+访问前置输出
 =======================
 
-Demonstrates accessing output from multiple prior steps using both named steps and implicit step keys.
+演示使用命名步骤和隐式步骤键访问多个先前步骤的输出。
 """
 
 from agno.agent.agent import Agent

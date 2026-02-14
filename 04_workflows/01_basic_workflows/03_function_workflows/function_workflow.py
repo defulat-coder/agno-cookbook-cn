@@ -1,8 +1,8 @@
 """
-Function Workflow
+函数工作流
 =================
 
-Demonstrates using a single execution function in place of explicit step lists across sync and async run modes.
+演示在同步和异步运行模式中使用单个执行函数代替显式步骤列表。
 """
 
 import asyncio
@@ -18,73 +18,73 @@ from agno.workflow.types import WorkflowExecutionInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts",
+    role="从 Hackernews 帖子中提取关键见解和内容",
 )
 
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    role="Search the web for the latest news and trends",
+    role="搜索网络获取最新新闻和趋势",
 )
 
 streaming_hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[HackerNewsTools()],
-    role="Research key insights and content from Hackernews posts",
+    role="从 Hackernews 帖子中研究关键见解和内容",
 )
 
 content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容发布计划",
+        "确保每周有 3 篇文章",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Research tech topics from Hackernews and the web",
+    instructions="从 Hackernews 和网络研究技术主题",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Execution Functions
+# 定义执行函数
 # ---------------------------------------------------------------------------
 def custom_execution_function(
     workflow: Workflow,
     execution_input: WorkflowExecutionInput,
 ) -> str:
-    print(f"Executing workflow: {workflow.name}")
+    print(f"执行工作流：{workflow.name}")
     run_response = research_team.run(execution_input.input)
     research_content = run_response.content
     planning_prompt = f"""
-        STRATEGIC CONTENT PLANNING REQUEST:
+        战略内容规划请求：
 
-        Core Topic: {execution_input.input}
+        核心主题：{execution_input.input}
 
-        Research Results: {research_content[:500]}
+        研究结果：{research_content[:500]}
 
-        Planning Requirements:
-        1. Create a comprehensive content strategy based on the research
-        2. Leverage the research findings effectively
-        3. Identify content formats and channels
-        4. Provide timeline and priority recommendations
-        5. Include engagement and distribution strategies
+        规划要求：
+        1. 基于研究创建全面的内容策略
+        2. 有效利用研究发现
+        3. 确定内容格式和渠道
+        4. 提供时间表和优先级建议
+        5. 包含参与度和分发策略
 
-        Please create a detailed, actionable content plan.
+        请创建详细的、可执行的内容计划。
     """
     content_plan = content_planner.run(planning_prompt)
     return content_plan.content
@@ -94,7 +94,7 @@ def custom_execution_function_stream(
     workflow: Workflow,
     execution_input: WorkflowExecutionInput,
 ) -> Iterator:
-    print(f"Executing workflow: {workflow.name}")
+    print(f"执行工作流：{workflow.name}")
     research_content = ""
     for response in streaming_hackernews_agent.run(
         execution_input.input,
@@ -105,20 +105,20 @@ def custom_execution_function_stream(
             research_content += str(response.content)
 
     planning_prompt = f"""
-        STRATEGIC CONTENT PLANNING REQUEST:
+        战略内容规划请求：
 
-        Core Topic: {execution_input.input}
+        核心主题：{execution_input.input}
 
-        Research Results: {research_content[:500]}
+        研究结果：{research_content[:500]}
 
-        Planning Requirements:
-        1. Create a comprehensive content strategy based on the research
-        2. Leverage the research findings effectively
-        3. Identify content formats and channels
-        4. Provide timeline and priority recommendations
-        5. Include engagement and distribution strategies
+        规划要求：
+        1. 基于研究创建全面的内容策略
+        2. 有效利用研究发现
+        3. 确定内容格式和渠道
+        4. 提供时间表和优先级建议
+        5. 包含参与度和分发策略
 
-        Please create a detailed, actionable content plan.
+        请创建详细的、可执行的内容计划。
     """
     yield from content_planner.run(
         planning_prompt,
@@ -131,24 +131,24 @@ async def custom_execution_function_async(
     workflow: Workflow,
     execution_input: WorkflowExecutionInput,
 ) -> str:
-    print(f"Executing workflow: {workflow.name}")
+    print(f"执行工作流：{workflow.name}")
     run_response = research_team.run(execution_input.input)
     research_content = run_response.content
     planning_prompt = f"""
-        STRATEGIC CONTENT PLANNING REQUEST:
+        战略内容规划请求：
 
-        Core Topic: {execution_input.input}
+        核心主题：{execution_input.input}
 
-        Research Results: {research_content[:500]}
+        研究结果：{research_content[:500]}
 
-        Planning Requirements:
-        1. Create a comprehensive content strategy based on the research
-        2. Leverage the research findings effectively
-        3. Identify content formats and channels
-        4. Provide timeline and priority recommendations
-        5. Include engagement and distribution strategies
+        规划要求：
+        1. 基于研究创建全面的内容策略
+        2. 有效利用研究发现
+        3. 确定内容格式和渠道
+        4. 提供时间表和优先级建议
+        5. 包含参与度和分发策略
 
-        Please create a detailed, actionable content plan.
+        请创建详细的、可执行的内容计划。
     """
     content_plan = await content_planner.arun(planning_prompt)
     return content_plan.content
@@ -158,7 +158,7 @@ async def custom_execution_function_async_stream(
     workflow: Workflow,
     execution_input: WorkflowExecutionInput,
 ) -> AsyncIterator:
-    print(f"Executing workflow: {workflow.name}")
+    print(f"执行工作流：{workflow.name}")
     research_content = ""
     async for response in streaming_hackernews_agent.arun(
         execution_input.input,
@@ -169,20 +169,20 @@ async def custom_execution_function_async_stream(
             research_content += str(response.content)
 
     planning_prompt = f"""
-        STRATEGIC CONTENT PLANNING REQUEST:
+        战略内容规划请求：
 
-        Core Topic: {execution_input.input}
+        核心主题：{execution_input.input}
 
-        Research Results: {research_content[:500]}
+        研究结果：{research_content[:500]}
 
-        Planning Requirements:
-        1. Create a comprehensive content strategy based on the research
-        2. Leverage the research findings effectively
-        3. Identify content formats and channels
-        4. Provide timeline and priority recommendations
-        5. Include engagement and distribution strategies
+        规划要求：
+        1. 基于研究创建全面的内容策略
+        2. 有效利用研究发现
+        3. 确定内容格式和渠道
+        4. 提供时间表和优先级建议
+        5. 包含参与度和分发策略
 
-        Please create a detailed, actionable content plan.
+        请创建详细的、可执行的内容计划。
     """
 
     async for response in content_planner.arun(
@@ -194,11 +194,11 @@ async def custom_execution_function_async_stream(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflows
+# 创建工作流
 # ---------------------------------------------------------------------------
 sync_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -208,7 +208,7 @@ sync_workflow = Workflow(
 
 sync_stream_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -218,7 +218,7 @@ sync_stream_workflow = Workflow(
 
 async_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -228,7 +228,7 @@ async_workflow = Workflow(
 
 async_stream_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -237,28 +237,28 @@ async_stream_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Sync
+    # 同步运行
     sync_workflow.print_response(
         input="AI trends in 2024",
     )
 
-    # Sync Streaming
+    # 同步流式运行
     sync_stream_workflow.print_response(
         input="AI trends in 2024",
         stream=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         async_workflow.aprint_response(
             input="AI trends in 2024",
         )
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         async_stream_workflow.aprint_response(
             input="AI trends in 2024",

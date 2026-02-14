@@ -1,8 +1,8 @@
 """
-Step With Class Executor
+带类执行器的步骤
 ========================
 
-Demonstrates class-based step executors with sync and async workflow execution.
+演示使用基于类的步骤执行器进行同步和异步工作流执行。
 """
 
 import asyncio
@@ -20,28 +20,28 @@ from agno.workflow.step import Step, StepInput, StepOutput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[HackerNewsTools()],
-    instructions="Extract key insights and content from Hackernews posts",
+    instructions="从 Hackernews 帖子中提取关键见解和内容",
 )
 
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[WebSearchTools()],
-    instructions="Search the web for the latest news and trends",
+    instructions="搜索网络获取最新新闻和趋势",
 )
 
 content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容发布计划",
+        "确保每周有 3 篇文章",
     ],
 )
 
@@ -49,67 +49,67 @@ streaming_content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容发布计划",
+        "确保每周有 3 篇文章",
     ],
     db=InMemoryDb(),
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Analyze content and create comprehensive social media strategy",
+    instructions="分析内容并创建全面的社交媒体策略",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Class Executors
+# 定义类执行器
 # ---------------------------------------------------------------------------
 class CustomContentPlanning:
     def __call__(self, step_input: StepInput) -> StepOutput:
         message = step_input.input
         previous_step_content = step_input.previous_step_content
         planning_prompt = f"""
-            STRATEGIC CONTENT PLANNING REQUEST:
+            战略内容规划请求：
 
-            Core Topic: {message}
+            核心主题：{message}
 
-            Research Results: {previous_step_content[:500] if previous_step_content else "No research results"}
+            研究结果：{previous_step_content[:500] if previous_step_content else "无研究结果"}
 
-            Planning Requirements:
-            1. Create a comprehensive content strategy based on the research
-            2. Leverage the research findings effectively
-            3. Identify content formats and channels
-            4. Provide timeline and priority recommendations
-            5. Include engagement and distribution strategies
+            规划要求：
+            1. 基于研究创建全面的内容策略
+            2. 有效利用研究发现
+            3. 确定内容格式和渠道
+            4. 提供时间表和优先级建议
+            5. 包含参与度和分发策略
 
-            Please create a detailed, actionable content plan.
+            请创建详细的、可执行的内容计划。
         """
 
         try:
             response = content_planner.run(planning_prompt)
             enhanced_content = f"""
-                ## Strategic Content Plan
+                ## 战略内容计划
 
-                **Planning Topic:** {message}
+                **规划主题：** {message}
 
-                **Research Integration:** {"✓ Research-based" if previous_step_content else "✗ No research foundation"}
+                **研究整合：** {"✓ 基于研究" if previous_step_content else "✗ 无研究基础"}
 
-                **Content Strategy:**
+                **内容策略：**
                 {response.content}
 
-                **Custom Planning Enhancements:**
-                - Research Integration: {"High" if previous_step_content else "Baseline"}
-                - Strategic Alignment: Optimized for multi-channel distribution
-                - Execution Ready: Detailed action items included
+                **自定义规划增强：**
+                - 研究整合：{"高" if previous_step_content else "基准"}
+                - 战略对齐：针对多渠道分发进行优化
+                - 执行就绪：包含详细行动项
             """.strip()
             return StepOutput(content=enhanced_content)
         except Exception as e:
             return StepOutput(
-                content=f"Custom content planning failed: {str(e)}",
+                content=f"自定义内容规划失败：{str(e)}",
                 success=False,
             )
 
@@ -122,20 +122,20 @@ class AsyncCustomContentPlanning:
         message = step_input.input
         previous_step_content = step_input.previous_step_content
         planning_prompt = f"""
-            STRATEGIC CONTENT PLANNING REQUEST:
+            战略内容规划请求：
 
-            Core Topic: {message}
+            核心主题：{message}
 
-            Research Results: {previous_step_content[:500] if previous_step_content else "No research results"}
+            研究结果：{previous_step_content[:500] if previous_step_content else "无研究结果"}
 
-            Planning Requirements:
-            1. Create a comprehensive content strategy based on the research
-            2. Leverage the research findings effectively
-            3. Identify content formats and channels
-            4. Provide timeline and priority recommendations
-            5. Include engagement and distribution strategies
+            规划要求：
+            1. 基于研究创建全面的内容策略
+            2. 有效利用研究发现
+            3. 确定内容格式和渠道
+            4. 提供时间表和优先级建议
+            5. 包含参与度和分发策略
 
-            Please create a detailed, actionable content plan.
+            请创建详细的、可执行的内容计划。
         """
 
         try:
@@ -149,30 +149,30 @@ class AsyncCustomContentPlanning:
 
             response = streaming_content_planner.get_last_run_output()
             enhanced_content = f"""
-                ## Strategic Content Plan
+                ## 战略内容计划
 
-                **Planning Topic:** {message}
+                **规划主题：** {message}
 
-                **Research Integration:** {"✓ Research-based" if previous_step_content else "✗ No research foundation"}
+                **研究整合：** {"✓ 基于研究" if previous_step_content else "✗ 无研究基础"}
 
-                **Content Strategy:**
+                **内容策略：**
                 {response.content}
 
-                **Custom Planning Enhancements:**
-                - Research Integration: {"High" if previous_step_content else "Baseline"}
-                - Strategic Alignment: Optimized for multi-channel distribution
-                - Execution Ready: Detailed action items included
+                **自定义规划增强：**
+                - 研究整合：{"高" if previous_step_content else "基准"}
+                - 战略对齐：针对多渠道分发进行优化
+                - 执行就绪：包含详细行动项
             """.strip()
             yield StepOutput(content=enhanced_content)
         except Exception as e:
             yield StepOutput(
-                content=f"Custom content planning failed: {str(e)}",
+                content=f"自定义内容规划失败：{str(e)}",
                 success=False,
             )
 
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_step = Step(
     name="Research Step",
@@ -190,11 +190,11 @@ async_content_planning_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflows
+# 创建工作流
 # ---------------------------------------------------------------------------
 content_creation_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation with custom execution options",
+    description="带自定义执行选项的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -204,7 +204,7 @@ content_creation_workflow = Workflow(
 
 async_content_creation_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation with custom execution options",
+    description="带自定义执行选项的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -213,10 +213,10 @@ async_content_creation_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Sync
+    # 同步运行
     content_creation_workflow.print_response(
         input="AI trends in 2024",
         markdown=True,
@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
     print("\n" + "=" * 60 + "\n")
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         async_content_creation_workflow.aprint_response(
             input="AI agent frameworks 2025",

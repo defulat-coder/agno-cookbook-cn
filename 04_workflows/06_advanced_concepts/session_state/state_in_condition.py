@@ -1,8 +1,8 @@
 """
-State In Condition
+条件中的状态
 ==================
 
-Demonstrates using workflow session state in a `Condition` evaluator and executor functions.
+演示在 `Condition` 评估器和执行器函数中使用工作流会话状态。
 """
 
 from agno.agent import Agent

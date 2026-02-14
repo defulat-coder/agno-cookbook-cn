@@ -1,10 +1,10 @@
-"""Router with CEL expression: route from additional_data field.
+"""使用 CEL 表达式的路由器：从 additional_data 字段进行路由。
 =============================================================
 
-Uses additional_data.route to let the caller specify which step
-to run, useful when the routing decision is made upstream (e.g. UI).
+使用 additional_data.route 让调用者指定要运行哪个步骤，
+当路由决策在上游（例如 UI）做出时很有用。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -21,31 +21,31 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 email_agent = Agent(
     name="Email Writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You write professional emails. Be concise and polished.",
+    instructions="你撰写专业的邮件。简洁且精炼。",
     markdown=True,
 )
 
 blog_agent = Agent(
     name="Blog Writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You write engaging blog posts with clear structure and headings.",
+    instructions="你撰写引人入胜的博客文章，具有清晰的结构和标题。",
     markdown=True,
 )
 
 tweet_agent = Agent(
     name="Tweet Writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You write punchy tweets. Keep it under 280 characters.",
+    instructions="你撰写简洁有力的推文。保持在 280 个字符以内。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Additional Data Router",
@@ -63,17 +63,17 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Route to email ---")
+    print("--- 路由到邮件 ---")
     workflow.print_response(
         input="Write about our new product launch.",
         additional_data={"route": "Email Writer"},
     )
     print()
 
-    print("--- Route to tweet ---")
+    print("--- 路由到推文 ---")
     workflow.print_response(
         input="Write about our new product launch.",
         additional_data={"route": "Tweet Writer"},

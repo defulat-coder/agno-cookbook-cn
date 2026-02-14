@@ -1,43 +1,43 @@
-# TEST_LOG for cookbook/04_workflows/06_advanced_concepts/history
+# cookbook/04_workflows/06_advanced_concepts/history 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### continuous_execution.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. Student :
+**结果：** 35秒后超时。Student :
 
 ---
 
 ### history_in_function.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. Content Manager :
+**结果：** 35秒后超时。Content Manager :
 
 ---
 
 ### intent_routing_with_history.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. - 'I'm getting an error message'
+**结果：** 35秒后超时。- 'I'm getting an error message'
 
 ---
 
 ### step_history.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. fit their needs.
+**结果：** 35秒后超时。fit their needs.
 
 ---

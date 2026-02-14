@@ -1,8 +1,8 @@
 """
-Structured IO Function
+结构化 IO 函数
 ======================
 
-Demonstrates custom function steps in structured workflows, including string and BaseModel outputs.
+演示结构化工作流中的自定义函数步骤，包括字符串和 BaseModel 输出。
 """
 
 from typing import List

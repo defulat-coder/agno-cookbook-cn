@@ -1,44 +1,43 @@
-# Test Log: 04_workflows/07_cel_expressions/condition
+# 测试日志：04_workflows/07_cel_expressions/condition
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### cel_additional_data.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_additional_data.py and validates expected behavior.
+**描述：** 运行 cel_additional_data.py 并验证预期行为。
 
 ---
 
 ### cel_basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_basic.py and validates expected behavior.
+**描述：** 运行 cel_basic.py 并验证预期行为。
 
 ---
 
 ### cel_previous_step.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_previous_step.py and validates expected behavior.
+**描述：** 运行 cel_previous_step.py 并验证预期行为。
 
 ---
 
 ### cel_previous_step_outputs.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_previous_step_outputs.py and validates expected behavior.
+**描述：** 运行 cel_previous_step_outputs.py 并验证预期行为。
 
 ---
 
 ### cel_session_state.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_session_state.py and validates expected behavior.
+**描述：** 运行 cel_session_state.py 并验证预期行为。
 
 ---
-

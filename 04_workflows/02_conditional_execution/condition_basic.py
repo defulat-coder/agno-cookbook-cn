@@ -1,8 +1,8 @@
 """
-Condition Basic
+基本条件
 ===============
 
-Demonstrates conditional step execution using a fact-check gate in a linear workflow.
+演示在线性工作流中使用事实检查门进行条件步骤执行。
 """
 
 import asyncio
@@ -15,33 +15,33 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
-    instructions="Research the given topic and provide detailed findings.",
+    instructions="研究给定主题并提供详细发现。",
     tools=[WebSearchTools()],
 )
 
 summarizer = Agent(
     name="Summarizer",
-    instructions="Create a clear summary of the research findings.",
+    instructions="为研究发现创建清晰的摘要。",
 )
 
 fact_checker = Agent(
     name="Fact Checker",
-    instructions="Verify facts and check for accuracy in the research.",
+    instructions="验证事实并检查研究的准确性。",
     tools=[WebSearchTools()],
 )
 
 writer = Agent(
     name="Writer",
-    instructions="Write a comprehensive article based on all available research and verification.",
+    instructions="根据所有可用的研究和验证撰写一篇全面的文章。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Condition Evaluator
+# 定义条件评估器
 # ---------------------------------------------------------------------------
 def needs_fact_checking(step_input: StepInput) -> bool:
     summary = step_input.previous_step_content or ""
@@ -64,44 +64,44 @@ def needs_fact_checking(step_input: StepInput) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_step = Step(
     name="research",
-    description="Research the topic",
+    description="研究主题",
     agent=researcher,
 )
 
 summarize_step = Step(
     name="summarize",
-    description="Summarize research findings",
+    description="总结研究发现",
     agent=summarizer,
 )
 
 fact_check_step = Step(
     name="fact_check",
-    description="Verify facts and claims",
+    description="验证事实和声明",
     agent=fact_checker,
 )
 
 write_article = Step(
     name="write_article",
-    description="Write final article",
+    description="撰写最终文章",
     agent=writer,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 basic_workflow = Workflow(
     name="Basic Linear Workflow",
-    description="Research -> Summarize -> Condition(Fact Check) -> Write Article",
+    description="研究 -> 总结 -> 条件（事实检查）-> 撰写文章",
     steps=[
         research_step,
         summarize_step,
         Condition(
             name="fact_check_condition",
-            description="Check if fact-checking is needed",
+            description="检查是否需要事实检查",
             evaluator=needs_fact_checking,
             steps=[fact_check_step],
         ),
@@ -110,20 +110,20 @@ basic_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("Running Basic Linear Workflow Example")
+    print("运行基本线性工作流示例")
     print("=" * 50)
 
     try:
-        # Sync Streaming
+        # 同步流式运行
         basic_workflow.print_response(
             input="Recent breakthroughs in quantum computing",
             stream=True,
         )
 
-        # Async Streaming
+        # 异步流式运行
         asyncio.run(
             basic_workflow.aprint_response(
                 input="Recent breakthroughs in quantum computing",
@@ -131,7 +131,7 @@ if __name__ == "__main__":
             )
         )
     except Exception as e:
-        print(f"[ERROR] {e}")
+        print(f"[错误] {e}")
         import traceback
 
         traceback.print_exc()

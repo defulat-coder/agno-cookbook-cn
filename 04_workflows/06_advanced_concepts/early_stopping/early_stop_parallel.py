@@ -1,8 +1,8 @@
 """
-Early Stop Parallel
+提前停止并行
 ===================
 
-Demonstrates stopping the workflow from within a step running inside a `Parallel` block.
+演示从 `Parallel` 块内运行的步骤中停止工作流。
 """
 
 from agno.agent import Agent

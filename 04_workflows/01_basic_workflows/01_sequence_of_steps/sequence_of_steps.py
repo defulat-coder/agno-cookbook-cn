@@ -1,8 +1,8 @@
 """
-Sequence Of Steps
+顺序执行步骤
 =================
 
-Demonstrates sequential workflow execution with sync, async, streaming, and event-streaming run modes.
+演示使用同步、异步、流式和事件流式运行模式的顺序工作流执行。
 """
 
 import asyncio
@@ -21,48 +21,48 @@ from agno.workflow.types import StepInput, StepOutput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts",
+    role="从 Hackernews 帖子中提取关键见解和内容",
 )
 
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    role="Search the web for the latest news and trends",
+    role="搜索网络获取最新新闻和趋势",
 )
 
 content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容发布计划",
+        "确保每周有 3 篇文章",
     ],
 )
 
 writer_agent = Agent(
     name="Writer Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Write a blog post on the topic",
+    instructions="撰写关于该主题的博客文章",
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Research tech topics from Hackernews and the web",
+    instructions="从 Hackernews 和网络研究技术主题",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_step = Step(
     name="Research Step",
@@ -112,11 +112,11 @@ async def prepare_input_for_writer(step_input: StepInput) -> AsyncIterator[StepO
 
 
 # ---------------------------------------------------------------------------
-# Create Workflows
+# 创建工作流
 # ---------------------------------------------------------------------------
 content_creation_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -126,7 +126,7 @@ content_creation_workflow = Workflow(
 
 blog_post_workflow = Workflow(
     name="Blog Post Workflow",
-    description="Automated blog post creation from Hackernews and the web",
+    description="从 Hackernews 和网络自动创建博客文章",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -169,23 +169,23 @@ async def stream_run_events() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Sync
+    # 同步运行
     content_creation_workflow.print_response(
         input="AI trends in 2024",
         markdown=True,
     )
 
-    # Sync Streaming
+    # 同步流式运行
     content_creation_workflow.print_response(
         input="AI trends in 2024",
         markdown=True,
         stream=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         content_creation_workflow.aprint_response(
             input="AI agent frameworks 2025",
@@ -193,7 +193,7 @@ if __name__ == "__main__":
         )
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         content_creation_workflow.aprint_response(
             input="AI agent frameworks 2025",
@@ -202,5 +202,5 @@ if __name__ == "__main__":
         )
     )
 
-    # Async Run Stream Events
+    # 异步流式事件运行
     asyncio.run(stream_run_events())

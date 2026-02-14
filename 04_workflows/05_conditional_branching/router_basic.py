@@ -1,8 +1,8 @@
 """
-Router Basic
+基本路由器
 ============
 
-Demonstrates topic-based routing between specialized research steps before content publishing.
+演示在内容发布之前在专业研究步骤之间进行基于主题的路由。
 """
 
 import asyncio
@@ -17,49 +17,49 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="HackerNews Researcher",
-    instructions="You are a researcher specializing in finding the latest tech news and discussions from Hacker News. Focus on startup trends, programming topics, and tech industry insights.",
+    instructions="你是一位专门从 Hacker News 寻找最新技术新闻和讨论的研究员。专注于创业趋势、编程主题和技术行业见解。",
     tools=[HackerNewsTools()],
 )
 
 web_agent = Agent(
     name="Web Researcher",
-    instructions="You are a comprehensive web researcher. Search across multiple sources including news sites, blogs, and official documentation to gather detailed information.",
+    instructions="你是一位全面的网络研究员。搜索包括新闻网站、博客和官方文档在内的多个来源，以收集详细信息。",
     tools=[WebSearchTools()],
 )
 
 content_agent = Agent(
     name="Content Publisher",
-    instructions="You are a content creator who takes research data and creates engaging, well-structured articles. Format the content with proper headings, bullet points, and clear conclusions.",
+    instructions="你是一位内容创作者，将研究数据转化为引人入胜、结构良好的文章。使用适当的标题、要点和清晰的结论来格式化内容。",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_hackernews = Step(
     name="research_hackernews",
     agent=hackernews_agent,
-    description="Research latest tech trends from Hacker News",
+    description="从 Hacker News 研究最新技术趋势",
 )
 
 research_web = Step(
     name="research_web",
     agent=web_agent,
-    description="Comprehensive web research on the topic",
+    description="对主题进行全面的网络研究",
 )
 
 publish_content = Step(
     name="publish_content",
     agent=content_agent,
-    description="Create and format final content for publication",
+    description="创建并格式化最终内容以供发布",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Router Selector
+# 定义路由器选择器
 # ---------------------------------------------------------------------------
 def research_router(step_input: StepInput) -> List[Step]:
     topic = step_input.previous_step_content or step_input.input or ""
@@ -83,53 +83,53 @@ def research_router(step_input: StepInput) -> List[Step]:
     ]
 
     if any(keyword in topic for keyword in tech_keywords):
-        print(f"Tech topic detected: Using HackerNews research for '{topic}'")
+        print(f"检测到技术主题：对 '{topic}' 使用 HackerNews 研究")
         return [research_hackernews]
 
-    print(f"General topic detected: Using web research for '{topic}'")
+    print(f"检测到常规主题：对 '{topic}' 使用网络研究")
     return [research_web]
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Intelligent Research Workflow",
-    description="Automatically selects the best research method based on topic, then publishes content",
+    description="根据主题自动选择最佳研究方法，然后发布内容",
     steps=[
         Router(
             name="research_strategy_router",
             selector=research_router,
             choices=[research_hackernews, research_web],
-            description="Intelligently selects research method based on topic",
+            description="根据主题智能选择研究方法",
         ),
         publish_content,
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     input_text = "Latest developments in artificial intelligence and machine learning"
 
-    # Sync
+    # 同步运行
     workflow.print_response(input_text)
 
-    # Sync Streaming
+    # 同步流式运行
     workflow.print_response(
         input_text,
         stream=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         workflow.aprint_response(
             input_text,
         )
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         workflow.aprint_response(
             input_text,

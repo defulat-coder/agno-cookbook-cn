@@ -1,18 +1,18 @@
 # 04_workflows/05_conditional_branching
 
-## Scope
-Runnable workflow examples under: cookbook/04_workflows/05_conditional_branching
+## 范围
+cookbook/04_workflows/05_conditional_branching 目录下的可运行 Workflow（工作流）示例
 
-## Files
-- loop_in_choices.py: Demonstrates loop in choices.
-- nested_choices.py: Demonstrates nested choices.
-- router_basic.py: Demonstrates router basic.
-- router_with_loop.py: Demonstrates router with loop.
-- selector_media_pipeline.py: Demonstrates selector media pipeline.
-- selector_types.py: Demonstrates selector types.
-- step_choices_parameter.py: Demonstrates step choices parameter.
-- string_selector.py: Demonstrates string selector.
+## 文件
+- loop_in_choices.py: 演示选项中的循环
+- nested_choices.py: 演示嵌套选项
+- router_basic.py: 演示基础路由器
+- router_with_loop.py: 演示带循环的路由器
+- selector_media_pipeline.py: 演示选择器媒体管道
+- selector_types.py: 演示选择器类型
+- step_choices_parameter.py: 演示步骤选项参数
+- string_selector.py: 演示字符串选择器
 
-## Prerequisites
-- Activate the demo environment: .venvs/demo/bin/python
-- Load API keys with direnv allow (requires a local .envrc file).
+## 先决条件
+- 激活演示环境：.venvs/demo/bin/python
+- 使用 direnv allow 加载 API 密钥（需要本地 .envrc 文件）

@@ -1,8 +1,8 @@
 """
-Workflow Tools
+工作流工具
 ==============
 
-Demonstrates exposing a workflow as a tool that another agent can execute.
+演示将工作流作为工具公开，供另一个 Agent 执行。
 """
 
 import asyncio

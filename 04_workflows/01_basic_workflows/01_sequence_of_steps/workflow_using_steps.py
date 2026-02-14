@@ -1,8 +1,8 @@
 """
-Workflow Using Steps
+使用 Steps 的工作流
 ====================
 
-Demonstrates how to compose a workflow from a `Steps` sequence with research, writing, and editing steps.
+演示如何使用 `Steps` 序列组合包含研究、写作和编辑步骤的工作流。
 """
 
 import asyncio
@@ -15,74 +15,74 @@ from agno.workflow.steps import Steps
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="Research the given topic and provide key facts and insights.",
+    instructions="研究给定主题并提供关键事实和见解。",
 )
 
 writer = Agent(
     name="Writing Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Write a comprehensive article based on the research provided. Make it engaging and well-structured.",
+    instructions="根据提供的研究撰写一篇全面的文章。使其引人入胜且结构清晰。",
 )
 
 editor = Agent(
     name="Editor Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Review and edit the article for clarity, grammar, and flow. Provide a polished final version.",
+    instructions="审查和编辑文章的清晰度、语法和流畅性。提供精修的最终版本。",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_step = Step(
     name="research",
     agent=researcher,
-    description="Research the topic and gather information",
+    description="研究主题并收集信息",
 )
 
 writing_step = Step(
     name="writing",
     agent=writer,
-    description="Write an article based on the research",
+    description="根据研究撰写文章",
 )
 
 editing_step = Step(
     name="editing",
     agent=editor,
-    description="Edit and polish the article",
+    description="编辑和润色文章",
 )
 
 article_creation_sequence = Steps(
     name="article_creation",
-    description="Complete article creation workflow from research to final edit",
+    description="从研究到最终编辑的完整文章创作工作流",
     steps=[research_step, writing_step, editing_step],
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 article_workflow = Workflow(
     name="Article Creation Workflow",
-    description="Automated article creation from research to publication",
+    description="从研究到发布的自动化文章创作",
     steps=[article_creation_sequence],
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Sync
+    # 同步运行
     article_workflow.print_response(
         input="Write an article about the benefits of renewable energy",
         markdown=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         article_workflow.aprint_response(
             input="Write an article about the benefits of renewable energy",

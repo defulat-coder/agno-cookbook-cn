@@ -1,23 +1,23 @@
-# TEST_LOG for cookbook/04_workflows/04_parallel_execution
+# cookbook/04_workflows/04_parallel_execution 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### parallel_basic.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Added RunOutput to Agent Session
+**结果：** 35秒后超时。DEBUG Added RunOutput to Agent Session
 
 ---
 
 ### parallel_with_condition.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Exited with code 1. ImportError: `exa_py` not installed. Please install using `pip install exa_py`
+**结果：** 退出代码 1。ImportError: `exa_py` not installed. Please install using `pip install exa_py`
 
 ---

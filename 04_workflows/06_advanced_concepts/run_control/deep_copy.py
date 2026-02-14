@@ -1,8 +1,8 @@
 """
-Workflow Deep Copy
+工作流深拷贝
 ==================
 
-Demonstrates creating isolated workflow copies with `deep_copy(update=...)`.
+演示使用 `deep_copy(update=...)` 创建隔离的工作流副本。
 """
 
 from agno.agent import Agent

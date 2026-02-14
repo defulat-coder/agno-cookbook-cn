@@ -1,10 +1,10 @@
-"""Condition with CEL expression: route based on input content.
+"""使用 CEL 表达式的条件：根据输入内容进行路由。
 ============================================================
 
-Uses input.contains() to check whether the request is urgent,
-branching to different agents via if/else steps.
+使用 input.contains() 检查请求是否紧急，
+通过 if/else 步骤分支到不同的 Agent。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,24 +20,24 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 urgent_handler = Agent(
     name="Urgent Handler",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle urgent requests with high priority. Be concise and action-oriented.",
+    instructions="你处理高优先级的紧急请求。简洁且以行动为导向。",
     markdown=True,
 )
 
 normal_handler = Agent(
     name="Normal Handler",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle normal requests thoroughly and thoughtfully.",
+    instructions="你彻底且深思熟虑地处理正常请求。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Input Routing",
@@ -56,14 +56,14 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Urgent request ---")
+    print("--- 紧急请求 ---")
     workflow.print_response(
         input="This is an urgent request - please help immediately!"
     )
     print()
 
-    print("--- Normal request ---")
+    print("--- 正常请求 ---")
     workflow.print_response(input="I have a general question about your services.")

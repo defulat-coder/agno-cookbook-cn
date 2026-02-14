@@ -1,8 +1,8 @@
 """
-Selector Media Pipeline
+选择器媒体管道
 =======================
 
-Demonstrates routing between image and video generation pipelines using a router selector.
+演示使用路由器选择器在图像和视频生成管道之间进行路由。
 """
 
 import asyncio
@@ -21,7 +21,7 @@ from pydantic import BaseModel
 
 
 # ---------------------------------------------------------------------------
-# Define Input Model
+# 定义输入模型
 # ---------------------------------------------------------------------------
 class MediaRequest(BaseModel):
     topic: str
@@ -33,101 +33,101 @@ class MediaRequest(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 image_generator = Agent(
     name="Image Generator",
     model=OpenAIChat(id="gpt-4o"),
     tools=[OpenAITools(image_model="gpt-image-1")],
-    instructions="""You are an expert image generation specialist.
-    When users request image creation, you should ACTUALLY GENERATE the image using your available image generation tools.
+    instructions="""你是一位专业的图像生成专家。
+    当用户请求创建图像时，你应该使用可用的图像生成工具实际生成图像。
 
-    Always use the generate_image tool to create the requested image based on the user's specifications.
-    Include detailed, creative prompts that incorporate style, composition, lighting, and mood details.
+    始终使用 generate_image 工具根据用户的规格创建请求的图像。
+    包括详细、有创意的提示，融入风格、构图、光线和氛围细节。
 
-    After generating the image, provide a brief description of what you created.""",
+    生成图像后，简要描述你创建的内容。""",
 )
 
 image_describer = Agent(
     name="Image Describer",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="""You are an expert image analyst and describer.
-    When you receive an image (either as input or from a previous step), analyze and describe it in vivid detail, including:
-    - Visual elements and composition
-    - Colors, lighting, and mood
-    - Artistic style and technique
-    - Emotional impact and narrative
+    instructions="""你是一位专业的图像分析和描述专家。
+    当你收到图像（作为输入或来自前一步骤）时，详细分析和描述它，包括：
+    - 视觉元素和构图
+    - 颜色、光线和氛围
+    - 艺术风格和技术
+    - 情感影响和叙事
 
-    If no image is provided, work with the image description or prompt from the previous step.
-    Provide rich, engaging descriptions that capture the essence of the visual content.""",
+    如果未提供图像，请使用前一步骤的图像描述或提示。
+    提供丰富、引人入胜的描述，捕捉视觉内容的本质。""",
 )
 
 video_generator = Agent(
     name="Video Generator",
     model=OpenAIChat(id="gpt-4o"),
     tools=[GeminiTools(vertexai=True)],
-    instructions="""You are an expert video production specialist.
-    Create detailed video generation prompts and storyboards based on user requests.
-    Include scene descriptions, camera movements, transitions, and timing.
-    Consider pacing, visual storytelling, and technical aspects like resolution and duration.
-    Format your response as a comprehensive video production plan.""",
+    instructions="""你是一位专业的视频制作专家。
+    根据用户请求创建详细的视频生成提示和故事板。
+    包括场景描述、摄像机移动、过渡和时间安排。
+    考虑节奏、视觉叙事以及分辨率和持续时间等技术方面。
+    将你的响应格式化为全面的视频制作计划。""",
 )
 
 video_describer = Agent(
     name="Video Describer",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="""You are an expert video analyst and critic.
-    Analyze and describe videos comprehensively, including:
-    - Scene composition and cinematography
-    - Narrative flow and pacing
-    - Visual effects and production quality
-    - Audio-visual harmony and mood
-    - Technical execution and artistic merit
-    Provide detailed, professional video analysis.""",
+    instructions="""你是一位专业的视频分析和评论家。
+    全面分析和描述视频，包括：
+    - 场景构图和摄影
+    - 叙事流和节奏
+    - 视觉效果和制作质量
+    - 视听和谐和氛围
+    - 技术执行和艺术价值
+    提供详细、专业的视频分析。""",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 generate_image_step = Step(
     name="generate_image",
     agent=image_generator,
-    description="Generate a detailed image creation prompt based on the user's request",
+    description="根据用户请求生成详细的图像创建提示",
 )
 
 describe_image_step = Step(
     name="describe_image",
     agent=image_describer,
-    description="Analyze and describe the generated image concept in vivid detail",
+    description="详细分析和描述生成的图像概念",
 )
 
 generate_video_step = Step(
     name="generate_video",
     agent=video_generator,
-    description="Create a comprehensive video production plan and storyboard",
+    description="创建全面的视频制作计划和故事板",
 )
 
 describe_video_step = Step(
     name="describe_video",
     agent=video_describer,
-    description="Analyze and critique the video production plan with professional insights",
+    description="用专业见解分析和评论视频制作计划",
 )
 
 image_sequence = Steps(
     name="image_generation",
-    description="Complete image generation and analysis workflow",
+    description="完整的图像生成和分析工作流",
     steps=[generate_image_step, describe_image_step],
 )
 
 video_sequence = Steps(
     name="video_generation",
-    description="Complete video production and analysis workflow",
+    description="完整的视频制作和分析工作流",
     steps=[generate_video_step, describe_video_step],
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Router Selector
+# 定义路由器选择器
 # ---------------------------------------------------------------------------
 def media_sequence_selector(step_input: StepInput) -> List[Step]:
     if not step_input.input or not isinstance(step_input.input, str):
@@ -142,15 +142,15 @@ def media_sequence_selector(step_input: StepInput) -> List[Step]:
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 media_workflow = Workflow(
     name="AI Media Generation Workflow",
-    description="Generate and analyze images or videos using AI agents",
+    description="使用 AI Agent 生成和分析图像或视频",
     steps=[
         Router(
             name="Media Type Router",
-            description="Routes to appropriate media generation pipeline based on content type",
+            description="根据内容类型路由到适当的媒体生成管道",
             selector=media_sequence_selector,
             choices=[image_sequence, video_sequence],
         )
@@ -158,10 +158,10 @@ media_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Example 1: Image Generation (using message_data) ===")
+    print("=== 示例 1：图像生成（使用 message_data）===")
     image_request = MediaRequest(
         topic="Create an image of magical forest for a movie scene",
         content_type="image",

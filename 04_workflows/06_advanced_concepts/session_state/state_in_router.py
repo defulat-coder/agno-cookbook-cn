@@ -1,8 +1,8 @@
 """
-State In Router
+路由器中的状态
 ===============
 
-Demonstrates router selectors that use and update workflow session state for adaptive routing.
+演示使用和更新工作流会话状态以进行自适应路由的路由器选择器。
 """
 
 from typing import List

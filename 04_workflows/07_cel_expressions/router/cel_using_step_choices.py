@@ -1,15 +1,15 @@
-"""Router with CEL: route using step_choices index.
+"""使用 CEL 的路由器：使用 step_choices 索引进行路由。
 ================================================
 
-Uses step_choices[0], step_choices[1], etc. to reference steps by their
-position in the choices list, rather than hardcoding step names.
+使用 step_choices[0]、step_choices[1] 等通过它们在选择列表中的
+位置引用步骤，而不是硬编码步骤名称。
 
-This is useful when you want to:
-- Avoid typos in step names
-- Make the CEL expression more maintainable
-- Reference steps dynamically based on index
+这在以下情况下很有用：
+- 避免步骤名称中的拼写错误
+- 使 CEL 表达式更易于维护
+- 根据索引动态引用步骤
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -26,32 +26,32 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 quick_analyzer = Agent(
     name="Quick Analyzer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Provide a brief, concise analysis of the topic.",
+    instructions="提供对主题的简要、简洁的分析。",
     markdown=True,
 )
 
 detailed_analyzer = Agent(
     name="Detailed Analyzer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Provide a comprehensive, in-depth analysis of the topic.",
+    instructions="提供对主题的全面、深入的分析。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Step Choices Router",
     steps=[
         Router(
             name="Analysis Router",
-            # step_choices[0] = "Quick Analysis" (first choice)
-            # step_choices[1] = "Detailed Analysis" (second choice)
+            # step_choices[0] = "Quick Analysis"（第一个选择）
+            # step_choices[1] = "Detailed Analysis"（第二个选择）
             selector='input.contains("quick") || input.contains("brief") ? step_choices[0] : step_choices[1]',
             choices=[
                 Step(name="Quick Analysis", agent=quick_analyzer),
@@ -62,17 +62,17 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # This will route to step_choices[0] ("Quick Analysis")
-    print("=== Quick analysis request ===")
+    # 这将路由到 step_choices[0]（"Quick Analysis"）
+    print("=== 快速分析请求 ===")
     workflow.print_response(
         input="Give me a quick overview of quantum computing.", stream=True
     )
 
     print("\n" + "=" * 50 + "\n")
 
-    # This will route to step_choices[1] ("Detailed Analysis")
-    print("=== Detailed analysis request ===")
+    # 这将路由到 step_choices[1]（"Detailed Analysis"）
+    print("=== 详细分析请求 ===")
     workflow.print_response(input="Explain quantum computing in detail.", stream=True)

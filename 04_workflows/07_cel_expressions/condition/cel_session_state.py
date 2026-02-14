@@ -1,11 +1,11 @@
-"""Condition with CEL expression: branching on session_state.
+"""使用 CEL 表达式的条件：基于 session_state 进行分支。
 ==========================================================
 
-Uses session_state.retry_count to implement retry logic.
-Runs the workflow multiple times to show the counter incrementing
-and eventually hitting the max retries branch.
+使用 session_state.retry_count 实现重试逻辑。
+多次运行工作流以显示计数器递增
+并最终达到最大重试次数分支。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -29,43 +29,43 @@ if not CEL_AVAILABLE:
 
 
 # ---------------------------------------------------------------------------
-# Define Helpers
+# 定义辅助函数
 # ---------------------------------------------------------------------------
 def increment_retry_count(step_input: StepInput, session_state: dict) -> StepOutput:
-    """Increment retry count in session state."""
+    """在 session state 中递增重试计数。"""
     current_count = session_state.get("retry_count", 0)
     session_state["retry_count"] = current_count + 1
     return StepOutput(
-        content=f"Retry count incremented to {session_state['retry_count']}",
+        content=f"重试计数递增到 {session_state['retry_count']}",
         success=True,
     )
 
 
 def reset_retry_count(step_input: StepInput, session_state: dict) -> StepOutput:
-    """Reset retry count in session state."""
+    """在 session state 中重置重试计数。"""
     session_state["retry_count"] = 0
-    return StepOutput(content="Retry count reset to 0", success=True)
+    return StepOutput(content="重试计数重置为 0", success=True)
 
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 retry_agent = Agent(
     name="Retry Handler",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are handling a retry attempt. Acknowledge this is a retry and try a different approach.",
+    instructions="你正在处理重试尝试。确认这是重试并尝试不同的方法。",
     markdown=True,
 )
 
 max_retries_agent = Agent(
     name="Max Retries Handler",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Maximum retries reached. Provide a helpful fallback response and suggest alternatives.",
+    instructions="已达到最大重试次数。提供有用的后备响应并建议替代方案。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Retry Logic",
@@ -87,11 +87,11 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     for attempt in range(1, 6):
-        print(f"--- Attempt {attempt} ---")
+        print(f"--- 尝试 {attempt} ---")
         workflow.print_response(
             input=f"Process request (attempt {attempt})",
             stream=True,

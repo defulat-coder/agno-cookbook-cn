@@ -1,10 +1,10 @@
-"""Loop with CEL end condition: compound exit condition.
+"""使用 CEL 结束条件的循环：复合退出条件。
 =====================================================
 
-Combines all_success and current_iteration to stop when both
-conditions are met: all steps succeeded AND enough iterations ran.
+结合 all_success 和 current_iteration，在两个条件都满足时停止：
+所有步骤成功 AND 运行了足够的迭代次数。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,24 +20,24 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Research the given topic and provide detailed findings.",
+    instructions="研究给定主题并提供详细发现。",
     markdown=True,
 )
 
 reviewer = Agent(
     name="Reviewer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Review the research for completeness and accuracy.",
+    instructions="审查研究的完整性和准确性。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Compound Exit Loop",
@@ -55,10 +55,10 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("Loop with CEL end condition: all_success && current_iteration >= 2")
+    print("使用 CEL 结束条件的循环：all_success && current_iteration >= 2")
     print("=" * 60)
     workflow.print_response(
         input="Research the impact of AI on healthcare",

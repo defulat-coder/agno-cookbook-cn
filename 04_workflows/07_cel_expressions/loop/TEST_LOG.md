@@ -1,36 +1,35 @@
-# Test Log: 04_workflows/07_cel_expressions/loop
+# 测试日志：04_workflows/07_cel_expressions/loop
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### cel_compound_exit.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_compound_exit.py and validates expected behavior.
+**描述：** 运行 cel_compound_exit.py 并验证预期行为。
 
 ---
 
 ### cel_content_keyword.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_content_keyword.py and validates expected behavior.
+**描述：** 运行 cel_content_keyword.py 并验证预期行为。
 
 ---
 
 ### cel_iteration_limit.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_iteration_limit.py and validates expected behavior.
+**描述：** 运行 cel_iteration_limit.py 并验证预期行为。
 
 ---
 
 ### cel_step_outputs_check.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Runs cel_step_outputs_check.py and validates expected behavior.
+**描述：** 运行 cel_step_outputs_check.py 并验证预期行为。
 
 ---
-

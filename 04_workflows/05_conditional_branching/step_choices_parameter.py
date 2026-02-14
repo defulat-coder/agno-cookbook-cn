@@ -1,8 +1,8 @@
 """
-Step Choices Parameter
+步骤选择参数
 ======================
 
-Demonstrates using `step_choices` in a router selector for dynamic step selection.
+演示在路由器选择器中使用 `step_choices` 进行动态步骤选择。
 """
 
 from typing import List, Union
@@ -15,29 +15,29 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="researcher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a researcher.",
+    instructions="你是一位研究员。",
 )
 
 writer = Agent(
     name="writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a writer.",
+    instructions="你是一位作家。",
 )
 
 reviewer = Agent(
     name="reviewer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a reviewer.",
+    instructions="你是一位审稿人。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Router Selector
+# 定义路由器选择器
 # ---------------------------------------------------------------------------
 def dynamic_selector(
     step_input: StepInput,
@@ -46,7 +46,7 @@ def dynamic_selector(
     user_input = step_input.input.lower()
     step_map = {s.name: s for s in step_choices if hasattr(s, "name") and s.name}
 
-    print(f"Available steps: {list(step_map.keys())}")
+    print(f"可用步骤：{list(step_map.keys())}")
 
     if "research" in user_input:
         return "researcher"
@@ -58,7 +58,7 @@ def dynamic_selector(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Dynamic Routing (step_choices)",
@@ -72,7 +72,7 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     workflow.print_response("I need to research something", stream=True)

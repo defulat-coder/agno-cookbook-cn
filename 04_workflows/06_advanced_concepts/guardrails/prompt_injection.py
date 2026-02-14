@@ -1,8 +1,8 @@
 """
-Prompt Injection Guardrail
+提示注入护栏
 ==========================
 
-Demonstrates a workflow that blocks prompt-injection attempts before downstream processing.
+演示在下游处理之前阻止提示注入尝试的工作流。
 """
 
 import asyncio

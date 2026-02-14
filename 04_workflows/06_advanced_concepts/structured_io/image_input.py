@@ -1,8 +1,8 @@
 """
-Image Input
+图像输入
 ===========
 
-Demonstrates passing image media into workflow runs and chaining analysis with follow-up research.
+演示将图像媒体传递到工作流运行中，并将分析与后续研究链接起来。
 """
 
 from agno.agent import Agent

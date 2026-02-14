@@ -1,8 +1,8 @@
 """
-Workflow Metrics
+工作流指标
 ================
 
-Demonstrates reading workflow and step-level metrics from `WorkflowRunOutput`.
+演示从 `WorkflowRunOutput` 读取工作流和步骤级别的指标。
 """
 
 import json

@@ -1,8 +1,8 @@
 """
-Continuous Execution
+持续执行
 ====================
 
-Demonstrates single-step conversational execution with workflow history available to the step agent.
+演示单步对话式执行，步骤 Agent 可访问工作流历史。
 """
 
 from agno.agent import Agent

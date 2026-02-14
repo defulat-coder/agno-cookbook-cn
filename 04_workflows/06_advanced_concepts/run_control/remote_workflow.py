@@ -1,8 +1,8 @@
 """
-Remote Workflow
+远程工作流
 ===============
 
-Demonstrates executing a workflow hosted on a remote server using `RemoteWorkflow`.
+演示使用 `RemoteWorkflow` 执行托管在远程服务器上的工作流。
 """
 
 import asyncio

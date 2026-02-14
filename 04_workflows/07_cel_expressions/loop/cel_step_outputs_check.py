@@ -1,10 +1,10 @@
-"""Loop with CEL end condition: check a named step's output.
+"""使用 CEL 结束条件的循环：检查命名步骤的输出。
 =========================================================
 
-Uses step_outputs map to access a specific step by name and
-check its content before deciding to stop the loop.
+使用 step_outputs 映射按名称访问特定步骤并
+在决定停止循环之前检查其内容。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,12 +20,12 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Research the given topic.",
+    instructions="研究给定主题。",
     markdown=True,
 )
 
@@ -33,14 +33,14 @@ reviewer = Agent(
     name="Reviewer",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=(
-        "Review the research. If the research is thorough and complete, "
-        "include APPROVED in your response."
+        "审查研究。如果研究彻底且完整，"
+        "在响应中包含 APPROVED。"
     ),
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Step Outputs Check Loop",
@@ -48,7 +48,7 @@ workflow = Workflow(
         Loop(
             name="Research Loop",
             max_iterations=5,
-            # Stop when the Reviewer step approves the research
+            # 当 Reviewer 步骤批准研究时停止
             end_condition='step_outputs.Review.contains("APPROVED")',
             steps=[
                 Step(name="Research", agent=researcher),
@@ -59,10 +59,10 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print('Loop with CEL end condition: step_outputs.Review.contains("APPROVED")')
+    print('使用 CEL 结束条件的循环：step_outputs.Review.contains("APPROVED")')
     print("=" * 60)
     workflow.print_response(
         input="Research renewable energy trends",

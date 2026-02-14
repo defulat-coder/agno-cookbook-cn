@@ -1,10 +1,10 @@
-"""Loop with CEL end condition: stop after N iterations.
+"""使用 CEL 结束条件的循环：N 次迭代后停止。
 =====================================================
 
-Uses current_iteration to stop after a specific number
-of iterations, independent of max_iterations.
+使用 current_iteration 在特定次数的迭代后停止，
+独立于 max_iterations。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,17 +20,17 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 writer = Agent(
     name="Writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Write a short paragraph expanding on the topic. Build on previous content.",
+    instructions="撰写一个扩展主题的简短段落。在之前的内容基础上构建。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Iteration Limit Loop",
@@ -38,7 +38,7 @@ workflow = Workflow(
         Loop(
             name="Writing Loop",
             max_iterations=10,
-            # Stop after 2 iterations even though max is 10
+            # 在 2 次迭代后停止，即使最大值为 10
             end_condition="current_iteration >= 2",
             steps=[
                 Step(name="Write", agent=writer),
@@ -48,10 +48,10 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("Loop with CEL end condition: current_iteration >= 2 (max_iterations=10)")
+    print("使用 CEL 结束条件的循环：current_iteration >= 2 (max_iterations=10)")
     print("=" * 60)
     workflow.print_response(
         input="Write about the history of the internet",

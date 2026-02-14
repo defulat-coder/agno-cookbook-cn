@@ -1,8 +1,8 @@
 """
-State In Function
+函数中的状态
 =================
 
-Demonstrates reading and mutating workflow session state inside custom function executors.
+演示在自定义函数执行器中读取和修改工作流会话状态。
 """
 
 from typing import Iterator, Union

@@ -1,63 +1,63 @@
-# TEST_LOG for cookbook/04_workflows/06_advanced_concepts/session_state
+# cookbook/04_workflows/06_advanced_concepts/session_state 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### rename_session.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Exited with code 1. AttributeError: 'NoneType' object has no attribute 'session_data'
+**结果：** 退出代码 1。AttributeError: 'NoneType' object has no attribute 'session_data'
 
 ---
 
 ### state_in_condition.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Completed in 3.2s
+**结果：** 执行成功。Completed in 3.2s
 
 ---
 
 ### state_in_function.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Creating new sync OpenAI client for model gpt-4o
+**结果：** 35秒后超时。DEBUG Creating new sync OpenAI client for model gpt-4o
 
 ---
 
 ### state_in_router.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. - Useful large-scale quantum computing likely requires **quantum error
+**结果：** 35秒后超时。- Useful large-scale quantum computing likely requires **quantum error
 
 ---
 
 ### state_with_agent.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Final workflow session state: {'shopping_list': []}
+**结果：** 执行成功。Final workflow session state: {'shopping_list': []}
 
 ---
 
 ### state_with_team.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG [ERROR] Step 'Write Tests' not found in the list
+**结果：** 35秒后超时。DEBUG [ERROR] Step 'Write Tests' not found in the list
 
 ---

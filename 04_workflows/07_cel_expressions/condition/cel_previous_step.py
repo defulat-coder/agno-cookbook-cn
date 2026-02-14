@@ -1,10 +1,10 @@
-"""Condition with CEL expression: branching on previous step output.
+"""使用 CEL 表达式的条件：基于前一步骤输出进行分支。
 =================================================================
 
-Runs a classifier step first, then uses previous_step_content.contains()
-to decide the next step.
+首先运行分类器步骤，然后使用 previous_step_content.contains()
+决定下一步。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,14 +20,14 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 classifier = Agent(
     name="Classifier",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=(
-        "Classify the request as either TECHNICAL or GENERAL. "
-        "Respond with exactly one word: TECHNICAL or GENERAL."
+        "将请求分类为技术类或常规类。"
+        "只用一个单词回复：TECHNICAL 或 GENERAL。"
     ),
     markdown=False,
 )
@@ -35,19 +35,19 @@ classifier = Agent(
 technical_agent = Agent(
     name="Technical Support",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a technical support specialist. Provide detailed technical help.",
+    instructions="你是一位技术支持专家。提供详细的技术帮助。",
     markdown=True,
 )
 
 general_agent = Agent(
     name="General Support",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle general inquiries. Be friendly and helpful.",
+    instructions="你处理一般性咨询。友好且乐于助人。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Classify and Route",
@@ -67,14 +67,14 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Technical question ---")
+    print("--- 技术问题 ---")
     workflow.print_response(
         input="My API returns 500 errors when I send POST requests with JSON payloads."
     )
     print()
 
-    print("--- General question ---")
+    print("--- 常规问题 ---")
     workflow.print_response(input="What are your business hours?")

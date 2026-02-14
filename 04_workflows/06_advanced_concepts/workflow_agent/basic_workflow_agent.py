@@ -1,8 +1,8 @@
 """
-Basic Workflow Agent
+基础工作流 Agent
 ====================
 
-Demonstrates using `WorkflowAgent` to decide when to execute workflow steps versus answer from history.
+演示使用 `WorkflowAgent` 决定何时执行工作流步骤以及何时从历史记录回答。
 """
 
 import asyncio

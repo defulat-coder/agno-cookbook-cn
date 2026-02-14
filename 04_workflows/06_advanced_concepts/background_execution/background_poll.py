@@ -1,8 +1,8 @@
 """
-Background Poll
+后台轮询
 ===============
 
-Demonstrates running a workflow in async background mode and polling run status until completion.
+演示在异步后台模式下运行工作流并轮询运行状态直到完成。
 """
 
 import asyncio

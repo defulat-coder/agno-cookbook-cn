@@ -1,8 +1,8 @@
 """
-Workflow Serialization
+工作流序列化
 ======================
 
-Demonstrates `to_dict()`, `save()`, and `load()` for workflow persistence.
+演示用于工作流持久化的 `to_dict()`、`save()` 和 `load()`。
 """
 
 import json

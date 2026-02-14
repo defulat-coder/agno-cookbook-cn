@@ -1,8 +1,8 @@
 """
-Event Storage
+事件存储
 =============
 
-Demonstrates storing workflow events while skipping selected high-volume events.
+演示在存储工作流事件时跳过选定的高容量事件。
 """
 
 from agno.agent import Agent

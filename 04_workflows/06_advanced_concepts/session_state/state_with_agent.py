@@ -1,8 +1,8 @@
 """
-State With Agent
+与 Agent 共享状态
 ================
 
-Demonstrates sharing mutable workflow session state across agent tool calls.
+演示在 Agent 工具调用之间共享可变的工作流会话状态。
 """
 
 from agno.agent.agent import Agent
@@ -13,13 +13,13 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/workflow.db")
 
 
 # ---------------------------------------------------------------------------
-# Define Session-State Tools
+# 定义会话状态工具
 # ---------------------------------------------------------------------------
 def add_item(run_context: RunContext, item: str) -> str:
     if run_context.session_state is None:
@@ -72,17 +72,17 @@ def list_items(run_context: RunContext) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 shopping_assistant = Agent(
     name="Shopping Assistant",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[add_item, remove_item, list_items],
     instructions=[
-        "You are a helpful shopping assistant.",
-        "You can help users manage their shopping list by adding, removing, and listing items.",
-        "Always use the provided tools to interact with the shopping list.",
-        "Be friendly and helpful in your responses.",
+        "你是一个乐于助人的购物助手。",
+        "你可以帮助用户通过添加、删除和列出项目来管理购物清单。",
+        "始终使用提供的工具与购物清单交互。",
+        "在你的响应中友好且乐于助人。",
     ],
 )
 
@@ -91,15 +91,15 @@ list_manager = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     tools=[list_items, remove_all_items],
     instructions=[
-        "You are a list management specialist.",
-        "You can view the current shopping list and clear it when needed.",
-        "Always show the current list when asked.",
-        "Confirm actions clearly to the user.",
+        "你是一个列表管理专家。",
+        "你可以查看当前购物清单并在需要时清空它。",
+        "在被问及时始终显示当前列表。",
+        "向用户清楚地确认操作。",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 manage_items_step = Step(
     name="manage_items",
@@ -114,7 +114,7 @@ view_list_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 shopping_workflow = Workflow(
     name="Shopping List Workflow",
@@ -124,29 +124,29 @@ shopping_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Example 1: Adding Items ===")
+    print("=== 示例 1：添加项目 ===")
     shopping_workflow.print_response(
         input="Please add milk, bread, and eggs to my shopping list."
     )
-    print("Workflow session state:", shopping_workflow.get_session_state())
+    print("工作流会话状态：", shopping_workflow.get_session_state())
 
-    print("\n=== Example 2: Adding More Items ===")
+    print("\n=== 示例 2：添加更多项目 ===")
     shopping_workflow.print_response(
         input="Add apples and bananas to the list, then show me the complete list."
     )
-    print("Workflow session state:", shopping_workflow.get_session_state())
+    print("工作流会话状态：", shopping_workflow.get_session_state())
 
-    print("\n=== Example 3: Removing Items ===")
+    print("\n=== 示例 3：删除项目 ===")
     shopping_workflow.print_response(
         input="Remove bread from the list and show me what's left."
     )
-    print("Workflow session state:", shopping_workflow.get_session_state())
+    print("工作流会话状态：", shopping_workflow.get_session_state())
 
-    print("\n=== Example 4: Clearing List ===")
+    print("\n=== 示例 4：清空列表 ===")
     shopping_workflow.print_response(
         input="Clear the entire shopping list and confirm it's empty."
     )
-    print("Final workflow session state:", shopping_workflow.get_session_state())
+    print("最终工作流会话状态：", shopping_workflow.get_session_state())

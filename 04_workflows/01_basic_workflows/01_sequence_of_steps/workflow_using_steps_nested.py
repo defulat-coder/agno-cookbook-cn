@@ -1,8 +1,8 @@
 """
-Workflow Using Nested Steps
+使用嵌套步骤的工作流
 ===========================
 
-Demonstrates nested workflow composition using `Steps`, `Condition`, and `Parallel`.
+演示使用 `Steps`、`Condition` 和 `Parallel` 进行嵌套工作流组合。
 """
 
 from agno.agent import Agent
@@ -17,89 +17,89 @@ from agno.workflow.steps import Steps
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="Research the given topic and provide key facts and insights.",
+    instructions="研究给定主题并提供关键事实和见解。",
 )
 
 tech_researcher = Agent(
     name="Tech Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    instructions="Research tech-related topics from Hacker News and provide latest developments.",
+    instructions="从 Hacker News 研究技术相关主题并提供最新进展。",
 )
 
 news_researcher = Agent(
     name="News Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[ExaTools()],
-    instructions="Research current news and trends using Exa search.",
+    instructions="使用 Exa 搜索研究当前新闻和趋势。",
 )
 
 writer = Agent(
     name="Writing Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Write a comprehensive article based on the research provided. Make it engaging and well-structured.",
+    instructions="根据提供的研究撰写一篇全面的文章。使其引人入胜且结构清晰。",
 )
 
 editor = Agent(
     name="Editor Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Review and edit the article for clarity, grammar, and flow. Provide a polished final version.",
+    instructions="审查和编辑文章的清晰度、语法和流畅性。提供精修的最终版本。",
 )
 
 content_agent = Agent(
     name="Content Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Prepare and format content for writing based on research inputs.",
+    instructions="根据研究输入准备和格式化用于写作的内容。",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 initial_research_step = Step(
     name="InitialResearch",
     agent=researcher,
-    description="Initial research on the topic",
+    description="对主题进行初步研究",
 )
 
 tech_research_step = Step(
     name="TechResearch",
     agent=tech_researcher,
-    description="Research tech developments from Hacker News",
+    description="从 Hacker News 研究技术发展",
 )
 
 news_research_step = Step(
     name="NewsResearch",
     agent=news_researcher,
-    description="Research current news and trends",
+    description="研究当前新闻和趋势",
 )
 
 content_prep_step = Step(
     name="ContentPreparation",
     agent=content_agent,
-    description="Prepare and organize all research for writing",
+    description="准备和组织所有用于写作的研究",
 )
 
 writing_step = Step(
     name="Writing",
     agent=writer,
-    description="Write an article based on the research",
+    description="根据研究撰写文章",
 )
 
 editing_step = Step(
     name="Editing",
     agent=editor,
-    description="Edit and polish the article",
+    description="编辑和润色文章",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Condition Evaluator
+# 定义条件评估器
 # ---------------------------------------------------------------------------
 def is_tech_topic(step_input) -> bool:
     message = step_input.input.lower() if step_input.input else ""
@@ -117,23 +117,23 @@ def is_tech_topic(step_input) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 article_creation_sequence = Steps(
     name="ArticleCreation",
-    description="Complete article creation workflow from research to final edit",
+    description="从研究到最终编辑的完整文章创作工作流",
     steps=[
         initial_research_step,
         Condition(
             name="TechResearchCondition",
-            description="If topic is tech-related, do specialized parallel research",
+            description="如果主题与技术相关，则进行专业的并行研究",
             evaluator=is_tech_topic,
             steps=[
                 Parallel(
                     tech_research_step,
                     news_research_step,
                     name="SpecializedResearch",
-                    description="Parallel tech and news research",
+                    description="并行进行技术和新闻研究",
                 ),
                 content_prep_step,
             ],
@@ -145,12 +145,12 @@ article_creation_sequence = Steps(
 
 article_workflow = Workflow(
     name="Enhanced Article Creation Workflow",
-    description="Automated article creation with conditional parallel research",
+    description="带条件并行研究的自动化文章创作",
     steps=[article_creation_sequence],
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     article_workflow.print_response(

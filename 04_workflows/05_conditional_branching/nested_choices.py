@@ -1,8 +1,8 @@
 """
-Nested Choices
+嵌套选择
 ==============
 
-Demonstrates nested lists in router choices, which are converted into sequential `Steps` containers.
+演示路由器选择中的嵌套列表，这些列表将转换为顺序 `Steps` 容器。
 """
 
 from typing import List, Union
@@ -15,7 +15,7 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 step_a = Agent(name="step_a", model=OpenAIChat(id="gpt-4o-mini"), instructions="Step A")
 step_b = Agent(name="step_b", model=OpenAIChat(id="gpt-4o-mini"), instructions="Step B")
@@ -23,7 +23,7 @@ step_c = Agent(name="step_c", model=OpenAIChat(id="gpt-4o-mini"), instructions="
 
 
 # ---------------------------------------------------------------------------
-# Define Router Selector
+# 定义路由器选择器
 # ---------------------------------------------------------------------------
 def nested_selector(
     step_input: StepInput,
@@ -37,7 +37,7 @@ def nested_selector(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Nested Choices Routing",
@@ -51,7 +51,7 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     workflow.print_response("Run the sequence", stream=True)

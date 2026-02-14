@@ -1,8 +1,8 @@
 """
-Rename Session
+重命名会话
 ==============
 
-Demonstrates auto-generating a workflow session name after a run.
+演示在运行后自动生成工作流会话名称。
 """
 
 from agno.agent import Agent
@@ -13,19 +13,19 @@ from agno.workflow.steps import Steps
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="Research the given topic and provide key facts and insights.",
+    instructions="研究给定主题并提供关键事实和见解。",
 )
 
 writer = Agent(
     name="Writing Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Write a comprehensive article based on the research provided. Make it engaging and well-structured.",
+    instructions="根据提供的研究撰写一篇全面的文章。使其引人入胜且结构良好。",
 )
 
 # ---------------------------------------------------------------------------

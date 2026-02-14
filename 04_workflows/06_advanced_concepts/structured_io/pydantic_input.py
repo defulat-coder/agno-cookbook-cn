@@ -1,8 +1,8 @@
 """
-Pydantic Input
+Pydantic 输入
 ==============
 
-Demonstrates passing a Pydantic model instance directly as workflow input.
+演示直接将 Pydantic 模型实例作为工作流输入传递。
 """
 
 from typing import List

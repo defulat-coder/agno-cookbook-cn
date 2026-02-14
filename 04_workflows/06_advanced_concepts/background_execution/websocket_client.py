@@ -1,8 +1,8 @@
 """
-Background Execution WebSocket Client
+后台执行 WebSocket 客户端
 =====================================
 
-Demonstrates an interactive WebSocket client for authenticating, starting workflows, and rendering streamed workflow events.
+演示用于身份验证、启动工作流和渲染流式工作流事件的交互式 WebSocket 客户端。
 """
 
 import asyncio

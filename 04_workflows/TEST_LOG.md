@@ -1,11 +1,11 @@
-# Test Log: 04_workflows
+# 测试日志：04_workflows
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### N/A
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Add test entries for runnable files in child directories.
+**描述：** 为子目录中的可运行文件添加测试条目。
 
 ---

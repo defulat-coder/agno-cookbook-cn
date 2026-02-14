@@ -1,8 +1,8 @@
 """
-History In Function
+函数中的历史
 ===================
 
-Demonstrates reading workflow history inside a custom function step for strategic content planning.
+演示在自定义函数步骤中读取工作流历史以进行战略内容规划。
 """
 
 import json

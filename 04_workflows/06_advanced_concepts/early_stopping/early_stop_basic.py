@@ -1,8 +1,8 @@
 """
-Early Stop Basic
+提前停止 - 基础
 ================
 
-Demonstrates early termination with `StepOutput(stop=True)` across direct steps, `Steps` containers, and agent/function workflows.
+演示使用 `StepOutput(stop=True)` 进行提前终止，跨直接步骤、`Steps` 容器和 Agent/函数工作流。
 """
 
 from agno.agent import Agent
@@ -13,52 +13,52 @@ from agno.workflow.steps import Steps
 from agno.workflow.types import StepInput, StepOutput
 
 # ---------------------------------------------------------------------------
-# Create Agents (Security Deployment)
+# 创建 Agent（安全部署）
 # ---------------------------------------------------------------------------
 security_scanner = Agent(
     name="Security Scanner",
     model=OpenAIChat(id="gpt-5.2"),
     instructions=[
-        "You are a security scanner. Analyze the provided code or system for security vulnerabilities.",
-        "Return 'SECURE' if no critical vulnerabilities found.",
-        "Return 'VULNERABLE' if critical security issues are detected.",
-        "Explain your findings briefly.",
+        "你是一个安全扫描器。分析提供的代码或系统是否存在安全漏洞。",
+        "如果未发现严重漏洞，返回 'SECURE'。",
+        "如果检测到严重安全问题，返回 'VULNERABLE'。",
+        "简要说明你的发现。",
     ],
 )
 
 code_deployer = Agent(
     name="Code Deployer",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Deploy the security-approved code to production environment.",
+    instructions="将通过安全审查的代码部署到生产环境。",
 )
 
 monitoring_agent = Agent(
     name="Monitoring Agent",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Set up monitoring and alerts for the deployed application.",
+    instructions="为部署的应用程序设置监控和警报。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Security Gate
+# 定义安全门
 # ---------------------------------------------------------------------------
 def security_gate(step_input: StepInput) -> StepOutput:
     security_result = step_input.previous_step_content or ""
-    print(f"Security scan result: {security_result}")
+    print(f"安全扫描结果：{security_result}")
 
     if "VULNERABLE" in security_result.upper():
         return StepOutput(
-            content="[ALERT] SECURITY ALERT: Critical vulnerabilities detected. Deployment blocked for security reasons.",
+            content="[警报] 安全警报：检测到严重漏洞。出于安全原因阻止部署。",
             stop=True,
         )
     return StepOutput(
-        content="[OK] Security check passed. Proceeding with deployment...",
+        content="[通过] 安全检查通过。继续部署...",
         stop=False,
     )
 
 
 # ---------------------------------------------------------------------------
-# Create Security Workflow
+# 创建安全工作流
 # ---------------------------------------------------------------------------
 security_workflow = Workflow(
     name="Secure Deployment Pipeline",
@@ -72,36 +72,36 @@ security_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Create Agents (Content Quality Pipeline)
+# 创建 Agent（内容质量管道）
 # ---------------------------------------------------------------------------
 content_creator = Agent(
     name="Content Creator",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="Create engaging content on the given topic. Research and write comprehensive articles.",
+    instructions="创建关于给定主题的吸引人内容。研究并撰写全面的文章。",
 )
 
 fact_checker = Agent(
     name="Fact Checker",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Verify facts and check accuracy of content. Flag any misinformation.",
+    instructions="验证事实并检查内容的准确性。标记任何错误信息。",
 )
 
 editor = Agent(
     name="Editor",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Edit and polish content for publication. Ensure clarity and flow.",
+    instructions="编辑和润色内容以供发布。确保清晰度和流畅性。",
 )
 
 publisher = Agent(
     name="Publisher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Prepare content for publication and handle final formatting.",
+    instructions="准备内容以供发布并处理最终格式化。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Quality Gate
+# 定义质量门
 # ---------------------------------------------------------------------------
 def content_quality_gate(step_input: StepInput) -> StepOutput:
     content = step_input.previous_step_content or ""
@@ -109,7 +109,7 @@ def content_quality_gate(step_input: StepInput) -> StepOutput:
     if len(content) < 100:
         return StepOutput(
             step_name="content_quality_gate",
-            content="[FAIL] QUALITY CHECK FAILED: Content too short. Stopping workflow.",
+            content="[失败] 质量检查失败：内容太短。停止工作流。",
             stop=True,
         )
 
@@ -117,19 +117,19 @@ def content_quality_gate(step_input: StepInput) -> StepOutput:
     if any(keyword in content.lower() for keyword in problematic_keywords):
         return StepOutput(
             step_name="content_quality_gate",
-            content="[FAIL] QUALITY CHECK FAILED: Problematic content detected. Stopping workflow.",
+            content="[失败] 质量检查失败：检测到问题内容。停止工作流。",
             stop=True,
         )
 
     return StepOutput(
         step_name="content_quality_gate",
-        content="[PASS] QUALITY CHECK PASSED: Content meets quality standards.",
+        content="[通过] 质量检查通过：内容符合质量标准。",
         stop=False,
     )
 
 
 # ---------------------------------------------------------------------------
-# Create Content Workflow
+# 创建内容工作流
 # ---------------------------------------------------------------------------
 content_pipeline = Steps(
     name="content_pipeline",
@@ -153,55 +153,55 @@ content_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Create Agents (Data Validation Workflow)
+# 创建 Agent（数据验证工作流）
 # ---------------------------------------------------------------------------
 data_validator = Agent(
     name="Data Validator",
     model=OpenAIChat(id="gpt-5.2"),
     instructions=[
-        "You are a data validator. Analyze the provided data and determine if it's valid.",
-        "For data to be VALID, it must meet these criteria:",
-        "- user_count: Must be a positive number (> 0)",
-        "- revenue: Must be a positive number (> 0)",
-        "- date: Must be in a reasonable date format (YYYY-MM-DD)",
-        "Return exactly 'VALID' if all criteria are met.",
-        "Return exactly 'INVALID' if any criteria fail.",
-        "Also briefly explain your reasoning.",
+        "你是一个数据验证器。分析提供的数据并确定其是否有效。",
+        "要使数据有效，必须满足以下标准：",
+        "- user_count：必须是正数（> 0）",
+        "- revenue：必须是正数（> 0）",
+        "- date：必须是合理的日期格式（YYYY-MM-DD）",
+        "如果满足所有标准，返回确切的 'VALID'。",
+        "如果任何标准失败，返回确切的 'INVALID'。",
+        "同时简要解释你的推理。",
     ],
 )
 
 data_processor = Agent(
     name="Data Processor",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Process and transform the validated data.",
+    instructions="处理和转换经过验证的数据。",
 )
 
 report_generator = Agent(
     name="Report Generator",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Generate a final report from processed data.",
+    instructions="从处理过的数据生成最终报告。",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Validation Gate
+# 定义验证门
 # ---------------------------------------------------------------------------
 def early_exit_validator(step_input: StepInput) -> StepOutput:
     validation_result = step_input.previous_step_content or ""
 
     if "INVALID" in validation_result.upper():
         return StepOutput(
-            content="[FAIL] Data validation failed. Workflow stopped early to prevent processing invalid data.",
+            content="[失败] 数据验证失败。工作流提前停止以防止处理无效数据。",
             stop=True,
         )
     return StepOutput(
-        content="[PASS] Data validation passed. Continuing with processing...",
+        content="[通过] 数据验证通过。继续处理...",
         stop=False,
     )
 
 
 # ---------------------------------------------------------------------------
-# Create Data Workflow
+# 创建数据工作流
 # ---------------------------------------------------------------------------
 data_workflow = Workflow(
     name="Data Processing with Early Exit",
@@ -215,32 +215,32 @@ data_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflows
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("\n=== Testing VULNERABLE code deployment ===")
+    print("\n=== 测试有漏洞的代码部署 ===")
     security_workflow.print_response(
         input="Scan this code: exec(input('Enter command: '))"
     )
 
-    print("=== Testing SECURE code deployment ===")
+    print("=== 测试安全的代码部署 ===")
     security_workflow.print_response(
         input="Scan this code: def hello(): return 'Hello World'"
     )
 
-    print("\n=== Test: Short content (should stop early) ===")
+    print("\n=== 测试：短内容（应提前停止）===")
     content_workflow.print_response(
         input="Write a short note about conspiracy theories",
         markdown=True,
         stream=True,
     )
 
-    print("\n=== Testing with INVALID data ===")
+    print("\n=== 测试无效数据 ===")
     data_workflow.print_response(
         input="Process this data: {'user_count': -50, 'revenue': 'invalid_amount', 'date': 'bad_date'}"
     )
 
-    print("=== Testing with VALID data ===")
+    print("=== 测试有效数据 ===")
     data_workflow.print_response(
         input="Process this data: {'user_count': 1000, 'revenue': 50000, 'date': '2024-01-15'}"
     )

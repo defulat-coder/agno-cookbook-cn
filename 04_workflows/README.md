@@ -1,18 +1,18 @@
 # 04_workflows
 
-## Scope
-Runnable workflow examples under: cookbook/04_workflows
+## 范围
+cookbook/04_workflows 目录下的可运行 Workflow（工作流）示例
 
-## Subdirectories
-- 01_basic_workflows/: Additional examples for 01 basic workflows.
-- 02_conditional_execution/: Additional examples for 02 conditional execution.
-- 03_loop_execution/: Additional examples for 03 loop execution.
-- 04_parallel_execution/: Additional examples for 04 parallel execution.
-- 05_conditional_branching/: Additional examples for 05 conditional branching.
-- 06_advanced_concepts/: Additional examples for 06 advanced concepts.
-- 07_cel_expressions/: Additional examples for 07 cel expressions.
-- assets/: Reference images used by workflow documentation.
+## 子目录
+- 01_basic_workflows/: 01 基础 Workflow 的附加示例
+- 02_conditional_execution/: 02 条件执行的附加示例
+- 03_loop_execution/: 03 循环执行的附加示例
+- 04_parallel_execution/: 04 并行执行的附加示例
+- 05_conditional_branching/: 05 条件分支的附加示例
+- 06_advanced_concepts/: 06 高级概念的附加示例
+- 07_cel_expressions/: 07 CEL 表达式的附加示例
+- assets/: Workflow 文档使用的参考图片
 
-## Prerequisites
-- Activate the demo environment: .venvs/demo/bin/python
-- Load API keys with direnv allow (requires a local .envrc file).
+## 先决条件
+- 激活演示环境：.venvs/demo/bin/python
+- 使用 direnv allow 加载 API 密钥（需要本地 .envrc 文件）

@@ -1,8 +1,8 @@
 """
-Loop Basic
+基本循环
 ==========
 
-Demonstrates loop-based workflow execution with an end-condition evaluator and max-iteration guard.
+演示使用结束条件评估器和最大迭代保护的基于循环的工作流执行。
 """
 
 import asyncio
@@ -15,47 +15,47 @@ from agno.workflow import Loop, Step, Workflow
 from agno.workflow.types import StepOutput
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 research_agent = Agent(
     name="Research Agent",
-    role="Research specialist",
+    role="研究专员",
     tools=[HackerNewsTools(), WebSearchTools()],
-    instructions="You are a research specialist. Research the given topic thoroughly.",
+    instructions="你是一位研究专员。彻底研究给定的主题。",
     markdown=True,
 )
 
 content_agent = Agent(
     name="Content Agent",
-    role="Content creator",
-    instructions="You are a content creator. Create engaging content based on research.",
+    role="内容创作者",
+    instructions="你是一位内容创作者。基于研究创建引人入胜的内容。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_hackernews_step = Step(
     name="Research HackerNews",
     agent=research_agent,
-    description="Research trending topics on HackerNews",
+    description="研究 HackerNews 上的热门主题",
 )
 
 research_web_step = Step(
     name="Research Web",
     agent=research_agent,
-    description="Research additional information from web sources",
+    description="从网络来源研究额外信息",
 )
 
 content_step = Step(
     name="Create Content",
     agent=content_agent,
-    description="Create content based on research findings",
+    description="基于研究发现创建内容",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Loop Evaluator
+# 定义循环评估器
 # ---------------------------------------------------------------------------
 def research_evaluator(outputs: List[StepOutput]) -> bool:
     if not outputs:
@@ -64,20 +64,20 @@ def research_evaluator(outputs: List[StepOutput]) -> bool:
     for output in outputs:
         if output.content and len(output.content) > 200:
             print(
-                f"[PASS] Research evaluation passed - found substantial content ({len(output.content)} chars)"
+                f"[通过] 研究评估通过 - 找到大量内容（{len(output.content)} 字符）"
             )
             return True
 
-    print("[FAIL] Research evaluation failed - need more substantial research")
+    print("[失败] 研究评估失败 - 需要更多实质性研究")
     return False
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Research and Content Workflow",
-    description="Research topics in a loop until conditions are met, then create content",
+    description="在循环中研究主题，直到满足条件，然后创建内容",
     steps=[
         Loop(
             name="Research Loop",
@@ -90,32 +90,32 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     input_text = (
         "Research the latest trends in AI and machine learning, then create a summary"
     )
 
-    # Sync
+    # 同步运行
     workflow.print_response(
         input=input_text,
     )
 
-    # Sync Streaming
+    # 同步流式运行
     workflow.print_response(
         input=input_text,
         stream=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         workflow.aprint_response(
             input=input_text,
         )
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         workflow.aprint_response(
             input=input_text,

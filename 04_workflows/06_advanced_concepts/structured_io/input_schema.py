@@ -1,8 +1,8 @@
 """
-Input Schema
+输入架构
 ============
 
-Demonstrates workflow-level `input_schema` validation with structured and invalid input examples.
+演示工作流级别的 `input_schema` 验证，包含结构化和无效输入示例。
 """
 
 from typing import List

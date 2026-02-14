@@ -1,83 +1,83 @@
-# TEST_LOG for cookbook/04_workflows/06_advanced_concepts/run_control
+# cookbook/04_workflows/06_advanced_concepts/run_control 的 TEST_LOG
 
-Generated: 2026-02-08 16:39:09
+生成时间：2026-02-08 16:39:09
 
 ### cancel_run.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Workflow cancellation example completed
+**结果：** 执行成功。Workflow cancellation example completed
 
 ---
 
 ### deep_copy.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. First Step: Draft Outline Copy
+**结果：** 执行成功。First Step: Draft Outline Copy
 
 ---
 
 ### event_storage.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Creating new sync OpenAI client for model gpt-5.2
+**结果：** 35秒后超时。DEBUG Creating new sync OpenAI client for model gpt-5.2
 
 ---
 
 ### executor_events.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. DEBUG Marked run 544da40f-5099-4686-a1fe-b9dcd4e537c6 as RunStatus.completed
+**结果：** 执行成功。DEBUG Marked run 544da40f-5099-4686-a1fe-b9dcd4e537c6 as RunStatus.completed
 
 ---
 
 ### metrics.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. DEBUG Creating new sync OpenAI client for model gpt-4o
+**结果：** 35秒后超时。DEBUG Creating new sync OpenAI client for model gpt-4o
 
 ---
 
 ### remote_workflow.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. Error: Failed to connect to remote server at http://localhost:7777
+**结果：** 执行成功。Error: Failed to connect to remote server at http://localhost:7777
 
 ---
 
 ### workflow_cli.py
 
-**Status:** FAIL
+**状态：** FAIL
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Timed out after 35s. ┃ • Add observability and safety: logs/metrics, error handling, retries, ┃
+**结果：** 35秒后超时。┃ • Add observability and safety: logs/metrics, error handling, retries, ┃
 
 ---
 
 ### workflow_serialization.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Executed with `.venvs/demo/bin/python` (mode: normal, timeout: 35s).
+**描述：** 使用 `.venvs/demo/bin/python` 执行（模式：normal，超时：35s）。
 
-**Result:** Executed successfully. ERROR Error saving workflow: Label 'serialization-demo' already exists for
+**结果：** 执行成功。ERROR Error saving workflow: Label 'serialization-demo' already exists for
 
 ---

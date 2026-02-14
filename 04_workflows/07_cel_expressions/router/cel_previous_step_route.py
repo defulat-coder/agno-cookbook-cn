@@ -1,10 +1,10 @@
-"""Router with CEL: route based on a named previous step's output.
+"""使用 CEL 的路由器：基于命名的前一步骤输出进行路由。
 ===============================================================
 
-Uses previous_step_outputs map to access the classifier step by name,
-then routes to the appropriate handler based on the classification.
+使用 previous_step_outputs 映射按名称访问分类器步骤，
+然后根据分类路由到适当的处理程序。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -21,14 +21,14 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 classifier = Agent(
     name="Classifier",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=(
-        "Classify the request into exactly one category. "
-        "Respond with only one word: BILLING, TECHNICAL, or GENERAL."
+        "将请求分类为一个类别。"
+        "只回复一个单词：BILLING、TECHNICAL 或 GENERAL。"
     ),
     markdown=False,
 )
@@ -36,26 +36,26 @@ classifier = Agent(
 billing_agent = Agent(
     name="Billing Support",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle billing inquiries. Help with invoices, payments, and subscriptions.",
+    instructions="你处理账单咨询。帮助处理发票、付款和订阅。",
     markdown=True,
 )
 
 technical_agent = Agent(
     name="Technical Support",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle technical issues. Help with debugging and configuration.",
+    instructions="你处理技术问题。帮助调试和配置。",
     markdown=True,
 )
 
 general_agent = Agent(
     name="General Support",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle general inquiries.",
+    instructions="你处理一般性咨询。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Previous Step Outputs Router",
@@ -63,7 +63,7 @@ workflow = Workflow(
         Step(name="Classify", agent=classifier),
         Router(
             name="Support Router",
-            # Access the classifier output by step name via previous_step_outputs map
+            # 通过 previous_step_outputs 映射按步骤名称访问分类器输出
             selector=(
                 'previous_step_outputs.Classify.contains("BILLING") ? "Billing Support" : '
                 'previous_step_outputs.Classify.contains("TECHNICAL") ? "Technical Support" : '
@@ -79,12 +79,12 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Billing question ---")
+    print("--- 账单问题 ---")
     workflow.print_response(input="I was charged twice on my last invoice.")
     print()
 
-    print("--- Technical question ---")
+    print("--- 技术问题 ---")
     workflow.print_response(input="My API keeps returning 503 errors.")

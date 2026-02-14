@@ -1,8 +1,8 @@
 """
-Step History
+步骤历史
 ============
 
-Demonstrates workflow-level and step-level history controls for conversation-aware content workflows.
+演示用于对话感知内容工作流的工作流级别和步骤级别历史控制。
 """
 
 from agno.agent import Agent

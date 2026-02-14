@@ -1,8 +1,8 @@
 """
-Workflow With File Input
+带文件输入的工作流
 ========================
 
-Demonstrates passing file inputs through workflow steps for reading and summarization.
+演示通过工作流步骤传递文件输入以进行阅读和摘要。
 """
 
 from agno.agent import Agent
@@ -14,24 +14,24 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 read_agent = Agent(
     name="Agent",
     model=Claude(id="claude-sonnet-4-20250514"),
-    role="Read the contents of the attached file.",
+    role="阅读附加文件的内容。",
 )
 
 summarize_agent = Agent(
     name="Summarize Agent",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Summarize the contents of the attached file.",
+        "总结附加文件的内容。",
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 read_step = Step(
     name="Read Step",
@@ -44,11 +44,11 @@ summarize_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 content_creation_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Automated content creation from blog posts to social media",
+    description="从博客文章到社交媒体的自动化内容创作",
     db=SqliteDb(
         session_table="workflow",
         db_file="tmp/workflow.db",
@@ -57,7 +57,7 @@ content_creation_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     content_creation_workflow.print_response(

@@ -1,8 +1,8 @@
 """
-Workflow CLI
+工作流 CLI
 ============
 
-Demonstrates using `Workflow.cli_app()` for interactive command-line workflow runs.
+演示使用 `Workflow.cli_app()` 进行交互式命令行工作流运行。
 """
 
 import os

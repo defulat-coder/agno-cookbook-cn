@@ -1,8 +1,8 @@
 """
-WebSocket Reconnect
+WebSocket 重连
 ===================
 
-Tests reconnect behavior for a running workflow: initial subscription, disconnection, reconnect, and missed-event catch-up.
+测试正在运行的工作流的重连行为：初始订阅、断开连接、重连和错过事件的追赶。
 """
 
 import asyncio

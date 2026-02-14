@@ -1,10 +1,10 @@
-"""Router with CEL expression: ternary operator on input content.
+"""使用 CEL 表达式的路由器：对输入内容使用三元运算符。
 ==============================================================
 
-Uses a CEL ternary to pick between two steps based on whether
-the input mentions "video" or not.
+使用 CEL 三元运算符根据输入是否提及"video"
+在两个步骤之间进行选择。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -21,24 +21,24 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 video_agent = Agent(
     name="Video Specialist",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You specialize in video content creation and editing advice.",
+    instructions="你专门从事视频内容创作和编辑建议。",
     markdown=True,
 )
 
 image_agent = Agent(
     name="Image Specialist",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You specialize in image design, photography, and visual content.",
+    instructions="你专门从事图像设计、摄影和视觉内容。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Ternary Router",
@@ -55,12 +55,12 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- Video request ---")
+    print("--- 视频请求 ---")
     workflow.print_response(input="How do I edit a video for YouTube?")
     print()
 
-    print("--- Image request ---")
+    print("--- 图像请求 ---")
     workflow.print_response(input="Help me design a logo for my startup.")

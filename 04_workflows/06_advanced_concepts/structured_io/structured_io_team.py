@@ -1,8 +1,8 @@
 """
-Structured IO Team
+结构化 IO 团队
 ==================
 
-Demonstrates structured output schemas at each team step in a multi-step workflow.
+演示多步工作流中每个团队步骤的结构化输出架构。
 """
 
 from typing import List

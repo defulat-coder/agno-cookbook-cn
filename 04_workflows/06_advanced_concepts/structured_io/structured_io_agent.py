@@ -1,8 +1,8 @@
 """
-Structured IO Agent
+结构化 IO Agent
 ===================
 
-Demonstrates structured output schemas at each agent step in a multi-step workflow.
+演示多步工作流中每个 Agent 步骤的结构化输出架构。
 """
 
 from typing import List

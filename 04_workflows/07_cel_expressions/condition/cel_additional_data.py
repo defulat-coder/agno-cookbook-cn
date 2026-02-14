@@ -1,10 +1,10 @@
-"""Condition with CEL expression: branching on additional_data.
+"""使用 CEL 表达式的条件：基于 additional_data 进行分支。
 ============================================================
 
-Uses additional_data.priority to route high-priority requests
-to a specialized agent.
+使用 additional_data.priority 将高优先级请求
+路由到专门的 Agent。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,24 +20,24 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 high_priority_agent = Agent(
     name="High Priority Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle high-priority tasks. Be thorough and detailed.",
+    instructions="你处理高优先级任务。全面且详细。",
     markdown=True,
 )
 
 low_priority_agent = Agent(
     name="Low Priority Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You handle standard tasks. Be helpful and concise.",
+    instructions="你处理标准任务。乐于助人且简洁。",
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Priority Routing",
@@ -56,17 +56,17 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("--- High priority (8) ---")
+    print("--- 高优先级 (8) ---")
     workflow.print_response(
         input="Review this critical security report.",
         additional_data={"priority": 8},
     )
     print()
 
-    print("--- Low priority (2) ---")
+    print("--- 低优先级 (2) ---")
     workflow.print_response(
         input="Update the FAQ page.",
         additional_data={"priority": 2},

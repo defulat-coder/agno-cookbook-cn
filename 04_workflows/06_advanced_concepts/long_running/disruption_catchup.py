@@ -1,8 +1,8 @@
 """
-Disruption Catchup
+中断追赶
 ==================
 
-Tests full catch-up behavior for a running workflow when reconnecting with `last_event_index=None`.
+测试使用 `last_event_index=None` 重连时正在运行的工作流的完整追赶行为。
 """
 
 import asyncio

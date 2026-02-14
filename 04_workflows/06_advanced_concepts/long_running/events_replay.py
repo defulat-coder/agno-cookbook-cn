@@ -1,8 +1,8 @@
 """
-Events Replay
+事件重放
 =============
 
-Tests replay behavior when reconnecting to a completed workflow run.
+测试重连到已完成的工作流运行时的重放行为。
 """
 
 import asyncio

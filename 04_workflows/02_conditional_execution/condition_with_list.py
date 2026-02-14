@@ -1,8 +1,8 @@
 """
-Condition With List
+带列表的条件
 ===================
 
-Demonstrates condition branches that execute a list of multiple steps, including parallel conditional blocks.
+演示执行多个步骤列表的条件分支，包括并行条件块。
 """
 
 import asyncio
@@ -17,77 +17,77 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="HackerNews Researcher",
-    instructions="Research tech news and trends from Hacker News",
+    instructions="从 Hacker News 研究技术新闻和趋势",
     tools=[HackerNewsTools()],
 )
 
 exa_agent = Agent(
     name="Exa Search Researcher",
-    instructions="Research using Exa advanced search capabilities",
+    instructions="使用 Exa 高级搜索功能进行研究",
     tools=[ExaTools()],
 )
 
 content_agent = Agent(
     name="Content Creator",
-    instructions="Create well-structured content from research data",
+    instructions="从研究数据创建结构良好的内容",
 )
 
 trend_analyzer_agent = Agent(
     name="Trend Analyzer",
-    instructions="Analyze trends and patterns from research data",
+    instructions="从研究数据中分析趋势和模式",
 )
 
 fact_checker_agent = Agent(
     name="Fact Checker",
-    instructions="Verify facts and cross-reference information",
+    instructions="验证事实并交叉参考信息",
 )
 
 # ---------------------------------------------------------------------------
-# Define Steps
+# 定义步骤
 # ---------------------------------------------------------------------------
 research_hackernews_step = Step(
     name="ResearchHackerNews",
-    description="Research tech news from Hacker News",
+    description="从 Hacker News 研究技术新闻",
     agent=hackernews_agent,
 )
 
 research_exa_step = Step(
     name="ResearchExa",
-    description="Research using Exa search",
+    description="使用 Exa 搜索进行研究",
     agent=exa_agent,
 )
 
 deep_exa_analysis_step = Step(
     name="DeepExaAnalysis",
-    description="Conduct deep analysis using Exa search capabilities",
+    description="使用 Exa 搜索功能进行深入分析",
     agent=exa_agent,
 )
 
 trend_analysis_step = Step(
     name="TrendAnalysis",
-    description="Analyze trends and patterns from the research data",
+    description="从研究数据中分析趋势和模式",
     agent=trend_analyzer_agent,
 )
 
 fact_verification_step = Step(
     name="FactVerification",
-    description="Verify facts and cross-reference information",
+    description="验证事实并交叉参考信息",
     agent=fact_checker_agent,
 )
 
 write_step = Step(
     name="WriteContent",
-    description="Write the final content based on research",
+    description="根据研究撰写最终内容",
     agent=content_agent,
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Condition Evaluators
+# 定义条件评估器
 # ---------------------------------------------------------------------------
 def check_if_we_should_search_hn(step_input: StepInput) -> bool:
     topic = step_input.input or step_input.previous_step_content or ""
@@ -118,7 +118,7 @@ def check_if_comprehensive_research_needed(step_input: StepInput) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="Conditional Workflow with Multi-Step Condition",
@@ -126,13 +126,13 @@ workflow = Workflow(
         Parallel(
             Condition(
                 name="HackerNewsCondition",
-                description="Check if we should search Hacker News for tech topics",
+                description="检查我们是否应该搜索 Hacker News 获取技术主题",
                 evaluator=check_if_we_should_search_hn,
                 steps=[research_hackernews_step],
             ),
             Condition(
                 name="ComprehensiveResearchCondition",
-                description="Check if comprehensive multi-step research is needed",
+                description="检查是否需要全面的多步骤研究",
                 evaluator=check_if_comprehensive_research_needed,
                 steps=[
                     deep_exa_analysis_step,
@@ -141,29 +141,29 @@ workflow = Workflow(
                 ],
             ),
             name="ConditionalResearch",
-            description="Run conditional research steps in parallel",
+            description="并行运行条件研究步骤",
         ),
         write_step,
     ],
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     try:
-        # Sync Streaming
+        # 同步流式运行
         workflow.print_response(
             input="Comprehensive analysis of climate change research",
             stream=True,
         )
 
-        # Async
+        # 异步运行
         asyncio.run(
             workflow.aprint_response(
                 input="Comprehensive analysis of climate change research",
             )
         )
     except Exception as e:
-        print(f"[ERROR] {e}")
+        print(f"[错误] {e}")
     print()

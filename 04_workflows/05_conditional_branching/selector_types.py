@@ -1,8 +1,8 @@
 """
-Selector Types
+选择器类型
 ==============
 
-Demonstrates router selector flexibility across string, step object, list, and nested-choice return patterns.
+演示路由器选择器在字符串、步骤对象、列表和嵌套选择返回模式中的灵活性。
 """
 
 from typing import List, Union
@@ -15,24 +15,24 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents For String Selector
+# 为字符串选择器创建 Agent
 # ---------------------------------------------------------------------------
 tech_expert = Agent(
     name="tech_expert",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a tech expert. Provide technical analysis.",
+    instructions="你是一位技术专家。提供技术分析。",
 )
 
 biz_expert = Agent(
     name="biz_expert",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a business expert. Provide business insights.",
+    instructions="你是一位商业专家。提供商业见解。",
 )
 
 generalist = Agent(
     name="generalist",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a generalist. Provide general information.",
+    instructions="你是一位通才。提供一般信息。",
 )
 
 tech_step = Step(name="Tech Research", agent=tech_expert)
@@ -41,7 +41,7 @@ general_step = Step(name="General Research", agent=generalist)
 
 
 # ---------------------------------------------------------------------------
-# Define Selectors
+# 定义选择器
 # ---------------------------------------------------------------------------
 def route_by_topic(step_input: StepInput) -> Union[str, Step, List[Step]]:
     topic = step_input.input.lower()
@@ -54,7 +54,7 @@ def route_by_topic(step_input: StepInput) -> Union[str, Step, List[Step]]:
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow (String Selector)
+# 创建工作流（字符串选择器）
 # ---------------------------------------------------------------------------
 workflow_string_selector = Workflow(
     name="Expert Routing (String Selector)",
@@ -68,24 +68,24 @@ workflow_string_selector = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Create Agents For step_choices Selector
+# 为 step_choices 选择器创建 Agent
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="researcher",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a researcher.",
+    instructions="你是一位研究员。",
 )
 
 writer = Agent(
     name="writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a writer.",
+    instructions="你是一位作家。",
 )
 
 reviewer = Agent(
     name="reviewer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="You are a reviewer.",
+    instructions="你是一位审稿人。",
 )
 
 
@@ -96,7 +96,7 @@ def dynamic_selector(
     user_input = step_input.input.lower()
     step_map = {s.name: s for s in step_choices if hasattr(s, "name") and s.name}
 
-    print(f"Available steps: {list(step_map.keys())}")
+    print(f"可用步骤：{list(step_map.keys())}")
 
     if "research" in user_input:
         return "researcher"
@@ -108,7 +108,7 @@ def dynamic_selector(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow (step_choices)
+# 创建工作流（step_choices）
 # ---------------------------------------------------------------------------
 workflow_step_choices = Workflow(
     name="Dynamic Routing (step_choices)",
@@ -122,7 +122,7 @@ workflow_step_choices = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Create Agents For Nested Choices Selector
+# 为嵌套选择选择器创建 Agent
 # ---------------------------------------------------------------------------
 step_a = Agent(name="step_a", model=OpenAIChat(id="gpt-4o-mini"), instructions="Step A")
 step_b = Agent(name="step_b", model=OpenAIChat(id="gpt-4o-mini"), instructions="Step B")
@@ -141,7 +141,7 @@ def nested_selector(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow (Nested Choices)
+# 创建工作流（嵌套选择）
 # ---------------------------------------------------------------------------
 workflow_nested = Workflow(
     name="Nested Choices Routing",
@@ -155,20 +155,20 @@ workflow_nested = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflows
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("=" * 60)
-    print("Example 1: String-based selector (returns step name)")
+    print("示例 1：基于字符串的选择器（返回步骤名称）")
     print("=" * 60)
     workflow_string_selector.print_response("Tell me about AI trends", stream=True)
 
     print("\n" + "=" * 60)
-    print("Example 2: step_choices parameter")
+    print("示例 2：step_choices 参数")
     print("=" * 60)
     workflow_step_choices.print_response("I need to research something", stream=True)
 
     print("\n" + "=" * 60)
-    print("Example 3: Nested choices")
+    print("示例 3：嵌套选择")
     print("=" * 60)
     workflow_nested.print_response("Run the sequence", stream=True)

@@ -1,8 +1,8 @@
 """
-Sequence With Functions
+函数序列
 =======================
 
-Demonstrates sequencing function steps and agent/team steps with sync, async, and streaming runs.
+演示函数步骤和 Agent/团队步骤的顺序执行，包括同步、异步和流式运行。
 """
 
 import asyncio
@@ -19,40 +19,40 @@ from agno.workflow.types import StepInput, StepOutput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    role="Search the web for the latest news and trends",
+    role="搜索网络获取最新新闻和趋势",
 )
 
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts",
+    role="从 Hackernews 帖子中提取关键见解和内容",
 )
 
 writer_agent = Agent(
     name="Writer Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions="Write a blog post on the topic",
+    instructions="撰写关于该主题的博客文章",
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Research tech topics from Hackernews and the web",
+    instructions="从 Hackernews 和网络研究技术主题",
 )
 
 
 # ---------------------------------------------------------------------------
-# Define Function Steps
+# 定义函数步骤
 # ---------------------------------------------------------------------------
 def prepare_input_for_web_search_sync(step_input: StepInput) -> StepOutput:
     topic = step_input.input
@@ -201,11 +201,11 @@ async def prepare_input_for_writer_async_stream(
 
 
 # ---------------------------------------------------------------------------
-# Create Workflows
+# 创建工作流
 # ---------------------------------------------------------------------------
 sync_workflow = Workflow(
     name="Blog Post Workflow",
-    description="Automated blog post creation from Hackernews and the web",
+    description="从 Hackernews 和网络自动创建博客文章",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -220,7 +220,7 @@ sync_workflow = Workflow(
 
 sync_stream_workflow = Workflow(
     name="Blog Post Workflow",
-    description="Automated blog post creation from Hackernews and the web",
+    description="从 Hackernews 和网络自动创建博客文章",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -235,7 +235,7 @@ sync_stream_workflow = Workflow(
 
 async_workflow = Workflow(
     name="Blog Post Workflow",
-    description="Automated blog post creation from Hackernews and the web",
+    description="从 Hackernews 和网络自动创建博客文章",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -250,7 +250,7 @@ async_workflow = Workflow(
 
 async_stream_workflow = Workflow(
     name="Blog Post Workflow",
-    description="Automated blog post creation from Hackernews and the web",
+    description="从 Hackernews 和网络自动创建博客文章",
     db=SqliteDb(
         session_table="workflow_session",
         db_file="tmp/workflow.db",
@@ -264,23 +264,23 @@ async_stream_workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Sync
+    # 同步运行
     sync_workflow.print_response(
         input="AI trends in 2024",
         markdown=True,
     )
 
-    # Sync Streaming
+    # 同步流式运行
     sync_stream_workflow.print_response(
         input="AI trends in 2024",
         markdown=True,
         stream=True,
     )
 
-    # Async
+    # 异步运行
     asyncio.run(
         async_workflow.aprint_response(
             input="AI trends in 2024",
@@ -288,7 +288,7 @@ if __name__ == "__main__":
         )
     )
 
-    # Async Streaming
+    # 异步流式运行
     asyncio.run(
         async_stream_workflow.aprint_response(
             input="AI trends in 2024",

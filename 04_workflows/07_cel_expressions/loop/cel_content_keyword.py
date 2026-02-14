@@ -1,10 +1,10 @@
-"""Loop with CEL end condition: stop when agent signals completion.
+"""使用 CEL 结束条件的循环：当 Agent 发出完成信号时停止。
 ================================================================
 
-Uses last_step_content.contains() to detect a keyword in the output
-that signals the loop should stop.
+使用 last_step_content.contains() 检测输出中的关键字
+以表示循环应该停止。
 
-Requirements:
+要求：
     pip install cel-python
 """
 
@@ -20,20 +20,20 @@ if not CEL_AVAILABLE:
     exit(1)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 editor = Agent(
     name="Editor",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=(
-        "Edit and refine the text. When the text is polished and ready, "
-        "include the word DONE at the end of your response."
+        "编辑和改进文本。当文本经过润色并准备就绪时，"
+        "在响应末尾包含单词 DONE。"
     ),
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 workflow = Workflow(
     name="CEL Content Keyword Loop",
@@ -50,10 +50,10 @@ workflow = Workflow(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print('Loop with CEL end condition: last_step_content.contains("DONE")')
+    print('使用 CEL 结束条件的循环：last_step_content.contains("DONE")')
     print("=" * 60)
     workflow.print_response(
         input="Refine this draft: AI is changing the world in many ways.",

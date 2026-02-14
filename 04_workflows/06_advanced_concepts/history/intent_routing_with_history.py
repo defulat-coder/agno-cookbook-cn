@@ -1,8 +1,8 @@
 """
-Intent Routing With History
+带历史的意图路由
 ===========================
 
-Demonstrates simple intent routing where all specialist steps share workflow history for context continuity.
+演示简单的意图路由，所有专家步骤共享工作流历史以保持上下文连续性。
 """
 
 from typing import List

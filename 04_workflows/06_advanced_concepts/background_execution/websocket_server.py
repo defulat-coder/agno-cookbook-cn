@@ -1,8 +1,8 @@
 """
-Background Execution WebSocket Server
+后台执行 WebSocket 服务器
 =====================================
 
-Demonstrates running background workflows and streaming workflow events over WebSocket.
+演示运行后台工作流并通过 WebSocket 流式传输工作流事件。
 """
 
 import json
