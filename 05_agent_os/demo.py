@@ -1,9 +1,9 @@
 """
-AgentOS Demo
+AgentOS 演示
 
-Set the OS_SECURITY_KEY environment variable to your OS security key to enable authentication.
+设置 OS_SECURITY_KEY 环境变量为你的 OS 安全密钥以启用身份验证。
 
-Prerequisites:
+前置条件：
 uv pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai ddgs yfinance
 """
 
@@ -18,16 +18,16 @@ from agno.tools.websearch import WebSearchTools
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Database connection
+# 数据库连接
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create Postgres-backed memory store
+# 创建 Postgres 支持的记忆存储
 db = PostgresDb(db_url=db_url)
 
-# Create Postgres-backed vector store
+# 创建 Postgres 支持的向量存储
 vector_db = PgVector(
     db_url=db_url,
     table_name="agno_docs",
@@ -38,7 +38,7 @@ knowledge = Knowledge(
     vector_db=vector_db,
 )
 
-# Create your agents
+# 创建你的 agent
 agno_agent = Agent(
     name="Agno Agent",
     model=OpenAIChat(id="gpt-4.1"),
@@ -54,7 +54,7 @@ simple_agent = Agent(
     role="Simple agent",
     id="simple_agent",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions=["You are a simple agent"],
+    instructions=["你是一个简单的 agent"],
     db=db,
     update_memory_on_run=True,
 )
@@ -64,13 +64,13 @@ research_agent = Agent(
     role="Research agent",
     id="research_agent",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions=["You are a research agent"],
+    instructions=["你是一个研究 agent"],
     tools=[WebSearchTools()],
     db=db,
     update_memory_on_run=True,
 )
 
-# Create a team
+# 创建一个团队
 research_team = Team(
     name="Research Team",
     description="A team of agents that research the web",
@@ -78,7 +78,7 @@ research_team = Team(
     model=OpenAIChat(id="gpt-4.1"),
     id="research_team",
     instructions=[
-        "You are the lead researcher of a research team.",
+        "你是一个研究团队的首席研究员。",
     ],
     db=db,
     update_memory_on_run=True,
@@ -86,7 +86,7 @@ research_team = Team(
     markdown=True,
 )
 
-# Create the AgentOS
+# 创建 AgentOS
 agent_os = AgentOS(
     id="agentos-demo",
     agents=[agno_agent],
@@ -96,7 +96,7 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

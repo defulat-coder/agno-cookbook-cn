@@ -1,4 +1,4 @@
-"""Minimal example for AgentOS."""
+"""AgentOS 最小示例。"""
 
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
@@ -9,13 +9,13 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(id="basic-db", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# Setup basic agents, teams and workflows
+# 设置基础 agent、团队和工作流
 basic_agent = Agent(
     name="Basic Agent",
     db=db,
@@ -49,9 +49,9 @@ basic_workflow = Workflow(
     add_workflow_history_to_steps=True,
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
-    description="Example app for basic agent, team and workflow",
+    description="基础 agent、团队和工作流的示例应用",
     agents=[basic_agent],
     teams=[basic_team],
     workflows=[basic_workflow],
@@ -60,13 +60,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

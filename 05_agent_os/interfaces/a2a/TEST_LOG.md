@@ -1,43 +1,43 @@
 # Test Log: interfaces/a2a
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agent_with_tools.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agent With Tools.
+**描述：** 带有工具的 Agent。
 
 ---
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic.
+**描述：** 基础示例。
 
 ---
 
 ### reasoning_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Reasoning Agent.
+**描述：** 推理 Agent。
 
 ---
 
 ### research_team.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Research Team.
+**描述：** 研究团队。
 
 ---
 
 ### structured_output.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Structured Output.
+**描述：** 结构化输出。
 
 ---

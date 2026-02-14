@@ -2,7 +2,7 @@
 File Output
 ===========
 
-Demonstrates file output.
+演示文件输出。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.os import AgentOS
 from agno.tools.file_generation import FileGenerationTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db = SqliteDb(db_file="tmp/agentos.db")
@@ -23,7 +23,7 @@ file_agent = Agent(
     db=db,
     send_media_to_model=False,
     tools=[FileGenerationTools(output_directory="tmp")],
-    instructions="Just return the file url as it is don't do anythings.",
+    instructions="直接按原样返回文件 URL，不做任何其他操作。",
 )
 
 agent_os = AgentOS(
@@ -33,7 +33,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

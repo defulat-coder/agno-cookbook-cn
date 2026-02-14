@@ -1,7 +1,7 @@
 """
-Examples demonstrating AgentOSRunner for remote execution.
+演示 AgentOSRunner 进行远程执行的示例。
 
-Run `agent_os_setup.py` to start the remote AgentOS instance.
+运行 `agent_os_setup.py` 以启动远程 AgentOS 实例。
 """
 
 import asyncio
@@ -9,13 +9,13 @@ import asyncio
 from agno.agent import RemoteAgent
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def remote_agent_example():
-    """Call a remote agent hosted on another AgentOS instance."""
-    # Create a runner that points to a remote agent
+    """调用托管在另一个 AgentOS 实例上的远程 agent。"""
+    # 创建一个指向远程 agent 的 runner
     agent = RemoteAgent(
         base_url="http://localhost:7778",
         agent_id="assistant-agent",
@@ -30,7 +30,7 @@ async def remote_agent_example():
 
 
 async def remote_streaming_example():
-    """Stream responses from a remote agent."""
+    """从远程 agent 流式传输响应。"""
     runner = RemoteAgent(
         base_url="http://localhost:7778",
         agent_id="researcher-agent",
@@ -48,13 +48,13 @@ async def remote_streaming_example():
 
 
 async def main():
-    """Run all examples in a single event loop."""
+    """在单个事件循环中运行所有示例。"""
     print("=" * 60)
     print("RemoteAgent Examples")
     print("=" * 60)
 
-    # Run examples
-    # Note: Remote examples require a running AgentOS instance
+    # 运行示例
+    # 注意：远程示例需要运行中的 AgentOS 实例
 
     print("\n1. Remote Agent Example:")
     await remote_agent_example()
@@ -64,7 +64,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

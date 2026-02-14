@@ -1,8 +1,8 @@
 """
-Image Generation Tools
+图像生成工具
 ======================
 
-Demonstrates image generation tools.
+演示图像生成工具。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.os.interfaces.whatsapp import Whatsapp
 from agno.tools.openai import OpenAITools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(db_file="tmp/persistent_memory.db")
@@ -28,7 +28,7 @@ image_agent = Agent(
 )
 
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     agents=[image_agent],
     interfaces=[Whatsapp(agent=image_agent)],
@@ -37,13 +37,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

@@ -1,17 +1,17 @@
 # Customize Cookbook
 
-Examples for `customize` in AgentOS.
+AgentOS 中 `customize` 的示例。
 
-## Files
-- `custom_fastapi_app.py` — Example AgentOS app with a custom FastAPI app with basic routes.
-- `custom_health_endpoint.py` — Example AgentOS app with a custom health endpoint.
-- `custom_lifespan.py` — Example AgentOS app where the agent has a custom lifespan.
-- `handle_custom_events.py` — Example for AgentOS to show how to generate custom events.
-- `override_routes.py` — Example AgentOS app with a custom FastAPI app with conflicting routes.
-- `pass_dependencies_to_agent.py` — Example for AgentOS to show how to pass dependencies to an agent.
-- `update_from_lifespan.py` — Update From Lifespan.
+## 文件
+- `custom_fastapi_app.py` — 带有基本路由的自定义 FastAPI 应用的 AgentOS 应用示例。
+- `custom_health_endpoint.py` — 带有自定义健康检查端点的 AgentOS 应用示例。
+- `custom_lifespan.py` — Agent 具有自定义生命周期的 AgentOS 应用示例。
+- `handle_custom_events.py` — 展示如何生成自定义事件的 AgentOS 示例。
+- `override_routes.py` — 带有冲突路由的自定义 FastAPI 应用的 AgentOS 应用示例。
+- `pass_dependencies_to_agent.py` — 展示如何将依赖项传递给 Agent 的 AgentOS 示例。
+- `update_from_lifespan.py` — 从生命周期更新。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

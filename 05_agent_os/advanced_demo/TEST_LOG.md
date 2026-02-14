@@ -1,75 +1,75 @@
 # Test Log: advanced_demo
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### _agents.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agents.
+**描述：** Agent。
 
 ---
 
 ### _teams.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Teams.
+**描述：** 团队。
 
 ---
 
 ### demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** AgentOS Demo.
+**描述：** AgentOS 演示。
 
 ---
 
 ### file_output.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** File Output.
+**描述：** 文件输出。
 
 ---
 
 ### mcp_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** This example shows how to run an Agent using our MCP integration in the Agno OS.
+**描述：** 此示例展示如何在 Agno OS 中使用 MCP 集成运行 Agent。
 
 ---
 
 ### multiple_knowledge_bases.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Multiple Knowledge Bases.
+**描述：** 多个知识库。
 
 ---
 
 ### reasoning_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` to install dependencies.
+**描述：** 运行 `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` 安装依赖项。
 
 ---
 
 ### reasoning_model.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing a reasoning Agent in the AgentOS.
+**描述：** 展示 AgentOS 中推理 Agent 的示例。
 
 ---
 
 ### teams_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Teams Demo.
+**描述：** 团队演示。
 
 ---

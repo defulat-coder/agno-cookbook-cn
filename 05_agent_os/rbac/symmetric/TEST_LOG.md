@@ -1,43 +1,43 @@
 # Test Log: rbac/symmetric
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### advanced_scopes.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Advanced RBAC Example with AgentOS - Simplified Scopes with Audience Verification.
+**描述：** 使用 AgentOS 的高级 RBAC 示例 - 带有受众验证的简化作用域。
 
 ---
 
 ### agent_permissions.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Per-Agent Permissions Example with AgentOS.
+**描述：** 使用 AgentOS 的每个 Agent 权限示例。
 
 ---
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic RBAC Example with AgentOS.
+**描述：** 使用 AgentOS 的基本 RBAC 示例。
 
 ---
 
 ### custom_scope_mappings.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Custom Scope Mappings Example.
+**描述：** 自定义作用域映射示例。
 
 ---
 
 ### with_cookie.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic RBAC Example with AgentOS.
+**描述：** 使用 AgentOS 的基本 RBAC 示例。
 
 ---

@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with a Firestore database"""
+"""展示如何在 AgentOS 中使用 Firestore 数据库的示例"""
 
 from agno.agent import Agent
 from agno.db.firestore import FirestoreDb
@@ -8,12 +8,12 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 PROJECT_ID = "agno-os-test"
 
-# Setup the Firestore database
+# 设置 Firestore 数据库
 db = FirestoreDb(
     project_id=PROJECT_ID,
     session_collection="sessions",
@@ -23,7 +23,7 @@ db = FirestoreDb(
     knowledge_collection="knowledge",
 )
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 basic_agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -46,7 +46,7 @@ basic_team = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -59,7 +59,7 @@ evaluation = AccuracyEval(
 # evaluation.run(print_results=True)
 
 agent_os = AgentOS(
-    description="Example app for basic agent with Firestore database capabilities",
+    description="具有 Firestore 数据库功能的基础 agent 示例应用",
     id="firestore-app",
     agents=[basic_agent],
     teams=[basic_team],
@@ -67,7 +67,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

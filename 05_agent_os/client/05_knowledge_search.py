@@ -1,13 +1,12 @@
 """
-Knowledge Search with AgentOSClient
+使用 AgentOSClient 进行知识库搜索
 
-This example demonstrates how to search the knowledge base
-using AgentOSClient.
+此示例演示如何使用 AgentOSClient 搜索知识库。
 
-Prerequisites:
-1. Start an AgentOS server with knowledge base configured
-2. Upload some content to the knowledge base
-3. Run this script: python 05_knowledge_search.py
+前置条件：
+1. 启动一个配置了知识库的 AgentOS 服务器
+2. 上传一些内容到知识库
+3. 运行此脚本：python 05_knowledge_search.py
 """
 
 import asyncio
@@ -15,7 +14,7 @@ import asyncio
 from agno.client import AgentOSClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
@@ -26,7 +25,7 @@ async def main():
     print("Knowledge Search")
     print("=" * 60)
 
-    # Get knowledge configuration
+    # 获取知识库配置
     print("\n1. Getting knowledge config...")
     try:
         config = await client.get_knowledge_config()
@@ -40,7 +39,7 @@ async def main():
         print(f"   Knowledge not configured: {e}")
         return
 
-    # List existing content
+    # 列出现有内容
     print("\n2. Listing content...")
     try:
         content = await client.list_knowledge_content()
@@ -52,7 +51,7 @@ async def main():
     except Exception as e:
         print(f"   Error listing content: {e}")
 
-    # Search knowledge base
+    # 搜索知识库
     print("\n3. Searching knowledge base...")
     try:
         results = await client.search_knowledge(
@@ -71,7 +70,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

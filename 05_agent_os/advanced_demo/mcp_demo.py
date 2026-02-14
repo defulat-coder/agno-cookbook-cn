@@ -1,10 +1,10 @@
-"""This example shows how to run an Agent using our MCP integration in the Agno OS.
+"""此示例展示如何在 Agno OS 中使用我们的 MCP 集成运行 Agent。
 
-For this example to run you need:
-- Create a GitHub personal access token following these steps:
+为使此示例运行，你需要：
+- 按照以下步骤创建 GitHub 个人访问令牌：
     - https://github.com/modelcontextprotocol/servers/tree/main/src/github#setup
-- Set the GITHUB_TOKEN environment variable: `export GITHUB_TOKEN=<Your GitHub access token>`
-- Run: `uv pip install agno mcp openai` to install the dependencies
+- 设置 GITHUB_TOKEN 环境变量：`export GITHUB_TOKEN=<你的 GitHub 访问令牌>`
+- 运行：`uv pip install agno mcp openai` 以安装依赖
 """
 
 from contextlib import asynccontextmanager
@@ -20,13 +20,13 @@ from fastapi import FastAPI
 from mcp import StdioServerParameters
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_storage_file: str = "tmp/agents.db"
 
 
-# MCP server parameters setup
+# MCP 服务器参数设置
 github_token = getenv("GITHUB_TOKEN") or getenv("GITHUB_ACCESS_TOKEN")
 if not github_token:
     raise ValueError("GITHUB_TOKEN environment variable is required")
@@ -37,32 +37,32 @@ server_params = StdioServerParameters(
 )
 
 
-# This is required to start the MCP connection correctly in the FastAPI lifecycle
+# 这是在 FastAPI 生命周期中正确启动 MCP 连接所必需的
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Manage MCP connection lifecycle inside a FastAPI app"""
+    """在 FastAPI 应用中管理 MCP 连接生命周期"""
     global mcp_tools
 
-    # Startuplogic: connect to our MCP server
+    # 启动逻辑：连接到我们的 MCP 服务器
     mcp_tools = MCPTools(server_params=server_params)
     await mcp_tools.connect()
 
-    # Add the MCP tools to our Agent
+    # 将 MCP 工具添加到我们的 Agent
     agent.tools = [mcp_tools]
 
     yield
 
-    # Shutdown: Close MCP connection
+    # 关闭：关闭 MCP 连接
     await mcp_tools.close()
 
 
 agent = Agent(
     name="MCP GitHub Agent",
     instructions=dedent("""\
-        You are a GitHub assistant. Help users explore repositories and their activity.
+        你是一个 GitHub 助手。帮助用户探索仓库及其活动。
 
-        - Use headings to organize your responses
-        - Be concise and focus on relevant information\
+        - 使用标题组织你的响应
+        - 简洁并专注于相关信息\
     """),
     model=OpenAIChat(id="gpt-4o"),
     db=SqliteDb(db_file=agent_storage_file),
@@ -74,7 +74,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Example OS setup",
     agents=[agent],
@@ -83,7 +83,7 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

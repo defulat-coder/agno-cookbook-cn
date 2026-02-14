@@ -1,18 +1,18 @@
 # Remote Cookbook
 
-Examples for `remote` in AgentOS.
+AgentOS 中 `remote` 的示例。
 
-## Files
-- `01_remote_agent.py` — Examples demonstrating AgentOSRunner for remote execution.
-- `02_remote_team.py` — Examples demonstrating AgentOSRunner for remote execution.
-- `03_remote_agno_a2a_agent.py` — Example demonstrating how to connect to a remote Agno A2A agent.
-- `04_remote_adk_agent.py` — Example demonstrating how to connect to a remote Google ADK agent.
-- `05_agent_os_gateway.py` — Example showing how to use an AgentOS instance as a gateway to remote agents, teams and workflows.
-- `adk_server.py` — Google ADK A2A Server for Cookbook Examples.
-- `agno_a2a_server.py` — Agno A2A Server for Cookbook Examples.
-- `server.py` — AgentOS Server for Cookbook Client Examples.
+## 文件
+- `01_remote_agent.py` — 演示 AgentOSRunner 用于远程执行的示例。
+- `02_remote_team.py` — 演示 AgentOSRunner 用于远程执行的示例。
+- `03_remote_agno_a2a_agent.py` — 演示如何连接到远程 Agno A2A Agent 的示例。
+- `04_remote_adk_agent.py` — 演示如何连接到远程 Google ADK Agent 的示例。
+- `05_agent_os_gateway.py` — 演示如何使用 AgentOS 实例作为远程 Agent、团队和工作流的网关的示例。
+- `adk_server.py` — 用于 Cookbook 示例的 Google ADK A2A 服务器。
+- `agno_a2a_server.py` — 用于 Cookbook 示例的 Agno A2A 服务器。
+- `server.py` — 用于 Cookbook 客户端示例的 AgentOS 服务器。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

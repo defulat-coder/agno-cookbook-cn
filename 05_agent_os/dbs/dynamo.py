@@ -1,13 +1,13 @@
-"""Example showing how to use AgentOS with a DynamoDB database
+"""展示如何在 AgentOS 中使用 DynamoDB 数据库的示例
 
-Set the following environment variables to connect to your DynamoDb instance:
+设置以下环境变量以连接到你的 DynamoDb 实例：
 - AWS_REGION
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
 
-Or pass those parameters when initializing the DynamoDb instance.
+或在初始化 DynamoDb 实例时传递这些参数。
 
-Run `uv pip install boto3` to install dependencies.
+运行 `uv pip install boto3` 以安装依赖。
 """
 
 from agno.agent import Agent
@@ -18,13 +18,13 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the DynamoDB database
+# 设置 DynamoDB 数据库
 db = DynamoDb()
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 basic_agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -46,7 +46,7 @@ basic_team = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -66,7 +66,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

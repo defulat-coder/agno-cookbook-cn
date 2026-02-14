@@ -1,19 +1,19 @@
 # Test Log: os_config
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic.
+**描述：** 基础示例。
 
 ---
 
 ### yaml_config.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Yaml Config.
+**描述：** YAML 配置。
 
 ---

@@ -1,8 +1,8 @@
 """
-Basic Workflow
+基础工作流
 ==============
 
-Demonstrates basic workflow.
+演示基础工作流。
 """
 
 from agno.agent import Agent
@@ -15,35 +15,35 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Define agents for the workflow
+# 为工作流定义 agent
 researcher_agent = Agent(
     name="Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    role="Search the web and gather comprehensive research on the given topic",
+    role="搜索网络并收集有关给定主题的全面研究",
     instructions=[
-        "Search for the most recent and relevant information",
-        "Focus on credible sources and key insights",
-        "Summarize findings clearly and concisely",
+        "搜索最新和最相关的信息",
+        "关注可信来源和关键见解",
+        "清晰简洁地总结发现",
     ],
 )
 
 writer_agent = Agent(
     name="Content Writer",
     model=OpenAIChat(id="gpt-4o-mini"),
-    role="Create engaging content based on research findings",
+    role="根据研究发现创建引人入胜的内容",
     instructions=[
-        "Write in a clear, engaging, and professional tone",
-        "Structure content with proper headings and bullet points",
-        "Include key insights from the research",
-        "Keep content informative yet accessible",
+        "以清晰、引人入胜和专业的语气写作",
+        "用适当的标题和项目符号组织内容",
+        "包含研究中的关键见解",
+        "保持内容信息丰富但易于理解",
     ],
 )
 
-# Create workflow steps
+# 创建工作流步骤
 research_step = Step(
     name="Research Step",
     agent=researcher_agent,
@@ -54,16 +54,16 @@ writing_step = Step(
     agent=writer_agent,
 )
 
-# Create the workflow
+# 创建工作流
 content_workflow = Workflow(
     name="Content Creation Workflow",
-    description="Research and create content on any topic via Slack",
+    description="通过 Slack 研究和创建任何主题的内容",
     db=PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
     steps=[research_step, writing_step],
     session_id="slack_workflow_session",
 )
 
-# Create AgentOS with Slack interface for the workflow
+# 创建带有 Slack 接口的 AgentOS 用于工作流
 agent_os = AgentOS(
     workflows=[content_workflow],
     interfaces=[Slack(workflow=content_workflow)],
@@ -72,7 +72,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

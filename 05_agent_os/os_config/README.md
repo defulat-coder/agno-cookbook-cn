@@ -1,12 +1,12 @@
 # Os Config Cookbook
 
-Examples for `os_config` in AgentOS.
+AgentOS 中 `os_config` 的示例。
 
-## Files
-- `basic.py` — Basic.
-- `yaml_config.py` — Yaml Config.
+## 文件
+- `basic.py` — 基础示例。
+- `yaml_config.py` — YAML 配置。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

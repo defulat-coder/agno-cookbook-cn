@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with JSON files as database"""
+"""展示如何在 AgentOS 中使用 JSON 文件作为数据库的示例"""
 
 from agno.agent import Agent
 from agno.db.json import JsonDb
@@ -8,13 +8,13 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the JSON database
+# 设置 JSON 数据库
 db = JsonDb(db_path="./agno_json_data")
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 agent = Agent(
     name="JSON Demo Agent",
     id="basic-agent",
@@ -37,7 +37,7 @@ team = Team(
     debug_mode=True,
 )
 
-# Evaluation example
+# 评估示例
 evaluation = AccuracyEval(
     db=db,
     name="JSON Demo Evaluation",
@@ -49,10 +49,10 @@ evaluation = AccuracyEval(
 )
 # evaluation.run(print_results=True)
 
-# Create the AgentOS instance
+# 创建 AgentOS 实例
 agent_os = AgentOS(
     id="json-demo-app",
-    description="Example app using JSON file database for simple deployments and demos",
+    description="使用 JSON 文件数据库进行简单部署和演示的示例应用",
     agents=[agent],
     teams=[team],
 )
@@ -60,7 +60,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

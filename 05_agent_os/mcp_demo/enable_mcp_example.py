@@ -1,7 +1,7 @@
 """
-Example AgentOS app with MCP enabled.
+启用 MCP 的示例 AgentOS 应用。
 
-After starting this AgentOS app, you can test the MCP server with the test_client.py file.
+启动此 AgentOS 应用后，你可以使用 test_client.py 文件测试 MCP 服务器。
 """
 
 from agno.agent import Agent
@@ -11,13 +11,13 @@ from agno.os import AgentOS
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = SqliteDb(db_file="tmp/agentos.db")
 
-# Setup basic research agent
+# 设置基础研究 agent
 web_research_agent = Agent(
     id="web-research-agent",
     name="Web Research Agent",
@@ -32,23 +32,23 @@ web_research_agent = Agent(
 )
 
 
-# Setup our AgentOS with MCP enabled
+# 设置启用 MCP 的 AgentOS
 agent_os = AgentOS(
-    description="Example app with MCP enabled",
+    description="启用 MCP 的示例应用",
     agents=[web_research_agent],
-    enable_mcp_server=True,  # This enables a LLM-friendly MCP server at /mcp
+    enable_mcp_server=True,  # 这会在 /mcp 启用一个 LLM 友好的 MCP 服务器
 )
 
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see view your LLM-friendly MCP server at:
+    你可以在以下地址查看你的 LLM 友好 MCP 服务器：
     http://localhost:7777/mcp
 
     """

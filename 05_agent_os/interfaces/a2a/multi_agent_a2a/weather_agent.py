@@ -1,8 +1,8 @@
 """
-Weather Agent
+天气 Agent
 =============
 
-Demonstrates weather agent.
+演示天气 agent。
 """
 
 from textwrap import dedent
@@ -13,29 +13,29 @@ from agno.os import AgentOS
 from agno.tools.openweather import OpenWeatherTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 weather_agent = Agent(
     id="weather-reporter-agent",
     name="Weather Reporter Agent",
-    description="An agent that provides up-to-date weather information for any city.",
+    description="一个为任何城市提供最新天气信息的 agent。",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[
         OpenWeatherTools(
-            units="standard"  # Can be 'standard', 'metric', 'imperial'
+            units="standard"  # 可以是 'standard'、'metric'、'imperial'
         )
     ],
     instructions=dedent("""
-        You are a concise weather reporter.
-        Use the 'get_current_weather' tool to fetch current conditions.
-        Respond with the temperature and a brief summary.
+        你是一个简洁的天气播报员。
+        使用 'get_current_weather' 工具获取当前状况。
+        用温度和简短摘要回复。
     """),
     markdown=True,
 )
 agent_os = AgentOS(
     id="weather-agent-os",
-    description="An AgentOS serving specialized Agent for weather Reporting",
+    description="提供专业天气播报 Agent 的 AgentOS",
     agents=[
         weather_agent,
     ],
@@ -44,16 +44,16 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
-    You can run the Agent via A2A protocol:
+    """运行你的 AgentOS。
+    你可以通过 A2A 协议运行 Agent：
     POST http://localhost:7770/agents/{id}/v1/message:send
-    For streaming responses:
+    对于流式响应：
     POST http://localhost:7770/agents/{id}/v1/message:stream
-    Retrieve the agent card at:
+    在以下地址检索 agent 卡片：
     GET  http://localhost:7770/agents/{id}/.well-known/agent-card.json
     """
     agent_os.serve(app="weather_agent:app", port=7770, reload=True)

@@ -1,8 +1,8 @@
 """
-File Analyst
+文件分析师
 ============
 
-Demonstrates file analyst.
+演示文件分析师。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.os.interfaces.slack import Slack
 from agno.tools.slack import SlackTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(session_table="agent_sessions", db_file="tmp/file_analyst.db")
@@ -31,13 +31,13 @@ file_analyst = Agent(
         )
     ],
     instructions=[
-        "You are a file analysis assistant.",
-        "When users share files or mention file IDs (F12345...), download and analyze them.",
-        "For CSV/data files: identify patterns, outliers, and key statistics.",
-        "For code files: explain what the code does, suggest improvements.",
-        "For text/docs: summarize key points.",
-        "You can upload analysis results back to Slack as new files.",
-        "Always explain your analysis in plain language.",
+        "你是一个文件分析助手。",
+        "当用户分享文件或提及文件 ID（F12345...）时，下载并分析它们。",
+        "对于 CSV/数据文件：识别模式、异常值和关键统计数据。",
+        "对于代码文件：解释代码的功能，提出改进建议。",
+        "对于文本/文档：总结关键点。",
+        "你可以将分析结果作为新文件上传回 Slack。",
+        "始终用简单的语言解释你的分析。",
     ],
     add_history_to_context=True,
     num_history_runs=5,
@@ -56,7 +56,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

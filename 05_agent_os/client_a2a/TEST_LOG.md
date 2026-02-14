@@ -1,43 +1,43 @@
 # Test Log: client_a2a
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### 01_basic_messaging.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic A2A Messaging with A2AClient.
+**描述：** 使用 A2AClient 的基本 A2A 消息传递。
 
 ---
 
 ### 02_streaming.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Streaming A2A Messages with A2AClient.
+**描述：** 使用 A2AClient 的流式 A2A 消息。
 
 ---
 
 ### 03_multi_turn.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Multi-Turn Conversations with A2AClient.
+**描述：** 使用 A2AClient 的多轮对话。
 
 ---
 
 ### 04_error_handling.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Error Handling with A2AClient.
+**描述：** 使用 A2AClient 的错误处理。
 
 ---
 
 ### 05_connect_to_google_adk.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Connect Agno A2AClient to Google ADK A2A Server.
+**描述：** 将 Agno A2AClient 连接到 Google ADK A2A 服务器。
 
 ---

@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with Redis as database"""
+"""展示如何在 AgentOS 中使用 Redis 作为数据库的示例"""
 
 from agno.agent import Agent
 from agno.db.redis import RedisDb
@@ -8,17 +8,17 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the Redis database
+# 设置 Redis 数据库
 db = RedisDb(
     db_url="redis://localhost:6379",
     session_table="sessions_new",
     metrics_table="metrics_new",
 )
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -39,7 +39,7 @@ team = Team(
     members=[agent],
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -59,7 +59,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,115 +1,115 @@
 # Test Log: dbs
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agentos_default_db.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** AgentOS Demo.
+**描述：** AgentOS 演示。
 
 ---
 
 ### dynamo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with a DynamoDB database.
+**描述：** 展示如何将 AgentOS 与 DynamoDB 数据库一起使用的示例。
 
 ---
 
 ### firestore.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with a Firestore database.
+**描述：** 展示如何将 AgentOS 与 Firestore 数据库一起使用的示例。
 
 ---
 
 ### gcs_json.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with JSON files hosted in GCS as database.
+**描述：** 展示如何将 AgentOS 与托管在 GCS 中的 JSON 文件作为数据库的示例。
 
 ---
 
 ### json_db.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with JSON files as database.
+**描述：** 展示如何将 AgentOS 与 JSON 文件作为数据库的示例。
 
 ---
 
 ### mongo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Mongo Database Backend.
+**描述：** Mongo 数据库后端。
 
 ---
 
 ### mysql.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** MySQL Database Backend.
+**描述：** MySQL 数据库后端。
 
 ---
 
 ### neon.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with Neon as our database provider.
+**描述：** 展示如何将 AgentOS 与 Neon 作为数据库提供商的示例。
 
 ---
 
 ### postgres.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Postgres Database Backend.
+**描述：** Postgres 数据库后端。
 
 ---
 
 ### redis_db.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with Redis as database.
+**描述：** 展示如何将 AgentOS 与 Redis 作为数据库的示例。
 
 ---
 
 ### singlestore.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with SingleStore as our database provider.
+**描述：** 展示如何将 AgentOS 与 SingleStore 作为数据库提供商的示例。
 
 ---
 
 ### sqlite.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with a SQLite database.
+**描述：** 展示如何将 AgentOS 与 SQLite 数据库一起使用的示例。
 
 ---
 
 ### supabase.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with Supabase as our database provider.
+**描述：** 展示如何将 AgentOS 与 Supabase 作为数据库提供商的示例。
 
 ---
 
 ### surreal.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example showing how to use AgentOS with SurrealDB as database.
+**描述：** 展示如何将 AgentOS 与 SurrealDB 作为数据库的示例。
 
 ---

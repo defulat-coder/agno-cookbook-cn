@@ -1,19 +1,19 @@
 # Advanced Demo Cookbook
 
-Examples for `advanced_demo` in AgentOS.
+AgentOS 中 `advanced_demo` 的示例。
 
-## Files
-- `_agents.py` — Agents.
-- `_teams.py` — Teams.
-- `demo.py` — AgentOS Demo.
-- `file_output.py` — File Output.
-- `mcp_demo.py` — This example shows how to run an Agent using our MCP integration in the Agno OS.
-- `multiple_knowledge_bases.py` — Multiple Knowledge Bases.
-- `reasoning_demo.py` — Run `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` to install dependencies.
-- `reasoning_model.py` — Example showing a reasoning Agent in the AgentOS.
-- `teams_demo.py` — Teams Demo.
+## 文件
+- `_agents.py` — Agent。
+- `_teams.py` — 团队。
+- `demo.py` — AgentOS 演示。
+- `file_output.py` — 文件输出。
+- `mcp_demo.py` — 此示例展示如何在 Agno OS 中使用 MCP 集成运行 Agent。
+- `multiple_knowledge_bases.py` — 多个知识库。
+- `reasoning_demo.py` — 运行 `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` 安装依赖项。
+- `reasoning_model.py` — 展示 AgentOS 中推理 Agent 的示例。
+- `teams_demo.py` — 团队演示。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

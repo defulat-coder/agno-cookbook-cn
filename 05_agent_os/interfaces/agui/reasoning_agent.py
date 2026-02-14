@@ -1,8 +1,8 @@
 """
-Reasoning Agent
+推理 Agent
 ===============
 
-Demonstrates reasoning agent.
+演示推理 agent。
 """
 
 from agno.agent.agent import Agent
@@ -12,13 +12,13 @@ from agno.os.interfaces.agui import AGUI
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 chat_agent = Agent(
     name="Assistant",
     model=OpenAIChat(id="o4-mini"),
-    instructions="You are a helpful AI assistant.",
+    instructions="你是一个有用的 AI 助手。",
     add_datetime_to_context=True,
     add_history_to_context=True,
     add_location_to_context=True,
@@ -27,7 +27,7 @@ chat_agent = Agent(
     tools=[WebSearchTools()],
 )
 
-# Setup your AgentOS app
+# 设置你的 AgentOS 应用
 agent_os = AgentOS(
     agents=[chat_agent],
     interfaces=[AGUI(agent=chat_agent)],
@@ -36,13 +36,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:9001/config
 
     """

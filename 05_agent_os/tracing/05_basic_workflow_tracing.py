@@ -1,6 +1,6 @@
 """
-Traces with AgentOS
-Requirements:
+AgentOS 追踪
+要求：
     uv pip install agno opentelemetry-api opentelemetry-sdk openinference-instrumentation-agno
 """
 
@@ -14,80 +14,80 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Set up database
+# 设置数据库
 db = SqliteDb(db_file="tmp/traces.db")
 
-# === BASIC AGENTS ===
+# === 基础 AGENT ===
 researcher = Agent(
     name="Researcher",
-    instructions="Research the given topic and provide detailed findings.",
+    instructions="研究给定的主题并提供详细发现。",
     tools=[WebSearchTools()],
 )
 
 summarizer = Agent(
     name="Summarizer",
-    instructions="Create a clear summary of the research findings.",
+    instructions="创建研究发现的清晰摘要。",
 )
 
 fact_checker = Agent(
     name="Fact Checker",
-    instructions="Verify facts and check for accuracy in the research.",
+    instructions="验证研究中的事实并检查准确性。",
     tools=[WebSearchTools()],
 )
 
 writer = Agent(
     name="Writer",
-    instructions="Write a comprehensive article based on all available research and verification.",
+    instructions="基于所有可用的研究和验证撰写全面的文章。",
 )
 
-# === CONDITION EVALUATOR ===
+# === 条件评估器 ===
 
 
 def needs_fact_checking(step_input: StepInput) -> bool:
-    """Determine if the research contains claims that need fact-checking"""
+    """确定研究是否包含需要事实检查的声明"""
     return True
 
 
-# === WORKFLOW STEPS ===
+# === 工作流步骤 ===
 research_step = Step(
     name="research",
-    description="Research the topic",
+    description="研究主题",
     agent=researcher,
 )
 
 summarize_step = Step(
     name="summarize",
-    description="Summarize research findings",
+    description="总结研究发现",
     agent=summarizer,
 )
 
-# Conditional fact-checking step
+# 条件事实检查步骤
 fact_check_step = Step(
     name="fact_check",
-    description="Verify facts and claims",
+    description="验证事实和声明",
     agent=fact_checker,
 )
 
 write_article = Step(
     name="write_article",
-    description="Write final article",
+    description="撰写最终文章",
     agent=writer,
 )
 
-# === BASIC LINEAR WORKFLOW ===
+# === 基础线性工作流 ===
 basic_workflow = Workflow(
     name="Basic Linear Workflow",
-    description="Research -> Summarize -> Condition(Fact Check) -> Write Article",
+    description="研究 -> 总结 -> 条件（事实检查）-> 撰写文章",
     db=db,
     steps=[
         research_step,
         summarize_step,
         Condition(
             name="fact_check_condition",
-            description="Check if fact-checking is needed",
+            description="检查是否需要事实检查",
             evaluator=needs_fact_checking,
             steps=[fact_check_step],
         ),
@@ -95,16 +95,16 @@ basic_workflow = Workflow(
     ],
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
-    description="Example app for tracing Basic Workflow",
+    description="用于追踪基础工作流的示例应用",
     workflows=[basic_workflow],
     tracing=True,
 )
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

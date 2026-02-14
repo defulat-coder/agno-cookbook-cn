@@ -1,83 +1,83 @@
 # Test Log: client
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### 01_basic_client.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic AgentOSClient Example.
+**描述：** 基本 AgentOSClient 示例。
 
 ---
 
 ### 02_run_agents.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Running Agents with AgentOSClient.
+**描述：** 使用 AgentOSClient 运行 Agent。
 
 ---
 
 ### 03_memory_operations.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Memory Operations with AgentOSClient.
+**描述：** 使用 AgentOSClient 的记忆操作。
 
 ---
 
 ### 04_session_management.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Session Management with AgentOSClient.
+**描述：** 使用 AgentOSClient 的 Session 管理。
 
 ---
 
 ### 05_knowledge_search.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Knowledge Search with AgentOSClient.
+**描述：** 使用 AgentOSClient 的知识库搜索。
 
 ---
 
 ### 06_run_teams.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Running Teams with AgentOSClient.
+**描述：** 使用 AgentOSClient 运行团队。
 
 ---
 
 ### 07_run_workflows.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Running Workflows with AgentOSClient.
+**描述：** 使用 AgentOSClient 运行工作流。
 
 ---
 
 ### 08_run_evals.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Running Evaluations with AgentOSClient.
+**描述：** 使用 AgentOSClient 运行评估。
 
 ---
 
 ### 09_upload_content.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Uploading Content to Knowledge Base with AgentOSClient.
+**描述：** 使用 AgentOSClient 将内容上传到知识库。
 
 ---
 
 ### server.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** AgentOS Server for Cookbook Client Examples.
+**描述：** 用于 Cookbook 客户端示例的 AgentOS 服务器。
 
 ---

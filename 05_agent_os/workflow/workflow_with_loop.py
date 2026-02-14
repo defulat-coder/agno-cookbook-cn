@@ -1,8 +1,8 @@
 """
-Workflow With Loop
+带循环的工作流
 ==================
 
-Demonstrates workflow with loop.
+演示带循环的工作流。
 """
 
 from typing import List
@@ -12,9 +12,9 @@ from agno.db.sqlite import SqliteDb
 from agno.models.openai.chat import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.os import AgentOS
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.websearch import WebSearchTools
@@ -28,7 +28,7 @@ research_agent = Agent(
     role="Research specialist",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools(), WebSearchTools()],
-    instructions="You are a research specialist. Research the given topic thoroughly.",
+    instructions="你是一位研究专家。彻底研究给定的主题。",
     markdown=True,
 )
 
@@ -36,11 +36,11 @@ content_agent = Agent(
     name="Content Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     role="Content creator",
-    instructions="You are a content creator. Create engaging content based on research.",
+    instructions="你是一位内容创作者。根据研究创建引人入胜的内容。",
     markdown=True,
 )
 
-# Create research steps
+# 创建研究步骤
 research_hackernews_step = Step(
     name="Research HackerNews",
     agent=research_agent,
@@ -59,19 +59,19 @@ content_step = Step(
     description="Create content based on research findings",
 )
 
-# End condition function
+# 结束条件函数
 
 
 def research_evaluator(outputs: List[StepOutput]) -> bool:
     """
-    Evaluate if research results are sufficient
-    Returns True to break the loop, False to continue
+    评估研究结果是否充分
+    返回 True 以中断循环，返回 False 以继续
     """
-    # Check if we have good research results
+    # 检查是否有良好的研究结果
     if not outputs:
         return False
 
-    # Simple check - if any output contains substantial content, we're good
+    # 简单检查 - 如果任何输出包含大量内容，我们就满意了
     for output in outputs:
         if output.content and len(output.content) > 200:
             print(
@@ -83,7 +83,7 @@ def research_evaluator(outputs: List[StepOutput]) -> bool:
     return False
 
 
-# Create workflow with loop
+# 创建带循环的工作流
 workflow = Workflow(
     name="research-and-content-workflow",
     description="Research topics in a loop until conditions are met, then create content",
@@ -92,7 +92,7 @@ workflow = Workflow(
             name="Research Loop",
             steps=[research_hackernews_step, research_web_step],
             end_condition=research_evaluator,
-            max_iterations=3,  # Maximum 3 iterations
+            max_iterations=3,  # 最多 3 次迭代
         ),
         content_step,
     ],
@@ -102,7 +102,7 @@ workflow = Workflow(
     ),
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[workflow],
@@ -110,7 +110,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

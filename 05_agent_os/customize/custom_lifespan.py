@@ -1,5 +1,5 @@
 """
-Example AgentOS app where the agent has a custom lifespan.
+Agent 具有自定义生命周期的 AgentOS 示例应用。
 """
 
 from contextlib import asynccontextmanager
@@ -11,13 +11,13 @@ from agno.os import AgentOS
 from agno.utils.log import log_info
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# Setup basic agents, teams and workflows
+# 设置基础 agent、团队和工作流
 agno_support_agent = Agent(
     id="example-agent",
     name="Example Agent",
@@ -44,15 +44,15 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see test your AgentOS at:
+    你可以在此处测试你的 AgentOS：
     http://localhost:7777/docs
 
     """
-    # Don't use reload=True here, this can cause issues with the lifespan
+    # 不要在这里使用 reload=True，这可能会导致生命周期问题
     agent_os.serve(app="custom_lifespan:app")

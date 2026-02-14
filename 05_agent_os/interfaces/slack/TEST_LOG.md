@@ -1,75 +1,75 @@
 # Test Log: interfaces/slack
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agent_with_user_memory.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agent With User Memory.
+**描述：** 带有用户记忆的 Agent。
 
 ---
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic.
+**描述：** 基础示例。
 
 ---
 
 ### basic_workflow.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic Workflow.
+**描述：** 基本工作流。
 
 ---
 
 ### channel_summarizer.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Channel Summarizer.
+**描述：** 频道摘要器。
 
 ---
 
 ### file_analyst.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** File Analyst.
+**描述：** 文件分析器。
 
 ---
 
 ### multiple_instances.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Multiple Instances.
+**描述：** 多实例。
 
 ---
 
 ### reasoning_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Reasoning Agent.
+**描述：** 推理 Agent。
 
 ---
 
 ### research_assistant.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Research Assistant.
+**描述：** 研究助手。
 
 ---
 
 ### support_team.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Support Team.
+**描述：** 支持团队。
 
 ---

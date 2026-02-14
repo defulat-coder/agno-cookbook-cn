@@ -1,8 +1,8 @@
-"""SurrealDB + AgentOS demo
+"""SurrealDB + AgentOS 演示
 
-Steps:
-    1. Run SurrealDB in a container: `./cookbook/scripts/run_surrealdb.sh`
-    2. Run the demo: `python cookbook/agent_os/dbs/surreal_db/run.py`
+步骤：
+    1. 在容器中运行 SurrealDB：`./cookbook/scripts/run_surrealdb.sh`
+    2. 运行演示：`python cookbook/agent_os/dbs/surreal_db/run.py`
 """
 
 from agents import agno_assist
@@ -11,23 +11,23 @@ from teams import reasoning_finance_team
 from workflows import research_workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# ************* Create the AgentOS *************
+# ************* 创建 AgentOS *************
 agent_os = AgentOS(
     description="SurrealDB AgentOS",
     agents=[agno_assist],
     teams=[reasoning_finance_team],
     workflows=[research_workflow],
 )
-# Get the FastAPI app for the AgentOS
+# 获取 AgentOS 的 FastAPI 应用
 app = agent_os.get_app()
 # *******************************
 
-# ************* Run the AgentOS *************
+# ************* 运行 AgentOS *************
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with Supabase as our database provider"""
+"""展示如何在 AgentOS 中使用 Supabase 作为数据库提供者的示例"""
 
 from os import getenv
 
@@ -10,7 +10,7 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 SUPABASE_PROJECT = getenv("SUPABASE_PROJECT")
@@ -20,10 +20,10 @@ SUPABASE_DB_URL = (
     f"postgresql://postgres:{SUPABASE_PASSWORD}@db.{SUPABASE_PROJECT}:5432/postgres"
 )
 
-# Setup the Postgres database
+# 设置 Postgres 数据库
 db = PostgresDb(db_url=SUPABASE_DB_URL)
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -43,7 +43,7 @@ team = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -63,7 +63,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

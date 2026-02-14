@@ -1,8 +1,8 @@
 """
-Multiple Instances
+多个实例
 ==================
 
-Demonstrates multiple instances.
+演示多个实例。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.os.interfaces.whatsapp import Whatsapp
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(db_file="tmp/persistent_memory.db")
@@ -38,7 +38,7 @@ web_research_agent = Agent(
     add_datetime_to_context=True,
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     agents=[basic_agent, web_research_agent],
     interfaces=[
@@ -50,13 +50,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

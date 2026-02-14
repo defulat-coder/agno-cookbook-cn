@@ -2,7 +2,7 @@
  Teams
 ======
 
-Demonstrates  teams.
+演示 teams。
 """
 
 from agno.agent import Agent
@@ -14,7 +14,7 @@ from agno.tools.websearch import WebSearchTools
 from agno.tools.yfinance import YFinanceTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -25,7 +25,7 @@ web_agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
     db=PostgresDb(db_url=db_url, session_table="web_agent_sessions"),
     tools=[WebSearchTools()],
-    instructions=["Always include sources"],
+    instructions=["始终包含来源"],
 )
 
 finance_agent = Agent(
@@ -36,7 +36,7 @@ finance_agent = Agent(
     tools=[
         YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)
     ],
-    instructions=["Use tables to display data"],
+    instructions=["使用表格显示数据"],
 )
 
 finance_reasoning_team = Team(
@@ -53,7 +53,7 @@ finance_reasoning_team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

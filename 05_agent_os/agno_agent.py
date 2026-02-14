@@ -2,7 +2,7 @@
 Agno Agent
 ==========
 
-Demonstrates agno agent.
+演示 agno agent。
 """
 
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.models.anthropic import Claude
 from agno.os import AgentOS
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent = Agent(
@@ -26,7 +26,7 @@ agent_os = AgentOS(agents=[agent])
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

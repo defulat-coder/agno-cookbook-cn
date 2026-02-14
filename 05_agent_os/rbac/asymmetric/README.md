@@ -1,12 +1,12 @@
 # Asymmetric Cookbook
 
-Examples for `rbac/asymmetric` in AgentOS.
+AgentOS 中 `rbac/asymmetric` 的示例。
 
-## Files
-- `basic.py` — Basic RBAC Example with AgentOS (Asymmetric Keys).
-- `custom_scope_mappings.py` — Custom Scope Mappings Example.
+## 文件
+- `basic.py` — 使用 AgentOS 的基本 RBAC 示例（非对称密钥）。
+- `custom_scope_mappings.py` — 自定义作用域映射示例。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

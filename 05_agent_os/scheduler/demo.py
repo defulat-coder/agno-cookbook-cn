@@ -1,11 +1,11 @@
-"""Running the scheduler inside AgentOS with programmatic schedule creation.
+"""在 AgentOS 内通过编程方式创建计划运行调度器。
 
-This example demonstrates:
-- Setting scheduler=True on AgentOS to enable cron polling
-- Using ScheduleManager to create schedules directly (no curl needed)
-- The poller starts automatically on app startup and executes due schedules
+此示例演示：
+- 在 AgentOS 上设置 scheduler=True 以启用 cron 轮询
+- 使用 ScheduleManager 直接创建计划（无需 curl）
+- 轮询器在应用启动时自动启动并执行到期的计划
 
-Run with:
+运行方式：
     .venvs/demo/bin/python cookbook/05_agent_os/scheduler/demo.py
 """
 
@@ -15,53 +15,53 @@ from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
 from agno.scheduler import ScheduleManager
 
-# --- Setup ---
+# --- 设置 ---
 
 db = SqliteDb(id="scheduler-os-demo", db_file="tmp/scheduler_os_demo.db")
 
 greeter = Agent(
     name="Greeter",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions=["You are a friendly greeter."],
+    instructions=["你是一个友好的迎宾员。"],
     db=db,
 )
 
 reporter = Agent(
     name="Reporter",
     model=OpenAIChat(id="gpt-4o-mini"),
-    instructions=["You summarize news headlines in 2-3 sentences."],
+    instructions=["你用 2-3 句话总结新闻头条。"],
     db=db,
 )
 
-# --- Create schedules programmatically ---
+# --- 以编程方式创建计划 ---
 
 mgr = ScheduleManager(db)
 
-# Create a schedule for the greeter agent (every 5 minutes)
+# 为 greeter agent 创建计划（每 5 分钟）
 greet_schedule = mgr.create(
     name="greet-every-5-min",
     cron="* * * * *",
     endpoint="/agents/greeter/runs",
     payload={"message": "Say hello!"},
-    description="Greet every 5 minutes",
+    description="每 5 分钟问候一次",
     if_exists="update",
 )
 print(f"Schedule ready: {greet_schedule.name} (next run: {greet_schedule.next_run_at})")
 
-# Create a schedule for the reporter agent (daily at 9 AM)
+# 为 reporter agent 创建计划（每天上午 9 点）
 report_schedule = mgr.create(
     name="daily-news-report",
     cron="* * * * *",
     endpoint="/agents/reporter/runs",
     payload={"message": "Summarize today's top headlines."},
-    description="Daily news summary at 9 AM UTC",
+    description="UTC 上午 9 点的每日新闻摘要",
     if_exists="update",
 )
 print(
     f"Schedule ready: {report_schedule.name} (next run: {report_schedule.next_run_at})"
 )
 
-# --- Create AgentOS with scheduler enabled ---
+# --- 创建启用调度器的 AgentOS ---
 
 agent_os = AgentOS(
     name="Scheduled OS",
@@ -71,8 +71,8 @@ agent_os = AgentOS(
     scheduler_poll_interval=15,
 )
 
-# --- Run the server ---
-# The poller will automatically pick up the schedules created above.
+# --- 运行服务器 ---
+# 轮询器将自动获取上面创建的计划。
 
 if __name__ == "__main__":
     import uvicorn

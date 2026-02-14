@@ -1,7 +1,7 @@
 """
-Example AgentOS app with a custom FastAPI app with basic routes.
+自定义 FastAPI 应用的 AgentOS 示例应用，带有基本路由。
 
-You can also run this using the FastAPI cli (uv pip install fastapi["standard"]):
+你也可以使用 FastAPI cli 运行此应用（uv pip install fastapi["standard"]）：
 ```
 fastapi run custom_fastapi_app.py
 ```
@@ -15,10 +15,10 @@ from agno.tools.websearch import WebSearchTools
 from fastapi import FastAPI
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 web_research_agent = Agent(
@@ -33,14 +33,14 @@ web_research_agent = Agent(
     markdown=True,
 )
 
-# Custom FastAPI app
+# 自定义 FastAPI 应用
 app: FastAPI = FastAPI(
     title="Custom FastAPI App",
     version="1.0.0",
 )
 
 
-# Add your own routes
+# 添加你自己的路由
 @app.get("/customers")
 async def get_customers():
     return [
@@ -57,7 +57,7 @@ async def get_customers():
     ]
 
 
-# Setup our AgentOS app by passing your FastAPI app in the app_config parameter
+# 通过在 app_config 参数中传递你的 FastAPI 应用来设置 AgentOS 应用
 agent_os = AgentOS(
     description="Example app with custom routers",
     agents=[web_research_agent],
@@ -68,14 +68,14 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    With this setup:
-    - API docs: http://localhost:7777/docs
+    使用此设置：
+    - API 文档：http://localhost:7777/docs
 
     """
     agent_os.serve(app="custom_fastapi_app:app", reload=True)

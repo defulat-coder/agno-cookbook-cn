@@ -1,12 +1,12 @@
 """
-Running Agents with AgentOSClient
+使用 AgentOSClient 运行 Agent
 
-This example demonstrates how to execute agent runs using
-AgentOSClient, including both streaming and non-streaming responses.
+此示例演示如何使用 AgentOSClient 执行 agent 运行，
+包括流式和非流式响应。
 
-Prerequisites:
-1. Start an AgentOS server with an agent
-2. Run this script: python 02_run_agents.py
+前置条件：
+1. 启动一个带有 agent 的 AgentOS 服务器
+2. 运行此脚本：python 02_run_agents.py
 """
 
 import asyncio
@@ -14,18 +14,18 @@ import asyncio
 from agno.client import AgentOSClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def run_agent_non_streaming():
-    """Execute a non-streaming agent run."""
+    """执行非流式 agent 运行。"""
     print("=" * 60)
     print("Non-Streaming Agent Run")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
-    # Get available agents
+    # 获取可用的 agent
     config = await client.aget_config()
     if not config.agents:
         print("No agents available")
@@ -34,7 +34,7 @@ async def run_agent_non_streaming():
     agent_id = config.agents[0].id
     print(f"Running agent: {agent_id}")
 
-    # Execute the agent
+    # 执行 agent
     result = await client.run_agent(
         agent_id=agent_id,
         message="What is 2 + 2? Explain your answer briefly.",
@@ -46,14 +46,14 @@ async def run_agent_non_streaming():
 
 
 async def run_agent_streaming():
-    """Execute a streaming agent run."""
+    """执行流式 agent 运行。"""
     print("\n" + "=" * 60)
     print("Streaming Agent Run")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available agents
+    # 获取可用的 agent
     config = await client.aget_config()
     if not config.agents:
         print("No agents available")
@@ -70,12 +70,12 @@ async def run_agent_streaming():
         agent_id=agent_id,
         message="Tell me a short joke.",
     ):
-        # Handle different event types
+        # 处理不同的事件类型
         if isinstance(event, RunContentEvent):
             print(event.content, end="", flush=True)
             full_content += event.content
         elif isinstance(event, RunCompletedEvent):
-            # Run completed - could access event.run_id here if needed
+            # 运行完成 - 如果需要，可以在这里访问 event.run_id
             pass
 
     print("\n")
@@ -87,7 +87,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

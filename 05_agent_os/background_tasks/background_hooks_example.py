@@ -1,8 +1,8 @@
 """
-Example: Using Background Post-Hooks in AgentOS
+示例：在 AgentOS 中使用后台 Post-Hook
 
-This example demonstrates how to run post-hooks as FastAPI background tasks,
-making them completely non-blocking.
+此示例演示如何将 post-hook 作为 FastAPI 后台任务运行，
+使其完全非阻塞。
 """
 
 import asyncio
@@ -14,86 +14,86 @@ from agno.os import AgentOS
 from agno.run.agent import RunInput
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
-# Pre-hook for logging request
+# 用于记录请求的 Pre-hook
 def log_request(run_input: RunInput, agent):
     """
-    This pre-hook will run in the background before the agent processes the request.
-    Note: Pre-hooks in background mode cannot modify run_input.
+    此 pre-hook 将在 agent 处理请求之前在后台运行。
+    注意：后台模式下的 Pre-hook 无法修改 run_input。
     """
     print(f"[Background Pre-Hook] Request received for agent: {agent.name}")
     print(f"[Background Pre-Hook] Input: {run_input.input_content}")
 
 
-# Post-hook for logging analytics
+# 用于记录分析的 Post-hook
 async def log_analytics(run_output, agent, session):
     """
-    This post-hook will run in the background after the response is sent to the user.
-    It won't block the API response.
+    此 post-hook 将在响应发送给用户后在后台运行。
+    它不会阻塞 API 响应。
     """
     print(f"[Background Post-Hook] Logging analytics for run: {run_output.run_id}")
     print(f"[Background Post-Hook] Agent: {agent.name}")
     print(f"[Background Post-Hook] Session: {session.session_id}")
 
-    # Simulate a delay of 2 seconds
+    # 模拟 2 秒的延迟
     await asyncio.sleep(2)
     print("[Background Post-Hook] Analytics logged successfully!")
 
 
-# Another post-hook for sending notifications
+# 用于发送通知的另一个 post-hook
 async def send_notification(run_output, agent):
     """
-    Another background task that sends notifications without blocking the response.
+    另一个发送通知而不阻塞响应的后台任务。
     """
     print(f"[Background Post-Hook] Sending notification for agent: {agent.name}")
-    # Simulate a delay of 3 seconds
+    # 模拟 3 秒的延迟
     await asyncio.sleep(3)
     print("[Background Post-Hook] Notification sent!")
 
 
-# Create an agent with background post-hooks enabled
+# 创建启用后台 post-hook 的 agent
 agent = Agent(
     id="background-task-agent",
     name="BackgroundTaskAgent",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="You are a helpful assistant",
+    instructions="你是一个有用的助手",
     db=AsyncSqliteDb(db_file="tmp/agent.db"),
-    # Define hooks
+    # 定义钩子
     pre_hooks=[log_request],
     post_hooks=[log_analytics, send_notification],
     markdown=True,
 )
 
-# Create AgentOS
+# 创建 AgentOS
 agent_os = AgentOS(
     agents=[agent],
-    # Enable background mode for hooks (if you disable, the hooks will run in the main thread)
+    # 为钩子启用后台模式（如果禁用，钩子将在主线程中运行）
     run_hooks_in_background=True,
 )
 
-# Get the FastAPI app
+# 获取 FastAPI 应用
 app = agent_os.get_app()
 
 
-# When you make a request to POST /agents/{agent_id}/runs:
-# 1. The agent will process the request
-# 2. The response will be sent immediately to the user
-# 3. The pre-hooks (log_request) and post-hooks (log_analytics, send_notification) will run in the background
-# 4. The user doesn't have to wait for these tasks to complete
+# 当你向 POST /agents/{agent_id}/runs 发出请求时：
+# 1. agent 将处理请求
+# 2. 响应将立即发送给用户
+# 3. pre-hook (log_request) 和 post-hook (log_analytics, send_notification) 将在后台运行
+# 4. 用户不必等待这些任务完成
 
-# Example request:
+# 示例请求：
 # curl -X POST http://localhost:8000/agents/background-task-agent/runs \
 #   -F "message=Hello, how are you?" \
 #   -F "stream=false"
 
-# The response will be returned immediately, while log_request, log_analytics and send_notification
-# continue to run in the background without blocking the API response.
+# 响应将立即返回，而 log_request、log_analytics 和 send_notification
+# 继续在后台运行，不会阻塞 API 响应。
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

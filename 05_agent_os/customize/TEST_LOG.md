@@ -1,59 +1,59 @@
 # Test Log: customize
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### custom_fastapi_app.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example AgentOS app with a custom FastAPI app with basic routes.
+**描述：** 带有基本路由的自定义 FastAPI 应用的 AgentOS 应用示例。
 
 ---
 
 ### custom_health_endpoint.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example AgentOS app with a custom health endpoint.
+**描述：** 带有自定义健康检查端点的 AgentOS 应用示例。
 
 ---
 
 ### custom_lifespan.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example AgentOS app where the agent has a custom lifespan.
+**描述：** Agent 具有自定义生命周期的 AgentOS 应用示例。
 
 ---
 
 ### handle_custom_events.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example for AgentOS to show how to generate custom events.
+**描述：** 展示如何生成自定义事件的 AgentOS 示例。
 
 ---
 
 ### override_routes.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example AgentOS app with a custom FastAPI app with conflicting routes.
+**描述：** 带有冲突路由的自定义 FastAPI 应用的 AgentOS 应用示例。
 
 ---
 
 ### pass_dependencies_to_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example for AgentOS to show how to pass dependencies to an agent.
+**描述：** 展示如何将依赖项传递给 Agent 的 AgentOS 示例。
 
 ---
 
 ### update_from_lifespan.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Update From Lifespan.
+**描述：** 从生命周期更新。
 
 ---

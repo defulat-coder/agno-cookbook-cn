@@ -1,19 +1,19 @@
 """
-Example showing how to use AgentOS with JSON files hosted in GCS as database.
+展示如何在 AgentOS 中使用托管在 GCS 中的 JSON 文件作为数据库的示例。
 
-GCS JSON Database Setup:
-- Uses JSON files stored in Google Cloud Storage as a lightweight database
-- Only requires a GCS bucket name - authentication follows the standard GCP patterns:
-  * Local development: `gcloud auth application-default login`
-  * Production: Set GOOGLE_APPLICATION_CREDENTIALS env var to service account key path
-  * GCP instances: Uses instance metadata automatically
-- Optional prefix parameter for organizing files (defaults to empty string)
-- Automatically creates JSON files in the bucket as needed
+GCS JSON 数据库设置：
+- 使用存储在 Google Cloud Storage 中的 JSON 文件作为轻量级数据库
+- 仅需要 GCS 存储桶名称 - 身份验证遵循标准 GCP 模式：
+  * 本地开发：`gcloud auth application-default login`
+  * 生产：将 GOOGLE_APPLICATION_CREDENTIALS 环境变量设置为服务帐户密钥路径
+  * GCP 实例：自动使用实例元数据
+- 可选的 prefix 参数用于组织文件（默认为空字符串）
+- 根据需要在存储桶中自动创建 JSON 文件
 
-Prerequisites:
-1. Create a GCS bucket
-2. Ensure proper GCS permissions
-3. Install google-cloud-storage: `uv pip install google-cloud-storage`
+前置条件：
+1. 创建 GCS 存储桶
+2. 确保适当的 GCS 权限
+3. 安装 google-cloud-storage：`uv pip install google-cloud-storage`
 """
 
 from agno.agent import Agent
@@ -24,14 +24,14 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the GCS JSON database
+# 设置 GCS JSON 数据库
 db = GcsJsonDb(bucket_name="agno_tests")
 
 
-# Setup a basic agent and a basic team
+# 设置基本 agent 和基本团队
 agent = Agent(
     name="JSON Demo Agent",
     id="basic-agent",
@@ -54,7 +54,7 @@ team = Team(
     debug_mode=True,
 )
 
-# Evaluation example
+# 评估示例
 evaluation = AccuracyEval(
     db=db,
     name="JSON Demo Evaluation",
@@ -66,10 +66,10 @@ evaluation = AccuracyEval(
 )
 # evaluation.run(print_results=True)
 
-# Create the AgentOS instance
+# 创建 AgentOS 实例
 agent_os = AgentOS(
     id="json-demo-app",
-    description="Example app using JSON file database for simple deployments and demos",
+    description="使用 JSON 文件数据库进行简单部署和演示的示例应用",
     agents=[agent],
     teams=[team],
 )
@@ -77,7 +77,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

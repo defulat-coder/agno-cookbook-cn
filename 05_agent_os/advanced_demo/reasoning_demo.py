@@ -1,4 +1,4 @@
-"""Run `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` to install dependencies."""
+"""运行 `uv pip install openai exa_py ddgs yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api python-docx agno` 以安装依赖。"""
 
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
@@ -12,7 +12,7 @@ from agno.tools.websearch import WebSearchTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -29,7 +29,7 @@ finance_agent = Agent(
             enable_news=True,
         )
     ],
-    instructions=["Always use tables to display data"],
+    instructions=["始终使用表格显示数据"],
     db=db,
     add_history_to_context=True,
     num_history_runs=5,
@@ -56,7 +56,7 @@ reasoning_model_agent = Agent(
     id="reasoning-model-agent",
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(id="o3-mini"),
-    instructions=["You are a reasoning agent that can reason about math."],
+    instructions=["你是一个可以对数学进行推理的推理 agent。"],
     markdown=True,
     db=db,
 )
@@ -81,13 +81,13 @@ web_agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     id="web_agent",
     tools=[WebSearchTools()],
-    instructions="Always include sources",
+    instructions="始终包含来源",
     add_datetime_to_context=True,
     db=db,
 )
 
 agno_docs = Knowledge(
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -120,12 +120,12 @@ reasoning_finance_team = Team(
     ],
     # reasoning=True,
     tools=[ReasoningTools(add_instructions=True)],
-    # uncomment it to use knowledge tools
+    # 取消注释以使用知识库工具
     # tools=[knowledge_tools],
     id="reasoning_finance_team",
     instructions=[
-        "Only output the final answer, no other text.",
-        "Use tables to display data",
+        "仅输出最终答案，不输出其他文本。",
+        "使用表格显示数据",
     ],
     markdown=True,
     show_members_responses=True,
@@ -134,7 +134,7 @@ reasoning_finance_team = Team(
 )
 
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Example OS setup",
     agents=[
@@ -148,9 +148,8 @@ agent_os = AgentOS(
 )
 app = agent_os.get_app()
 
-
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

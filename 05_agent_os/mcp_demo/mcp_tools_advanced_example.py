@@ -13,10 +13,10 @@ from agno.os import AgentOS
 from agno.tools.mcp import MCPTools  # noqa: F401
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = SqliteDb(db_file="tmp/agentos.db")
 
 agno_mcp_tools = MCPTools(transport="streamable-http", url="https://docs.agno.com/mcp")

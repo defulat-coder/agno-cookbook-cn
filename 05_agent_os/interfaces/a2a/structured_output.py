@@ -1,8 +1,8 @@
 """
-Structured Output
+结构化输出
 =================
 
-Demonstrates structured output.
+演示结构化输出。
 """
 
 from typing import List
@@ -13,7 +13,7 @@ from agno.os import AgentOS
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
@@ -40,13 +40,13 @@ structured_agent = Agent(
     name="structured-output-agent",
     id="structured_output_agent",
     model=OpenAIChat(id="gpt-4o"),
-    description="A creative AI screenwriter that generates detailed, well-structured movie scripts with compelling settings, characters, storylines, and complete plot arcs in a standardized format",
+    description="一个创意AI编剧，生成详细、结构良好的电影剧本，包含引人入胜的场景、角色、故事线和完整的情节弧线，以标准化格式呈现",
     markdown=True,
     output_schema=MovieScript,
 )
 
 
-# Setup your AgentOS app
+# 设置你的 AgentOS 应用
 agent_os = AgentOS(
     agents=[structured_agent],
     a2a_interface=True,
@@ -54,16 +54,16 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS with A2A interface.
-    You can run the Agent via A2A protocol:
+    """使用 A2A 接口运行你的 AgentOS。
+    你可以通过 A2A 协议运行 Agent：
     POST http://localhost:7777/agents/{id}/v1/message:send
-    For streaming responses:
+    对于流式响应：
     POST http://localhost:7777/agents/{id}/v1/message:stream
-    Retrieve the agent card at:
+    在以下地址检索 agent 卡片：
     GET  http://localhost:7777/agents/{id}/.well-known/agent-card.json
     """
     agent_os.serve(app="structured_output:app", port=7777, reload=True)

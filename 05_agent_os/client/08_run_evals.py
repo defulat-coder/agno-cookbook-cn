@@ -1,12 +1,11 @@
 """
-Running Evaluations with AgentOSClient
+使用 AgentOSClient 运行评估
 
-This example demonstrates how to run and manage evaluations
-using AgentOSClient.
+此示例演示如何使用 AgentOSClient 运行和管理评估。
 
-Prerequisites:
-1. Start an AgentOS server with agents
-2. Run this script: python 08_run_evals.py
+前置条件：
+1. 启动带有 agent 的 AgentOS 服务器
+2. 运行此脚本：python 08_run_evals.py
 """
 
 import asyncio
@@ -15,19 +14,19 @@ from agno.client import AgentOSClient
 from agno.db.schemas.evals import EvalType
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def run_accuracy_eval():
-    """Run an accuracy evaluation."""
+    """运行准确性评估。"""
     print("=" * 60)
     print("Running Accuracy Evaluation")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available agents
+    # 获取可用的 agent
     config = await client.aget_config()
     if not config.agents:
         print("No agents available")
@@ -36,7 +35,7 @@ async def run_accuracy_eval():
     agent_id = config.agents[0].id
     print(f"Evaluating agent: {agent_id}")
 
-    # Run accuracy eval
+    # 运行准确性评估
     try:
         eval_result = await client.run_eval(
             agent_id=agent_id,
@@ -59,14 +58,14 @@ async def run_accuracy_eval():
 
 
 async def run_performance_eval():
-    """Run a performance evaluation."""
+    """运行性能评估。"""
     print("\n" + "=" * 60)
     print("Running Performance Evaluation")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available agents
+    # 获取可用的 agent
     config = await client.aget_config()
     if not config.agents:
         print("No agents available")
@@ -75,13 +74,13 @@ async def run_performance_eval():
     agent_id = config.agents[0].id
     print(f"Evaluating agent: {agent_id}")
 
-    # Run performance eval
+    # 运行性能评估
     try:
         eval_result = await client.run_eval(
             agent_id=agent_id,
             eval_type=EvalType.PERFORMANCE,
             input_text="Hello, how are you?",
-            num_iterations=2,  # Run twice to measure performance
+            num_iterations=2,  # 运行两次以测量性能
         )
 
         if eval_result:
@@ -98,7 +97,7 @@ async def run_performance_eval():
 
 
 async def list_eval_runs():
-    """List all evaluation runs."""
+    """列出所有评估运行。"""
     print("\n" + "=" * 60)
     print("Listing Evaluation Runs")
     print("=" * 60)
@@ -109,7 +108,7 @@ async def list_eval_runs():
         evals = await client.list_eval_runs()
         print(f"\nFound {len(evals.data)} evaluation runs")
 
-        for eval_run in evals.data[:5]:  # Show first 5
+        for eval_run in evals.data[:5]:  # 显示前 5 个
             print(f"\n- ID: {eval_run.id}")
             print(f"  Name: {eval_run.name}")
             print(f"  Type: {eval_run.eval_type}")
@@ -120,7 +119,7 @@ async def list_eval_runs():
 
 
 async def get_eval_details():
-    """Get details of a specific evaluation."""
+    """获取特定评估的详细信息。"""
     print("\n" + "=" * 60)
     print("Getting Evaluation Details")
     print("=" * 60)
@@ -128,7 +127,7 @@ async def get_eval_details():
     client = AgentOSClient(base_url="http://localhost:7777")
 
     try:
-        # First list evals to get an ID
+        # 首先列出评估以获取 ID
         evals = await client.list_eval_runs()
         if not evals.data:
             print("No evaluations found")
@@ -156,7 +155,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

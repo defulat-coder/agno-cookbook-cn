@@ -1,17 +1,17 @@
 """
-Workflow With Conditional
+带条件的工作流
 =========================
 
-Demonstrates workflow with conditional.
+演示带条件的工作流。
 """
 
 from agno.agent.agent import Agent
 from agno.db.sqlite import SqliteDb
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.os import AgentOS
 from agno.tools.websearch import WebSearchTools
 from agno.workflow.condition import Condition
@@ -19,37 +19,37 @@ from agno.workflow.step import Step
 from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
-# === BASIC AGENTS ===
+# === 基础 AGENTS ===
 researcher = Agent(
     name="Researcher",
-    instructions="Research the given topic and provide detailed findings.",
+    instructions="研究给定主题并提供详细发现。",
     tools=[WebSearchTools()],
 )
 
 summarizer = Agent(
     name="Summarizer",
-    instructions="Create a clear summary of the research findings.",
+    instructions="创建研究发现的清晰摘要。",
 )
 
 fact_checker = Agent(
     name="Fact Checker",
-    instructions="Verify facts and check for accuracy in the research.",
+    instructions="验证事实并检查研究的准确性。",
     tools=[WebSearchTools()],
 )
 
 writer = Agent(
     name="Writer",
-    instructions="Write a comprehensive article based on all available research and verification.",
+    instructions="根据所有可用的研究和验证撰写全面的文章。",
 )
 
-# === CONDITION EVALUATOR ===
+# === 条件评估器 ===
 
 
 def needs_fact_checking(step_input: StepInput) -> bool:
-    """Determine if the research contains claims that need fact-checking"""
+    """确定研究是否包含需要事实检查的声明"""
     summary = step_input.previous_step_content or ""
 
-    # Look for keywords that suggest factual claims
+    # 查找表示事实声明的关键字
     fact_indicators = [
         "study shows",
         "research indicates",
@@ -69,7 +69,7 @@ def needs_fact_checking(step_input: StepInput) -> bool:
     return any(indicator in summary.lower() for indicator in fact_indicators)
 
 
-# === WORKFLOW STEPS ===
+# === 工作流步骤 ===
 research_step = Step(
     name="research",
     description="Research the topic",
@@ -82,7 +82,7 @@ summarize_step = Step(
     agent=summarizer,
 )
 
-# Conditional fact-checking step
+# 条件事实检查步骤
 fact_check_step = Step(
     name="fact_check",
     description="Verify facts and claims",
@@ -95,7 +95,7 @@ write_article = Step(
     agent=writer,
 )
 
-# === BASIC LINEAR WORKFLOW ===
+# === 基础线性工作流 ===
 basic_workflow = Workflow(
     name="basic-linear-workflow",
     description="Research -> Summarize -> Condition(Fact Check) -> Write Article",
@@ -116,7 +116,7 @@ basic_workflow = Workflow(
     ),
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[basic_workflow],
@@ -124,7 +124,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

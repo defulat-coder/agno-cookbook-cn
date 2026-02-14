@@ -1,8 +1,8 @@
 """
-Research Assistant
+研究助手
 ==================
 
-Demonstrates research assistant.
+演示研究助手。
 """
 
 from agno.agent import Agent
@@ -14,7 +14,7 @@ from agno.tools.slack import SlackTools
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(session_table="agent_sessions", db_file="tmp/research_assistant.db")
@@ -33,14 +33,14 @@ research_assistant = Agent(
         WebSearchTools(),
     ],
     instructions=[
-        "You are a research assistant that helps find information.",
-        "You can search Slack messages using: from:@user, in:#channel, has:link, before:/after:date",
-        "You can also search the web for current information.",
-        "When asked to research something:",
-        "1. Search Slack for internal discussions",
-        "2. Search the web for external context",
-        "3. Synthesize findings into a clear summary",
-        "Identify relevant experts by looking at who contributed to discussions.",
+        "你是一个帮助查找信息的研究助手。",
+        "你可以使用以下方式搜索 Slack 消息：from:@user, in:#channel, has:link, before:/after:date",
+        "你还可以搜索网络以获取最新信息。",
+        "当被要求研究某事时：",
+        "1. 在 Slack 中搜索内部讨论",
+        "2. 在网络上搜索外部背景",
+        "3. 将发现综合成清晰的摘要",
+        "通过查看谁参与了讨论来识别相关专家。",
     ],
     add_history_to_context=True,
     num_history_runs=3,
@@ -60,7 +60,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,51 +1,51 @@
 # Test Log: middleware
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agent_os_with_custom_middleware.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** This example demonstrates how to add custom middleware to your AgentOS application.
+**描述：** 此示例演示如何向 AgentOS 应用程序添加自定义中间件。
 
 ---
 
 ### agent_os_with_jwt_middleware.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** This example demonstrates how to use our JWT middleware with AgentOS.
+**描述：** 此示例演示如何在 AgentOS 中使用 JWT 中间件。
 
 ---
 
 ### agent_os_with_jwt_middleware_cookies.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** This example demonstrates how to use JWT middleware with cookies instead of Authorization headers.
+**描述：** 此示例演示如何使用带有 Cookie 而不是 Authorization 标头的 JWT 中间件。
 
 ---
 
 ### custom_fastapi_app_with_jwt_middleware.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** This example demonstrates how to use our JWT middleware with your custom FastAPI app.
+**描述：** 此示例演示如何在自定义 FastAPI 应用程序中使用 JWT 中间件。
 
 ---
 
 ### extract_content_middleware.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example for AgentOS to show how to extract content from a response and send it to a notification service.
+**描述：** 演示如何从响应中提取内容并将其发送到通知服务的 AgentOS 示例。
 
 ---
 
 ### guardrails_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example demonstrating how to use guardrails with an Agno Agent.
+**描述：** 演示如何在 Agno Agent 中使用护栏的示例。
 
 ---

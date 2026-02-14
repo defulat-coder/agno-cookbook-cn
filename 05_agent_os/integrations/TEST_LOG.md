@@ -1,11 +1,11 @@
 # Test Log: integrations
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### shopify_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example for AgentOS with Shopify tools.
+**描述：** 使用 Shopify 工具的 AgentOS 示例。
 
 ---

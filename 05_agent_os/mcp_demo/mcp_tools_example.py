@@ -1,7 +1,7 @@
 """
-Example AgentOS app where the agent has MCPTools.
+agent 具有 MCPTools 的示例 AgentOS 应用。
 
-AgentOS handles the lifespan of the MCPTools internally.
+AgentOS 内部处理 MCPTools 的生命周期。
 """
 
 from agno.agent import Agent
@@ -11,15 +11,15 @@ from agno.os import AgentOS
 from agno.tools.mcp import MCPTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = SqliteDb(db_file="tmp/agentos.db")
 
 mcp_tools = MCPTools(transport="streamable-http", url="https://docs.agno.com/mcp")
 
-# Setup basic agent
+# 设置基础 agent
 agno_support_agent = Agent(
     id="agno-support-agent",
     name="Agno Support Agent",
@@ -33,7 +33,7 @@ agno_support_agent = Agent(
 
 
 agent_os = AgentOS(
-    description="Example app with MCP Tools",
+    description="带有 MCP 工具的示例应用",
     agents=[agno_support_agent],
 )
 
@@ -41,15 +41,15 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see test your AgentOS at:
+    你可以在以下地址测试你的 AgentOS：
     http://localhost:7777/docs
 
     """
-    # Don't use reload=True here, this can cause issues with the lifespan
+    # 不要在这里使用 reload=True，这可能会导致生命周期问题
     agent_os.serve(app="mcp_tools_example:app")

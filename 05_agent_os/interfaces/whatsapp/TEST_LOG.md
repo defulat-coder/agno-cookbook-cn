@@ -1,59 +1,59 @@
 # Test Log: interfaces/whatsapp
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agent_with_media.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agent With Media.
+**描述：** 带有媒体的 Agent。
 
 ---
 
 ### agent_with_user_memory.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agent With User Memory.
+**描述：** 带有用户记忆的 Agent。
 
 ---
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic.
+**描述：** 基础示例。
 
 ---
 
 ### image_generation_model.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Image Generation Model.
+**描述：** 图像生成模型。
 
 ---
 
 ### image_generation_tools.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Image Generation Tools.
+**描述：** 图像生成工具。
 
 ---
 
 ### multiple_instances.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Multiple Instances.
+**描述：** 多实例。
 
 ---
 
 ### reasoning_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Reasoning Agent.
+**描述：** 推理 Agent。
 
 ---

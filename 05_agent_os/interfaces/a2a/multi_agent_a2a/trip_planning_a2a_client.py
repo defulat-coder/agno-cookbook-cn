@@ -1,8 +1,8 @@
 """
-Trip Planning A2A Client
+旅行计划 A2A 客户端
 ========================
 
-Demonstrates trip planning a2a client.
+演示旅行计划 a2a 客户端。
 """
 
 import uuid
@@ -13,14 +13,14 @@ from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
-# --- 1. A2A Helper Function (The Protocol) ---
+# --- 1. A2A 辅助函数（协议）---
 def _send_a2a_message(url: str, text: str) -> str:
     """
-    Internal helper to send a message using your A2A JSON-RPC format.
+    使用你的 A2A JSON-RPC 格式发送消息的内部辅助函数。
     """
     payload = {
         "id": "trip_planner_client",
@@ -36,12 +36,12 @@ def _send_a2a_message(url: str, text: str) -> str:
     }
 
     try:
-        # Send POST request
+        # 发送 POST 请求
         response = requests.post(url, json=payload, timeout=30)
         response.raise_for_status()
         data = response.json()
 
-        # Unwrap the specific A2A response structure
+        # 解包特定的 A2A 响应结构
         # result -> history -> last_item -> parts -> first_item -> text
         if "result" in data and "history" in data["result"]:
             history = data["result"]["history"]
@@ -50,78 +50,78 @@ def _send_a2a_message(url: str, text: str) -> str:
                 if "parts" in last_msg and last_msg["parts"]:
                     return last_msg["parts"][0]["text"]
 
-        return f"System Error: The agent at {url} responded, but no text message was found in the history."
+        return f"系统错误：位于 {url} 的 agent 响应了，但在历史中未找到文本消息。"
 
     except Exception as e:
-        return f"Connection Error: Could not talk to agent at {url}. Details: {e}"
+        return f"连接错误：无法与位于 {url} 的 agent 通信。详细信息：{e}"
 
 
-# --- 2. The Two Tool Functions ---
+# --- 2. 两个工具函数 ---
 
 
 def ask_airbnb_agent(request: str) -> str:
     """
-    Contacts the specialized Airbnb Agent to find listings or get details.
+    联系专业的 Airbnb Agent 以查找房源或获取详细信息。
 
-    Args:
-        request (str): A natural language request (e.g., "Find a 2-bed apartment in Paris for under $200").
+    参数：
+        request (str): 自然语言请求（例如，"在巴黎找一个低于 200 美元的 2 居室公寓"）。
     """
-    # URL for the Airbnb Agent Service
+    # Airbnb Agent 服务的 URL
     AIRBNB_URL = "http://localhost:7774/a2a/agents/airbnb-search-agent/v1/message:send"
     return _send_a2a_message(AIRBNB_URL, request)
 
 
 def ask_weather_agent(request: str) -> str:
     """
-    Contacts the specialized Weather Agent to get forecasts or current conditions.
+    联系专业的天气 Agent 以获取预报或当前状况。
 
-    Args:
-        request (str): A natural language request (e.g., "What is the weather in Tokyo next week?").
+    参数：
+        request (str): 自然语言请求（例如，"下周东京的天气如何？"）。
     """
-    # URL for the Weather Agent Service
+    # 天气 Agent 服务的 URL
     WEATHER_URL = (
         "http://localhost:7770/a2a/agents/weather-reporter-agent/v1/message:send"
     )
     return _send_a2a_message(WEATHER_URL, request)
 
 
-# --- 3. The Main Trip Planning Agent ---
+# --- 3. 主要的旅行计划 Agent ---
 
 trip_planner = Agent(
     name="Trip Planner",
     id="trip_planner",
     model=OpenAIChat(id="gpt-4o"),
-    # Give the agent the tools we just created
+    # 为 agent 提供我们刚刚创建的工具
     tools=[ask_airbnb_agent, ask_weather_agent],
     markdown=True,
-    description="You are an expert Trip Planner orchestrator.",
+    description="你是一个专业的旅行计划协调员。",
     instructions=[
-        "You help users plan complete trips by coordinating with specialized agents.",
-        "1. Always check the weather for the destination/dates FIRST using 'ask_weather_agent'.",
-        "2. Based on the weather suitability, search for accommodation using 'ask_airbnb_agent'.",
-        "3. Synthesize the information from both agents into a final itinerary proposal.",
-        "If an agent returns an error, inform the user and try to proceed with the available information.",
+        "你通过与专业 agent 协调来帮助用户计划完整的旅行。",
+        "1. 始终首先使用 'ask_weather_agent' 检查目的地/日期的天气。",
+        "2. 根据天气适宜性，使用 'ask_airbnb_agent' 搜索住宿。",
+        "3. 将两个 agent 的信息综合成最终的行程提案。",
+        "如果 agent 返回错误，请通知用户并尝试继续使用可用信息。",
     ],
 )
 agent_os = AgentOS(
     id="trip-planning-service",
-    description="AgentOS hosting the Trip Planning Orchestrator.",
+    description="托管旅行计划协调器的 AgentOS。",
     agents=[
         trip_planner,
     ],
 )
 app = agent_os.get_app()
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
-    You can run the Agent via A2A protocol:
+    """运行你的 AgentOS。
+    你可以通过 A2A 协议运行 Agent：
     POST http://localhost:7777/agents/{id}/v1/message:send
-    For streaming responses:
+    对于流式响应：
     POST http://localhost:7777/agents/{id}/v1/message:stream
-    Retrieve the agent card at:
+    在以下地址检索 agent 卡片：
     GET  http://localhost:7777/agents/{id}/.well-known/agent-card.json
     """
     agent_os.serve(app="trip_planning_a2a_client:app", port=7777, reload=True)

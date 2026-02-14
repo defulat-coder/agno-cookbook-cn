@@ -1,8 +1,8 @@
 """
-Workflow With Input Schema
+带输入 Schema 的工作流
 ==========================
 
-Demonstrates workflow with input schema.
+演示带输入 schema 的工作流。
 """
 
 from typing import List
@@ -10,9 +10,9 @@ from typing import List
 from agno.agent.agent import Agent
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.db.sqlite import SqliteDb
 from agno.models.openai.chat import OpenAIChat
 from agno.os import AgentOS
@@ -25,7 +25,7 @@ from pydantic import BaseModel, Field
 
 
 class ResearchTopic(BaseModel):
-    """Structured research topic with specific requirements"""
+    """具有特定要求的结构化研究主题"""
 
     topic: str
     focus_areas: List[str] = Field(description="Specific areas to focus on")
@@ -33,7 +33,7 @@ class ResearchTopic(BaseModel):
     sources_required: int = Field(description="Number of sources needed", default=5)
 
 
-# Define agents
+# 定义 agent
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -47,24 +47,24 @@ web_agent = Agent(
     role="Search the web for the latest news and trends",
 )
 
-# Define research team for complex analysis
+# 定义用于复杂分析的研究团队
 research_team = Team(
     name="Research Team",
     model=OpenAIChat(id="gpt-4o-mini"),
     members=[hackernews_agent, web_agent],
-    instructions="Research tech topics from Hackernews and the web",
+    instructions="从 Hackernews 和网络研究技术主题",
 )
 
 content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容安排",
+        "确保每周有 3 篇文章",
     ],
 )
 
-# Define steps
+# 定义步骤
 research_step = Step(
     name="Research Step",
     team=research_team,
@@ -86,7 +86,7 @@ content_creation_workflow = Workflow(
     input_schema=ResearchTopic,
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[content_creation_workflow],
@@ -94,7 +94,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,13 +1,13 @@
 """
-Google ADK A2A Server for Cookbook Examples.
+Cookbook 示例的 Google ADK A2A 服务器。
 
-Uses Google's ADK to create an A2A-compatible agent.
-Requires GOOGLE_API_KEY environment variable.
+使用 Google 的 ADK 创建兼容 A2A 的 agent。
+需要 GOOGLE_API_KEY 环境变量。
 
-This server exposes a facts-agent that provides interesting facts,
-using pure JSON-RPC at root "/" endpoint (Google ADK style).
+此服务器公开一个 facts-agent，提供有趣的事实，
+在根 "/" 端点使用纯 JSON-RPC（Google ADK 风格）。
 
-Start this server before running 05_remote_adk_agent.py
+在运行 05_remote_adk_agent.py 之前启动此服务器
 """
 
 import os
@@ -18,7 +18,7 @@ from google.adk.a2a.utils.agent_to_a2a import to_a2a
 from google.adk.tools import google_search
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 port = int(os.getenv("PORT", "7780"))
@@ -27,11 +27,11 @@ agent = Agent(
     name="facts_agent",
     model="gemini-2.5-flash-lite",
     description="Agent that provides interesting facts.",
-    instruction="You are a helpful agent who provides interesting facts.",
+    instruction="你是一个提供有趣事实的有用 agent。",
     tools=[google_search],
 )
 
-# Define A2A agent card
+# 定义 A2A agent 卡片
 agent_card = AgentCard(
     name="facts_agent",
     description="Agent that provides interesting facts.",
@@ -48,7 +48,7 @@ agent_card = AgentCard(
 app = to_a2a(agent, port=port, agent_card=agent_card)
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

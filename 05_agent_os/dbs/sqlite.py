@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with a SQLite database"""
+"""展示如何在 AgentOS 中使用 SQLite 数据库的示例"""
 
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
@@ -8,10 +8,10 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the SQLite database
+# 设置 SQLite 数据库
 db = SqliteDb(
     db_file="agno.db",
     session_table="sessions",
@@ -21,7 +21,7 @@ db = SqliteDb(
 )
 
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 basic_agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -43,7 +43,7 @@ team_agent = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -63,7 +63,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

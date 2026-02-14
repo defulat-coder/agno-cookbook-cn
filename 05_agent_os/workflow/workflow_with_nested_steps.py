@@ -1,8 +1,8 @@
 """
-Workflow With Nested Steps
+带嵌套步骤的工作流
 ==========================
 
-Demonstrates workflow with nested steps.
+演示带嵌套步骤的工作流。
 """
 
 from typing import List
@@ -11,9 +11,9 @@ from agno.agent.agent import Agent
 from agno.db.postgres import PostgresDb
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.os import AgentOS
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.websearch import WebSearchTools
@@ -23,25 +23,25 @@ from agno.workflow.step import Step
 from agno.workflow.types import StepInput, StepOutput
 from agno.workflow.workflow import Workflow
 
-# Define the research agents
+# 定义研究 agent
 hackernews_agent = Agent(
     name="HackerNews Researcher",
-    instructions="You are a researcher specializing in finding the latest tech news and discussions from Hacker News. Focus on startup trends, programming topics, and tech industry insights.",
+    instructions="你是一位专门从 Hacker News 查找最新技术新闻和讨论的研究员。关注创业趋势、编程主题和科技行业见解。",
     tools=[HackerNewsTools()],
 )
 
 web_agent = Agent(
     name="Web Researcher",
-    instructions="You are a comprehensive web researcher. Search across multiple sources including news sites, blogs, and official documentation to gather detailed information.",
+    instructions="你是一位全面的网络研究员。搜索包括新闻网站、博客和官方文档在内的多个来源以收集详细信息。",
     tools=[WebSearchTools()],
 )
 
 content_agent = Agent(
     name="Content Publisher",
-    instructions="You are a content creator who takes research data and creates engaging, well-structured articles. Format the content with proper headings, bullet points, and clear conclusions.",
+    instructions="你是一位内容创作者，利用研究数据创建引人入胜、结构良好的文章。使用适当的标题、要点和清晰的结论格式化内容。",
 )
 
-# Create the research steps
+# 创建研究步骤
 research_hackernews = Step(
     name="research_hackernews",
     agent=hackernews_agent,
@@ -60,18 +60,18 @@ publish_content = Step(
     description="Create and format final content for publication",
 )
 
-# End condition function for the loop
+# 循环的结束条件函数
 
 
 def research_quality_check(outputs: List[StepOutput]) -> bool:
     """
-    Evaluate if research results are sufficient
-    Returns True to break the loop, False to continue
+    评估研究结果是否充分
+    返回 True 以中断循环，返回 False 以继续
     """
     if not outputs:
         return False
 
-    # Check if any output contains substantial content
+    # 检查任何输出是否包含大量内容
     for output in outputs:
         if output.content and len(output.content) > 300:
             print(
@@ -83,7 +83,7 @@ def research_quality_check(outputs: List[StepOutput]) -> bool:
     return False
 
 
-# Create a Loop step for deep tech research
+# 为深度技术研究创建循环步骤
 deep_tech_research_loop = Loop(
     name="Deep Tech Research Loop",
     steps=[research_hackernews],
@@ -92,13 +92,13 @@ deep_tech_research_loop = Loop(
     description="Perform iterative deep research on tech topics",
 )
 
-# Router function that selects between simple web research or deep tech research loop
+# 路由函数，在简单网络研究或深度技术研究循环之间选择
 
 
 def research_strategy_router(step_input: StepInput) -> List[Step]:
     """
-    Decide between simple web research or deep tech research loop based on the input topic.
-    Returns either a single web research step or a tech research loop.
+    根据输入主题在简单网络研究或深度技术研究循环之间决定。
+    返回单个网络研究步骤或技术研究循环。
     """
     return [deep_tech_research_loop]
 
@@ -120,7 +120,7 @@ workflow = Workflow(
     ),
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[workflow],
@@ -128,7 +128,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

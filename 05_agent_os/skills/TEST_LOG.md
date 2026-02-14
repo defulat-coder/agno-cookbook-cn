@@ -1,11 +1,11 @@
 # Test Log: skills
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### skills_with_agentos.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Skills With Agentos.
+**描述：** AgentOS 中的 Skill。
 
 ---

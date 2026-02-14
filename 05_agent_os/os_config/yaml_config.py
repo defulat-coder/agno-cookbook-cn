@@ -1,8 +1,8 @@
 """
-Yaml Config
+Yaml 配置
 ===========
 
-Demonstrates yaml config.
+演示 yaml 配置。
 """
 
 from pathlib import Path
@@ -18,16 +18,16 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 cwd = Path(__file__).parent
 os_config_path = str(cwd.joinpath("config.yaml"))
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai", id="db-0001")
 
-# Setup basic agents, teams and workflows
+# 设置基础 agent、团队和工作流
 basic_agent = Agent(
     id="basic-agent",
     name="Basic Agent",
@@ -61,7 +61,7 @@ basic_workflow = Workflow(
     ],
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Example AgentOS",
     id="basic-os",
@@ -69,20 +69,20 @@ agent_os = AgentOS(
     teams=[basic_team],
     workflows=[basic_workflow],
     interfaces=[Whatsapp(agent=basic_agent), Slack(agent=basic_agent)],
-    # Configuration for the AgentOS
+    # AgentOS 的配置
     config=os_config_path,
 )
 app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available endpoints at:
+    你可以在以下地址查看配置和可用端点：
     http://localhost:7777/config
     """
     agent_os.serve(app="yaml_config:app", reload=True)

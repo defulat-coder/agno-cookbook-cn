@@ -1,14 +1,13 @@
 """
-Streaming A2A Messages with A2AClient
+使用 A2AClient 进行流式 A2A 消息传递
 
-This example demonstrates real-time streaming responses
-using the A2A protocol.
+此示例演示使用 A2A 协议进行实时流式响应。
 
-Prerequisites:
-1. Start an AgentOS server with A2A interface:
+前置条件：
+1. 启动带有 A2A 接口的 AgentOS 服务器：
    python cookbook/06_agent_os/client_a2a/servers/agno_server.py
 
-2. Run this script:
+2. 运行此脚本：
    python cookbook/06_agent_os/client_a2a/02_streaming.py
 """
 
@@ -17,12 +16,12 @@ import asyncio
 from agno.client.a2a import A2AClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def basic_streaming():
-    """Stream a response from an A2A agent."""
+    """从 A2A agent 流式传输响应。"""
     print("=" * 60)
     print("Streaming A2A Response")
     print("=" * 60)
@@ -34,13 +33,13 @@ async def basic_streaming():
     async for event in client.stream_message(
         message="Tell me a short joke.",
     ):
-        # Print content as it arrives
+        # 在内容到达时打印
         if event.is_content and event.content:
             print(event.content, end="", flush=True)
 
 
 async def streaming_with_events():
-    """Stream with detailed event tracking."""
+    """使用详细事件跟踪进行流式传输。"""
     print("\n" + "=" * 60)
     print("Streaming with Event Details")
     print("=" * 60)
@@ -67,7 +66,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

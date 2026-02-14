@@ -1,19 +1,19 @@
 # Test Log: client_a2a/servers
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agno_server.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agno AgentOS A2A Server for testing A2AClient.
+**描述：** 用于测试 A2AClient 的 Agno AgentOS A2A 服务器。
 
 ---
 
 ### google_adk_server.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Google ADK A2A Server for testing A2AClient.
+**描述：** 用于测试 A2AClient 的 Google ADK A2A 服务器。
 
 ---

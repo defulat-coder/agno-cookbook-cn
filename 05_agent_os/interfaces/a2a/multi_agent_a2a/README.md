@@ -1,13 +1,13 @@
 # Multi Agent A2A Cookbook
 
-Examples for `interfaces/a2a/multi_agent_a2a` in AgentOS.
+AgentOS 中 `interfaces/a2a/multi_agent_a2a` 的示例。
 
-## Files
-- `airbnb_agent.py` — Airbnb Agent.
-- `trip_planning_a2a_client.py` — Trip Planning A2A Client.
-- `weather_agent.py` — Weather Agent.
+## 文件
+- `airbnb_agent.py` — Airbnb Agent。
+- `trip_planning_a2a_client.py` — 旅行规划 A2A 客户端。
+- `weather_agent.py` — 天气 Agent。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

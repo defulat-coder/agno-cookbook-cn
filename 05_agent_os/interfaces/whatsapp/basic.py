@@ -1,8 +1,8 @@
 """
-Basic
+基础
 =====
 
-Demonstrates basic.
+演示基础功能。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.os.app import AgentOS
 from agno.os.interfaces.whatsapp import Whatsapp
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(db_file="tmp/persistent_memory.db")
@@ -27,7 +27,7 @@ basic_agent = Agent(
 )
 
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     agents=[basic_agent],
     interfaces=[Whatsapp(agent=basic_agent)],
@@ -36,13 +36,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

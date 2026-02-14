@@ -1,17 +1,17 @@
 # Background Tasks Cookbook
 
-Examples for `background_tasks` in AgentOS.
+AgentOS 中 `background_tasks` 的示例。
 
-## Files
-- `background_evals_example.py` — Example: Per-Hook Background Control with AgentAsJudgeEval in AgentOS.
-- `background_hooks_decorator.py` — Example: Using Background Post-Hooks in AgentOS.
-- `background_hooks_example.py` — Example: Using Background Post-Hooks in AgentOS.
-- `background_hooks_team.py` — Example: Background Hooks with Teams in AgentOS.
-- `background_hooks_workflow.py` — Example: Background Hooks with Workflows in AgentOS.
-- `background_output_evaluation.py` — Example: Background Output Evaluation with Agent-as-Judge.
-- `evals_demo.py` — Simple example creating a session and using the AgentOS with a SessionApp to expose it.
+## 文件
+- `background_evals_example.py` — 示例：在 AgentOS 中使用 AgentAsJudgeEval 的每个 Hook 后台控制。
+- `background_hooks_decorator.py` — 示例：在 AgentOS 中使用后台 Post-Hook。
+- `background_hooks_example.py` — 示例：在 AgentOS 中使用后台 Post-Hook。
+- `background_hooks_team.py` — 示例：在 AgentOS 中与团队一起使用后台 Hook。
+- `background_hooks_workflow.py` — 示例：在 AgentOS 中与工作流一起使用后台 Hook。
+- `background_output_evaluation.py` — 示例：使用 Agent-as-Judge 进行后台输出评估。
+- `evals_demo.py` — 创建 Session 并使用 SessionApp 的 AgentOS 来公开它的简单示例。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

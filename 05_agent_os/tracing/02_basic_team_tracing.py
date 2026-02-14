@@ -1,8 +1,8 @@
 """
-02 Basic Team Tracing
+02 基础团队追踪
 =====================
 
-Demonstrates 02 basic team tracing.
+演示 02 基础团队追踪。
 """
 
 from agno.agent import Agent
@@ -13,18 +13,18 @@ from agno.team import Team
 from agno.tools.hackernews import HackerNewsTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Set up database
+# 设置数据库
 db = SqliteDb(db_file="tmp/traces.db")
 
-# Create agents - no need to set tracing on each one!
+# 创建 agent - 无需在每个上设置追踪！
 agent = Agent(
     name="HackerNews Agent",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[HackerNewsTools()],
-    instructions="You are a hacker news agent. Answer questions concisely.",
+    instructions="你是一个 hacker news agent。简洁地回答问题。",
     markdown=True,
 )
 
@@ -32,21 +32,21 @@ team = Team(
     name="HackerNews Team",
     model=OpenAIChat(id="gpt-5.2"),
     members=[agent],
-    instructions="You are a hacker news team. Answer questions concisely using HackerNews Agent member",
+    instructions="你是一个 hacker news 团队。使用 HackerNews Agent 成员简洁地回答问题",
     db=db,
 )
 
-# Setup AgentOS with tracing=True
-# This automatically enables tracing for ALL agents and teams!
+# 使用 tracing=True 设置 AgentOS
+# 这会自动为所有 agent 和团队启用追踪！
 agent_os = AgentOS(
-    description="Example app for tracing HackerNews",
+    description="用于追踪 HackerNews 的示例应用",
     teams=[team],
     tracing=True,
 )
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

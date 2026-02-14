@@ -1,19 +1,19 @@
 # Test Log: mcp_demo/dynamic_headers
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### client.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** AgentOS with MCPTools using dynamic headers.
+**描述：** 使用动态标头的 MCPTools 的 AgentOS。
 
 ---
 
 ### server.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Simple MCP server that logs headers received from clients.
+**描述：** 记录从客户端接收的标头的简单 MCP 服务器。
 
 ---

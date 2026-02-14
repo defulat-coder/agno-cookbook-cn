@@ -1,50 +1,50 @@
 # Scheduler Cookbook
 
-Examples for `scheduler` in AgentOS.
+AgentOS 中 `scheduler` 的示例。
 
-## Files
-- `basic_schedule.py` — Basic scheduled agent run.
-- `schedule_management.py` — Schedule management via REST API.
+## 文件
+- `basic_schedule.py` — 基本的定时 Agent 运行。
+- `schedule_management.py` — 通过 REST API 进行调度管理。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。
 
-Install scheduler dependencies:
+安装调度器依赖项：
 
 ```bash
 pip install agno[scheduler]
 ```
 
-This installs `croniter` and `pytz`.
+这将安装 `croniter` 和 `pytz`。
 
-## Examples
+## 示例
 
 ### basic_schedule.py
 
-Minimal example: creates an AgentOS with a single agent and enables the scheduler. A schedule is created via the API that triggers the agent every 5 minutes.
+最小示例：创建一个包含单个 Agent 的 AgentOS 并启用调度器。通过 API 创建一个调度任务，每 5 分钟触发一次 Agent。
 
 ### schedule_management.py
 
-Demonstrates full CRUD lifecycle: creating, listing, updating, enabling/disabling, triggering, and deleting schedules via the REST API.
+演示完整的 CRUD 生命周期：通过 REST API 创建、列出、更新、启用/禁用、触发和删除调度任务。
 
-## Key Concepts
+## 关键概念
 
-- **Cron expressions**: Standard 5-field cron syntax (minute, hour, day-of-month, month, day-of-week)
-- **Timezones**: All schedules support timezone-aware scheduling via pytz
-- **Retries**: Configurable retry count and delay for failed executions
-- **Internal auth**: The scheduler authenticates to AgentOS using an auto-generated internal service token
-- **Run history**: Every execution is tracked with status, timing, and error details
+- **Cron 表达式**：标准的 5 字段 cron 语法（分钟、小时、日期、月份、星期）
+- **时区**：所有调度任务通过 pytz 支持时区感知调度
+- **重试**：可配置的重试次数和失败执行的延迟
+- **内部认证**：调度器使用自动生成的内部服务令牌向 AgentOS 进行身份验证
+- **运行历史**：每次执行都会跟踪状态、时间和错误详细信息
 
-## Configuration
+## 配置
 
 ```python
 AgentOS(
     agents=[my_agent],
     db=db,
-    scheduler=True,                  # Enable the scheduler
-    scheduler_poll_interval=15,      # Poll every 15 seconds (default)
-    scheduler_base_url="http://127.0.0.1:7777",  # AgentOS base URL
+    scheduler=True,                  # 启用调度器
+    scheduler_poll_interval=15,      # 每 15 秒轮询一次（默认值）
+    scheduler_base_url="http://127.0.0.1:7777",  # AgentOS 基础 URL
 )
 ```

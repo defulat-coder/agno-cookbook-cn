@@ -1,8 +1,8 @@
 """
-Teams Demo
+Teams 演示
 ==========
 
-Demonstrates teams demo.
+演示 teams demo。
 """
 
 from agno.agent import Agent
@@ -17,7 +17,7 @@ from agno.tools.websearch import WebSearchTools
 from agno.tools.yfinance import YFinanceTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -31,8 +31,8 @@ file_agent = Agent(
     db=db,
     update_memory_on_run=True,
     instructions=[
-        "You are an AI agent that can analyze files.",
-        "You are given a file and you need to answer questions about the file.",
+        "你是一个可以分析文件的 AI agent。",
+        "你被给定一个文件，你需要回答有关该文件的问题。",
     ],
     markdown=True,
 )
@@ -68,7 +68,7 @@ web_agent = Agent(
     tools=[WebSearchTools()],
     id="web_agent",
     instructions=[
-        "You are an experienced web researcher and news analyst.",
+        "你是一位经验丰富的网络研究员和新闻分析师。",
     ],
     update_memory_on_run=True,
     markdown=True,
@@ -82,12 +82,12 @@ finance_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[YFinanceTools()],
     instructions=[
-        "You are a skilled financial analyst with expertise in market data.",
-        "Follow these steps when analyzing financial data:",
-        "Start with the latest stock price, trading volume, and daily range",
-        "Present detailed analyst recommendations and consensus target prices",
-        "Include key metrics: P/E ratio, market cap, 52-week range",
-        "Analyze trading patterns and volume trends",
+        "你是一位熟练的金融分析师，擅长市场数据分析。",
+        "分析金融数据时遵循以下步骤：",
+        "从最新股价、交易量和每日范围开始",
+        "呈现详细的分析师建议和共识目标价格",
+        "包括关键指标：市盈率、市值、52周范围",
+        "分析交易模式和成交量趋势",
     ],
     update_memory_on_run=True,
     markdown=True,
@@ -99,7 +99,7 @@ simple_agent = Agent(
     role="Simple agent",
     id="simple_agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions=["You are a simple agent"],
+    instructions=["你是一个简单的 agent"],
     update_memory_on_run=True,
     db=db,
 )
@@ -109,7 +109,7 @@ research_agent = Agent(
     role="Research agent",
     id="research_agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions=["You are a research agent"],
+    instructions=["你是一个研究 agent"],
     tools=[WebSearchTools(), ExaTools()],
     update_memory_on_run=True,
     db=db,
@@ -122,7 +122,7 @@ research_team = Team(
     model=OpenAIChat(id="gpt-4o"),
     id="research_team",
     instructions=[
-        "You are the lead researcher of a research team.",
+        "你是一个研究团队的首席研究员。",
     ],
     update_memory_on_run=True,
     add_datetime_to_context=True,
@@ -139,7 +139,7 @@ multimodal_team = Team(
     respond_directly=True,
     id="multimodal_team",
     instructions=[
-        "You are the lead editor of a prestigious financial news desk.",
+        "你是一家知名金融新闻台的首席编辑。",
     ],
     update_memory_on_run=True,
     db=db,
@@ -159,12 +159,12 @@ financial_news_team = Team(
     respond_directly=True,
     id="financial_news_team",
     instructions=[
-        "You are the lead editor of a prestigious financial news desk.",
-        "If you are given a file send it to the file agent.",
-        "If you are given an audio file send it to the audio agent.",
-        "If you are given a video file send it to the video agent.",
-        "Use USD as currency.",
-        "If the user is just being conversational, you should respond directly WITHOUT forwarding a task to a member.",
+        "你是一家知名金融新闻台的首席编辑。",
+        "如果你收到一个文件，将其发送给文件 agent。",
+        "如果你收到一个音频文件，将其发送给音频 agent。",
+        "如果你收到一个视频文件，将其发送给视频 agent。",
+        "使用美元作为货币。",
+        "如果用户只是在进行对话，你应该直接响应，而不将任务转发给成员。",
     ],
     add_datetime_to_context=True,
     markdown=True,
@@ -174,8 +174,7 @@ financial_news_team = Team(
     expected_output="A good financial news report.",
 )
 
-
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Example OS setup",
     agents=[
@@ -188,9 +187,8 @@ agent_os = AgentOS(
 )
 app = agent_os.get_app()
 
-
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

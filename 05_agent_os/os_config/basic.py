@@ -1,8 +1,8 @@
 """
-Basic
+基础
 =====
 
-Demonstrates basic.
+演示基础功能。
 """
 
 from agno.agent import Agent
@@ -20,12 +20,12 @@ from agno.team import Team
 from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai", id="db-0001")
 db2 = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai2", id="db-0002")
 
 # ---------------------------------------------------------------------------
-# Create Agent, Team, And Workflow
+# 创建 Agent、团队和工作流
 # ---------------------------------------------------------------------------
 basic_agent = Agent(
     name="Marketing Agent",
@@ -59,14 +59,14 @@ basic_workflow = Workflow(
     ],
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Your AgentOS",
     id="basic-os",
     agents=[basic_agent],
     teams=[basic_team],
     workflows=[basic_workflow],
-    # Configuration for the AgentOS
+    # AgentOS 的配置
     config=AgentOSConfig(
         chat=ChatConfig(
             quick_prompts={
@@ -93,13 +93,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available endpoints at:
+    你可以在以下地址查看配置和可用端点：
     http://localhost:7777/config
     """
     agent_os.serve(app="basic:app", reload=True)

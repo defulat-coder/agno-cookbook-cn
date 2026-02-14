@@ -1,8 +1,8 @@
 """
-Update From Lifespan
+从生命周期更新
 ====================
 
-Demonstrates update from lifespan.
+演示从生命周期更新。
 """
 
 from contextlib import asynccontextmanager
@@ -13,18 +13,18 @@ from agno.os import AgentOS
 from agno.tools.mcp import MCPTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(id="basic-db", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# First agent. We will add this to the AgentOS on initialization.
+# 第一个 agent。我们将在初始化时将其添加到 AgentOS。
 agent1 = Agent(
     name="First Agent",
     markdown=True,
 )
 
-# Second agent. We will add this to the AgentOS in the lifespan function.
+# 第二个 agent。我们将在 lifespan 函数中将其添加到 AgentOS。
 agent2 = Agent(
     id="second-agent",
     name="Second Agent",
@@ -34,31 +34,31 @@ agent2 = Agent(
 )
 
 
-# Lifespan function receiving the AgentOS instance as parameter.
+# 接收 AgentOS 实例作为参数的 Lifespan 函数。
 @asynccontextmanager
 async def lifespan(app, agent_os):
-    # Add the new Agent
+    # 添加新的 Agent
     agent_os.agents.append(agent2)
 
-    # Resync the AgentOS
+    # 重新同步 AgentOS
     agent_os.resync(app=app)
 
     yield
 
 
-# Setup our AgentOS with the lifespan function and the first agent.
+# 使用 lifespan 函数和第一个 agent 设置我们的 AgentOS。
 agent_os = AgentOS(
     lifespan=lifespan,
     agents=[agent1],
     enable_mcp_server=True,
 )
 
-# Get our app.
+# 获取我们的应用。
 app = agent_os.get_app()
 
-# Serve the app.
+# 服务应用。
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

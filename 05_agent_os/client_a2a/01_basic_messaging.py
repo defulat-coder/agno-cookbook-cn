@@ -1,14 +1,13 @@
 """
-Basic A2A Messaging with A2AClient
+使用 A2AClient 进行基础 A2A 消息传递
 
-This example demonstrates simple message sending with user identification
-using the A2A protocol.
+此示例演示使用 A2A 协议进行简单的消息发送和用户识别。
 
-Prerequisites:
-1. Start an AgentOS server with A2A interface:
+前置条件：
+1. 启动带有 A2A 接口的 AgentOS 服务器：
    python cookbook/06_agent_os/client_a2a/servers/agno_server.py
 
-2. Run this script:
+2. 运行此脚本：
    python cookbook/06_agent_os/client_a2a/01_basic_messaging.py
 """
 
@@ -17,12 +16,12 @@ import asyncio
 from agno.client.a2a import A2AClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def main():
-    """Send message with user identification."""
+    """发送带有用户识别的消息。"""
     print("=" * 60)
     print("A2A Messaging with User ID")
     print("=" * 60)
@@ -45,7 +44,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

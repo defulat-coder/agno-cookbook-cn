@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with SingleStore as our database provider"""
+"""展示如何在 AgentOS 中使用 SingleStore 作为我们的数据库提供商的示例"""
 
 from agno.agent import Agent
 from agno.db.singlestore import SingleStoreDb
@@ -8,12 +8,12 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 SINGLE_STORE_DB_URL = "mysql+pymysql://root:ai@localhost:3306/ai"
 
-# Setup the SingleStore database
+# 设置 SingleStore 数据库
 db = SingleStoreDb(
     db_url=SINGLE_STORE_DB_URL,
     session_table="sessions",
@@ -22,7 +22,7 @@ db = SingleStoreDb(
     metrics_table="metrics",
 )
 
-# Setup a basic agent and a basic team
+# 设置基本 agent 和基本团队
 agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -44,7 +44,7 @@ team = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -57,16 +57,16 @@ evaluation = AccuracyEval(
 # evaluation.run(print_results=True)
 
 agent_os = AgentOS(
-    description="Example OS setup",
+    description="示例 OS 设置",
     agents=[agent],
     teams=[team],
 )
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    agent.run("Remember my favorite color is dark green")
+    agent.run("记住我最喜欢的颜色是深绿色")
     agent_os.serve(app="singlestore:app", reload=True)

@@ -1,16 +1,16 @@
-"""Basic scheduled agent run.
+"""基础计划 agent 运行。
 
-Starts an AgentOS with the scheduler enabled. After the server is running,
-use the REST API to create a schedule that triggers an agent every 5 minutes.
+启动启用调度器的 AgentOS。服务器运行后，
+使用 REST API 创建一个每 5 分钟触发 agent 的计划。
 
-Prerequisites:
+前置条件：
     pip install agno[scheduler]
-    # Start postgres: ./cookbook/scripts/run_pgvector.sh
+    # 启动 postgres: ./cookbook/scripts/run_pgvector.sh
 
-Usage:
+用法：
     python cookbook/05_agent_os/scheduler/basic_schedule.py
 
-Then, in another terminal, create a schedule:
+然后，在另一个终端中，创建一个计划：
     curl -X POST http://localhost:7777/schedules \
         -H "Content-Type: application/json" \
         -d '{
@@ -27,7 +27,7 @@ from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(
@@ -40,7 +40,7 @@ greeter = Agent(
     name="Greeter Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions=[
-        "You are a friendly greeter. Say hello and include the current time."
+        "你是一个友好的迎宾员。打个招呼并包含当前时间。"
     ],
     db=db,
     markdown=True,
@@ -54,7 +54,7 @@ app = AgentOS(
 ).get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

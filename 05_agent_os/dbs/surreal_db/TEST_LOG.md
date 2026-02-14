@@ -1,43 +1,43 @@
 # Test Log: dbs/surreal_db
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agents.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agents.
+**描述：** Agent。
 
 ---
 
 ### db.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Db.
+**描述：** 数据库。
 
 ---
 
 ### run.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** SurrealDB + AgentOS demo.
+**描述：** SurrealDB + AgentOS 演示。
 
 ---
 
 ### teams.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Teams.
+**描述：** 团队。
 
 ---
 
 ### workflows.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Workflows.
+**描述：** 工作流。
 
 ---

@@ -1,8 +1,8 @@
 """
-Example: Background Hooks with Workflows in AgentOS
+示例：AgentOS 中工作流的后台钩子
 
-This example demonstrates how to use background hooks with a Workflow.
-Background hooks execute after the API response is sent, making them non-blocking.
+此示例演示如何在工作流中使用后台钩子。
+后台钩子在 API 响应发送后执行，使其非阻塞。
 """
 
 import asyncio
@@ -15,47 +15,47 @@ from agno.run.agent import RunOutput
 from agno.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def log_step_completion(run_output: RunOutput, agent: Agent) -> None:
     """
-    Background post-hook on the agent that runs after each step completes.
+    agent 上的后台 post-hook，在每个步骤完成后运行。
     """
     print(f"[Background Hook] Agent '{agent.name}' completed step")
     print(f"[Background Hook] Run ID: {run_output.run_id}")
 
-    # Simulate async work
+    # 模拟异步工作
     await asyncio.sleep(1)
     print(f"[Background Hook] Logged metrics for {agent.name}")
 
 
-# Create agents for the workflow steps
+# 为工作流步骤创建 agent
 analyzer = Agent(
     name="Analyzer",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Analyze the input and identify key points.",
+    instructions="分析输入并识别关键点。",
     post_hooks=[log_step_completion],
 )
 
 summarizer = Agent(
     name="Summarizer",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Summarize the analysis into a brief response.",
+    instructions="将分析总结为简短的响应。",
     post_hooks=[log_step_completion],
 )
 
-# Create the workflow
+# 创建工作流
 analysis_workflow = Workflow(
     id="analysis-workflow",
     name="AnalysisWorkflow",
-    description="Analyzes input and provides a summary",
+    description="分析输入并提供摘要",
     steps=[analyzer, summarizer],
     db=AsyncSqliteDb(db_file="tmp/workflow.db"),
 )
 
-# Create AgentOS with background hooks enabled
+# 创建启用后台钩子的 AgentOS
 agent_os = AgentOS(
     workflows=[analysis_workflow],
     run_hooks_in_background=True,
@@ -63,13 +63,13 @@ agent_os = AgentOS(
 
 app = agent_os.get_app()
 
-# Example request:
+# 示例请求：
 # curl -X POST http://localhost:7777/workflows/analysis-workflow/runs \
 #   -F "message=Explain the benefits of exercise" \
 #   -F "stream=false"
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 """
-Workflow With Custom Function Executors
+带自定义函数执行器的工作流
 =======================================
 
-Demonstrates AgentOS workflows using both sync and streaming custom function steps.
+演示使用同步和流式自定义函数步骤的 AgentOS 工作流。
 """
 
 from typing import AsyncIterator, Union
@@ -33,28 +33,28 @@ hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[HackerNewsTools()],
-    instructions="Extract key insights and content from Hackernews posts",
+    instructions="从 Hackernews 文章中提取关键见解和内容",
 )
 
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[WebSearchTools()],
-    instructions="Search the web for the latest news and trends",
+    instructions="搜索网络以获取最新新闻和趋势",
 )
 
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Analyze content and create comprehensive social media strategy",
+    instructions="分析内容并创建全面的社交媒体策略",
 )
 
 sync_content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容安排",
+        "确保每周有 3 篇文章",
     ],
 )
 
@@ -62,8 +62,8 @@ streaming_content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容规划 4 周的内容安排",
+        "确保每周有 3 篇文章",
     ],
     db=InMemoryDb(),
 )
@@ -73,48 +73,48 @@ streaming_content_planner = Agent(
 # Create Custom Functions
 # ---------------------------------------------------------------------------
 def custom_content_planning_function(step_input: StepInput) -> StepOutput:
-    """Create a content plan using prior workflow context."""
+    """使用之前的工作流上下文创建内容计划。"""
     message = step_input.input
     previous_step_content = step_input.previous_step_content
 
     planning_prompt = f"""
-        STRATEGIC CONTENT PLANNING REQUEST:
+        战略内容规划请求：
 
-        Core Topic: {message}
+        核心主题：{message}
 
-        Research Results: {previous_step_content[:500] if previous_step_content else "No research results"}
+        研究结果：{previous_step_content[:500] if previous_step_content else "没有研究结果"}
 
-        Planning Requirements:
-        1. Create a comprehensive content strategy based on the research
-        2. Leverage the research findings effectively
-        3. Identify content formats and channels
-        4. Provide timeline and priority recommendations
-        5. Include engagement and distribution strategies
+        规划要求：
+        1. 根据研究创建全面的内容策略
+        2. 有效利用研究发现
+        3. 识别内容格式和渠道
+        4. 提供时间表和优先级建议
+        5. 包括参与和分发策略
 
-        Please create a detailed, actionable content plan.
+        请创建详细、可执行的内容计划。
     """
 
     try:
         response = sync_content_planner.run(planning_prompt)
         enhanced_content = f"""
-            ## Strategic Content Plan
+            ## 战略内容计划
 
-            **Planning Topic:** {message}
+            **规划主题：** {message}
 
-            **Research Integration:** {"Research-based" if previous_step_content else "No research foundation"}
+            **研究整合：** {"基于研究" if previous_step_content else "无研究基础"}
 
-            **Content Strategy:**
+            **内容策略：**
             {response.content}
 
-            **Custom Planning Enhancements:**
-            - Research Integration: {"High" if previous_step_content else "Baseline"}
-            - Strategic Alignment: Optimized for multi-channel distribution
-            - Execution Ready: Detailed action items included
+            **自定义规划增强：**
+            - 研究整合：{"高" if previous_step_content else "基线"}
+            - 战略对齐：针对多渠道分发进行优化
+            - 执行就绪：包含详细行动项
         """.strip()
         return StepOutput(content=enhanced_content)
     except Exception as exc:
         return StepOutput(
-            content=f"Custom content planning failed: {str(exc)}", success=False
+            content=f"自定义内容规划失败：{str(exc)}", success=False
         )
 
 
@@ -219,7 +219,7 @@ streaming_content_creation_workflow = Workflow(
 # Create AgentOS
 # ---------------------------------------------------------------------------
 agent_os = AgentOS(
-    description="Example app for basic agent with playground capabilities",
+    description="带 playground 功能的基础 agent 示例应用",
     workflows=[
         streaming_content_creation_workflow
         if USE_STREAMING_WORKFLOW

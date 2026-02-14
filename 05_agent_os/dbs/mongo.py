@@ -1,8 +1,8 @@
 """
-Mongo Database Backend
+Mongo 数据库后端
 ======================
 
-Demonstrates AgentOS with MongoDB storage using both sync and async setups.
+演示使用同步和异步设置的 MongoDB 存储的 AgentOS。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 sync_db = MongoDb(db_url="mongodb://localhost:27017")
 
@@ -23,7 +23,7 @@ async_db = AsyncMongoDb(
 )
 
 # ---------------------------------------------------------------------------
-# Create Sync Agent, Team, Eval, And AgentOS
+# 创建同步 Agent、团队、评估和 AgentOS
 # ---------------------------------------------------------------------------
 sync_agent = Agent(
     name="Basic Agent",
@@ -64,7 +64,7 @@ sync_agent_os = AgentOS(
 )
 
 # ---------------------------------------------------------------------------
-# Create Async Agent, Team, Eval, And AgentOS
+# 创建异步 Agent、团队、评估和 AgentOS
 # ---------------------------------------------------------------------------
 async_agent = Agent(
     name="Basic Agent",
@@ -105,14 +105,14 @@ async_agent_os = AgentOS(
 )
 
 # ---------------------------------------------------------------------------
-# Create AgentOS App
+# 创建 AgentOS 应用
 # ---------------------------------------------------------------------------
-# Default to the sync setup. Switch to async_agent_os to run the async variant.
+# 默认使用同步设置。切换到 async_agent_os 以运行异步变体。
 agent_os = sync_agent_os
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run
+# 运行
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_os.serve(app="mongo:app", reload=True)

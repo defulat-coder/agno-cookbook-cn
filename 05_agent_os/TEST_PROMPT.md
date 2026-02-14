@@ -1,54 +1,54 @@
-Goal: Thoroughly test and validate `cookbook/05_agent_os` so it aligns with our cookbook standards.
+目标：彻底测试和验证 `cookbook/05_agent_os`，使其符合我们的 cookbook 标准。
 
-Context files (read these first):
-- `AGENTS.md` — Project conventions, virtual environments, testing workflow
-- `cookbook/STYLE_GUIDE.md` — Python file structure rules
+上下文文件（先读取这些）：
+- `AGENTS.md` — 项目约定、虚拟环境、测试工作流
+- `cookbook/STYLE_GUIDE.md` — Python 文件结构规则
 
-Environment:
-- Python: `.venvs/demo/bin/python`
-- API keys: loaded via `direnv allow`
-- Database: `./cookbook/scripts/run_pgvector.sh` (needed for knowledge and database examples)
+环境：
+- Python：`.venvs/demo/bin/python`
+- API 密钥：通过 `direnv allow` 加载
+- 数据库：`./cookbook/scripts/run_pgvector.sh`（知识库和数据库示例需要）
 
-Execution requirements:
-1. **Read every `.py` file** in the target cookbook directory before making any changes.
-   Do not rely solely on grep or the structure checker — open and read each file to understand its full contents. This ensures you catch issues the automated checker might miss (e.g., imports inside sections, stale model references in comments, inconsistent patterns).
+执行要求：
+1. **读取目标 cookbook 目录中的每个 `.py` 文件**，然后再进行任何更改。
+   不要仅依赖 grep 或结构检查器 — 打开并阅读每个文件以了解其完整内容。这确保你能捕获自动检查器可能遗漏的问题（例如，sections 内的 imports、注释中过时的模型引用、不一致的模式）。
 
-2. Spawn a parallel agent for each top-level subdirectory under `cookbook/05_agent_os/`. Each agent handles one subdirectory independently, including any nested subdirectories within it.
+2. 为 `cookbook/05_agent_os/` 下的每个顶级子目录生成一个并行 Agent。每个 Agent 独立处理一个子目录，包括其中的所有嵌套子目录。
 
-3. Each agent must:
-   a. Run `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/05_agent_os/<SUBDIR> --recursive` and fix any violations.
-   b. Run all `*.py` files in that subdirectory using `.venvs/demo/bin/python` and capture outcomes. Skip `__init__.py`.
-   c. Ensure Python examples align with `cookbook/STYLE_GUIDE.md`:
-      - Module docstring with `=====` underline
-      - Section banners: `# ---------------------------------------------------------------------------`
-      - Imports between docstring and first banner
-      - `if __name__ == "__main__":` gate
-      - No emoji characters
-   d. Also check non-Python files (`README.md`, etc.) in the directory for stale `OpenAIChat` references and update them.
-   e. Make only minimal, behavior-preserving edits where needed for style compliance.
-   f. Update `cookbook/05_agent_os/<SUBDIR>/TEST_LOG.md` with fresh PASS/FAIL entries per file.
+3. 每个 Agent 必须：
+   a. 运行 `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/05_agent_os/<SUBDIR> --recursive` 并修复任何违规。
+   b. 使用 `.venvs/demo/bin/python` 运行该子目录中的所有 `*.py` 文件并记录结果。跳过 `__init__.py`。
+   c. 确保 Python 示例符合 `cookbook/STYLE_GUIDE.md`：
+      - 带有 `=====` 下划线的模块 docstring
+      - Section 横幅：`# ---------------------------------------------------------------------------`
+      - 在 docstring 和第一个横幅之间导入
+      - `if __name__ == "__main__":` 保护
+      - 无 emoji 字符
+   d. 还要检查目录中的非 Python 文件（`README.md` 等）是否有过时的 `OpenAIChat` 引用并更新它们。
+   e. 仅在需要符合样式时进行最小的、保持行为的编辑。
+   f. 使用每个文件的新的 PASS/FAIL 条目更新 `cookbook/05_agent_os/<SUBDIR>/TEST_LOG.md`。
 
-4. After all agents complete, collect and merge results.
+4. 所有 Agent 完成后，收集并合并结果。
 
-Special cases:
-- `client_a2a/` contains server/client pairs — validate the server starts, then terminate. Do not wait for client connections.
-- `mcp_demo/` contains MCP server examples — validate startup only.
-- `background_tasks/` examples may spawn background tasks — validate execution starts and terminate after initial output.
-- `rbac/` contains symmetric and asymmetric encryption examples — both subdirectories should be tested independently.
-- Root-level files (`agno_agent.py`, `basic.py`, `demo.py`) should be tested as standalone examples.
+特殊情况：
+- `client_a2a/` 包含 server/client 对 — 验证服务器启动，然后终止。不要等待客户端连接。
+- `mcp_demo/` 包含 MCP 服务器示例 — 仅验证启动。
+- `background_tasks/` 示例可能生成后台任务 — 验证执行启动并在初始输出后终止。
+- `rbac/` 包含对称和非对称加密示例 — 两个子目录应独立测试。
+- 根级文件（`agno_agent.py`、`basic.py`、`demo.py`）应作为独立示例进行测试。
 
-Validation commands (must all pass before finishing):
-- `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/05_agent_os/<SUBDIR> --recursive` (for each subdirectory)
-- `source .venv/bin/activate && ./scripts/format.sh` — format all code (ruff format)
-- `source .venv/bin/activate && ./scripts/validate.sh` — validate all code (ruff check, mypy)
+验证命令（完成前必须全部通过）：
+- `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/05_agent_os/<SUBDIR> --recursive`（针对每个子目录）
+- `source .venv/bin/activate && ./scripts/format.sh` — 格式化所有代码（ruff format）
+- `source .venv/bin/activate && ./scripts/validate.sh` — 验证所有代码（ruff check、mypy）
 
-Final response format:
-1. Findings (inconsistencies, failures, risks) with file references.
-2. Test/validation commands run with results.
-3. Any remaining gaps or manual follow-ups.
-4. Results table in this format:
+最终响应格式：
+1. 发现的问题（不一致、失败、风险）及文件引用。
+2. 运行的测试/验证命令及结果。
+3. 任何剩余的差距或手动后续工作。
+4. 以此格式的结果表：
 
-| Subdirectory | File | Status | Notes |
+| 子目录 | 文件 | 状态 | 备注 |
 |-------------|------|--------|-------|
-| `rbac/symmetric` | `rbac_demo.py` | PASS | Symmetric RBAC enforced correctly |
-| `mcp_demo` | `server.py` | PASS | MCP server started successfully |
+| `rbac/symmetric` | `rbac_demo.py` | PASS | 对称 RBAC 正确执行 |
+| `mcp_demo` | `server.py` | PASS | MCP 服务器成功启动 |

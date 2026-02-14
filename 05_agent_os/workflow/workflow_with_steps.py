@@ -1,8 +1,8 @@
 """
-Workflow With Steps
+带步骤的工作流
 ===================
 
-Demonstrates workflow with steps.
+演示带步骤的工作流。
 """
 
 from agno.agent.agent import Agent
@@ -10,36 +10,36 @@ from agno.db.sqlite import SqliteDb
 from agno.models.openai.chat import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.os import AgentOS
 from agno.tools.websearch import WebSearchTools
 from agno.workflow.step import Step
 from agno.workflow.steps import Steps
 from agno.workflow.workflow import Workflow
 
-# Define agents for different tasks
+# 为不同任务定义 agent
 researcher = Agent(
     name="Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="Research the given topic and provide key facts and insights.",
+    instructions="研究给定主题并提供关键事实和见解。",
 )
 
 writer = Agent(
     name="Writing Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Write a comprehensive article based on the research provided. Make it engaging and well-structured.",
+    instructions="根据提供的研究撰写一篇全面的文章。使其引人入胜且结构良好。",
 )
 
 editor = Agent(
     name="Editor Agent",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="Review and edit the article for clarity, grammar, and flow. Provide a polished final version.",
+    instructions="审查并编辑文章以提高清晰度、语法和流畅性。提供精美的最终版本。",
 )
 
-# Define individual steps
+# 定义各个步骤
 research_step = Step(
     name="research",
     agent=researcher,
@@ -58,7 +58,7 @@ editing_step = Step(
     description="Edit and polish the article",
 )
 
-# Create a Steps sequence that chains these above steps together
+# 创建一个 Steps 序列，将上述步骤链接在一起
 article_creation_sequence = Steps(
     name="article_creation",
     description="Complete article creation workflow from research to final edit",
@@ -75,7 +75,7 @@ article_workflow = Workflow(
     ),
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[article_workflow],
@@ -83,7 +83,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

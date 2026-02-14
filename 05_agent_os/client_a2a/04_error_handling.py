@@ -1,14 +1,13 @@
 """
-Error Handling with A2AClient
+使用 A2AClient 进行错误处理
 
-This example demonstrates how to handle various error scenarios
-when using the A2A protocol.
+此示例演示在使用 A2A 协议时如何处理各种错误场景。
 
-Prerequisites:
-1. Start an AgentOS server with A2A interface:
+前置条件：
+1. 启动带有 A2A 接口的 AgentOS 服务器：
    python cookbook/06_agent_os/client_a2a/servers/agno_server.py
 
-2. Run this script:
+2. 运行此脚本：
    python cookbook/06_agent_os/client_a2a/04_error_handling.py
 """
 
@@ -19,12 +18,12 @@ from agno.exceptions import RemoteServerUnavailableError
 from httpx import HTTPStatusError
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def handle_http_error():
-    """Handle case when agent doesn't exist (404)."""
+    """处理 agent 不存在的情况（404）。"""
     print("=" * 60)
     print("Handling HTTP Errors (e.g., Agent Not Found)")
     print("=" * 60)
@@ -41,12 +40,12 @@ async def handle_http_error():
 
 
 async def handle_connection_error():
-    """Handle case when server is unreachable."""
+    """处理服务器无法访问的情况。"""
     print("\n" + "=" * 60)
     print("Handling Connection Error")
     print("=" * 60)
 
-    # Try to connect to a server that doesn't exist
+    # 尝试连接到不存在的服务器
     client = A2AClient("http://localhost:9999/a2a/agents/any-agent")
     try:
         await client.send_message(
@@ -59,12 +58,12 @@ async def handle_connection_error():
 
 
 async def handle_timeout():
-    """Handle request timeout."""
+    """处理请求超时。"""
     print("\n" + "=" * 60)
     print("Handling Timeout")
     print("=" * 60)
 
-    # Use a very short timeout
+    # 使用非常短的超时
     client = A2AClient("http://localhost:7003/a2a/agents/basic-agent", timeout=0.001)
     try:
         await client.send_message(
@@ -76,19 +75,19 @@ async def handle_timeout():
 
 
 async def comprehensive_error_handling():
-    """Demonstrate comprehensive error handling pattern."""
+    """演示全面的错误处理模式。"""
     print("\n" + "=" * 60)
     print("Comprehensive Error Handling Pattern")
     print("=" * 60)
 
     async def safe_send_message(client, message: str):
-        """Safely send a message with proper error handling."""
+        """安全地发送消息并进行适当的错误处理。"""
         try:
             result = await client.send_message(
                 message=message,
             )
 
-            # Check if the task failed at the application level
+            # 检查任务在应用程序级别是否失败
             if result.is_failed:
                 print(f"Error: Task failed - {result.content}")
                 return None
@@ -125,7 +124,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

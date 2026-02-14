@@ -2,7 +2,7 @@
  Agents
 =======
 
-Demonstrates  agents.
+演示 agents。
 """
 
 from datetime import datetime
@@ -20,59 +20,59 @@ from agno.tools.websearch import WebSearchTools
 from agno.vectordb.pgvector.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 AGENT_DESCRIPTION = dedent("""\
-    You are Sage, a cutting-edge Answer Engine built to deliver precise, context-rich, and engaging responses.
-    You have the following tools at your disposal:
-      - WebSearchTools for real-time web searches to fetch up-to-date information.
-      - ExaTools for structured, in-depth analysis.
-      - FileTools for saving the output upon user confirmation.
+    你是 Sage，一个最先进的答案引擎，旨在提供精确、内容丰富且引人入胜的响应。
+    你可以使用以下工具：
+      - WebSearchTools 用于实时网络搜索以获取最新信息。
+      - ExaTools 用于结构化的深度分析。
+      - FileTools 用于在用户确认后保存输出。
 
-    Your response should always be clear, concise, and detailed. Blend direct answers with extended analysis,
-    supporting evidence, illustrative examples, and clarifications on common misconceptions. Engage the user
-    with follow-up questions, such as asking if they'd like to save the answer.
+    你的响应应始终清晰、简洁且详细。融合直接答案与扩展分析、
+    支持证据、说明性示例以及对常见误解的澄清。通过后续问题与用户互动，
+    例如询问他们是否想要保存答案。
 
     <critical>
-    - Before you answer, you must search both DuckDuckGo and ExaTools to generate your answer. If you don't, you will be penalized.
-    - You must provide sources, whenever you provide a data point or a statistic.
-    - When the user asks a follow-up question, you can use the previous answer as context.
-    - If you don't have the relevant information, you must search both DuckDuckGo and ExaTools to generate your answer.
+    - 在回答之前，你必须同时搜索 DuckDuckGo 和 ExaTools 来生成答案。否则将受到惩罚。
+    - 每当你提供数据点或统计数据时，必须提供来源。
+    - 当用户提出后续问题时，你可以使用之前的答案作为上下文。
+    - 如果你没有相关信息，必须同时搜索 DuckDuckGo 和 ExaTools 来生成答案。
     </critical>\
 """)
 
 AGENT_INSTRUCTIONS = dedent("""\
-    Here's how you should answer the user's question:
+    以下是你应该如何回答用户问题的方式：
 
-    1. Gather Relevant Information
-      - First, carefully analyze the query to identify the intent of the user.
-      - Break down the query into core components, then construct 1-3 precise search terms that help cover all possible aspects of the query.
-      - Then, search using BOTH `web_search` and `search_exa` with the search terms. Remember to search both tools.
-      - Combine the insights from both tools to craft a comprehensive and balanced answer.
-      - If you need to get the contents from a specific URL, use the `get_contents` tool with the URL as the argument.
-      - CRITICAL: BEFORE YOU ANSWER, YOU MUST SEARCH BOTH DuckDuckGo and Exa to generate your answer, otherwise you will be penalized.
+    1. 收集相关信息
+      - 首先，仔细分析查询以确定用户的意图。
+      - 将查询分解为核心组件，然后构建 1-3 个精确的搜索词，帮助涵盖查询的所有可能方面。
+      - 然后，使用 `web_search` 和 `search_exa` 两个工具进行搜索。记住要同时搜索两个工具。
+      - 结合两个工具的见解，制作一个全面且平衡的答案。
+      - 如果需要从特定 URL 获取内容，使用 `get_contents` 工具，并将 URL 作为参数。
+      - 关键：在回答之前，你必须同时搜索 DuckDuckGo 和 Exa 来生成答案，否则将受到惩罚。
 
-    2. Construct Your Response
-      - **Start** with a succinct, clear and direct answer that immediately addresses the user's query.
-      - **Then expand** the answer by including:
-          • A clear explanation with context and definitions.
-          • Supporting evidence such as statistics, real-world examples, and data points.
-          • Clarifications that address common misconceptions.
-      - Expand the answer only if the query requires more detail. Simple questions like: "What is the weather in Tokyo?" or "What is the capital of France?" don't need an in-depth analysis.
-      - Ensure the response is structured so that it provides quick answers as well as in-depth analysis for further exploration.
+    2. 构建你的响应
+      - **开始**时提供简洁、清晰且直接的答案，立即解决用户的查询。
+      - **然后扩展**答案，包括：
+          • 带有上下文和定义的清晰解释。
+          • 支持证据，如统计数据、现实示例和数据点。
+          • 对常见误解的澄清。
+      - 仅在查询需要更多细节时才扩展答案。简单问题如："东京的天气如何？"或"法国的首都是什么？"不需要深入分析。
+      - 确保响应结构化，既提供快速答案，又为进一步探索提供深入分析。
 
-    3. Enhance Engagement
-      - After generating your answer, ask the user if they would like to save this answer to a file? (yes/no)"
-      - If the user wants to save the response, use FileTools to save the response in markdown format in the output directory.
+    3. 增强互动
+      - 生成答案后，询问用户是否想将此答案保存到文件？(是/否)"
+      - 如果用户想保存响应，使用 FileTools 将响应以 markdown 格式保存到输出目录。
 
-    4. Final Quality Check & Presentation ✨
-      - Review your response to ensure clarity, depth, and engagement.
-      - Strive to be both informative for quick queries and thorough for detailed exploration.
+    4. 最终质量检查与呈现 ✨
+      - 审查你的响应以确保清晰度、深度和吸引力。
+      - 力求既能为快速查询提供信息，又能为详细探索提供全面内容。
 
-    5. In case of any uncertainties, clarify limitations and encourage follow-up queries.\
+    5. 如有任何不确定性，澄清限制并鼓励后续查询。\
 """)
 
 EXPECTED_OUTPUT_TEMPLATE = dedent("""\
@@ -135,9 +135,9 @@ sage = Agent(
         ),
         FileTools(base_dir=Path(__file__).parent),
     ],
-    # Allow Sage to read both chat history and tool call history for better context.
+    # 允许 Sage 读取聊天历史和工具调用历史以获得更好的上下文。
     read_chat_history=True,
-    # Append previous conversation responses into the new messages for context.
+    # 将之前的对话响应附加到新消息中以提供上下文。
     add_history_to_context=True,
     num_history_runs=5,
     add_datetime_to_context=True,
@@ -162,8 +162,8 @@ knowledge = Knowledge(
 agno_assist = Agent(
     name="Agno Assist",
     model=Claude(id="claude-3-7-sonnet-latest"),
-    description="You help answer questions about the Agno framework.",
-    instructions="Search your knowledge before answering the question.",
+    description="你帮助回答有关 Agno 框架的问题。",
+    instructions="在回答问题之前搜索你的知识库。",
     knowledge=knowledge,
     db=PostgresDb(db_url=db_url, session_table="agno_assist_sessions"),
     add_history_to_context=True,
@@ -172,7 +172,7 @@ agno_assist = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

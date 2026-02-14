@@ -1,8 +1,8 @@
 """
-Support Team
+支持团队
 ============
 
-Demonstrates support team.
+演示支持团队。
 """
 
 from agno.agent import Agent
@@ -15,29 +15,29 @@ from agno.tools.slack import SlackTools
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 team_db = SqliteDb(session_table="team_sessions", db_file="tmp/support_team.db")
 
-# Technical Support Agent
+# 技术支持 Agent
 tech_support = Agent(
     name="Technical Support",
-    role="Code and technical troubleshooting",
+    role="代码和技术故障排除",
     model=OpenAIChat(id="gpt-4o"),
     tools=[WebSearchTools()],
     instructions=[
-        "You handle technical questions about code, APIs, and implementation.",
-        "Provide code examples when helpful.",
-        "Search for current documentation and best practices.",
+        "你处理有关代码、API 和实现的技术问题。",
+        "在有帮助时提供代码示例。",
+        "搜索当前文档和最佳实践。",
     ],
     markdown=True,
 )
 
-# Documentation Agent
+# 文档 Agent
 docs_agent = Agent(
     name="Documentation Specialist",
-    role="Finding and explaining documentation",
+    role="查找和解释文档",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
         SlackTools(
@@ -47,25 +47,25 @@ docs_agent = Agent(
         WebSearchTools(),
     ],
     instructions=[
-        "You find relevant documentation and past discussions.",
-        "Search Slack for previous answers to similar questions.",
-        "Search the web for official documentation.",
-        "Explain documentation in simple terms.",
+        "你查找相关文档和过去的讨论。",
+        "在 Slack 中搜索类似问题的先前答案。",
+        "在网络上搜索官方文档。",
+        "用简单的术语解释文档。",
     ],
     markdown=True,
 )
 
-# The Team with a coordinator
+# 带有协调员的团队
 support_team = Team(
     name="Support Team",
     model=OpenAIChat(id="gpt-4o"),
     members=[tech_support, docs_agent],
-    description="A support team that routes questions to the right specialist.",
+    description="一个将问题路由到正确专家的支持团队。",
     instructions=[
-        "You coordinate support requests.",
-        "Route technical/code questions to Technical Support.",
-        "Route 'how do I' or 'where is' questions to Documentation Specialist.",
-        "For complex questions, consult both agents.",
+        "你协调支持请求。",
+        "将技术/代码问题路由到技术支持。",
+        "将'如何做'或'在哪里'问题路由到文档专家。",
+        "对于复杂问题，咨询两个 agent。",
     ],
     db=team_db,
     add_history_to_context=True,
@@ -85,7 +85,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

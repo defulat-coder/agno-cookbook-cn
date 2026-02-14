@@ -1,19 +1,19 @@
 # Test Log: rbac/asymmetric
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### basic.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic RBAC Example with AgentOS (Asymmetric Keys).
+**描述：** 使用 AgentOS 的基本 RBAC 示例（非对称密钥）。
 
 ---
 
 ### custom_scope_mappings.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Custom Scope Mappings Example.
+**描述：** 自定义作用域映射示例。
 
 ---

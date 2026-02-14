@@ -1,6 +1,6 @@
 """
-Traces with AgentOS
-Requirements:
+AgentOS 追踪
+要求：
     pip install agno opentelemetry-api opentelemetry-sdk openinference-instrumentation-agno
 """
 
@@ -12,21 +12,21 @@ from agno.tools.hackernews import HackerNewsTools
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Set up databases - each agent has its own db
+# 设置数据库 - 每个 agent 都有自己的 db
 db1 = SqliteDb(db_file="tmp/db1.db", id="db1")
 db2 = SqliteDb(db_file="tmp/db2.db", id="db2")
 
-# Dedicated traces database
+# 专用追踪数据库
 tracing_db = SqliteDb(db_file="tmp/traces.db", id="traces")
 
 agent = Agent(
     name="HackerNews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    instructions="You are a hacker news agent. Answer questions concisely.",
+    instructions="你是一个 hacker news agent。简洁地回答问题。",
     markdown=True,
     db=db1,
 )
@@ -35,23 +35,23 @@ agent2 = Agent(
     name="Web Search Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    instructions="You are a web search agent. Answer questions concisely.",
+    instructions="你是一个网络搜索 agent。简洁地回答问题。",
     markdown=True,
     db=db2,
 )
 
-# Setup our AgentOS app with dedicated db
-# This ensures traces are written to and read from the same database
+# 使用专用 db 设置我们的 AgentOS 应用
+# 这确保追踪被写入和读取自同一数据库
 agent_os = AgentOS(
-    description="Example app for tracing HackerNews",
+    description="用于追踪 HackerNews 的示例应用",
     agents=[agent, agent2],
     tracing=True,
-    db=tracing_db,  # Default database for the AgentOS (used for tracing)
+    db=tracing_db,  # AgentOS 的默认数据库（用于追踪）
 )
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

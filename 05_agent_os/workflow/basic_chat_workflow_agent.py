@@ -1,4 +1,4 @@
-"""Example demonstrating how to add a Workflow using a WorkflowAgent to your AgentOS"""
+"""演示如何使用 WorkflowAgent 将工作流添加到 AgentOS 的示例"""
 
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
@@ -11,7 +11,7 @@ from agno.workflow.types import StepInput
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -21,43 +21,43 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 story_writer = Agent(
     name="Story Writer",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="You are tasked with writing a 100 word story based on a given topic",
+    instructions="你的任务是根据给定主题撰写一个100字的故事",
 )
 
 story_editor = Agent(
     name="Story Editor",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Review and improve the story's grammar, flow, and clarity",
+    instructions="审查并改进故事的语法、流畅性和清晰度",
 )
 
 story_formatter = Agent(
     name="Story Formatter",
     model=OpenAIChat(id="gpt-5.2"),
-    instructions="Break down the story into prologue, body, and epilogue sections",
+    instructions="将故事分解为序言、正文和结尾部分",
 )
 
 
-# === CONDITION EVALUATOR ===
+# === 条件评估器 ===
 def needs_editing(step_input: StepInput) -> bool:
-    """Determine if the story needs editing based on length and complexity"""
+    """根据长度和复杂性确定故事是否需要编辑"""
     story = step_input.previous_step_content or ""
 
-    # Check if story is long enough to benefit from editing
+    # 检查故事是否足够长以受益于编辑
     word_count = len(story.split())
 
-    # Edit if story is more than 50 words or contains complex punctuation
+    # 如果故事超过50个单词或包含复杂标点，则进行编辑
     return word_count > 50 or any(punct in story for punct in ["!", "?", ";", ":"])
 
 
 def add_references(step_input: StepInput):
-    """Add references to the story"""
+    """为故事添加参考资料"""
     previous_output = step_input.previous_step_content
 
     if isinstance(previous_output, str):
         return previous_output + "\n\nReferences: https://www.agno.com"
 
 
-# === WORKFLOW STEPS ===
+# === 工作流步骤 ===
 write_step = Step(
     name="write_story",
     description="Write initial story",
@@ -76,10 +76,10 @@ format_step = Step(
     agent=story_formatter,
 )
 
-# Create a WorkflowAgent that will decide when to run the workflow
+# 创建一个 WorkflowAgent，它将决定何时运行工作流
 workflow_agent = WorkflowAgent(model=OpenAIChat(id="gpt-5.2"), num_history_runs=4)
 
-# === WORKFLOW WITH CONDITION ===
+# === 带条件的工作流 ===
 workflow = Workflow(
     name="Story Generation with Conditional Editing",
     description="A workflow that generates stories, conditionally edits them, formats them, and adds references",
@@ -100,7 +100,7 @@ workflow = Workflow(
 )
 
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[workflow],
@@ -108,7 +108,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 """
-Traces with AgentOS
-Requirements:
+AgentOS 追踪
+要求：
     uv pip install agno opentelemetry-api opentelemetry-sdk openinference-instrumentation-agno
 """
 
@@ -11,31 +11,31 @@ from agno.os import AgentOS
 from agno.tools.hackernews import HackerNewsTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Set up database
+# 设置数据库
 db = SqliteDb(db_file="tmp/traces.db")
 
 agent = Agent(
     name="HackerNews Agent",
     model=OpenAIChat(id="gpt-5.2"),
     tools=[HackerNewsTools()],
-    instructions="You are a hacker news agent. Answer questions concisely.",
+    instructions="你是一个 hacker news agent。简洁地回答问题。",
     markdown=True,
     db=db,
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
-    description="Example app for tracing HackerNews",
+    description="用于追踪 HackerNews 的示例应用",
     agents=[agent],
     tracing=True,
 )
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

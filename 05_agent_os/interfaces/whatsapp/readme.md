@@ -1,17 +1,17 @@
 # Whatsapp Cookbook
 
-Examples for `interfaces/whatsapp` in AgentOS.
+AgentOS 中 `interfaces/whatsapp` 的示例。
 
-## Files
-- `agent_with_media.py` — Agent With Media.
-- `agent_with_user_memory.py` — Agent With User Memory.
-- `basic.py` — Basic.
-- `image_generation_model.py` — Image Generation Model.
-- `image_generation_tools.py` — Image Generation Tools.
-- `multiple_instances.py` — Multiple Instances.
-- `reasoning_agent.py` — Reasoning Agent.
+## 文件
+- `agent_with_media.py` — 带有媒体的 Agent。
+- `agent_with_user_memory.py` — 带有用户记忆的 Agent。
+- `basic.py` — 基础示例。
+- `image_generation_model.py` — 图像生成模型。
+- `image_generation_tools.py` — 图像生成工具。
+- `multiple_instances.py` — 多实例。
+- `reasoning_agent.py` — 推理 Agent。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

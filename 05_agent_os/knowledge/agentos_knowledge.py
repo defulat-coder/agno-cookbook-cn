@@ -1,8 +1,8 @@
 """
-AgentOS Knowledge (Sync And Async)
+AgentOS 知识库（同步和异步）
 ==================================
 
-Demonstrates AgentOS knowledge integration with both sync and async database setups.
+演示 AgentOS 知识库与同步和异步数据库设置的集成。
 """
 
 import asyncio
@@ -98,8 +98,8 @@ sync_knowledge_agent = Agent(
     add_history_to_context=True,
     markdown=True,
     instructions=[
-        "You are a helpful assistant with access to Agno documentation.",
-        "Search the knowledge base to answer questions about Agno.",
+        "你是一个有权访问 Agno 文档的有用助手。",
+        "搜索知识库以回答有关 Agno 的问题。",
     ],
 )
 
@@ -113,8 +113,8 @@ async_knowledge_agent = Agent(
     add_history_to_context=True,
     markdown=True,
     instructions=[
-        "You are a helpful assistant with access to Agno documentation.",
-        "Search the knowledge base to answer questions about Agno.",
+        "你是一个有权访问 Agno 文档的有用助手。",
+        "搜索知识库以回答有关 Agno 的问题。",
     ],
 )
 
@@ -122,13 +122,13 @@ async_knowledge_agent = Agent(
 # Create AgentOS
 # ---------------------------------------------------------------------------
 sync_agent_os = AgentOS(
-    description="Example app with AgentOS Knowledge",
+    description="带 AgentOS 知识库的示例应用",
     agents=[sync_knowledge_agent],
     knowledge=[sync_faq_knowledge],
 )
 
 async_agent_os = AgentOS(
-    description="Example app with AgentOS Knowledge (Async)",
+    description="带 AgentOS 知识库的示例应用（异步）",
     agents=[async_knowledge_agent],
     knowledge=[async_faq_knowledge],
 )
@@ -152,10 +152,10 @@ if __name__ == "__main__":
             async_faq_knowledge.ainsert(
                 name="Agno FAQ",
                 text_content=dedent("""
-                What is Agno?
-                Agno is a framework for building agents.
-                Use it to build multi-agent systems with memory, knowledge,
-                human in the loop and MCP support.
+                什么是 Agno？
+                Agno 是一个用于构建 agent 的框架。
+                使用它来构建具有记忆、知识、
+                人机交互和 MCP 支持的多 agent 系统。
             """),
                 skip_if_exists=True,
             )
@@ -169,10 +169,10 @@ if __name__ == "__main__":
         sync_faq_knowledge.insert(
             name="Agno FAQ",
             text_content=dedent("""
-            What is Agno?
-            Agno is a framework for building agents.
-            Use it to build multi-agent systems with memory, knowledge,
-            human in the loop and MCP support.
+            什么是 Agno？
+            Agno 是一个用于构建 agent 的框架。
+            使用它来构建具有记忆、知识、
+            人机交互和 MCP 支持的多 agent 系统。
         """),
             skip_if_exists=True,
         )

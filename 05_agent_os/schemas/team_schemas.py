@@ -1,8 +1,8 @@
 """
-Team Input And Output Schemas
+团队输入和输出 Schema
 =============================
 
-Demonstrates AgentOS teams that use input and output schemas.
+演示使用输入和输出 schema 的 AgentOS 团队。
 """
 
 from typing import List
@@ -17,7 +17,7 @@ from agno.tools.websearch import WebSearchTools
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 input_schema_db = SqliteDb(
     session_table="team_session",
@@ -31,7 +31,7 @@ output_schema_db = SqliteDb(
 
 
 class ResearchProject(BaseModel):
-    """Structured research project with validation requirements."""
+    """具有验证要求的结构化研究项目。"""
 
     project_name: str = Field(description="Name of the research project")
     research_topics: List[str] = Field(
@@ -48,7 +48,7 @@ class ResearchProject(BaseModel):
 
 
 class ResearchReport(BaseModel):
-    """Structured research report output."""
+    """结构化的研究报告输出。"""
 
     topic: str = Field(..., description="Research topic")
     summary: str = Field(..., description="Executive summary")
@@ -57,7 +57,7 @@ class ResearchReport(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="HackerNews Researcher",
@@ -65,9 +65,9 @@ hackernews_agent = Agent(
     tools=[HackerNewsTools()],
     role="Research trending topics and discussions on HackerNews",
     instructions=[
-        "Search for relevant discussions and articles",
-        "Focus on high-quality posts with good engagement",
-        "Extract key insights and technical details",
+        "搜索相关的讨论和文章",
+        "专注于高质量、高参与度的帖子",
+        "提取关键见解和技术细节",
     ],
     db=input_schema_db,
 )
@@ -78,9 +78,9 @@ web_researcher = Agent(
     tools=[WebSearchTools()],
     role="Conduct comprehensive web research",
     instructions=[
-        "Search for authoritative sources and documentation",
-        "Find recent articles and blog posts",
-        "Gather diverse perspectives on the topics",
+        "搜索权威来源和文档",
+        "查找最新文章和博客文章",
+        "收集主题的多样化观点",
     ],
 )
 
@@ -98,7 +98,7 @@ analyst = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Teams
+# 创建团队
 # ---------------------------------------------------------------------------
 research_team_with_input_schema = Team(
     name="Research Team with Input Validation",
@@ -107,11 +107,11 @@ research_team_with_input_schema = Team(
     delegate_to_all_members=True,
     input_schema=ResearchProject,
     instructions=[
-        "Conduct thorough research based on the validated input",
-        "Coordinate between team members to avoid duplicate work",
-        "Ensure research depth matches the specified level",
-        "Respect the maximum sources limit",
-        "Focus on recent sources if requested",
+        "根据验证的输入进行彻底研究",
+        "协调团队成员之间的工作以避免重复",
+        "确保研究深度与指定级别匹配",
+        "遵守最大来源限制",
+        "如果请求，专注于最新来源",
     ],
 )
 
@@ -126,7 +126,7 @@ research_team_with_output_schema = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Create AgentOS
+# 创建 AgentOS
 # ---------------------------------------------------------------------------
 agent_os = AgentOS(
     id="team-schemas-demo",
@@ -135,7 +135,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run
+# 运行
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_os.serve(app="team_schemas:app", port=7777, reload=True)

@@ -1,9 +1,9 @@
 """
-AgentOS Demo
+AgentOS 演示
 
-Set the OS_SECURITY_KEY environment variable to your OS security key to enable authentication.
+设置 OS_SECURITY_KEY 环境变量为你的 OS 安全密钥以启用身份验证。
 
-Prerequisites:
+前置条件：
 pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai ddgs yfinance
 """
 
@@ -16,16 +16,16 @@ from agno.tools.mcp import MCPTools
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Database connection
+# 数据库连接
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create Postgres-backed memory store
+# 创建 Postgres 支持的记忆存储
 db = PostgresDb(db_url=db_url)
 
-# Create Postgres-backed vector store
+# 创建 Postgres 支持的向量存储
 vector_db = PgVector(
     db_url=db_url,
     table_name="agno_docs",
@@ -36,7 +36,7 @@ knowledge = Knowledge(
     vector_db=vector_db,
 )
 
-# Create your agents
+# 创建你的 agent
 agno_agent = Agent(
     name="Agno Agent",
     model=OpenAIChat(id="gpt-4.1"),
@@ -45,17 +45,17 @@ agno_agent = Agent(
     markdown=True,
 )
 
-# Create the AgentOS
+# 创建 AgentOS
 agent_os = AgentOS(
     id="agentos-demo",
     agents=[agno_agent],
-    db=db,  # This is the default database for AgentOS, the agno_agent will use this
+    db=db,  # 这是 AgentOS 的默认数据库，agno_agent 将使用它
 )
 app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

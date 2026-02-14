@@ -1,8 +1,8 @@
 """
-Structured Output
+结构化输出
 =================
 
-Demonstrates structured output.
+演示结构化输出。
 """
 
 from typing import List
@@ -14,7 +14,7 @@ from agno.os.interfaces.agui import AGUI
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
@@ -40,13 +40,13 @@ class MovieScript(BaseModel):
 chat_agent = Agent(
     name="Output Schema Agent",
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你撰写电影剧本。",
     markdown=True,
     output_schema=MovieScript,
 )
 
 
-# Setup your AgentOS app
+# 设置你的 AgentOS 应用
 agent_os = AgentOS(
     agents=[chat_agent],
     interfaces=[AGUI(agent=chat_agent)],
@@ -54,13 +54,13 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:9001/config
 
     """

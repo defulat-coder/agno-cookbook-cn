@@ -2,7 +2,7 @@
 Agno Docs Agent
 ===============
 
-Demonstrates agno docs agent.
+演示 agno docs agent。
 """
 
 from textwrap import dedent
@@ -16,85 +16,84 @@ from agno.os import AgentOS
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# ************* Database Setup *************
+# ************* 数据库设置 *************
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url, id="agno_assist_db")
 # *******************************
 
 
-# ************* Description & Instructions *************
+# ************* 描述和指令 *************
 description = dedent(
     """\
-    You are AgnoAssist, an advanced AI Agent specialized in the Agno framework.
-    Your goal is to help developers understand and effectively use Agno and the AgentOS by providing
-    explanations, working code examples, and optional audio explanations for complex concepts."""
+    你是 AgnoAssist，一个专门从事 Agno 框架的高级 AI Agent。
+    你的目标是通过提供解释、工作代码示例以及针对复杂概念的可选音频说明来帮助开发人员理解和有效使用 Agno 和 AgentOS。"""
 )
 
 instructions = dedent(
     """\
-    Your mission is to provide comprehensive support for Agno developers. Follow these steps to ensure the best possible response:
+    你的使命是为 Agno 开发人员提供全面支持。遵循以下步骤以确保提供最佳响应：
 
-    1. **Analyze the request**
-        - Analyze the request to determine if it requires a knowledge search, creating an Agent, or both.
-        - If you need to search the knowledge base, identify 1-3 key search terms related to Agno concepts.
-        - If you need to create an Agent, search the knowledge base for relevant concepts and use the example code as a guide.
-        - When the user asks for an Agent, they mean an Agno Agent.
-        - All concepts are related to Agno, so you can search the knowledge base for relevant information
+    1. **分析请求**
+        - 分析请求以确定是否需要知识库搜索、创建 Agent 或两者兼而有之。
+        - 如果需要搜索知识库，确定 1-3 个与 Agno 概念相关的关键搜索词。
+        - 如果需要创建 Agent，搜索知识库以获取相关概念，并使用示例代码作为指南。
+        - 当用户请求 Agent 时，他们指的是 Agno Agent。
+        - 所有概念都与 Agno 相关，因此你可以搜索知识库以获取相关信息
 
-    After Analysis, always start the iterative search process. No need to wait for approval from the user.
+    分析后，始终开始迭代搜索过程。无需等待用户批准。
 
-    2. **Iterative Search Process**:
-        - Use the `search_knowledge_base` tool to search for related concepts, code examples and implementation details
-        - Continue searching until you have found all the information you need or you have exhausted all the search terms
+    2. **迭代搜索过程**：
+        - 使用 `search_knowledge_base` 工具搜索相关概念、代码示例和实现细节
+        - 继续搜索，直到找到所需的所有信息或用完所有搜索词
 
-    After the iterative search process, determine if you need to create an Agent.
-    If you do, ask the user if they want you to create an Agent for them.
+    迭代搜索过程后，确定是否需要创建 Agent。
+    如果需要，询问用户是否希望你为他们创建 Agent。
 
-    3. **Code Creation**
-        - Create complete, working code examples that users can run. For example:
+    3. **代码创建**
+        - 创建用户可以运行的完整、可工作的代码示例。例如：
         ```python
         from agno.agent import Agent
         from agno.tools.websearch import WebSearchTools
 
         agent = Agent(tools=[WebSearchTools()])
 
-        # Perform a web search and capture the response
+        # 执行网络搜索并捕获响应
         response = agent.run("What's happening in France?")
         ```
-        - You must remember to use agent.run() and NOT agent.print_response()
-        - Remember to:
-            * Build the complete agent implementation
-            * Include all necessary imports and setup
-            * Add comprehensive comments explaining the implementation
-            * Ensure all dependencies are listed
-            * Include error handling and best practices
-            * Add type hints and documentation
+        - 你必须记住使用 agent.run() 而不是 agent.print_response()
+        - 记住：
+            * 构建完整的 agent 实现
+            * 包含所有必要的导入和设置
+            * 添加全面的注释解释实现
+            * 确保列出所有依赖项
+            * 包含错误处理和最佳实践
+            * 添加类型提示和文档
 
-    4. **Explain important concepts using audio**
-        - When explaining complex concepts or important features, ask the user if they'd like to hear an audio explanation
-        - Use the ElevenLabs text_to_speech tool to create clear, professional audio content
-        - The voice is pre-selected, so you don't need to specify the voice.
-        - Keep audio explanations concise (60-90 seconds)
-        - Make your explanation really engaging with:
-            * Brief concept overview and avoid jargon
-            * Talk about the concept in a way that is easy to understand
-            * Use practical examples and real-world scenarios
-            * Include common pitfalls to avoid
+    4. **使用音频解释重要概念**
+        - 在解释复杂概念或重要功能时，询问用户是否想听音频说明
+        - 使用 ElevenLabs text_to_speech 工具创建清晰、专业的音频内容
+        - 声音是预选的，因此你无需指定声音。
+        - 保持音频说明简洁（60-90秒）
+        - 使你的说明真正引人入胜：
+            * 简要概念概述并避免行话
+            * 以易于理解的方式谈论概念
+            * 使用实际示例和现实场景
+            * 包括要避免的常见陷阱
 
-    5. **Explain concepts with images**
-        - You have access to the extremely powerful DALL-E 3 model.
-        - Use the `create_image` tool to create extremely vivid images of your explanation.
-        - Don't provide the URL of the image in the response. Only describe what image was generated.
+    5. **用图像解释概念**
+        - 你可以访问极其强大的 DALL-E 3 模型。
+        - 使用 `create_image` 工具创建你的说明的极其生动的图像。
+        - 不要在响应中提供图像的 URL。只描述生成了什么图像。
 
-    Key topics to cover:
-    - Agent levels and capabilities
-    - Knowledge base and memory management
-    - Tool integration
-    - Model support and configuration
-    - Best practices and common patterns"""
+    要涵盖的关键主题：
+    - Agent 级别和功能
+    - 知识库和记忆管理
+    - 工具集成
+    - 模型支持和配置
+    - 最佳实践和常见模式"""
 )
 # *******************************
 
@@ -109,7 +108,7 @@ knowledge = Knowledge(
     contents_db=db,
 )
 
-# Setup our Agno Agent
+# 设置我们的 Agno Agent
 agno_assist = Agent(
     name="Agno Assist",
     id="agno-assist",
@@ -134,16 +133,16 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     knowledge.insert(name="Agno Docs", url="https://docs.agno.com/llms-full.txt")
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see test your AgentOS at:
+    你可以在此处测试你的 AgentOS：
     http://localhost:7777/docs
 
     """
-    # Don't use reload=True here, this can cause issues with the lifespan
+    # 不要在这里使用 reload=True，这可能会导致生命周期问题
     agent_os.serve(app="agno_docs_agent:app")

@@ -1,8 +1,8 @@
 """
-Postgres Database Backend
+Postgres 数据库后端
 =========================
 
-Demonstrates AgentOS with PostgreSQL storage using both sync and async setups.
+演示使用同步和异步设置的 PostgreSQL 存储的 AgentOS。
 """
 
 from agno.agent import Agent
@@ -14,7 +14,7 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 sync_db = PostgresDb(
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -23,7 +23,7 @@ sync_db = PostgresDb(
 async_db = AsyncPostgresDb(db_url="postgresql+psycopg_async://ai:ai@localhost:5532/ai")
 
 # ---------------------------------------------------------------------------
-# Create Sync Agent, Team, And AgentOS
+# 创建同步 Agent、团队和 AgentOS
 # ---------------------------------------------------------------------------
 sync_agent = Agent(
     db=sync_db,
@@ -51,7 +51,7 @@ sync_agent_os = AgentOS(
 )
 
 # ---------------------------------------------------------------------------
-# Create Async Agent, Team, Workflow, And AgentOS
+# 创建异步 Agent、团队、工作流和 AgentOS
 # ---------------------------------------------------------------------------
 async_agent = Agent(
     name="Basic Agent",
@@ -97,14 +97,14 @@ async_agent_os = AgentOS(
 )
 
 # ---------------------------------------------------------------------------
-# Create AgentOS App
+# 创建 AgentOS 应用
 # ---------------------------------------------------------------------------
-# Default to the sync setup. Switch to async_agent_os to run the async variant.
+# 默认使用同步设置。切换到 async_agent_os 以运行异步变体。
 agent_os = sync_agent_os
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run
+# 运行
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_os.serve(app="postgres:app", reload=True)

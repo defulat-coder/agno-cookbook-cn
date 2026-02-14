@@ -2,7 +2,7 @@
 Reasoning Agent
 ===============
 
-Demonstrates reasoning agent.
+演示 reasoning agent。
 """
 
 from agno.agent import Agent
@@ -14,7 +14,7 @@ from agno.tools.reasoning import ReasoningTools
 from agno.tools.yfinance import YFinanceTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(db_file="tmp/persistent_memory.db")
@@ -32,13 +32,13 @@ reasoning_finance_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables to display data. When you use thinking tools, keep the thinking brief.",
+    instructions="使用表格显示数据。当你使用思考工具时，保持思考简洁。",
     add_datetime_to_context=True,
     markdown=True,
 )
 
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     agents=[reasoning_finance_agent],
     interfaces=[Whatsapp(agent=reasoning_finance_agent)],
@@ -47,13 +47,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

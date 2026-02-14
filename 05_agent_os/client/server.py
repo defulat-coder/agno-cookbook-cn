@@ -1,5 +1,5 @@
 """
-AgentOS Server for Cookbook Client Examples
+Cookbook Client 示例的 AgentOS 服务器
 """
 
 from agno.agent import Agent
@@ -16,18 +16,18 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 # =============================================================================
-# Database Configuration
+# 数据库配置
 # =============================================================================
 
-# SQLite database for sessions, memory, and content metadata
+# SQLite 数据库用于 session、记忆和内容元数据
 db = SqliteDb(db_file="tmp/cookbook_client.db")
 
 # =============================================================================
-# Knowledge Base Configuration
+# 知识库配置
 # =============================================================================
 
 knowledge = Knowledge(
@@ -36,46 +36,46 @@ knowledge = Knowledge(
         collection="cookbook_knowledge",
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
-    contents_db=db,  # Required for content upload/management endpoints
+    contents_db=db,  # 内容上传/管理端点所需
 )
 
 # =============================================================================
-# Agent Configuration
+# Agent 配置
 # =============================================================================
 
-# Agent 1: Assistant with calculator tools and memory
+# Agent 1：带有计算器工具和记忆的助手
 assistant = Agent(
     name="Assistant",
     model=OpenAIChat(id="gpt-5.2"),
     db=db,
     instructions=[
-        "You are a helpful AI assistant.",
-        "Use the calculator tool for any math operations.",
-        "You have access to a knowledge base - search it when asked about documents.",
+        "你是一个有帮助的 AI 助手。",
+        "对任何数学运算使用计算器工具。",
+        "你可以访问知识库 - 在被问及文档时搜索它。",
     ],
     markdown=True,
-    update_memory_on_run=True,  # Required for 03_memory_operations
+    update_memory_on_run=True,  # 03_memory_operations 所需
     tools=[CalculatorTools()],
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-# Agent 2: Researcher with web search capabilities
+# Agent 2：具有网络搜索功能的研究员
 researcher = Agent(
     name="Researcher",
     model=OpenAIChat(id="gpt-5.2"),
     db=db,
     instructions=[
-        "You are a research assistant.",
-        "Search the web for information when needed.",
-        "Provide well-researched, accurate responses.",
+        "你是一个研究助手。",
+        "需要时搜索网络信息。",
+        "提供经过充分研究的、准确的响应。",
     ],
     markdown=True,
     tools=[WebSearchTools()],
 )
 
 # =============================================================================
-# Team Configuration
+# 团队配置
 # =============================================================================
 
 research_team = Team(
@@ -83,17 +83,17 @@ research_team = Team(
     model=OpenAIChat(id="gpt-5.2"),
     members=[assistant, researcher],
     instructions=[
-        "You are a research team that coordinates multiple specialists.",
-        "Delegate math questions to the Assistant.",
-        "Delegate research questions to the Researcher.",
-        "Combine insights from team members for comprehensive answers.",
+        "你是一个协调多个专家的研究团队。",
+        "将数学问题委托给助手。",
+        "将研究问题委托给研究员。",
+        "结合团队成员的见解以获得全面的答案。",
     ],
     markdown=True,
     db=db,
 )
 
 # =============================================================================
-# Workflow Configuration
+# 工作流配置
 # =============================================================================
 
 qa_workflow = Workflow(
@@ -109,7 +109,7 @@ qa_workflow = Workflow(
 )
 
 # =============================================================================
-# AgentOS Configuration
+# AgentOS 配置
 # =============================================================================
 
 agent_os = AgentOS(
@@ -121,15 +121,15 @@ agent_os = AgentOS(
     knowledge=[knowledge],
 )
 
-# FastAPI app instance (for uvicorn)
+# FastAPI 应用实例（用于 uvicorn）
 app = agent_os.get_app()
 
 # =============================================================================
-# Main Entry Point
+# 主入口点
 # =============================================================================
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,25 +1,25 @@
 # Workflow Cookbook
 
-Examples for `workflow` in AgentOS.
+AgentOS 中 `workflow` 的示例。
 
-## Files
-- `basic_chat_workflow_agent.py` — Example demonstrating how to add a Workflow using a WorkflowAgent to your AgentOS.
-- `basic_workflow.py` — Basic Workflow.
-- `basic_workflow_team.py` — Basic Workflow Team.
-- `customer_research_workflow_parallel.py` — Customer Research Workflow Parallel.
-- `workflow_with_conditional.py` — Workflow With Conditional.
-- `workflow_with_custom_function.py` — Workflow With Custom Function Executors.
-- `workflow_with_custom_function_updating_session_state.py` — Workflow With Custom Function Updating Session State.
-- `workflow_with_history.py` — Workflow With History.
-- `workflow_with_input_schema.py` — Workflow With Input Schema.
-- `workflow_with_loop.py` — Workflow With Loop.
-- `workflow_with_nested_steps.py` — Workflow With Nested Steps.
-- `workflow_with_parallel.py` — Workflow With Parallel.
-- `workflow_with_parallel_and_custom_function_step_stream.py` — Workflow With Parallel And Custom Function Step Stream.
-- `workflow_with_router.py` — Workflow With Router.
-- `workflow_with_steps.py` — Workflow With Steps.
+## 文件
+- `basic_chat_workflow_agent.py` — 演示如何使用 WorkflowAgent 将工作流添加到 AgentOS 的示例。
+- `basic_workflow.py` — 基本工作流。
+- `basic_workflow_team.py` — 基本工作流团队。
+- `customer_research_workflow_parallel.py` — 客户研究工作流并行。
+- `workflow_with_conditional.py` — 带有条件的工作流。
+- `workflow_with_custom_function.py` — 带有自定义函数执行器的工作流。
+- `workflow_with_custom_function_updating_session_state.py` — 带有更新 Session State 的自定义函数的工作流。
+- `workflow_with_history.py` — 带有历史记录的工作流。
+- `workflow_with_input_schema.py` — 带有输入 Schema 的工作流。
+- `workflow_with_loop.py` — 带有循环的工作流。
+- `workflow_with_nested_steps.py` — 带有嵌套步骤的工作流。
+- `workflow_with_parallel.py` — 带有并行的工作流。
+- `workflow_with_parallel_and_custom_function_step_stream.py` — 带有并行和自定义函数步骤流的工作流。
+- `workflow_with_router.py` — 带有路由器的工作流。
+- `workflow_with_steps.py` — 带有步骤的工作流。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

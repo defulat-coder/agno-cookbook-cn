@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with SurrealDB as database"""
+"""展示如何在 AgentOS 中使用 SurrealDB 作为数据库的示例"""
 
 from agno.agent import Agent
 from agno.db.surrealdb import SurrealDb
@@ -9,10 +9,10 @@ from agno.team.team import Team
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the SurrealDB database
+# 设置 SurrealDB 数据库
 SURREALDB_URL = "ws://localhost:8000"
 SURREALDB_USER = "root"
 SURREALDB_PASSWORD = "root"
@@ -29,10 +29,10 @@ knowledge = Knowledge(
     contents_db=db,
     vector_db=vector_db,
     name="Agent OS Knowledge",
-    description="Knowledge for Agent OS demo",
+    description="Agent OS 演示的知识库",
 )
 
-# Agent Setup
+# Agent 设置
 agent = Agent(
     db=db,
     name="Basic Agent",
@@ -43,7 +43,7 @@ agent = Agent(
     knowledge=knowledge,
 )
 
-# Team Setup
+# 团队设置
 team = Team(
     db=db,
     id="basic-team",
@@ -54,20 +54,20 @@ team = Team(
     num_history_runs=3,
 )
 
-# AgentOS Setup
+# AgentOS 设置
 agent_os = AgentOS(
-    description="Example OS setup",
+    description="示例 OS 设置",
     agents=[agent],
     teams=[team],
 )
 
-# Get the app
+# 获取应用
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    # Serve the app
+    # 服务应用
     agent_os.serve(app="surreal:app", reload=True)

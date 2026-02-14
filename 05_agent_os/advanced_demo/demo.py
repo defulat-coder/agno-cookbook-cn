@@ -1,7 +1,7 @@
 """
-AgentOS Demo
+AgentOS 演示
 
-Set the OS_SECURITY_KEY environment variable to your OS security key to enable authentication.
+设置 OS_SECURITY_KEY 环境变量为你的 OS 安全密钥以启用身份验证。
 """
 
 from _agents import agno_assist, sage  # type: ignore[import-not-found]
@@ -12,13 +12,13 @@ from agno.models.anthropic.claude import Claude
 from agno.os import AgentOS
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Database connection
+# 数据库连接
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create the AgentOS
+# 创建 AgentOS
 agent_os = AgentOS(
     id="agentos-demo",
     agents=[sage, agno_assist],
@@ -26,16 +26,16 @@ agent_os = AgentOS(
 )
 app = agent_os.get_app()
 
-# Uncomment to create a memory
+# 取消注释以创建记忆
 # agno_agent.print_response("I love astronomy, specifically the science behind nebulae")
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    # Setting up and running an eval for our agent
+    # 为我们的 agent 设置和运行评估
     evaluation = AccuracyEval(
         db=agno_assist.db,
         name="Calculator Evaluation",
@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
     # evaluation.run(print_results=False)
 
-    # Setup knowledge
+    # 设置知识库
     # agno_assist.knowledge.insert(name="Agno Docs", url="https://docs.agno.com/llms-full.txt", skip_if_exists=True)
 
-    # Simple run to generate and record a session
+    # 简单运行以生成和记录 session
     agent_os.serve(app="demo:app", reload=True)

@@ -1,12 +1,12 @@
 # Dynamic Headers Cookbook
 
-Examples for `mcp_demo/dynamic_headers` in AgentOS.
+AgentOS 中 `mcp_demo/dynamic_headers` 的示例。
 
-## Files
-- `client.py` — AgentOS with MCPTools using dynamic headers.
-- `server.py` — Simple MCP server that logs headers received from clients.
+## 文件
+- `client.py` — 使用动态标头的 MCPTools 的 AgentOS。
+- `server.py` — 记录从客户端接收的标头的简单 MCP 服务器。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

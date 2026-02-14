@@ -1,8 +1,8 @@
 """
-Agent With User Memory
+带用户记忆的 Agent
 ======================
 
-Demonstrates agent with user memory.
+演示带用户记忆的 agent。
 """
 
 from textwrap import dedent
@@ -16,17 +16,17 @@ from agno.os.interfaces.slack import Slack
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 agent_db = SqliteDb(session_table="agent_sessions", db_file="tmp/persistent_memory.db")
 
 memory_manager = MemoryManager(
     memory_capture_instructions="""\
-                    Collect User's name,
-                    Collect Information about user's passion and hobbies,
-                    Collect Information about the users likes and dislikes,
-                    Collect information about what the user is doing with their life right now
+                    收集用户的姓名，
+                    收集关于用户激情和爱好的信息，
+                    收集关于用户喜好和厌恶的信息，
+                    收集关于用户目前生活状态的信息
                 """,
     model=Claude(id="claude-3-5-sonnet-20241022"),
 )
@@ -44,16 +44,16 @@ personal_agent = Agent(
     memory_manager=memory_manager,
     update_memory_on_run=True,
     instructions=dedent("""
-        You are a personal AI friend in a slack chat, your purpose is to chat with the user about things and make them feel good.
-        First introduce yourself and ask for their name then, ask about themeselves, their hobbies, what they like to do and what they like to talk about.
-        Use DuckDuckGo search tool to find latest information about things in the conversations
-        You may sometimes recieve messages prepenned with group message when that is the message then reply to whole group instead of treating them as from a single user
+        你是 slack 聊天中用户的个人 AI 朋友，你的目的是与用户聊天并让他们感觉良好。
+        首先介绍自己并询问他们的名字，然后询问他们自己、他们的爱好、他们喜欢做什么以及他们喜欢谈论什么。
+        使用 DuckDuckGo 搜索工具查找对话中事物的最新信息
+        你有时可能会收到带有群组消息前缀的消息，当那是消息时，回复整个群组而不是将其视为来自单个用户
                         """),
     debug_mode=True,
 )
 
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     agents=[personal_agent],
     interfaces=[Slack(agent=personal_agent)],
@@ -62,13 +62,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """

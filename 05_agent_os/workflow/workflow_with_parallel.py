@@ -1,17 +1,17 @@
 """
-Workflow With Parallel
+带并行的工作流
 ======================
 
-Demonstrates workflow with parallel.
+演示带并行的工作流。
 """
 
 from agno.agent.agent import Agent
 from agno.db.sqlite import SqliteDb
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
-# Import the workflows
+# 导入工作流
 from agno.os import AgentOS
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.websearch import WebSearchTools
@@ -19,18 +19,18 @@ from agno.workflow.parallel import Parallel
 from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
-# Create agents
+# 创建 agent
 researcher = Agent(name="Researcher", tools=[HackerNewsTools(), WebSearchTools()])
 writer = Agent(name="Writer")
 reviewer = Agent(name="Reviewer")
 
-# Create individual steps
+# 创建各个步骤
 research_hn_step = Step(name="Research HackerNews", agent=researcher)
 research_web_step = Step(name="Research Web", agent=researcher)
 write_step = Step(name="Write Article", agent=writer)
 review_step = Step(name="Review Article", agent=reviewer)
 
-# Create workflow with direct execution
+# 创建带直接执行的工作流
 workflow = Workflow(
     name="content-creation-workflow",
     steps=[
@@ -44,7 +44,7 @@ workflow = Workflow(
     ),
 )
 
-# Initialize the AgentOS with the workflows
+# 使用工作流初始化 AgentOS
 agent_os = AgentOS(
     description="Example OS setup",
     workflows=[workflow],
@@ -52,7 +52,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

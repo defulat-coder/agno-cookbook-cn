@@ -1,19 +1,19 @@
 # Test Log: scheduler
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### basic_schedule.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Basic scheduled agent run.
+**描述：** 基本的定时 Agent 运行。
 
 ---
 
 ### schedule_management.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Schedule management via REST API.
+**描述：** 通过 REST API 进行调度管理。
 
 ---

@@ -1,11 +1,11 @@
 """
-Session Management with AgentOSClient
+使用 AgentOSClient 进行 Session 管理
 
-This example demonstrates how to manage sessions using AgentOSClient.
+此示例演示如何使用 AgentOSClient 管理 session。
 
-Prerequisites:
-1. Start an AgentOS server with an agent
-2. Run this script: python 04_session_management.py
+前置条件：
+1. 启动一个带有 agent 的 AgentOS 服务器
+2. 运行此脚本：python 04_session_management.py
 """
 
 import asyncio
@@ -13,14 +13,14 @@ import asyncio
 from agno.client import AgentOSClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def main():
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available agents
+    # 获取可用的 agent
     config = await client.aget_config()
     if not config.agents:
         print("No agents available")
@@ -33,7 +33,7 @@ async def main():
     print("Session Management")
     print("=" * 60)
 
-    # Create a session
+    # 创建 session
     print("\n1. Creating a session...")
     session = await client.create_session(
         agent_id=agent_id,
@@ -43,14 +43,14 @@ async def main():
     print(f"   Session ID: {session.session_id}")
     print(f"   Session Name: {session.session_name}")
 
-    # List sessions
+    # 列出 session
     print("\n2. Listing sessions...")
     sessions = await client.get_sessions(user_id=user_id)
     print(f"   Found {len(sessions.data)} sessions")
-    for sess in sessions.data[:5]:  # Show first 5
+    for sess in sessions.data[:5]:  # 显示前 5 个
         print(f"   - {sess.session_id}: {sess.session_name or 'Unnamed'}")
 
-    # Get session details
+    # 获取 session 详情
     print(f"\n3. Getting session {session.session_id}...")
     details = await client.get_session(session.session_id)
     print(f"   Agent ID: {details.agent_id}")
@@ -59,7 +59,7 @@ async def main():
         f"   Runs: {len(details.runs) if hasattr(details, 'runs') and details.runs else 0}"
     )
 
-    # Run some messages in the session
+    # 在 session 中运行一些消息
     print("\n4. Running messages in session...")
     await client.run_agent(
         agent_id=agent_id,
@@ -72,7 +72,7 @@ async def main():
         session_id=session.session_id,
     )
 
-    # Get session runs
+    # 获取 session 运行
     print("\n5. Getting session runs...")
     runs = await client.get_session_runs(session_id=session.session_id)
     print(f"   Found {len(runs)} runs in session")
@@ -84,7 +84,7 @@ async def main():
         )
         print(f"   - {run.run_id}: {content_preview}")
 
-    # Rename session
+    # 重命名 session
     print("\n6. Renaming session...")
     renamed = await client.rename_session(
         session_id=session.session_id,
@@ -92,14 +92,14 @@ async def main():
     )
     print(f"   New name: {renamed.session_name}")
 
-    # Delete session
+    # 删除 session
     print(f"\n7. Deleting session {session.session_id}...")
     await client.delete_session(session.session_id)
     print("   Session deleted")
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

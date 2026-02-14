@@ -1,4 +1,4 @@
-"""Example showing how to use AgentOS with Neon as our database provider"""
+"""展示如何在 AgentOS 中使用 Neon 作为数据库提供者的示例"""
 
 from os import getenv
 
@@ -10,14 +10,14 @@ from agno.os import AgentOS
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 NEON_DB_URL = getenv("NEON_DB_URL")
 
 db = PostgresDb(db_url=NEON_DB_URL)
 
-# Setup a basic agent and a basic team
+# 设置一个基础 agent 和一个基础团队
 agent = Agent(
     name="Basic Agent",
     id="basic-agent",
@@ -37,7 +37,7 @@ team = Team(
     debug_mode=True,
 )
 
-# Evals
+# 评估
 evaluation = AccuracyEval(
     db=db,
     name="Calculator Evaluation",
@@ -57,7 +57,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

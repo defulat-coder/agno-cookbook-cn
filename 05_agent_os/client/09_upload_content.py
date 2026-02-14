@@ -1,12 +1,11 @@
 """
-Uploading Content to Knowledge Base with AgentOSClient
+使用 AgentOSClient 上传内容到知识库
 
-This example demonstrates how to upload documents and content
-to the knowledge base using AgentOSClient.
+此示例演示如何使用 AgentOSClient 将文档和内容上传到知识库。
 
-Prerequisites:
-1. Start an AgentOS server with knowledge base configured
-2. Run this script: python 09_upload_content.py
+前置条件：
+1. 启动配置了知识库的 AgentOS 服务器
+2. 运行此脚本：python 09_upload_content.py
 """
 
 import asyncio
@@ -14,19 +13,19 @@ import asyncio
 from agno.client import AgentOSClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def upload_text_content():
-    """Upload text content to the knowledge base."""
+    """将文本内容上传到知识库。"""
     print("=" * 60)
     print("Uploading Text Content")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Text content to upload
+    # 要上传的文本内容
     content = """
     # Agno Framework Guide
     
@@ -49,7 +48,7 @@ async def upload_text_content():
     try:
         print("Uploading text content...")
 
-        # Upload the content using text_content parameter
+        # 使用 text_content 参数上传内容
         result = await client.upload_knowledge_content(
             text_content=content,
             name="Agno Guide",
@@ -60,7 +59,7 @@ async def upload_text_content():
         print(f"Content ID: {result.id}")
         print(f"Status: {result.status}")
 
-        # Check status
+        # 检查状态
         if result.id:
             print("\nChecking processing status...")
             status = await client.get_content_status(result.id)
@@ -74,7 +73,7 @@ async def upload_text_content():
 
 
 async def list_uploaded_content():
-    """List all uploaded content."""
+    """列出所有上传的内容。"""
     print("\n" + "=" * 60)
     print("Listing Uploaded Content")
     print("=" * 60)
@@ -96,7 +95,7 @@ async def list_uploaded_content():
 
 
 async def search_uploaded_content():
-    """Search the knowledge base after uploading."""
+    """上传后搜索知识库。"""
     print("\n" + "=" * 60)
     print("Searching Knowledge Base")
     print("=" * 60)
@@ -104,7 +103,7 @@ async def search_uploaded_content():
     client = AgentOSClient(base_url="http://localhost:7777")
 
     try:
-        # Search for content
+        # 搜索内容
         results = await client.search_knowledge(
             query="What is Agno?",
             limit=5,
@@ -123,7 +122,7 @@ async def search_uploaded_content():
 
 
 async def delete_content():
-    """Delete uploaded content."""
+    """删除上传的内容。"""
     print("\n" + "=" * 60)
     print("Deleting Content")
     print("=" * 60)
@@ -131,20 +130,20 @@ async def delete_content():
     client = AgentOSClient(base_url="http://localhost:7777")
 
     try:
-        # List content first
+        # 首先列出内容
         content = await client.list_content()
         if not content.data:
             print("No content to delete")
             return
 
-        # Delete the first item (for demo purposes)
+        # 删除第一项（用于演示目的）
         content_id = content.data[0].id
         print(f"Deleting content: {content_id}")
 
         await client.delete_content(content_id)
         print("Content deleted successfully")
 
-        # Verify deletion
+        # 验证删除
         content_after = await client.list_content()
         print(f"Remaining content items: {len(content_after.data)}")
 
@@ -158,12 +157,12 @@ async def main():
     await upload_text_content()
     await list_uploaded_content()
     await search_uploaded_content()
-    # Uncomment to test deletion:
+    # 取消注释以测试删除：
     # await delete_content()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

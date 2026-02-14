@@ -1,16 +1,16 @@
-"""Schedule management via REST API.
+"""通过 REST API 进行计划管理。
 
-Demonstrates creating, listing, updating, enabling/disabling,
-manually triggering, and deleting schedules.
+演示创建、列出、更新、启用/禁用、
+手动触发和删除计划。
 
-Prerequisites:
+前置条件：
     pip install agno[scheduler] httpx
 
-Usage:
-    # First, start the server:
+使用方法：
+    # 首先，启动服务器：
     python cookbook/05_agent_os/scheduler/basic_schedule.py
 
-    # Then run this script:
+    # 然后运行此脚本：
     python cookbook/05_agent_os/scheduler/schedule_management.py
 """
 
@@ -26,8 +26,8 @@ BASE_URL = "http://localhost:7777"
 def main():
     client = httpx.Client(base_url=BASE_URL, timeout=30)
 
-    # 1. Create a schedule
-    print("--- Creating schedule ---")
+    # 1. 创建计划
+    print("--- 创建计划 ---")
     resp = client.post(
         "/schedules",
         json={
@@ -47,45 +47,45 @@ def main():
     print(f"  Next run at: {schedule['next_run_at']}")
     print()
 
-    # 2. List all schedules
-    print("--- Listing schedules ---")
+    # 2. 列出所有计划
+    print("--- 列出计划 ---")
     resp = client.get("/schedules")
     schedules = resp.json()
     for s in schedules:
         print(f"  {s['name']} (enabled={s['enabled']}, next_run={s['next_run_at']})")
     print()
 
-    # 3. Update the schedule
-    print("--- Updating schedule ---")
+    # 3. 更新计划
+    print("--- 更新计划 ---")
     resp = client.patch(
         f"/schedules/{schedule_id}",
-        json={"description": "Runs every hour on the hour", "max_retries": 3},
+        json={"description": "每小时整点运行", "max_retries": 3},
     )
     print(f"  Updated description: {resp.json()['description']}")
     print()
 
-    # 4. Disable the schedule
-    print("--- Disabling schedule ---")
+    # 4. 禁用计划
+    print("--- 禁用计划 ---")
     resp = client.post(f"/schedules/{schedule_id}/disable")
     print(f"  Enabled: {resp.json()['enabled']}")
     print()
 
-    # 5. Re-enable the schedule
-    print("--- Enabling schedule ---")
+    # 5. 重新启用计划
+    print("--- 启用计划 ---")
     resp = client.post(f"/schedules/{schedule_id}/enable")
     print(f"  Enabled: {resp.json()['enabled']}")
     print(f"  Next run at: {resp.json()['next_run_at']}")
     print()
 
-    # 6. Manually trigger
-    print("--- Triggering schedule ---")
+    # 6. 手动触发
+    print("--- 触发计划 ---")
     resp = client.post(f"/schedules/{schedule_id}/trigger")
     print(f"  Trigger status: {resp.status_code}")
     print(f"  Run: {resp.json()}")
     print()
 
-    # 7. View run history
-    print("--- Run history ---")
+    # 7. 查看运行历史
+    print("--- 运行历史 ---")
     resp = client.get(f"/schedules/{schedule_id}/runs")
     runs = resp.json()
     print(f"  Total runs: {len(runs)}")
@@ -95,12 +95,12 @@ def main():
         )
     print()
 
-    # 8. Delete the schedule
-    print("--- Deleting schedule ---")
+    # 8. 删除计划
+    print("--- 删除计划 ---")
     resp = client.delete(f"/schedules/{schedule_id}")
     print(f"  Delete status: {resp.status_code}")
 
-    # Verify deletion
+    # 验证删除
     resp = client.get(f"/schedules/{schedule_id}")
     print(f"  Get after delete: {resp.status_code} (expected 404)")
 

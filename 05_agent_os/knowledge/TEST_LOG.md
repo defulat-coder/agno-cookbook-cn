@@ -1,27 +1,27 @@
 # Test Log: knowledge
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### agentos_excel_analyst.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agentos Excel Analyst.
+**描述：** AgentOS Excel 分析器。
 
 ---
 
 ### agentos_knowledge.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** AgentOS Knowledge (Sync And Async).
+**描述：** AgentOS 知识库（同步和异步）。
 
 ---
 
 ### agno_docs_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Agno Docs Agent.
+**描述：** Agno 文档 Agent。
 
 ---

@@ -1,59 +1,59 @@
 # Test Log: background_tasks
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### background_evals_example.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Per-Hook Background Control with AgentAsJudgeEval in AgentOS.
+**描述：** 示例：在 AgentOS 中使用 AgentAsJudgeEval 的每个 Hook 后台控制。
 
 ---
 
 ### background_hooks_decorator.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Using Background Post-Hooks in AgentOS.
+**描述：** 示例：在 AgentOS 中使用后台 Post-Hook。
 
 ---
 
 ### background_hooks_example.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Using Background Post-Hooks in AgentOS.
+**描述：** 示例：在 AgentOS 中使用后台 Post-Hook。
 
 ---
 
 ### background_hooks_team.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Background Hooks with Teams in AgentOS.
+**描述：** 示例：在 AgentOS 中与团队一起使用后台 Hook。
 
 ---
 
 ### background_hooks_workflow.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Background Hooks with Workflows in AgentOS.
+**描述：** 示例：在 AgentOS 中与工作流一起使用后台 Hook。
 
 ---
 
 ### background_output_evaluation.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Example: Background Output Evaluation with Agent-as-Judge.
+**描述：** 示例：使用 Agent-as-Judge 进行后台输出评估。
 
 ---
 
 ### evals_demo.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Simple example creating a session and using the AgentOS with a SessionApp to expose it.
+**描述：** 创建 Session 并使用 SessionApp 的 AgentOS 来公开它的简单示例。
 
 ---

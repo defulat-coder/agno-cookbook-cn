@@ -1,15 +1,15 @@
 # Mcp Demo Cookbook
 
-Examples for `mcp_demo` in AgentOS.
+AgentOS 中 `mcp_demo` 的示例。
 
-## Files
-- `enable_mcp_example.py` — Example AgentOS app with MCP enabled.
-- `mcp_tools_advanced_example.py` — Example AgentOS app where the agent has MCPTools.
-- `mcp_tools_example.py` — Example AgentOS app where the agent has MCPTools.
-- `mcp_tools_existing_lifespan.py` — Example AgentOS app where the agent has MCPTools.
-- `test_client.py` — First run the AgentOS with enable_mcp=True.
+## 文件
+- `enable_mcp_example.py` — 启用 MCP 的 AgentOS 应用示例。
+- `mcp_tools_advanced_example.py` — Agent 具有 MCPTools 的 AgentOS 应用示例。
+- `mcp_tools_example.py` — Agent 具有 MCPTools 的 AgentOS 应用示例。
+- `mcp_tools_existing_lifespan.py` — Agent 具有 MCPTools 的 AgentOS 应用示例。
+- `test_client.py` — 首先使用 enable_mcp=True 运行 AgentOS。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

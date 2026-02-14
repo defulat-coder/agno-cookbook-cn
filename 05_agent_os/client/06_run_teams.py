@@ -1,12 +1,12 @@
 """
-Running Teams with AgentOSClient
+使用 AgentOSClient 运行团队
 
-This example demonstrates how to execute team runs using
-AgentOSClient, including both streaming and non-streaming responses.
+此示例演示如何使用 AgentOSClient 执行团队运行，
+包括流式和非流式响应。
 
-Prerequisites:
-1. Start an AgentOS server with a team configured
-2. Run this script: python 06_run_teams.py
+前置条件：
+1. 启动一个配置了团队的 AgentOS 服务器
+2. 运行此脚本：python 06_run_teams.py
 """
 
 import asyncio
@@ -14,19 +14,19 @@ import asyncio
 from agno.client import AgentOSClient
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
 
 async def run_team_non_streaming():
-    """Execute a non-streaming team run."""
+    """执行非流式团队运行。"""
     print("=" * 60)
     print("Non-Streaming Team Run")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available teams
+    # 获取可用的团队
     config = await client.aget_config()
     if not config.teams:
         print("No teams available")
@@ -35,7 +35,7 @@ async def run_team_non_streaming():
     team_id = config.teams[0].id
     print(f"Running team: {team_id}")
 
-    # Execute the team
+    # 执行团队
     result = await client.run_team(
         team_id=team_id,
         message="What is the capital of France and what is 15 * 7?",
@@ -46,14 +46,14 @@ async def run_team_non_streaming():
 
 
 async def run_team_streaming():
-    """Execute a streaming team run."""
+    """执行流式团队运行。"""
     print("\n" + "=" * 60)
     print("Streaming Team Run")
     print("=" * 60)
 
     client = AgentOSClient(base_url="http://localhost:7777")
 
-    # Get available teams
+    # 获取可用的团队
     config = await client.aget_config()
     if not config.teams:
         print("No teams available")
@@ -65,16 +65,16 @@ async def run_team_streaming():
 
     from agno.run.team import RunCompletedEvent, RunContentEvent
 
-    # Stream the response
+    # 流式响应
     async for event in client.run_team_stream(
         team_id=team_id,
         message="Tell me about Python programming in 2 sentences.",
     ):
-        # Handle different event types
+        # 处理不同的事件类型
         if isinstance(event, RunContentEvent):
             print(event.content, end="", flush=True)
         elif isinstance(event, RunCompletedEvent):
-            # Run completed - could access event.run_id here if needed
+            # 运行完成 - 如果需要，可以在这里访问 event.run_id
             pass
 
     print("\n")
@@ -86,7 +86,7 @@ async def main():
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":

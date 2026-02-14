@@ -1,12 +1,12 @@
 # Schemas Cookbook
 
-Examples for `schemas` in AgentOS.
+AgentOS 中 `schemas` 的示例。
 
-## Files
-- `agent_schemas.py` — Agent Input And Output Schemas.
-- `team_schemas.py` — Team Input And Output Schemas.
+## 文件
+- `agent_schemas.py` — Agent 输入和输出 Schema。
+- `team_schemas.py` — 团队输入和输出 Schema。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

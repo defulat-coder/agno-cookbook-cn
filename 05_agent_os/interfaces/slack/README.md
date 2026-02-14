@@ -1,19 +1,19 @@
 # Slack Cookbook
 
-Examples for `interfaces/slack` in AgentOS.
+AgentOS 中 `interfaces/slack` 的示例。
 
-## Files
-- `agent_with_user_memory.py` — Agent With User Memory.
-- `basic.py` — Basic.
-- `basic_workflow.py` — Basic Workflow.
-- `channel_summarizer.py` — Channel Summarizer.
-- `file_analyst.py` — File Analyst.
-- `multiple_instances.py` — Multiple Instances.
-- `reasoning_agent.py` — Reasoning Agent.
-- `research_assistant.py` — Research Assistant.
-- `support_team.py` — Support Team.
+## 文件
+- `agent_with_user_memory.py` — 带有用户记忆的 Agent。
+- `basic.py` — 基础示例。
+- `basic_workflow.py` — 基本工作流。
+- `channel_summarizer.py` — 频道摘要器。
+- `file_analyst.py` — 文件分析器。
+- `multiple_instances.py` — 多实例。
+- `reasoning_agent.py` — 推理 Agent。
+- `research_assistant.py` — 研究助手。
+- `support_team.py` — 支持团队。
 
-## Prerequisites
-- Load environment variables with `direnv allow` (requires `.envrc`).
-- Run examples with `.venvs/demo/bin/python <path-to-file>.py`.
-- Some examples require local services (for example Postgres, Redis, Slack, or MCP servers).
+## 前置条件
+- 使用 `direnv allow` 加载环境变量（需要 `.envrc` 文件）。
+- 使用 `.venvs/demo/bin/python <path-to-file>.py` 运行示例。
+- 某些示例需要本地服务（例如 Postgres、Redis、Slack 或 MCP 服务器）。

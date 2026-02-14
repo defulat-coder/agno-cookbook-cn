@@ -1,18 +1,18 @@
 """
-Example for AgentOS with Shopify tools.
+AgentOS 与 Shopify 工具的示例。
 
-Prerequisites:
-- Set the following environment variables:
-    - SHOPIFY_SHOP_NAME -> Your Shopify shop name, e.g. "my-store" from my-store.myshopify.com
-    - SHOPIFY_ACCESS_TOKEN -> Your Shopify access token
+前置条件：
+- 设置以下环境变量：
+    - SHOPIFY_SHOP_NAME -> 你的 Shopify 商店名称，例如 "my-store" 来自 my-store.myshopify.com
+    - SHOPIFY_ACCESS_TOKEN -> 你的 Shopify 访问令牌
 
-You can get your Shopify access token from your Shopify Admin > Settings > Apps and sales channels > Develop apps
+你可以从 Shopify Admin > Settings > Apps and sales channels > Develop apps 获取你的 Shopify 访问令牌
 
-Required scopes:
-- read_orders (for order and sales data)
-- read_products (for product information)
-- read_customers (for customer insights)
-- read_analytics (for analytics data)
+所需范围：
+- read_orders（用于订单和销售数据）
+- read_products（用于产品信息）
+- read_customers（用于客户洞察）
+- read_analytics（用于分析数据）
 """
 
 from agno.agent import Agent
@@ -23,10 +23,10 @@ from agno.os.config import AgentOSConfig, ChatConfig
 from agno.tools.shopify import ShopifyTools
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 
-# Setup the database
+# 设置数据库
 db = PostgresDb(id="basic-db", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 sales_agent = Agent(
@@ -35,21 +35,21 @@ sales_agent = Agent(
     db=db,
     tools=[ShopifyTools()],
     instructions=[
-        "You are a sales analyst for an e-commerce store using Shopify.",
-        "Help the user understand their sales performance, product trends, and customer behavior.",
-        "When analyzing data:",
-        "1. Start by getting the relevant data using the available tools",
-        "2. Summarize key insights in a clear, actionable format",
-        "3. Highlight notable patterns or concerns",
-        "4. Suggest next steps when appropriate",
-        "Always present numbers clearly and use comparisons to add context.",
-        "If you need to get information about the store, like currency, call the `get_shop_info` tool.",
+        "你是一个使用 Shopify 的电子商务商店的销售分析师。",
+        "帮助用户了解他们的销售业绩、产品趋势和客户行为。",
+        "分析数据时：",
+        "1. 首先使用可用工具获取相关数据",
+        "2. 以清晰、可操作的格式总结关键见解",
+        "3. 突出显示值得注意的模式或问题",
+        "4. 在适当时建议后续步骤",
+        "始终清晰地呈现数字并使用比较来增加上下文。",
+        "如果需要获取有关商店的信息，如货币，调用 `get_shop_info` 工具。",
     ],
     markdown=True,
     add_datetime_to_context=True,
 )
 
-# Setup our AgentOS app
+# 设置我们的 AgentOS 应用
 agent_os = AgentOS(
     description="Example app for Shopify agent",
     agents=[sales_agent],
@@ -69,13 +69,13 @@ app = agent_os.get_app()
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """Run your AgentOS.
+    """运行你的 AgentOS。
 
-    You can see the configuration and available apps at:
+    你可以在以下地址查看配置和可用应用：
     http://localhost:7777/config
 
     """
