@@ -90,6 +90,8 @@ description: Translate Python project files (comments, docstrings, instructions,
 【重要】继续翻译直到所有文件完成，不要中途停止总结。即使文件很多也要全部处理完。
 ```
 
+**关键实践**：Python Task 通常需要 2-3 轮 resume 才能完成所有文件。第一轮可能只完成 25-35%，这是正常的。
+
 **Markdown 文件 Task：**
 ```
 翻译 <目录路径> 目录下所有 Markdown 文件的英文内容为中文。
@@ -100,6 +102,8 @@ description: Translate Python project files (comments, docstrings, instructions,
 
 使用 Write 直接写入翻译后内容。完成后报告翻译的文件数。
 ```
+
+**关键实践**：Markdown Task 通常能一次性完成所有文件（50+ 个也可以），因为 Write 效率高且 md 文件相对简单。
 
 ## 翻译原则
 
@@ -146,46 +150,62 @@ description: Translate Python project files (comments, docstrings, instructions,
 
 ### Resume 策略（大型任务核心）
 
-**关键经验：Task 会自动停止总结，需要主动推进**
+**关键经验：Python Task 会自动停止总结，需要主动推进**
 
-1. **首次启动**：2 个 Task（py + md）
-2. **主动检查进度**：Task 返回后，立即查看翻译了多少文件（通常会在 40-50% 时停止）
-3. **立即 Resume 继续**：不要等待，直接用 `resume` 参数继续推进
-4. **明确指令**：Resume 时明确告诉 Task"继续完成剩余所有文件"
-5. **重复 2-4 步**：通常需要 2-4 轮 resume 才能完成 100+ 文件
+1. **首次启动**：2 个 Task（py + md）并行
+2. **检查进度**：Task 返回后立即查看进度
+   - **Markdown Task**：通常一次完成 100%（50+ 文件也可以）✅
+   - **Python Task**：第一轮通常只完成 25-35%，需要 resume ⚠️
+3. **立即 Resume Python Task**：不要等待，直接用 `resume` 参数继续推进
+4. **明确指令**：Resume 时明确告诉 Task"继续翻译所有剩余文件"
+5. **重复 2-4 步**：Python Task 通常需要 2-3 轮 resume 才能完成
 
 **Resume 提示词模板：**
 ```
-继续翻译 <目录> 剩余的所有文件。
+继续翻译 <目录> 所有剩余的 Python 文件。
 
-已完成：约XX个文件
-剩余：约YY个文件
+已完成：<X>/<总数> 文件（<百分比>%）
+剩余：约 <Y> 个文件
 
-【关键】继续处理所有剩余文件，不要停止。即使文件很多也要持续翻译直到全部完成。
+剩余目录：
+- <子目录1>（<文件数>个）
+- <子目录2>（<文件数>个）
+
+【关键】继续翻译所有剩余的<Y>个文件，不要中途停止。全部完成后再报告。
+
+使用 StrReplace 逐段翻译。保持高效批量处理。
 ```
 
-示例流程：
+**实战示例（04_workflows 翻译）：**
 ```python
-# 第 1 轮：启动
-task_1 = Task(prompt="翻译所有Python文件...", subagent_type="generalPurpose")
-# 返回：翻译了 45/118 个文件（38%）
+# 第 1 轮：并行启动 2 个 Task
+task_py = Task(prompt="翻译所有 Python 文件...", subagent_type="generalPurpose")
+task_md = Task(prompt="翻译所有 Markdown 文件...", subagent_type="generalPurpose")
 
-# 第 2 轮：Resume 继续
-task_2 = Task(
-    prompt="继续翻译剩余73个文件，不要停止...", 
-    resume=task_1.agent_id,
+# Markdown Task 返回：52/52 文件完成（100%）✅
+# Python Task 返回：22/79 文件完成（28%）⚠️
+
+# 第 2 轮：仅 Resume Python Task
+task_py_2 = Task(
+    prompt="继续翻译剩余的所有 Python 文件（已完成 22/79，剩余 57 个）...", 
+    resume=task_py.agent_id,
     subagent_type="generalPurpose"
 )
-# 返回：又翻译了 30 个，累计 75/118（64%）
+# 返回：28/79 文件完成（35%）⚠️
 
 # 第 3 轮：再次 Resume
-task_3 = Task(
-    prompt="继续完成最后43个文件...", 
-    resume=task_1.agent_id,
+task_py_3 = Task(
+    prompt="继续翻译所有剩余 Python 文件（已完成 28/79，剩余 51 个）...", 
+    resume=task_py.agent_id,
     subagent_type="generalPurpose"
 )
-# 返回：全部完成 118/118（100%）
+# 返回：79/79 文件全部完成（100%）✅
 ```
+
+**关键发现**：
+- ✅ Markdown Task 一次完成，无需 resume
+- ⚠️ Python Task 需要 2-3 轮，第一轮约 25-35%
+- 📊 总耗时：3 轮 Task 调用（2 次 resume）
 
 ### 翻译优先级（大型目录）
 在 Python Task 中按优先级翻译：
@@ -195,28 +215,35 @@ task_3 = Task(
 
 ### 实战经验总结
 
-**核心发现：Task 会在 30-50% 进度时自动停止并总结**
+**核心发现：Python Task 会在 25-35% 进度时停止，Markdown Task 通常一次完成**
 
-1. ✅ **预期 Task 会停止**：不要期待一次完成，100+ 文件需要 2-4 轮
-2. ✅ **立即 Resume**：Task 返回后立即查看进度，马上 resume 继续
-3. ✅ **明确"不要停止"指令**：在 prompt 中明确要求"继续直到全部完成"
-4. ✅ **先 Glob 两次**：并行查找 py 和 md，避免串行等待
-5. ✅ **Markdown 用 Write**：比 StrReplace 快 3-5 倍
-6. ✅ **Python 用 StrReplace**：保持格式和结构完整
-7. ✅ **2 Task + Resume**：比 4 Task 并行更可控、更可靠
-8. ✅ **分离 Python 和 Markdown**：两种文件处理方式不同，分离效率更高
-9. ❌ **避免 4 个并行 Task**：大量文件时每个 Task 都太重，容易中断
-10. ❌ **避免过细拆分**：10 个小 Task 不如 2 个大 Task + resume
-11. ❌ **避免期待一次完成**：100+ 文件必然需要多轮，这是正常的
+1. ✅ **预期 Python Task 会停止**：不要期待一次完成，50+ Python 文件需要 2-3 轮 resume
+2. ✅ **Markdown Task 无需 resume**：50+ md 文件通常一次完成（Write 效率高）
+3. ✅ **立即 Resume Python Task**：第一轮返回后立即查看进度，马上 resume 继续
+4. ✅ **Resume 提示词要具体**：明确说明"已完成 X/总数，剩余 Y 个"，并列出剩余目录
+5. ✅ **先 Glob 两次**：并行查找 py 和 md，避免串行等待
+6. ✅ **Markdown 用 Write**：比 StrReplace 快 3-5 倍
+7. ✅ **Python 用 StrReplace**：保持格式和结构完整
+8. ✅ **2 Task + Resume**：比 4 Task 并行更可控、更可靠
+9. ✅ **分离 Python 和 Markdown**：两种文件处理方式不同，分离效率更高
+10. ❌ **避免 4 个并行 Task**：大量文件时每个 Task 都太重，容易中断
+11. ❌ **避免过细拆分**：10 个小 Task 不如 2 个大 Task + resume
+12. ❌ **避免期待 Python Task 一次完成**：50+ 文件必然需要 2-3 轮，这是正常的
 
-**为什么 Task 会停止？**
-- Token 消耗积累（每个文件消耗 500-2000 tokens）
+**为什么 Python Task 会停止？**
+- Python 文件翻译复杂度高（需要 StrReplace 逐段替换）
+- Token 消耗积累（每个 Python 文件消耗 1000-3000 tokens）
 - 上下文过长（已处理文件的历史记录）
 - Task 内置的"合理停止点"判断
 
+**为什么 Markdown Task 不需要 resume？**
+- Markdown 文件翻译简单（Write 整体写入）
+- 处理速度快（每个文件 500-1500 tokens）
+- 文件数量虽多但总 token 消耗低
+
 **如何应对？**
-- 接受这是正常行为，规划 2-4 轮 resume
-- 每轮 resume 时明确剩余文件数，给出清晰指令
+- 接受 Python Task 需要 2-3 轮 resume，这是正常的
+- 每轮 resume 时明确剩余文件数和剩余目录，给出清晰指令
 - 使用同一个 agent_id 持续 resume，保持上下文
 
 ### Token 管理与预期
@@ -231,20 +258,27 @@ task_3 = Task(
 - 每个 Markdown 文件平均消耗：1000-3000 tokens
 - Task 通常在累计消耗 30-40k tokens 后自动停止
 
-**示例：03_teams 翻译实录**
-- 第 1 轮：30 个文件（25%）→ 停止总结
-- 第 2 轮 resume：15 个文件（累计 38%）→ 停止总结
-- 第 3 轮 resume：未启动，直接提交已完成部分
+**实战案例对比：**
+
+| 目录 | Python 文件数 | Markdown 文件数 | Python 轮数 | Markdown 轮数 | 总耗时 |
+|------|--------------|----------------|------------|--------------|--------|
+| 03_teams | 118 | 48 | 2 轮（38% 停止）| 1 轮 | 3 次 Task |
+| 04_workflows | 79 | 52 | 3 轮（28%→35%→100%）| 1 轮 | 4 次 Task |
 
 **经验教训**：
-- 不要纠结完成度百分比，40% 停止是正常的
-- 立即 resume 比等待更高效
-- 3-4 轮 resume 可以完成任何大小的目录
+- Python Task 第一轮完成度：25-38%（视文件复杂度）
+- Markdown Task 第一轮完成度：100%（无需 resume）
+- Python 文件数 < 50：通常 2 轮
+- Python 文件数 50-100：通常 2-3 轮
+- Python 文件数 > 100：通常 3-4 轮
 
 ## 常见问题
 
-**Q: Task 只完成了 40%，是失败了吗？**
-A: 不是。这是正常的停止点。立即 resume 继续即可。
+**Q: Python Task 只完成了 28%，是失败了吗？**
+A: 不是。这是正常的停止点。立即 resume 继续即可。通常需要 2-3 轮才能完成所有 Python 文件。
+
+**Q: Markdown Task 为什么能一次完成 50+ 文件？**
+A: 因为使用 Write 工具整体写入，效率极高。且 md 文件相对简单，token 消耗低。
 
 **Q: 需要手动检查每个文件的翻译质量吗？**
 A: 不需要。翻译规则清晰，Task 会保持一致性。最后抽查几个文件即可。
@@ -252,5 +286,5 @@ A: 不需要。翻译规则清晰，Task 会保持一致性。最后抽查几个
 **Q: 多次 resume 会不会重复翻译？**
 A: 不会。Task 保持上下文，知道哪些已完成，哪些未完成。
 
-**Q: Markdown 用 Write 会不会丢失格式？**
-A: 不会。只要翻译时保持原有 markdown 语法即可。实测比 StrReplace 效率高 3 倍。
+**Q: 什么时候应该放弃 resume，重新启动新 Task？**
+A: 如果连续 3 轮 resume 进度都很慢（< 10%），可以考虑重新启动。但通常 2-3 轮就能完成。
