@@ -1,17 +1,17 @@
 """
-No-DB Graceful Handling Test
+无数据库优雅处理测试
 ============================
-Tests that learning gracefully handles missing database.
+测试学习优雅地处理缺失的数据库。
 
-Users might accidentally enable learning without providing a database.
-The system should:
-1. Not crash
-2. Log a warning (ideally)
-3. Still respond to the user
-4. Just skip the learning/persistence part
+用户可能不小心在没有提供数据库的情况下启用学习。
+系统应该：
+1. 不崩溃
+2. 记录警告（理想情况下）
+3. 仍然响应用户
+4. 只是跳过学习/持久化部分
 
-This is critical for user experience - a missing DB should degrade
-gracefully, not explode.
+这对用户体验至关重要 - 缺失的数据库应该优雅降级，
+而不是爆炸。
 """
 
 from agno.agent import Agent
@@ -19,10 +19,10 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent - Intentionally NO database
+# 创建 Agent - 故意没有数据库
 # ---------------------------------------------------------------------------
 
-# Note: No db parameter - this is the edge case we're testing
+# 注意：没有 db 参数 - 这是我们正在测试的边缘情况
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     learning=LearningMachine(
@@ -34,26 +34,26 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "no_db_test@example.com"
 
     print("\n" + "=" * 60)
-    print("TEST: Learning enabled WITHOUT database")
+    print("测试：在没有数据库的情况下启用学习")
     print("=" * 60 + "\n")
 
-    # Check that LearningMachine exists but has no DB
+    # 检查 LearningMachine 存在但没有数据库
     lm = agent.learning_machine
-    print(f"LearningMachine exists: {lm is not None}")
+    print(f"LearningMachine 存在: {lm is not None}")
     if lm:
-        print(f"DB is None: {lm.db is None}")
-        print(f"UserProfileStore exists: {lm.user_profile_store is not None}")
+        print(f"DB 为 None: {lm.db is None}")
+        print(f"UserProfileStore 存在: {lm.user_profile_store is not None}")
 
-    # This should NOT crash - it should respond normally
+    # 这不应该崩溃 - 它应该正常响应
     print("\n" + "=" * 60)
-    print("SESSION 1: Should respond without crashing")
+    print("SESSION 1: 应该在不崩溃的情况下响应")
     print("=" * 60 + "\n")
 
     try:
@@ -63,22 +63,22 @@ if __name__ == "__main__":
             session_id="no_db_session_1",
             stream=True,
         )
-        print("\n[OK] Agent responded without crashing")
+        print("\n[正常] Agent 在不崩溃的情况下响应了")
     except Exception as e:
-        print(f"\n[FAILED] Agent crashed: {e}")
+        print(f"\n[失败] Agent 崩溃了: {e}")
         exit(1)
 
-    # Try to print profile - should handle gracefully
+    # 尝试打印画像 - 应该优雅地处理
     print("\n" + "=" * 60)
-    print("PROFILE CHECK: Should show empty (no DB to persist)")
+    print("画像检查：应该显示为空（没有数据库来持久化）")
     print("=" * 60 + "\n")
 
     if lm and lm.user_profile_store:
         lm.user_profile_store.print(user_id=user_id)
 
-    # Second message - should also not crash
+    # 第二条消息 - 也不应该崩溃
     print("\n" + "=" * 60)
-    print("SESSION 2: Second message should also work")
+    print("SESSION 2: 第二条消息也应该工作")
     print("=" * 60 + "\n")
 
     try:
@@ -88,12 +88,12 @@ if __name__ == "__main__":
             session_id="no_db_session_2",
             stream=True,
         )
-        print("\n[OK] Second message worked")
+        print("\n[正常] 第二条消息工作了")
     except Exception as e:
-        print(f"\n[FAILED] Second message crashed: {e}")
+        print(f"\n[失败] 第二条消息崩溃了: {e}")
         exit(1)
 
     print("\n" + "=" * 60)
-    print("NO-DB GRACEFUL TEST COMPLETE")
-    print("Expected: Agent works, but profile not persisted")
+    print("无数据库优雅测试完成")
+    print("预期：Agent 工作，但画像未持久化")
     print("=" * 60)

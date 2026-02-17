@@ -1,8 +1,8 @@
 # 03_session_context
 
-Deep-dive examples for session context tracking.
+会话上下文跟踪的深入示例。
 
-## Files
+## 文件
 
-- `01_summary_mode.py`: Running session summaries across turns.
-- `02_planning_mode.py`: Goal, plan, and progress tracking across turns.
+- `01_summary_mode.py`：跨轮次的运行会话摘要。
+- `02_planning_mode.py`：跨轮次的目标、计划和进度跟踪。

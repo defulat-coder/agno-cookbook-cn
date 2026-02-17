@@ -1,16 +1,16 @@
 """
-Entity Memory: Facts and Events (Deep Dive)
+实体记忆：事实和事件（深入探讨）
 ============================================
-Semantic (facts) vs episodic (events) memory for entities.
+实体的语义（事实）记忆 vs 情景（事件）记忆。
 
-Entity Memory stores knowledge about external entities:
-- Facts: Timeless truths ("Acme uses PostgreSQL")
-- Events: Time-bound occurrences ("Acme raised $30M on Jan 15")
+实体记忆存储关于外部实体的知识：
+- 事实：无时间限制的真理（"Acme 使用 PostgreSQL"）
+- 事件：有时间限制的发生（"Acme 在 1 月 15 日筹集了 3000 万美元"）
 
-AGENTIC mode gives the agent tools to create/update entities.
+AGENTIC 模式为 Agent 提供创建/更新实体的工具。
 
-Compare with: 04_always_extraction.py for automatic extraction.
-See also: 01_basics/5a_entity_memory_always.py for the basics.
+对比：04_always_extraction.py 使用自动提取。
+另见：01_basics/5a_entity_memory_always.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -19,7 +19,7 @@ from agno.learn import EntityMemoryConfig, LearningMachine, LearningMode
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -41,7 +41,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
@@ -50,9 +50,9 @@ if __name__ == "__main__":
     user_id = "research@example.com"
     session_id = "company_research"
 
-    # Share facts and events
+    # 分享事实和事件
     print("\n" + "=" * 60)
-    print("MESSAGE 1: Share mixed facts and events")
+    print("MESSAGE 1: 分享混合的事实和事件")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -66,14 +66,14 @@ if __name__ == "__main__":
         session_id=session_id,
         stream=True,
     )
-    print("\n--- Entities ---")
+    print("\n--- 实体 ---")
     pprint(
         agent.learning_machine.entity_memory_store.search(query="datapipe", limit=10)
     )
 
-    # Query the entity
+    # 查询实体
     print("\n" + "=" * 60)
-    print("MESSAGE 2: Query the entity")
+    print("MESSAGE 2: 查询实体")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -83,9 +83,9 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Add more events
+    # 添加更多事件
     print("\n" + "=" * 60)
-    print("MESSAGE 3: Add more events")
+    print("MESSAGE 3: 添加更多事件")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         session_id="session_3",
         stream=True,
     )
-    print("\n--- Updated Entities ---")
+    print("\n--- 更新的实体 ---")
     pprint(
         agent.learning_machine.entity_memory_store.search(query="datapipe", limit=10)
     )

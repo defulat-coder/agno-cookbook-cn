@@ -1,14 +1,14 @@
 """
-Custom Store: Minimal Example
+自定义存储：最小示例
 =============================
-Shows how to create a custom learning store by implementing the LearningStore protocol.
+展示如何通过实现 LearningStore 协议创建自定义学习存储。
 
-This minimal example uses in-memory storage and demonstrates:
-- The LearningStore protocol methods you must implement
-- How to pass custom context (like project_id) via the store's constructor
-- How to plug the custom store into LearningMachine
+此最小示例使用内存存储并演示：
+- 必须实现的 LearningStore 协议方法
+- 如何通过存储的构造函数传递自定义上下文（如 project_id）
+- 如何将自定义存储插入 LearningMachine
 
-For a database-backed example, see 02_custom_store_with_db.py
+有关数据库支持的示例，请参见 02_custom_store_with_db.py
 """
 
 from dataclasses import dataclass, field
@@ -20,50 +20,50 @@ from agno.learn.stores.protocol import LearningStore
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Custom Store Implementation
+# 自定义存储实现
 # ---------------------------------------------------------------------------
 
-# In-memory storage (would be a database in production)
+# 内存存储（生产环境中应该是数据库）
 _project_data: Dict[str, Dict[str, Any]] = {}
 
 
 @dataclass
 class ProjectContextStore(LearningStore):
-    """Custom store for project-specific context.
+    """项目特定上下文的自定义存储。
 
-    Stores information about projects the user is working on.
-    Demonstrates how to create a custom learning store.
+    存储用户正在处理的项目信息。
+    演示如何创建自定义学习存储。
 
-    Note: The `context` field is a pattern choice for this example, not a
-    protocol requirement. You can also use typed config classes (like the
-    built-in stores) or direct fields for specific parameters.
+    注意：`context` 字段是此示例的模式选择，不是
+    协议要求。你也可以使用类型化的配置类（如内置存储）
+    或特定参数的直接字段。
     """
 
-    # Custom context passed at construction time (pattern choice, not required)
+    # 在构造时传递的自定义上下文（模式选择，非必需）
     context: Dict[str, Any] = field(default_factory=dict)
 
-    # Internal state
+    # 内部状态
     _updated: bool = field(default=False, init=False)
 
     # =========================================================================
-    # LearningStore Protocol Implementation (Required)
+    # LearningStore 协议实现（必需）
     # =========================================================================
 
     @property
     def learning_type(self) -> str:
-        """Unique identifier for this learning type."""
+        """此学习类型的唯一标识符。"""
         return "project_context"
 
     @property
     def schema(self) -> Any:
-        """Schema class used for this learning type."""
-        # For simple stores, can just return dict or a dataclass
+        """此学习类型使用的 schema 类。"""
+        # 对于简单存储，可以只返回 dict 或 dataclass
         return dict
 
     def recall(self, **kwargs) -> Optional[Dict[str, Any]]:
-        """Retrieve project context from storage.
+        """从存储中检索项目上下文。
 
-        Uses project_id from self.context (set at construction).
+        使用 self.context 中的 project_id（在构造时设置）。
         """
         project_id = self.context.get("project_id")
         if not project_id:
@@ -71,27 +71,27 @@ class ProjectContextStore(LearningStore):
         return _project_data.get(project_id)
 
     async def arecall(self, **kwargs) -> Optional[Dict[str, Any]]:
-        """Async version of recall."""
+        """recall 的异步版本。"""
         return self.recall(**kwargs)
 
     def process(self, messages: List[Any], **kwargs) -> None:
-        """Extract and save project context from messages.
+        """从消息中提取并保存项目上下文。
 
-        In a real implementation, you might use a model to extract
-        relevant information from the conversation.
+        在真实实现中，你可能会使用模型从对话中提取
+        相关信息。
         """
         project_id = self.context.get("project_id")
         if not project_id or not messages:
             return
 
-        # Simple extraction: look for project-related keywords
-        # In production, use a model for intelligent extraction
+        # 简单提取：查找项目相关关键词
+        # 在生产环境中，使用模型进行智能提取
         current = _project_data.get(project_id, {})
 
         for msg in messages:
             content = getattr(msg, "content", str(msg))
             if isinstance(content, str):
-                # Simple keyword extraction (demo only)
+                # 简单的关键词提取（仅演示）
                 if "goal" in content.lower() or "objective" in content.lower():
                     current["last_discussed_topic"] = "goals"
                     self._updated = True
@@ -103,14 +103,14 @@ class ProjectContextStore(LearningStore):
             _project_data[project_id] = current
 
     async def aprocess(self, messages: List[Any], **kwargs) -> None:
-        """Async version of process."""
+        """process 的异步版本。"""
         self.process(messages, **kwargs)
 
     def build_context(self, data: Any) -> str:
-        """Build context string for agent prompts.
+        """为 Agent prompt 构建上下文字符串。
 
-        Formats the recalled data into XML that gets injected
-        into the agent's system prompt.
+        将召回的数据格式化为 XML，注入到
+        Agent 的系统 prompt 中。
         """
         if not data:
             project_id = self.context.get("project_id", "unknown")
@@ -126,28 +126,28 @@ class ProjectContextStore(LearningStore):
         return "\n".join(lines)
 
     def get_tools(self, **kwargs) -> List[Callable]:
-        """Get tools to expose to the agent.
+        """获取暴露给 Agent 的工具。
 
-        Return empty list if no tools needed, or return
-        callable functions the agent can use.
+        如果不需要工具则返回空列表，或返回
+        Agent 可以使用的可调用函数。
         """
         return []
 
     async def aget_tools(self, **kwargs) -> List[Callable]:
-        """Async version of get_tools."""
+        """get_tools 的异步版本。"""
         return self.get_tools(**kwargs)
 
     @property
     def was_updated(self) -> bool:
-        """Check if store was updated in last operation."""
+        """检查存储在上次操作中是否已更新。"""
         return self._updated
 
     # =========================================================================
-    # Custom Methods (Optional)
+    # 自定义方法（可选）
     # =========================================================================
 
     def set_context(self, key: str, value: Any) -> None:
-        """Manually set project context."""
+        """手动设置项目上下文。"""
         project_id = self.context.get("project_id")
         if not project_id:
             return
@@ -159,7 +159,7 @@ class ProjectContextStore(LearningStore):
         self._updated = True
 
     def print(self) -> None:
-        """Print current project context."""
+        """打印当前项目上下文。"""
         project_id = self.context.get("project_id", "unknown")
         data = _project_data.get(project_id, {})
         print(f"\n--- Project Context: {project_id} ---")
@@ -172,10 +172,10 @@ class ProjectContextStore(LearningStore):
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
-# Create the custom store with project context
+# 使用项目上下文创建自定义存储
 project_store = ProjectContextStore(
     context={
         "project_id": "learning-machine",
@@ -183,7 +183,7 @@ project_store = ProjectContextStore(
     },
 )
 
-# Plug into LearningMachine via custom_stores
+# 通过 custom_stores 插入 LearningMachine
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     learning=LearningMachine(
@@ -196,21 +196,21 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "developer@example.com"
 
-    # Manually set some project context
+    # 手动设置一些项目上下文
     project_store.set_context("current_sprint", "Sprint 23")
     project_store.set_context("tech_stack", "Python, PostgreSQL")
 
     print("\n" + "=" * 60)
-    print("Custom Store Demo: Project Context")
+    print("自定义存储演示：项目上下文")
     print("=" * 60 + "\n")
 
-    # The project context will be in the agent's system prompt
+    # 项目上下文将出现在 Agent 的系统 prompt 中
     agent.print_response(
         "What project am I working on?",
         user_id=user_id,
@@ -219,9 +219,9 @@ if __name__ == "__main__":
 
     project_store.print()
 
-    # Discuss something that triggers extraction
+    # 讨论触发提取的内容
     print("\n" + "=" * 60)
-    print("Discussing blockers (triggers extraction)")
+    print("讨论阻碍（触发提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(

@@ -1,15 +1,15 @@
 """
-Session Context: Planning Mode
+Session Context：计划模式
 ==============================
-Session Context tracks the current conversation's state:
-- What's been discussed
-- Current goals and their status
-- Active plans and progress
+Session Context 跟踪当前对话的状态：
+- 已讨论的内容
+- 当前目标及其状态
+- 活动计划和进度
 
-Planning mode (enable_planning=True) adds structured goal tracking -
-summary plus goal, plan steps, and progress markers.
+计划模式（enable_planning=True）添加结构化目标跟踪 -
+摘要加上目标、计划步骤和进度标记。
 
-Compare with: 3a_session_context_summary.py for lightweight tracking.
+对比：3a_session_context_summary.py 了解轻量级跟踪。
 """
 
 from agno.agent import Agent
@@ -18,13 +18,13 @@ from agno.learn import LearningMachine, SessionContextConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# Planning mode: Tracks goals, plans, and progress in addition to summary.
-# Good for task-oriented conversations where you want structured progress.
+# 计划模式：除摘要外还跟踪目标、计划和进度。
+# 适合需要结构化进度的任务导向对话。
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
@@ -38,16 +38,16 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "planner@example.com"
     session_id = "deploy_app"
 
-    # Turn 1: Set a goal with clear steps
+    # Turn 1: 设置明确步骤的目标
     print("\n" + "=" * 60)
-    print("TURN 1: Set goal")
+    print("TURN 1: 设置目标")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -58,9 +58,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Turn 2: Complete first step
+    # Turn 2: 完成第一步
     print("\n" + "=" * 60)
-    print("TURN 2: Complete step 1")
+    print("TURN 2: 完成步骤 1")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -71,9 +71,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Turn 3: Complete second step
+    # Turn 3: 完成第二步
     print("\n" + "=" * 60)
-    print("TURN 3: Complete step 2")
+    print("TURN 3: 完成步骤 2")
     print("=" * 60 + "\n")
 
     agent.print_response(

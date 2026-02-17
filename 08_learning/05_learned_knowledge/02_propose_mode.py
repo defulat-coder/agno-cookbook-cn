@@ -1,17 +1,17 @@
 """
-Learned Knowledge: Propose Mode (Deep Dive)
+学习知识：Propose 模式（深入探讨）
 ===========================================
-Agent proposes learnings, user confirms before saving.
+Agent 提议知识，用户确认后再保存。
 
-PROPOSE mode adds human quality control:
-1. Agent identifies valuable insights
-2. Agent proposes them to the user
-3. User confirms before saving
+PROPOSE 模式添加人工质量控制：
+1. Agent 识别有价值的洞察
+2. Agent 向用户提议
+3. 用户确认后再保存
 
-Use when quality matters more than speed.
+当质量比速度更重要时使用。
 
-Compare with: 01_agentic_mode.py for automatic saving.
-See also: 01_basics/4_learned_knowledge.py for the basics.
+对比：01_agentic_mode.py 了解自动保存。
+另见：01_basics/4_learned_knowledge.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -23,7 +23,7 @@ from agno.models.openai import OpenAIResponses
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -55,16 +55,16 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "propose@example.com"
     session_id = "propose_session"
 
-    # User shares experience
+    # 用户分享经验
     print("\n" + "=" * 60)
-    print("MESSAGE 1: User shares experience")
+    print("MESSAGE 1: 用户分享经验")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -75,11 +75,11 @@ if __name__ == "__main__":
         session_id=session_id,
         stream=True,
     )
-    # Agent should propose saving this
+    # Agent 应该提议保存这个
 
-    # User confirms
+    # 用户确认
     print("\n" + "=" * 60)
-    print("MESSAGE 2: User confirms")
+    print("MESSAGE 2: 用户确认")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -90,9 +90,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.learned_knowledge_store.print(query="docker localhost")
 
-    # Rejection example
+    # 拒绝示例
     print("\n" + "=" * 60)
-    print("MESSAGE 3: User shares, then rejects")
+    print("MESSAGE 3: 用户分享，然后拒绝")
     print("=" * 60 + "\n")
 
     agent.print_response(

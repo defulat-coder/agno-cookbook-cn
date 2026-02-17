@@ -1,14 +1,13 @@
 """
-Session Context: Summary Mode (Deep Dive)
+Session Context：摘要模式（深入探讨）
 =========================================
-Running summary of conversation state.
+对话状态的运行摘要。
 
-Summary mode maintains a running summary of the conversation that
-persists across reconnections. Each turn, the summary is updated
-to include the new information.
+摘要模式维护对话的运行摘要，在重新连接时持续存在。
+每轮，摘要更新以包含新信息。
 
-Compare with: 02_planning_mode.py for goal/plan tracking.
-See also: 01_basics/3a_session_context_summary.py for the basics.
+对比：02_planning_mode.py 了解目标/计划跟踪。
+另见：01_basics/3a_session_context_summary.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -17,7 +16,7 @@ from agno.learn import LearningMachine, SessionContextConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -27,23 +26,23 @@ agent = Agent(
     db=db,
     learning=LearningMachine(
         session_context=SessionContextConfig(
-            enable_planning=False,  # Summary only
+            enable_planning=False,  # 仅摘要
         ),
     ),
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run: Multi-Turn Summary
+# 运行：多轮摘要
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "debug@example.com"
     session_id = "debug_session"
 
-    # Turn 1: Initial question
+    # Turn 1: 初始问题
     print("\n" + "=" * 60)
-    print("TURN 1: Initial question")
+    print("TURN 1: 初始问题")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -55,9 +54,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Turn 2: More context
+    # Turn 2: 更多上下文
     print("\n" + "=" * 60)
-    print("TURN 2: More context")
+    print("TURN 2: 更多上下文")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -69,9 +68,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Turn 3: Follow-up
+    # Turn 3: 后续问题
     print("\n" + "=" * 60)
-    print("TURN 3: Follow-up")
+    print("TURN 3: 后续问题")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -82,9 +81,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Simulate reconnection
+    # 模拟重连
     print("\n" + "=" * 60)
-    print("TURN 4: Recall after 'reconnection'")
+    print("TURN 4: '重连'后召回")
     print("=" * 60 + "\n")
 
     agent.print_response(

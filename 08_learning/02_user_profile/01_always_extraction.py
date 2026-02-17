@@ -1,15 +1,15 @@
 """
-User Profile: Always Extraction (Deep Dive)
+用户画像：Always 提取（深入探讨）
 ============================================
-Automatic profile extraction from natural conversation.
+从自然对话中自动提取画像。
 
-ALWAYS mode extracts profile information in the background after each response.
-The user doesn't see tools - extraction happens invisibly.
+ALWAYS 模式在每次响应后在后台提取画像信息。
+用户看不到工具 - 提取不可见地发生。
 
-This example shows gradual profile building across multiple conversations.
+本示例展示跨多个对话的渐进式画像构建。
 
-Compare with: 02_agentic_mode.py for explicit tool-based updates.
-See also: 01_basics/1a_user_profile_always.py for the basics.
+对比：02_agentic_mode.py 使用基于工具的显式更新。
+另见：01_basics/1a_user_profile_always.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -18,7 +18,7 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -35,15 +35,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run: Gradual Profile Building
+# 运行：渐进式画像构建
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "marcus@example.com"
 
-    # Conversation 1: Basic introduction
+    # Conversation 1: 基本介绍
     print("\n" + "=" * 60)
-    print("CONVERSATION 1: Basic introduction")
+    print("CONVERSATION 1: 基本介绍")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -54,9 +54,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Conversation 2: Share work context
+    # Conversation 2: 分享工作背景
     print("\n" + "=" * 60)
-    print("CONVERSATION 2: Work context")
+    print("CONVERSATION 2: 工作背景")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -67,9 +67,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Conversation 3: Preferences
+    # Conversation 3: 偏好设置
     print("\n" + "=" * 60)
-    print("CONVERSATION 3: Preferences (implicit extraction)")
+    print("CONVERSATION 3: 偏好设置（隐式提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -81,9 +81,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Conversation 4: Nickname
+    # Conversation 4: 昵称
     print("\n" + "=" * 60)
-    print("CONVERSATION 4: Preferred name update")
+    print("CONVERSATION 4: 更新偏好称呼")
     print("=" * 60 + "\n")
 
     agent.print_response(

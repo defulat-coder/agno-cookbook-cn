@@ -1,10 +1,10 @@
 """
-Learning Machines: Agentic Mode
+学习机器：Agentic 模式
 ===============================
-In AGENTIC mode, the agent receives tools to explicitly manage learning.
-It decides when to save profiles and memories based on conversation context.
+在 AGENTIC 模式下，Agent 接收工具来显式管理学习。
+它根据对话上下文决定何时保存用户画像和记忆。
 
-Compare with learning=True (ALWAYS mode) where extraction happens automatically.
+与 learning=True（ALWAYS 模式）对比，后者自动提取。
 """
 
 from agno.agent import Agent
@@ -18,7 +18,7 @@ from agno.learn import (
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agents.db")
 
@@ -33,13 +33,13 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     user_id = "alice2@example.com"
 
-    # Session 1: Agent decides what to save via tool calls
-    print("\n--- Session 1: Agent uses tools to save profile and memories ---\n")
+    # Session 1: Agent 通过工具调用决定保存什么
+    print("\n--- Session 1: Agent 使用工具保存画像和记忆 ---\n")
     agent.print_response(
         "Hi! I'm Alice. I work at Anthropic as a research scientist. "
         "I prefer concise responses without too much explanation.",
@@ -51,8 +51,8 @@ if __name__ == "__main__":
     lm.user_profile_store.print(user_id=user_id)
     lm.user_memory_store.print(user_id=user_id)
 
-    # Session 2: New session - agent remembers
-    print("\n--- Session 2: Agent remembers across sessions ---\n")
+    # Session 2: 新 Session - Agent 记住了
+    print("\n--- Session 2: Agent 跨 Session 记忆 ---\n")
     agent.print_response(
         "What do you know about me?",
         user_id=user_id,

@@ -1,34 +1,33 @@
-# Test Log: 02_user_profile
+# 测试日志：02_user_profile
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### 01_always_extraction.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run and validate `01_always_extraction.py` example behavior.
+**描述：** 运行并验证 `01_always_extraction.py` 示例行为。
 
-**Result:** Not run yet.
+**结果：** 尚未运行。
 
 ---
 
 ### 02_agentic_mode.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run and validate `02_agentic_mode.py` example behavior.
+**描述：** 运行并验证 `02_agentic_mode.py` 示例行为。
 
-**Result:** Not run yet.
+**结果：** 尚未运行。
 
 ---
 
 ### 03_custom_schema.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run and validate `03_custom_schema.py` example behavior.
+**描述：** 运行并验证 `03_custom_schema.py` 示例行为。
 
-**Result:** Not run yet.
+**结果：** 尚未运行。
 
 ---
-

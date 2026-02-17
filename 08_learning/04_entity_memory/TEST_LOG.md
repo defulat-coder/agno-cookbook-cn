@@ -1,24 +1,23 @@
-# Test Log: 04_entity_memory
+# 测试日志：04_entity_memory
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### 01_facts_and_events.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run and validate `01_facts_and_events.py` example behavior.
+**描述：** 运行并验证 `01_facts_and_events.py` 示例行为。
 
-**Result:** Not run yet.
+**结果：** 尚未运行。
 
 ---
 
 ### 02_entity_relationships.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Run and validate `02_entity_relationships.py` example behavior.
+**描述：** 运行并验证 `02_entity_relationships.py` 示例行为。
 
-**Result:** Not run yet.
+**结果：** 尚未运行。
 
 ---
-

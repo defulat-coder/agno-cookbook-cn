@@ -1,16 +1,15 @@
 """
-Claude Model Test
+Claude 模型测试
 =================
-Tests learning with Claude instead of OpenAI.
+使用 Claude 而不是 OpenAI 测试学习。
 
-All other cookbooks use OpenAI (gpt-5.2). This test verifies that
-learning works with Claude models, ensuring the implementation is
-model-agnostic.
+所有其他示例使用 OpenAI（gpt-5.2）。此测试验证
+学习与 Claude 模型配合工作，确保实现是模型无关的。
 
-Key things to verify:
-1. Profile extraction works with Claude
-2. Tool calls work correctly (Claude uses different tool format)
-3. Background extraction completes successfully
+需要验证的关键内容：
+1. 画像提取与 Claude 配合工作
+2. 工具调用正确工作（Claude 使用不同的工具格式）
+3. 后台提取成功完成
 """
 
 from agno.agent import Agent
@@ -19,13 +18,13 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.anthropic import Claude
 
 # ---------------------------------------------------------------------------
-# Create Agent - Using Claude instead of OpenAI
+# 创建 Agent - 使用 Claude 而不是 OpenAI
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 agent = Agent(
-    model=Claude(id="claude-sonnet-4-5"),  # Using Claude
+    model=Claude(id="claude-sonnet-4-5"),  # 使用 Claude
     db=db,
     learning=LearningMachine(
         user_profile=UserProfileConfig(
@@ -36,21 +35,21 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "claude_test@example.com"
 
     print("\n" + "=" * 60)
-    print("TEST: Learning with Claude model")
+    print("测试：使用 Claude 模型学习")
     print("=" * 60 + "\n")
 
-    print(f"Model type: {type(agent.model).__name__}")
+    print(f"模型类型: {type(agent.model).__name__}")
 
-    # Session 1: Share information
+    # Session 1: 分享信息
     print("\n" + "=" * 60)
-    print("SESSION 1: Share information (Claude extraction)")
+    print("SESSION 1: 分享信息（Claude 提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -60,21 +59,21 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Check if LearningMachine was initialized
+    # 检查 LearningMachine 是否已初始化
     lm = agent.learning_machine
-    print(f"\nLearningMachine exists: {lm is not None}")
+    print(f"\nLearningMachine 存在: {lm is not None}")
 
     if lm and lm.user_profile_store:
         lm.user_profile_store.print(user_id=user_id)
     else:
-        print("\n[WARNING] UserProfileStore not available - extraction may have failed")
+        print("\n[警告] UserProfileStore 不可用 - 提取可能失败了")
         print(
-            "Note: Some Claude models may not support structured outputs required for extraction"
+            "注意：某些 Claude 模型可能不支持提取所需的结构化输出"
         )
 
-    # Session 2: Verify profile persisted
+    # Session 2: 验证画像已持久化
     print("\n" + "=" * 60)
-    print("SESSION 2: Profile recall (Claude)")
+    print("SESSION 2: 画像召回（Claude）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -88,5 +87,5 @@ if __name__ == "__main__":
         lm.user_profile_store.print(user_id=user_id)
 
     print("\n" + "=" * 60)
-    print("CLAUDE MODEL TEST COMPLETE")
+    print("Claude 模型测试完成")
     print("=" * 60)

@@ -1,17 +1,16 @@
 """
-User Memory: Always Mode
+用户记忆：Always 模式
 ========================
-User Memory captures unstructured observations about users:
-- Work context and role
-- Communication style preferences
-- Patterns and interests
-- Any memorable facts
+用户记忆捕获关于用户的非结构化观察：
+- 工作背景和角色
+- 沟通风格偏好
+- 模式和兴趣
+- 任何值得记住的事实
 
-ALWAYS mode extracts memories automatically in parallel
-while the agent responds - no explicit tool calls needed.
+ALWAYS 模式在 Agent 响应时自动并行提取记忆 - 无需显式工具调用。
 
-Compare with: 2b_user_memory_agentic.py for explicit tool-based updates.
-See also: 1a_user_profile_always.py for structured profile fields.
+对比：2b_user_memory_agentic.py 使用基于工具的显式更新。
+另见：1a_user_profile_always.py 了解结构化画像字段。
 """
 
 from agno.agent import Agent
@@ -20,14 +19,14 @@ from agno.learn import LearningMachine, LearningMode, UserMemoryConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# ALWAYS mode: Extraction happens automatically after each response.
-# The agent doesn't see or call any memory tools - it's invisible.
-# Memories stores unstructured observations that don't fit profile fields.
+# ALWAYS 模式：每次响应后自动提取。
+# Agent 不会看到或调用任何记忆工具 - 这是不可见的。
+# Memories 存储不适合画像字段的非结构化观察。
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
@@ -40,15 +39,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "alice@example.com"
 
-    # Session 1: Share information naturally
+    # Session 1: 自然分享信息
     print("\n" + "=" * 60)
-    print("SESSION 1: Share information (extraction happens automatically)")
+    print("SESSION 1: 分享信息（自动提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -61,9 +60,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_memory_store.print(user_id=user_id)
 
-    # Session 2: New session - memories are recalled automatically
+    # Session 2: 新 Session - 记忆自动召回
     print("\n" + "=" * 60)
-    print("SESSION 2: Memories recalled in new session")
+    print("SESSION 2: 新 Session 中召回记忆")
     print("=" * 60 + "\n")
 
     agent.print_response(

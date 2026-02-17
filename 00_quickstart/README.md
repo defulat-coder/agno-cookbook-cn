@@ -1,105 +1,105 @@
-# Get Started with Agents, The Easy Way
+# Agent 快速入门指南
 
-This guide walks through the basics of building Agents with Agno. Follow along to learn how to build agents with memory, knowledge, state, guardrails, and human in the loop. We'll also build multi-agent teams and step-based agentic workflows.
+本指南介绍使用 Agno 构建 Agent 的基础知识。跟随本教程学习如何构建具有记忆、知识库、状态管理、护栏和人机协作功能的 Agent。我们还将构建多 Agent 团队和基于步骤的 Agent 工作流。
 
-Each example can be run independently and contains detailed comments to help you understand what's happening under the hood. We'll use **Gemini 3 Flash** — fast, affordable, and excellent at tool calling but you can swap in any model with a one line change.
+每个示例都可以独立运行，并包含详细注释帮助你理解底层原理。我们将使用 **Gemini 3 Flash** — 快速、经济且擅长工具调用的模型，当然你也可以通过一行代码切换到任何其他模型。
 
-## Files
+## 文件列表
 
-| # | File | What You'll Learn | Key Features |
+| # | 文件 | 学习内容 | 核心特性 |
 |:--|:---------|:------------------|:-------------|
-| 01 | `agent_with_tools.py` | Give an agent tools to fetch real-time data | Tool Calling, Data Fetching |
-| 02 | `agent_with_structured_output.py` | Return typed Pydantic objects | Structured Output, Type Safety |
-| 03 | `agent_with_typed_input_output.py` | Full type safety on input and output | Input Schema, Output Schema |
-| 04 | `agent_with_storage.py` | Persist conversations across runs | Persistent Storage, Session Management |
-| 05 | `agent_with_memory.py` | Remember user preferences across sessions | Memory Manager, Personalization |
-| 06 | `agent_with_state_management.py` | Track, modify, and persist structured state | Session State, State Management |
-| 07 | `agent_search_over_knowledge.py` | Load documents into a knowledge base and search with hybrid search | Chunking, Embedding, Hybrid Search, Agentic Retrieval |
-| 08 | `custom_tool_for_self_learning.py` | How to write your own tools and add self-learning capabilities | Custom Tools, Self-Learning |
-| 09 | `agent_with_guardrails.py` | Add input validation and safety checks | Guardrails, PII Detection, Prompt Injection |
-| 10 | `human_in_the_loop.py` | Require user confirmation before executing tools | Human in the Loop, Tool Confirmation |
-| 11 | `multi_agent_team.py` | Coordinate multiple agents by organizing them into a team | Multi-Agent Team, Dynamic Collaboration |
-| 12 | `sequential_workflow.py` | Sequentially execute agents/teams/functions | Agentic Workflow, Pipelines |
+| 01 | `agent_with_tools.py` | 为 Agent 提供工具以获取实时数据 | 工具调用、数据获取 |
+| 02 | `agent_with_structured_output.py` | 返回类型化的 Pydantic 对象 | 结构化输出、类型安全 |
+| 03 | `agent_with_typed_input_output.py` | 输入和输出的完整类型安全 | 输入 Schema、输出 Schema |
+| 04 | `agent_with_storage.py` | 跨运行持久化对话 | 持久化存储、Session 管理 |
+| 05 | `agent_with_memory.py` | 跨 Session 记住用户偏好 | Memory Manager、个性化 |
+| 06 | `agent_with_state_management.py` | 跟踪、修改和持久化结构化 State | Session State、State 管理 |
+| 07 | `agent_search_over_knowledge.py` | 将文档加载到知识库并使用混合搜索 | 分块、嵌入、混合搜索、Agentic 检索 |
+| 08 | `custom_tool_for_self_learning.py` | 如何编写自定义工具并添加自学习能力 | 自定义工具、自学习 |
+| 09 | `agent_with_guardrails.py` | 添加输入验证和安全检查 | 护栏、PII 检测、Prompt 注入检测 |
+| 10 | `human_in_the_loop.py` | 执行工具前需要用户确认 | 人机协作、工具确认 |
+| 11 | `multi_agent_team.py` | 通过组织多个 Agent 为团队来协调它们 | 多 Agent 团队、动态协作 |
+| 12 | `sequential_workflow.py` | 按顺序执行 Agent/团队/函数 | Agentic 工作流、管道 |
 
-## Key Concepts
+## 核心概念
 
-| Concept | What It Does | When to Use |
+| 概念 | 作用 | 使用场景 |
 |:--------|:-------------|:------------|
-| **Tools** | Let agents take actions | Fetch data, call APIs, run code |
-| **Storage** | Persist conversation history | Multi-turn conversations and state management |
-| **Knowledge** | Searchable document store | RAG, documentation Q&A |
-| **Memory** | Remember user preferences | Personalization |
-| **State** | Structured data the agent manages | Tracking progress, managing lists |
-| **Teams** | Multiple agents collaborating | Dynamic collaboration of specialized agents |
-| **Workflows** | Sequential agent pipelines | Predictable multi-step processes and data flow |
-| **Guardrails** | Validate and filter input | Block PII, prevent prompt injection |
-| **Human in the Loop** | Require confirmation for actions | Sensitive operations, safety-critical tools |
+| **Tools（工具）** | 让 Agent 执行操作 | 获取数据、调用 API、运行代码 |
+| **Storage（存储）** | 持久化对话历史 | 多轮对话和状态管理 |
+| **Knowledge（知识库）** | 可搜索的文档存储 | RAG、文档问答 |
+| **Memory（记忆）** | 记住用户偏好 | 个性化 |
+| **State（状态）** | Agent 管理的结构化数据 | 跟踪进度、管理列表 |
+| **Teams（团队）** | 多个 Agent 协作 | 专业 Agent 的动态协作 |
+| **Workflows（工作流）** | 顺序执行的 Agent 管道 | 可预测的多步骤流程和数据流 |
+| **Guardrails（护栏）** | 验证和过滤输入 | 阻止 PII、防止 Prompt 注入 |
+| **Human in the Loop（人机协作）** | 操作前需要确认 | 敏感操作、安全关键工具 |
 
-## Why Gemini 3 Flash?
+## 为什么选择 Gemini 3 Flash？
 
-- **Speed** — Sub-second responses make agent loops feel responsive
-- **Tool Calling** — Reliable function calling out of the box
-- **Affordable** — Cheap enough to experiment freely
+- **速度** — 亚秒级响应让 Agent 循环感觉更流畅
+- **工具调用** — 开箱即用的可靠函数调用
+- **经济实惠** — 足够便宜可以自由实验
 
-Agno is **Model-Agnostic** and you can swap to OpenAI, Anthropic, or any provider with one line.
+Agno 是**模型无关的**，你可以通过一行代码切换到 OpenAI、Anthropic 或任何其他提供商。
 
-## Getting Started
+## 快速开始
 
-### 1. Clone the repo
+### 1. 克隆仓库
 ```bash
 git clone https://github.com/agno-agi/agno.git
 cd agno
 ```
 
-### 2. Create and activate a virtual environment
+### 2. 创建并激活虚拟环境
 ```bash
 uv venv .quickstart --python 3.12
 source .quickstart/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. 安装依赖
 ```bash
 uv pip install -r cookbook/00_quickstart/requirements.txt
 ```
 
-### 4. Set your API key
+### 4. 设置 API key
 ```bash
 export GOOGLE_API_KEY=your-google-api-key
 ```
 
-### 5. Run any cookbook
+### 5. 运行任意 cookbook
 ```bash
 python cookbook/00_quickstart/agent_with_tools.py
 ```
 
-**That's it.** No Docker, no Postgres — just Python and an API key.
+**就这么简单。** 无需 Docker，无需 Postgres — 只需 Python 和一个 API key。
 
-## Run via Agent OS
+## 通过 Agent OS 运行
 
-Agent OS provides a web interface for interacting with your agents. Start the server:
+Agent OS 提供了一个 Web 界面来与你的 Agent 交互。启动服务器：
 
 ```bash
 python cookbook/00_quickstart/run.py
 ```
 
-Then visit [os.agno.com](https://os.agno.com) and add `http://localhost:7777` as an endpoint.
+然后访问 [os.agno.com](https://os.agno.com) 并添加 `http://localhost:7777` 作为端点。
 
-Here's how it looks in action — chat with your agents, explore sessions, monitor traces, manage knowledge and memories, all through a beautiful visual UI.
+以下是实际运行效果 — 与你的 Agent 聊天、探索 Session、监控跟踪、管理知识和记忆，所有这些都通过一个美观的可视化 UI 完成。
 
 https://github.com/user-attachments/assets/aae0086b-86f6-4939-a0ce-e1ec9b87ba1f
 
 > [!TIP]
-> To run the agent-with-knowledge, remember to load the knowledge base first using:
+> 要运行 agent-with-knowledge，请记得先使用以下命令加载知识库：
 > ```bash
 > python cookbook/00_quickstart/agent_search_over_knowledge.py
 > ```
 
-## Swap Models Anytime
+## 随时切换模型
 
-Agno is model-agnostic. Same code, different provider:
+Agno 是模型无关的。相同的代码，不同的提供商：
 
 ```python
-# Gemini (default in these examples)
+# Gemini（这些示例中的默认选择）
 from agno.models.google import Gemini
 model = Gemini(id="gemini-3-flash-preview")
 
@@ -112,51 +112,51 @@ from agno.models.anthropic import Claude
 model = Claude(id="claude-sonnet-4-5")
 ```
 
-## Run Cookbooks Individually
+## 单独运行 Cookbook
 
 ```bash
-# 01 - Tools: Fetch real market data
+# 01 - 工具：获取实时市场数据
 python cookbook/00_quickstart/agent_with_tools.py
 
-# 02 - Structured Output: Get typed responses
+# 02 - 结构化输出：获取类型化响应
 python cookbook/00_quickstart/agent_with_structured_output.py
 
-# 03 - Typed I/O: Full type safety
+# 03 - 类型化输入输出：完整类型安全
 python cookbook/00_quickstart/agent_with_typed_input_output.py
 
-# 04 - Storage: Remember conversations
+# 04 - 存储：记住对话
 python cookbook/00_quickstart/agent_with_storage.py
 
-# 05 - Memory: Remember user preferences
+# 05 - 记忆：记住用户偏好
 python cookbook/00_quickstart/agent_with_memory.py
 
-# 06 - State: Manage watchlists
+# 06 - 状态：管理观察列表
 python cookbook/00_quickstart/agent_with_state_management.py
 
-# 07 - Knowledge: Search your documents
+# 07 - 知识库：搜索你的文档
 python cookbook/00_quickstart/agent_search_over_knowledge.py
 
-# 08 - Custom Tools: Write your own
+# 08 - 自定义工具：编写你自己的工具
 python cookbook/00_quickstart/custom_tool_for_self_learning.py
 
-# 09 - Guardrails: Input validation and safety
+# 09 - 护栏：输入验证和安全检查
 python cookbook/00_quickstart/agent_with_guardrails.py
 
-# 10 - Human in the Loop: Confirm before executing
+# 10 - 人机协作：执行前确认
 python cookbook/00_quickstart/human_in_the_loop.py
 
-# 11 - Teams: Bull vs Bear analysis
+# 11 - 团队：多头 vs 空头分析
 python cookbook/00_quickstart/multi_agent_team.py
 
-# 12 - Workflows: Research pipeline
+# 12 - 工作流：研究管道
 python cookbook/00_quickstart/sequential_workflow.py
 ```
 
-## Async Patterns
+## 异步模式
 
-All examples in this Quick Start use synchronous code for simplicity. For async/await patterns (recommended for production), see `cookbook/02_agents/` which includes async variants of most features.
+本快速入门中的所有示例为简单起见都使用同步代码。对于 async/await 模式（推荐用于生产环境），请查看 `cookbook/02_agents/`，其中包含大多数功能的异步变体。
 
-## Learn More
+## 了解更多
 
-- [Agno Documentation](https://docs.agno.com)
-- [Agent OS Overview](https://docs.agno.com/agent-os/introduction)
+- [Agno 文档](https://docs.agno.com)
+- [Agent OS 概览](https://docs.agno.com/agent-os/introduction)

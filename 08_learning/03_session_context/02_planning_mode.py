@@ -1,17 +1,17 @@
 """
-Session Context: Planning Mode (Deep Dive)
+Session Context：计划模式（深入探讨）
 ==========================================
-Goal, plan, and progress tracking for task-oriented sessions.
+面向任务的 Session 的目标、计划和进度跟踪。
 
-Planning mode adds:
-- Goal: What the user is trying to achieve
-- Plan: Steps to reach the goal
-- Progress: Completed steps
+计划模式添加：
+- 目标：用户试图实现的目标
+- 计划：达到目标的步骤
+- 进度：已完成的步骤
 
-Use for task-oriented agents where tracking progress matters.
+用于需要跟踪进度的任务导向 Agent。
 
-Compare with: 01_summary_mode.py for summary-only (faster).
-See also: 01_basics/3b_session_context_planning.py for the basics.
+对比：01_summary_mode.py 仅摘要（更快）。
+另见：01_basics/3b_session_context_planning.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -20,7 +20,7 @@ from agno.learn import LearningMachine, SessionContextConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -30,23 +30,23 @@ agent = Agent(
     db=db,
     learning=LearningMachine(
         session_context=SessionContextConfig(
-            enable_planning=True,  # Track goal, plan, progress
+            enable_planning=True,  # 跟踪目标、计划、进度
         ),
     ),
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run: Task Planning
+# 运行：任务规划
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "deploy@example.com"
     session_id = "deploy_session"
 
-    # Step 1: State the goal
+    # Step 1: 陈述目标
     print("\n" + "=" * 60)
-    print("STEP 1: State the goal")
+    print("STEP 1: 陈述目标")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -57,9 +57,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Step 2: Complete first task
+    # Step 2: 完成第一个任务
     print("\n" + "=" * 60)
-    print("STEP 2: First task done")
+    print("STEP 2: 第一个任务完成")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -70,9 +70,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Step 3: More progress
+    # Step 3: 更多进度
     print("\n" + "=" * 60)
-    print("STEP 3: More progress")
+    print("STEP 3: 更多进度")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -83,9 +83,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.session_context_store.print(session_id=session_id)
 
-    # Step 4: What's next?
+    # Step 4: 下一步是什么？
     print("\n" + "=" * 60)
-    print("STEP 4: What's next?")
+    print("STEP 4: 下一步是什么？")
     print("=" * 60 + "\n")
 
     agent.print_response(

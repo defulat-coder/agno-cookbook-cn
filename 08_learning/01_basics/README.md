@@ -1,15 +1,15 @@
 # 01_basics
 
-Core learning primitives and default patterns.
+核心学习原语和默认模式。
 
-## Files
+## 文件
 
-- `1a_user_profile_always.py`: User profile extraction in ALWAYS mode.
-- `1b_user_profile_agentic.py`: User profile updates in AGENTIC mode.
-- `2a_user_memory_always.py`: User memory extraction in ALWAYS mode.
-- `2b_user_memory_agentic.py`: User memory updates in AGENTIC mode.
-- `3a_session_context_summary.py`: Session context summary tracking.
-- `3b_session_context_planning.py`: Session context planning with goal and progress state.
-- `4_learned_knowledge.py`: Learned knowledge retrieval and storage with vector search.
-- `5a_entity_memory_always.py`: Entity memory extraction in ALWAYS mode.
-- `5b_entity_memory_agentic.py`: Entity memory management in AGENTIC mode.
+- `1a_user_profile_always.py`：ALWAYS 模式下的用户档案提取。
+- `1b_user_profile_agentic.py`：AGENTIC 模式下的用户档案更新。
+- `2a_user_memory_always.py`：ALWAYS 模式下的用户记忆提取。
+- `2b_user_memory_agentic.py`：AGENTIC 模式下的用户记忆更新。
+- `3a_session_context_summary.py`：会话上下文摘要跟踪。
+- `3b_session_context_planning.py`：带目标和进度状态的会话上下文规划。
+- `4_learned_knowledge.py`：带向量搜索的学习知识检索和存储。
+- `5a_entity_memory_always.py`：ALWAYS 模式下的实体记忆提取。
+- `5b_entity_memory_agentic.py`：AGENTIC 模式下的实体记忆管理。

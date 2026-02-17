@@ -1,17 +1,17 @@
 """
-Learning=True Shorthand Test
+Learning=True 简写测试
 ============================
-Tests the simplest way to enable learning: `learning=True`.
+测试启用学习的最简单方法：`learning=True`。
 
-This is the most common user pattern and must work flawlessly.
+这是最常见的用户模式，必须完美工作。
 
-When learning=True:
-- A default LearningMachine is created
-- UserProfile is enabled with ALWAYS mode (structured fields)
-- UserMemory is enabled with ALWAYS mode (unstructured observations)
-- db and model are injected from the agent
+当 learning=True 时：
+- 创建默认的 LearningMachine
+- 使用 ALWAYS 模式启用 UserProfile（结构化字段）
+- 使用 ALWAYS 模式启用 UserMemory（非结构化观察）
+- 从 Agent 注入 db 和 model
 
-This test verifies the shorthand works identically to explicit config.
+此测试验证简写与显式配置工作方式相同。
 """
 
 from agno.agent import Agent
@@ -19,29 +19,29 @@ from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent - Using the simplest possible configuration
+# 创建 Agent - 使用最简单的配置
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# This is the simplest way to enable learning - just set learning=True
+# 这是启用学习的最简单方法 - 只需设置 learning=True
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
-    learning=True,  # <-- The shorthand we're testing
+    learning=True,  # <-- 我们正在测试的简写
     markdown=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "shorthand_test@example.com"
 
-    # Note: LearningMachine is lazily initialized - only set up when agent runs
+    # 注意：LearningMachine 是懒初始化的 - 仅在 Agent 运行时设置
     print("\n" + "=" * 60)
-    print("SESSION 1: Share information (learning=True shorthand)")
+    print("SESSION 1: 分享信息（learning=True 简写）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -51,43 +51,43 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Verify LearningMachine was created (after first run)
+    # 验证 LearningMachine 已创建（首次运行后）
     print("\n" + "=" * 60)
-    print("VERIFICATION: LearningMachine created from learning=True")
+    print("验证：从 learning=True 创建的 LearningMachine")
     print("=" * 60 + "\n")
 
     lm = agent.learning_machine
-    print(f"LearningMachine exists: {lm is not None}")
+    print(f"LearningMachine 存在: {lm is not None}")
     print(
-        f"UserProfileStore exists: {lm.user_profile_store is not None if lm else False}"
+        f"UserProfileStore 存在: {lm.user_profile_store is not None if lm else False}"
     )
     print(
-        f"UserMemoryStore exists: {lm.user_memory_store is not None if lm else False}"
+        f"UserMemoryStore 存在: {lm.user_memory_store is not None if lm else False}"
     )
-    print(f"DB injected: {lm.db is not None if lm else False}")
-    print(f"Model injected: {lm.model is not None if lm else False}")
+    print(f"DB 已注入: {lm.db is not None if lm else False}")
+    print(f"Model 已注入: {lm.model is not None if lm else False}")
 
     if not lm:
-        print("\nFAILED: LearningMachine was not created!")
+        print("\n失败：LearningMachine 未创建！")
         exit(1)
 
     if not lm.user_profile_store:
-        print("\nFAILED: UserProfileStore was not created!")
+        print("\n失败：UserProfileStore 未创建！")
         exit(1)
 
     if not lm.user_memory_store:
-        print("\nFAILED: UserMemoryStore was not created!")
+        print("\n失败：UserMemoryStore 未创建！")
         exit(1)
 
-    print("\n--- User Profile ---")
+    print("\n--- 用户画像 ---")
     lm.user_profile_store.print(user_id=user_id)
 
-    print("\n--- User Memory ---")
+    print("\n--- 用户记忆 ---")
     lm.user_memory_store.print(user_id=user_id)
 
-    # Session 2: Verify profile persisted
+    # Session 2: 验证画像已持久化
     print("\n" + "=" * 60)
-    print("SESSION 2: Profile recall")
+    print("SESSION 2: 画像召回")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -97,12 +97,12 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    print("\n--- User Profile ---")
+    print("\n--- 用户画像 ---")
     lm.user_profile_store.print(user_id=user_id)
 
-    print("\n--- User Memory ---")
+    print("\n--- 用户记忆 ---")
     lm.user_memory_store.print(user_id=user_id)
 
     print("\n" + "=" * 60)
-    print("SHORTHAND TEST COMPLETE")
+    print("简写测试完成")
     print("=" * 60)

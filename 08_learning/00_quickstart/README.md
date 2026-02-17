@@ -1,9 +1,9 @@
 # 00_quickstart
 
-Quick start examples for enabling learning in an agent.
+在 agent 中启用学习的快速开始示例。
 
-## Files
+## 文件
 
-- `01_always_learn.py`: Enable `learning=True` for automatic profile and memory extraction.
-- `02_agentic_learn.py`: Configure AGENTIC mode for explicit profile and memory tool usage.
-- `03_learned_knowledge.py`: Save and retrieve reusable learned knowledge across users.
+- `01_always_learn.py`：启用 `learning=True` 以自动提取档案和记忆。
+- `02_agentic_learn.py`：配置 AGENTIC 模式以显式使用档案和记忆工具。
+- `03_learned_knowledge.py`：跨用户保存和检索可重用的学习知识。

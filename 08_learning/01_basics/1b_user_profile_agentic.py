@@ -1,15 +1,15 @@
 """
-User Profile: Agentic Mode
+用户画像：Agentic 模式
 ==========================
-User Profile captures structured profile fields about users:
-- Name and preferred name
-- Custom profile fields (when using extended schemas)
+用户画像捕获关于用户的结构化字段：
+- 姓名和偏好称呼
+- 自定义画像字段（使用扩展 schema 时）
 
-AGENTIC mode gives the agent explicit tools to update profile fields.
-The agent decides when to store information - you can see the tool calls.
+AGENTIC 模式为 Agent 提供显式工具来更新画像字段。
+Agent 决定何时存储信息 - 你可以看到工具调用。
 
-Compare with: 1a_user_profile_always.py for automatic extraction.
-See also: 2b_user_memory_agentic.py for unstructured observations.
+对比：1a_user_profile_always.py 使用自动提取。
+另见：2b_user_memory_agentic.py 了解非结构化观察。
 """
 
 from agno.agent import Agent
@@ -18,13 +18,13 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# AGENTIC mode: Agent gets profile tools and decides when to use them.
-# You'll see tool calls like "update_user_profile" in responses.
+# AGENTIC 模式：Agent 获得画像工具并决定何时使用。
+# 你会在响应中看到类似 "update_user_profile" 的工具调用。
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
@@ -37,15 +37,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "bob@example.com"
 
-    # Session 1: Agent explicitly updates profile
+    # Session 1: Agent 显式更新画像
     print("\n" + "=" * 60)
-    print("SESSION 1: Share information (watch for tool calls)")
+    print("SESSION 1: 分享信息（观察工具调用）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -56,9 +56,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Session 2: Agent uses stored profile
+    # Session 2: Agent 使用存储的画像
     print("\n" + "=" * 60)
-    print("SESSION 2: Profile recalled in new session")
+    print("SESSION 2: 新 Session 中召回画像")
     print("=" * 60 + "\n")
 
     agent.print_response(

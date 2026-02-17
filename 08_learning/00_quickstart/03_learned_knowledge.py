@@ -1,14 +1,14 @@
 """
-Learning Machines: Learned Knowledge
+学习机器：学习知识（Learned Knowledge）
 ====================================
-Learned Knowledge stores insights that transfer across users.
-One person teaches the agent something. Another person benefits.
+学习知识存储可跨用户迁移的洞察。
+一个人教给 Agent 的知识，另一个人也能受益。
 
-In AGENTIC mode, the agent receives tools to:
-- search_learnings: Find relevant past knowledge
-- save_learning: Store a new insight
+在 AGENTIC 模式下，Agent 接收工具：
+- search_learnings: 查找相关的过去知识
+- save_learning: 存储新洞察
 
-The agent decides when to save and apply learnings.
+Agent 决定何时保存和应用知识。
 """
 
 from agno.agent import Agent
@@ -20,7 +20,7 @@ from agno.models.openai import OpenAIResponses
 from agno.vectordb.chroma import ChromaDb, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Knowledge and Agent
+# 创建 Knowledge 和 Agent
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agents.db")
 
@@ -46,11 +46,11 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Session 1: User 1 teaches the agent
-    print("\n--- Session 1: User 1 saves a learning ---\n")
+    # Session 1: 用户 1 教 Agent
+    print("\n--- Session 1: 用户 1 保存学习 ---\n")
     agent.print_response(
         "We're trying to reduce our cloud egress costs. Remember this.",
         user_id="engineer_1@example.com",
@@ -60,8 +60,8 @@ if __name__ == "__main__":
     lm = agent.learning_machine
     lm.learned_knowledge_store.print(query="cloud")
 
-    # Session 2: User 2 benefits from the learning
-    print("\n--- Session 2: User 2 asks a related question ---\n")
+    # Session 2: 用户 2 从学习中受益
+    print("\n--- Session 2: 用户 2 问相关问题 ---\n")
     agent.print_response(
         "I'm picking a cloud provider for a data pipeline. Give me 2 key considerations.",
         user_id="engineer_2@example.com",

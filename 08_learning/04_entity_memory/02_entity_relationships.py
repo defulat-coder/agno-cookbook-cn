@@ -1,17 +1,17 @@
 """
-Entity Memory: Relationships (Deep Dive)
+实体记忆：关系（深入探讨）
 ========================================
-Graph edges between entities.
+实体之间的图边。
 
-Relationships connect entities to form a knowledge graph:
-- "Bob is CTO of Acme"
-- "Acme acquired StartupX"
-- "API Gateway depends on Auth Service"
+关系连接实体以形成知识图谱：
+- "Bob 是 Acme 的 CTO"
+- "Acme 收购了 StartupX"
+- "API Gateway 依赖 Auth Service"
 
-AGENTIC mode lets the agent create entities and add relationships.
+AGENTIC 模式让 Agent 创建实体并添加关系。
 
-Compare with: 01_facts_and_events.py for facts/events.
-See also: 01_basics/5b_entity_memory_agentic.py for the basics.
+对比：01_facts_and_events.py 了解事实/事件。
+另见：01_basics/5b_entity_memory_agentic.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -20,7 +20,7 @@ from agno.learn import EntityMemoryConfig, LearningMachine, LearningMode
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -41,7 +41,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
@@ -50,9 +50,9 @@ if __name__ == "__main__":
     user_id = "org@example.com"
     session_id = "org_session"
 
-    # Define org structure
+    # 定义组织结构
     print("\n" + "=" * 60)
-    print("MESSAGE 1: Define org structure")
+    print("MESSAGE 1: 定义组织结构")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -65,14 +65,14 @@ if __name__ == "__main__":
         session_id=session_id,
         stream=True,
     )
-    print("\n--- Entities ---")
+    print("\n--- 实体 ---")
     pprint(
         agent.learning_machine.entity_memory_store.search(query="techcorp", limit=10)
     )
 
-    # Query relationships
+    # 查询关系
     print("\n" + "=" * 60)
-    print("MESSAGE 2: Query relationships")
+    print("MESSAGE 2: 查询关系")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -82,9 +82,9 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Add more relationships
+    # 添加更多关系
     print("\n" + "=" * 60)
-    print("MESSAGE 3: Company relationships")
+    print("MESSAGE 3: 公司关系")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         session_id="session_3",
         stream=True,
     )
-    print("\n--- Updated Entities ---")
+    print("\n--- 更新的实体 ---")
     pprint(
         agent.learning_machine.entity_memory_store.search(query="techcorp", limit=10)
     )

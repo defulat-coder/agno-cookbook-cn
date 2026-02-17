@@ -1,16 +1,16 @@
 """
-Pattern: Personal Assistant with Learning
+模式：带学习的个人助手
 =========================================
-A personal assistant that learns about the user over time.
+一个随时间了解用户的个人助手。
 
-This pattern combines:
-- User Profile: Preferences, routines, communication style
-- Session Context: Current conversation state
-- Entity Memory: Contacts, projects, places, events
+此模式结合：
+- 用户画像：偏好、日常、沟通风格
+- Session Context：当前对话状态
+- 实体记忆：联系人、项目、地点、事件
 
-The assistant becomes increasingly personalized without being asked.
+助手变得越来越个性化，无需询问。
 
-See also: 01_basics/ for individual store examples.
+另见：01_basics/ 了解各个存储示例。
 """
 
 from agno.agent import Agent
@@ -25,14 +25,14 @@ from agno.learn import (
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 
 def create_personal_assistant(user_id: str, session_id: str) -> Agent:
-    """Create a personal assistant for a specific user."""
+    """为特定用户创建个人助手。"""
     return Agent(
         model=OpenAIResponses(id="gpt-5.2"),
         db=db,
@@ -60,7 +60,7 @@ def create_personal_assistant(user_id: str, session_id: str) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
@@ -68,9 +68,9 @@ if __name__ == "__main__":
 
     user_id = "alex@example.com"
 
-    # Conversation 1: Introduction
+    # Conversation 1: 介绍
     print("\n" + "=" * 60)
-    print("CONVERSATION 1: Introduction")
+    print("CONVERSATION 1: 介绍")
     print("=" * 60 + "\n")
 
     agent = create_personal_assistant(user_id, "conv_1")
@@ -80,12 +80,12 @@ if __name__ == "__main__":
         stream=True,
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
-    print("\n--- Entities ---")
+    print("\n--- 实体 ---")
     pprint(agent.learning_machine.entity_memory_store.search(query="sarah", limit=10))
 
-    # Conversation 2: New session (demonstrates memory)
+    # Conversation 2: 新 Session（演示记忆）
     print("\n" + "=" * 60)
-    print("CONVERSATION 2: New session (memory test)")
+    print("CONVERSATION 2: 新 Session（记忆测试）")
     print("=" * 60 + "\n")
 
     agent = create_personal_assistant(user_id, "conv_2")
@@ -94,9 +94,9 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Conversation 3: Planning something
+    # Conversation 3: 计划某事
     print("\n" + "=" * 60)
-    print("CONVERSATION 3: Planning activity")
+    print("CONVERSATION 3: 计划活动")
     print("=" * 60 + "\n")
 
     agent = create_personal_assistant(user_id, "conv_3")

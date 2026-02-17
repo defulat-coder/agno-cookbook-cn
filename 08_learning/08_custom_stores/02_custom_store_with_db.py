@@ -1,15 +1,15 @@
 """
-Custom Store: Database-Backed Example
+自定义存储：数据库支持示例
 ======================================
-Shows how to create a custom learning store with database persistence.
+展示如何创建带数据库持久化的自定义学习存储。
 
-This example demonstrates:
-- Using the database's learning methods (get_learning, upsert_learning)
-- Namespacing data by project_id
-- Model-based extraction from conversations
-- Exposing tools to the agent
+此示例演示：
+- 使用数据库的学习方法（get_learning、upsert_learning）
+- 按 project_id 命名空间划分数据
+- 从对话中基于模型的提取
+- 向 Agent 暴露工具
 
-For a simpler in-memory example, see 01_minimal_custom_store.py
+有关更简单的内存示例，请参见 01_minimal_custom_store.py
 """
 
 from dataclasses import dataclass, field
@@ -35,7 +35,7 @@ except ImportError:
 
 @dataclass
 class ProjectNotes:
-    """Schema for project notes."""
+    """项目笔记的 schema。"""
 
     summary: Optional[str] = None
     goals: Optional[List[str]] = None
@@ -44,19 +44,19 @@ class ProjectNotes:
 
 
 # ---------------------------------------------------------------------------
-# Custom Store Implementation
+# 自定义存储实现
 # ---------------------------------------------------------------------------
 
 
 @dataclass
 class ProjectNotesStore:
-    """Custom store for project notes with database persistence.
+    """带数据库持久化的项目笔记自定义存储。
 
-    Stores structured notes about a project including goals,
-    blockers, and decisions.
+    存储关于项目的结构化笔记，包括目标、
+    阻碍和决策。
     """
 
-    # Database for persistence
+    # 持久化数据库
     db: Optional[Union["BaseDb", "AsyncBaseDb"]] = None
 
     # Model for extraction (optional - for ALWAYS mode)

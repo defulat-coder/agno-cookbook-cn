@@ -1,17 +1,17 @@
 """
-Pattern: Support Agent with Learning
+模式：带学习的支持 Agent
 ====================================
-A customer support agent that learns from interactions.
+一个从交互中学习的客户支持 Agent。
 
-This pattern combines:
-- User Profile: Customer history and preferences
-- Session Context: Current ticket/issue tracking
-- Entity Memory: Products, past tickets (shared across org)
-- Learned Knowledge: Solutions and troubleshooting patterns (shared)
+此模式结合：
+- 用户画像：客户历史和偏好
+- Session Context：当前工单/问题跟踪
+- 实体记忆：产品、过去的工单（跨组织共享）
+- 学习知识：解决方案和故障排除模式（共享）
 
-The agent gets faster at resolving issues by learning from successes.
+Agent 通过从成功中学习来更快地解决问题。
 
-See also: 01_basics/ for individual store examples.
+另见：01_basics/ 了解各个存储示例。
 """
 
 from agno.agent import Agent
@@ -30,13 +30,13 @@ from agno.models.openai import OpenAIResponses
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
-# Shared knowledge base for solutions
+# 解决方案的共享知识库
 knowledge = Knowledge(
     vector_db=PgVector(
         db_url=db_url,
@@ -48,7 +48,7 @@ knowledge = Knowledge(
 
 
 def create_support_agent(customer_id: str, ticket_id: str, org_id: str) -> Agent:
-    """Create a support agent for a specific ticket."""
+    """为特定工单创建支持 Agent。"""
     return Agent(
         model=OpenAIResponses(id="gpt-5.2"),
         db=db,
@@ -80,15 +80,15 @@ def create_support_agent(customer_id: str, ticket_id: str, org_id: str) -> Agent
 
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     org_id = "acme"
 
-    # Ticket 1: First customer with login issue
+    # Ticket 1: 第一个客户的登录问题
     print("\n" + "=" * 60)
-    print("TICKET 1: First login issue")
+    print("TICKET 1: 第一个登录问题")
     print("=" * 60 + "\n")
 
     agent = create_support_agent("customer_1@example.com", "ticket_001", org_id)
@@ -98,9 +98,9 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # Agent suggests solution
+    # Agent 建议解决方案
     print("\n" + "=" * 60)
-    print("TICKET 1: Solution worked")
+    print("TICKET 1: 解决方案有效")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -109,9 +109,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.learned_knowledge_store.print(query="login chrome cache")
 
-    # Ticket 2: Second customer with similar issue
+    # Ticket 2: 第二个客户遇到类似问题
     print("\n" + "=" * 60)
-    print("TICKET 2: Similar issue (should find prior solution)")
+    print("TICKET 2: 类似问题（应找到先前的解决方案）")
     print("=" * 60 + "\n")
 
     agent2 = create_support_agent("customer_2@example.com", "ticket_002", org_id)
@@ -120,4 +120,4 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    # The agent should find and apply the previous solution
+    # Agent 应该找到并应用先前的解决方案

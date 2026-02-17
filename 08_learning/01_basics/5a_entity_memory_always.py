@@ -1,15 +1,15 @@
 """
-Entity Memory: Always Mode
+实体记忆：Always 模式
 ==========================
-Entity Memory stores knowledge about external things:
-- Companies, people, projects
-- Facts, events, relationships
-- Shared context across users
+实体记忆存储关于外部事物的知识：
+- 公司、人员、项目
+- 事实、事件、关系
+- 跨用户的共享上下文
 
-ALWAYS mode automatically extracts entity information from conversations.
-No explicit tool calls - entities are discovered and saved behind the scenes.
+ALWAYS 模式自动从对话中提取实体信息。
+无显式工具调用 - 实体在幕后发现和保存。
 
-Compare with: 5b_entity_memory_agentic.py for explicit tool-based management.
+对比：5b_entity_memory_agentic.py 使用基于工具的显式管理。
 """
 
 from agno.agent import Agent
@@ -18,13 +18,13 @@ from agno.learn import EntityMemoryConfig, LearningMachine, LearningMode
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# ALWAYS mode: Entities are extracted automatically after responses.
-# The agent doesn't see memory tools - extraction happens invisibly.
+# ALWAYS 模式：实体在响应后自动提取。
+# Agent 不会看到记忆工具 - 提取不可见地发生。
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
@@ -38,7 +38,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
@@ -46,9 +46,9 @@ if __name__ == "__main__":
 
     user_id = "sales@example.com"
 
-    # Session 1: Mention entities naturally
+    # Session 1: 自然提及实体
     print("\n" + "=" * 60)
-    print("SESSION 1: Discuss entities (extraction happens automatically)")
+    print("SESSION 1: 讨论实体（自动提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -59,13 +59,13 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    print("\n--- Extracted Entities ---")
+    print("\n--- 提取的实体 ---")
     entities = agent.learning_machine.entity_memory_store.search(query="acme", limit=10)
     pprint(entities)
 
-    # Session 2: Add more info about same entity
+    # Session 2: 添加关于同一实体的更多信息
     print("\n" + "=" * 60)
-    print("SESSION 2: Update same entity")
+    print("SESSION 2: 更新同一实体")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -76,6 +76,6 @@ if __name__ == "__main__":
         stream=True,
     )
 
-    print("\n--- Updated Entities ---")
+    print("\n--- 更新的实体 ---")
     entities = agent.learning_machine.entity_memory_store.search(query="acme", limit=10)
     pprint(entities)

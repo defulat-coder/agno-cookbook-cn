@@ -1,149 +1,149 @@
-# Learning Cookbooks Test Log
+# Learning Cookbook 测试日志
 
-Last updated: 2026-01-27
+最后更新：2026-01-27
 
-## Test Environment
-- Database: PostgreSQL with PgVector at localhost:5532
-- Python: `.venvs/demo/bin/python`
-- Model: gpt-5.2 (OpenAI)
+## 测试环境
+- 数据库：PostgreSQL with PgVector at localhost:5532
+- Python：`.venvs/demo/bin/python`
+- 模型：gpt-5.2 (OpenAI)
 
 ---
 
-## Priority 1: Directly Affected by Recent Changes
+## 优先级 1：最近更改直接影响的部分
 
 ### 05_learned_knowledge/01_agentic_mode.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Tests AGENTIC mode for LearnedKnowledgeStore with the restructured prompt (Rules 1-4 consolidated in CRITICAL RULES section).
+**描述：** 使用重组提示（规则 1-4 整合在 CRITICAL RULES 部分）测试 LearnedKnowledgeStore 的 AGENTIC 模式。
 
-**Result:** Agent correctly:
-- Searched before answering substantive questions (Rule 1)
-- Saved team goal when user said "we're trying to reduce cloud egress costs" (Rule 4)
-- Retrieved and applied learnings in subsequent session
+**结果：** Agent 正确地：
+- 在回答实质性问题之前进行搜索（规则 1）
+- 当用户说"我们正在努力减少云出口成本"时保存团队目标（规则 4）
+- 在后续会话中检索并应用学习内容
 
 ---
 
 ### 05_learned_knowledge/02_propose_mode.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Tests PROPOSE mode where agent proposes learnings for user approval before saving.
+**描述：** 测试 PROPOSE 模式，其中 agent 在保存之前提议学习供用户批准。
 
-**Result:** Agent correctly:
-- Proposed a learning with title/context/insight format (no emoji - fix verified)
-- Did NOT save when user said "No, don't save that"
-- Searched for existing learnings
+**结果：** Agent 正确地：
+- 以标题/上下文/洞察格式提议学习（无表情符号 - 已验证修复）
+- 当用户说"不，不要保存那个"时未保存
+- 搜索现有学习内容
 
 ---
 
 ### 06_quick_tests/02_learning_true_shorthand.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Tests the `learning=True` shorthand which now enables both UserProfile and UserMemory stores by default.
+**描述：** 测试 `learning=True` 简写，现在默认启用 UserProfile 和 UserMemory 存储。
 
-**Result:**
-- LearningMachine created with both stores: `['user_profile', 'user_memory']`
-- UserProfileStore extracted: Name "Charlie Brown", Preferred Name "Chuck"
-- UserMemoryStore extracted: "User's name is Charlie Brown; friends call him Chuck"
-- Session 2 correctly recalled "Chuck"
+**结果：**
+- 创建的 LearningMachine 包含两个存储：`['user_profile', 'user_memory']`
+- UserProfileStore 提取：Name "Charlie Brown"，Preferred Name "Chuck"
+- UserMemoryStore 提取："用户名是 Charlie Brown；朋友叫他 Chuck"
+- 会话 2 正确回忆 "Chuck"
 
 ---
 
-## Priority 2: Smoke Tests
+## 优先级 2：烟雾测试
 
 ### 00_quickstart/01_always_learn.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Basic ALWAYS mode learning with automatic extraction.
+**描述：** 基本 ALWAYS 模式学习，带自动提取。
 
-**Result:** Agent learned user info (Alice, Anthropic research scientist, prefers concise responses) and recalled it in session 2.
+**结果：** Agent 学习了用户信息（Alice，Anthropic 研究科学家，喜欢简洁的响应）并在会话 2 中回忆它。
 
 ---
 
 ### 00_quickstart/02_agentic_learn.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Basic AGENTIC mode where agent has tools to update memory.
+**描述：** 基本 AGENTIC 模式，其中 agent 有工具来更新记忆。
 
-**Result:** Agent used `update_user_memory` tool and correctly recalled user info.
+**结果：** Agent 使用 `update_user_memory` 工具并正确回忆用户信息。
 
 ---
 
 ### 00_quickstart/03_learned_knowledge.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Tests learned knowledge sharing across users.
+**描述：** 测试跨用户共享的学习知识。
 
-**Result:**
-- User 1 saved "reduce cloud egress costs" goal
-- User 2 received advice that incorporated the egress cost consideration ("Given your org goal to reduce egress costs, this should be a top discriminator")
+**结果：**
+- 用户 1 保存了"减少云出口成本"目标
+- 用户 2 收到的建议纳入了出口成本考虑（"鉴于你们组织减少出口成本的目标，这应该是一个首要的鉴别器"）
 
 ---
 
-## Priority 3: User Profile/Memory
+## 优先级 3：用户档案/记忆
 
 ### 01_basics/1a_user_profile_always.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** UserProfileStore with ALWAYS mode extraction.
+**描述：** 使用 ALWAYS 模式提取的 UserProfileStore。
 
-**Result:** Extracted profile (Alice Chen / Ali) and recalled correctly in session 2.
+**结果：** 提取的档案（Alice Chen / Ali）并在会话 2 中正确回忆。
 
 ---
 
 ### 01_basics/2a_user_memory_always.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** UserMemoryStore with ALWAYS mode extraction.
+**描述：** 使用 ALWAYS 模式提取的 UserMemoryStore。
 
-**Result:** Extracted memories about user's work and preferences, applied them in session 2 response.
+**结果：** 提取了关于用户工作和偏好的记忆，在会话 2 响应中应用它们。
 
 ---
 
-## Priority 4: Other Stores
+## 优先级 4：其他存储
 
 ### 01_basics/3a_session_context_summary.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** SessionContextStore tracking conversation state.
+**描述：** SessionContextStore 跟踪对话状态。
 
-**Result:** Maintained session summary across turns, correctly summarized the API design discussion when asked "What did we decide?"
+**结果：** 在各轮次中维护会话摘要，当问"我们决定了什么？"时正确总结 API 设计讨论。
 
 ---
 
 ### 01_basics/4_learned_knowledge.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Basic LearnedKnowledgeStore functionality.
+**描述：** 基本 LearnedKnowledgeStore 功能。
 
-**Result:** Agent searched learnings, incorporated egress cost goal into cloud provider recommendations.
+**结果：** Agent 搜索学习内容，将出口成本目标纳入云提供商推荐。
 
 ---
 
-## Summary
+## 总结
 
-| Category | Tests | Passed | Failed |
+| 类别 | 测试 | 通过 | 失败 |
 |----------|-------|--------|--------|
-| Priority 1 (Recent Changes) | 3 | 3 | 0 |
-| Priority 2 (Smoke Tests) | 3 | 3 | 0 |
-| Priority 3 (User Profile/Memory) | 2 | 2 | 0 |
-| Priority 4 (Other Stores) | 2 | 2 | 0 |
-| **Total** | **10** | **10** | **0** |
+| 优先级 1（最近更改） | 3 | 3 | 0 |
+| 优先级 2（烟雾测试） | 3 | 3 | 0 |
+| 优先级 3（用户档案/记忆） | 2 | 2 | 0 |
+| 优先级 4（其他存储） | 2 | 2 | 0 |
+| **总计** | **10** | **10** | **0** |
 
-All tests passing after the following changes:
-1. `learning=True` now enables both `user_profile` and `user_memory` by default
-2. LearnedKnowledgeStore prompt restructured with Rules 1-4 in CRITICAL RULES section
-3. Added Rule 3 (explicit save requests) and Rule 4 (org goals/constraints/policies)
-4. Removed emoji from PROPOSE mode
-5. Fixed `learning_saved` state reset bug
-6. Simplified tool docstrings (removed redundant "when to save" criteria)
-7. Updated extraction prompt with clearer two-category structure
+经过以下更改后所有测试通过：
+1. `learning=True` 现在默认启用 `user_profile` 和 `user_memory`
+2. LearnedKnowledgeStore 提示重组，规则 1-4 在 CRITICAL RULES 部分
+3. 添加了规则 3（明确保存请求）和规则 4（组织目标/约束/政策）
+4. 从 PROPOSE 模式中删除表情符号
+5. 修复了 `learning_saved` 状态重置错误
+6. 简化了工具文档字符串（删除了冗余的"何时保存"标准）
+7. 更新了提取提示，采用更清晰的两类结构

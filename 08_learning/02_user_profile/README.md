@@ -1,9 +1,9 @@
 # 02_user_profile
 
-Deep-dive examples focused on user profile extraction and schema control.
+专注于用户档案提取和模式控制的深入示例。
 
-## Files
+## 文件
 
-- `01_always_extraction.py`: Progressive user profile extraction in ALWAYS mode.
-- `02_agentic_mode.py`: Explicit user profile updates with AGENTIC tool calls.
-- `03_custom_schema.py`: Custom user profile dataclass schema extraction.
+- `01_always_extraction.py`：ALWAYS 模式下的渐进式用户档案提取。
+- `02_agentic_mode.py`：通过 AGENTIC 工具调用显式更新用户档案。
+- `03_custom_schema.py`：自定义用户档案数据类模式提取。

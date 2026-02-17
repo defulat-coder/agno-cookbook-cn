@@ -1,13 +1,13 @@
 """
-User Profile: Agentic Mode (Deep Dive)
+用户画像：Agentic 模式（深入探讨）
 ======================================
-Agent-controlled profile updates via explicit tools.
+通过显式工具进行 Agent 控制的画像更新。
 
-AGENTIC mode gives the agent a tool to update profile fields.
-You'll see tool calls in the response - more transparent than ALWAYS mode.
+AGENTIC 模式为 Agent 提供工具来更新画像字段。
+你会在响应中看到工具调用 - 比 ALWAYS 模式更透明。
 
-Compare with: 01_always_extraction.py for automatic extraction.
-See also: 01_basics/1b_user_profile_agentic.py for the basics.
+对比：01_always_extraction.py 使用自动提取。
+另见：01_basics/1b_user_profile_agentic.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -16,7 +16,7 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
@@ -37,15 +37,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "jordan@example.com"
 
-    # Session 1: Share name - watch for tool calls
+    # Session 1: 分享姓名 - 观察工具调用
     print("\n" + "=" * 60)
-    print("SESSION 1: Share name (watch for tool calls)")
+    print("SESSION 1: 分享姓名（观察工具调用）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -56,9 +56,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Session 2: Recall in new session
+    # Session 2: 新 Session 中召回
     print("\n" + "=" * 60)
-    print("SESSION 2: Profile recalled in new session")
+    print("SESSION 2: 新 Session 中召回画像")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -69,9 +69,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Session 3: Update preferred name
+    # Session 3: 更新偏好称呼
     print("\n" + "=" * 60)
-    print("SESSION 3: Update preferred name")
+    print("SESSION 3: 更新偏好称呼")
     print("=" * 60 + "\n")
 
     agent.print_response(

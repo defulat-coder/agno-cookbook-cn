@@ -1,16 +1,16 @@
 """
-Learned Knowledge: Agentic Mode (Deep Dive)
+学习知识：Agentic 模式（深入探讨）
 ===========================================
-Agent decides when to save and retrieve learnings.
+Agent 决定何时保存和检索知识。
 
-AGENTIC mode gives the agent tools:
-- save_learning: Store reusable insights
-- search_learnings: Find relevant prior knowledge
+AGENTIC 模式为 Agent 提供工具：
+- save_learning: 存储可复用的洞察
+- search_learnings: 查找相关的先前知识
 
-The agent decides what's worth remembering.
+Agent 决定什么值得记住。
 
-Compare with: 02_propose_mode.py for human-reviewed learnings.
-See also: 01_basics/4_learned_knowledge.py for the basics.
+对比：02_propose_mode.py 了解人工审核的知识。
+另见：01_basics/4_learned_knowledge.py 了解基础知识。
 """
 
 from agno.agent import Agent
@@ -22,7 +22,7 @@ from agno.models.openai import OpenAIResponses
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -55,15 +55,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "learn@example.com"
 
-    # Save a learning
+    # 保存学习
     print("\n" + "=" * 60)
-    print("MESSAGE 1: Save a learning")
+    print("MESSAGE 1: 保存学习")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -75,9 +75,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.learned_knowledge_store.print(query="cloud egress")
 
-    # Save another learning
+    # 保存另一个学习
     print("\n" + "=" * 60)
-    print("MESSAGE 2: Save another learning")
+    print("MESSAGE 2: 保存另一个学习")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -89,9 +89,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.learned_knowledge_store.print(query="database migration")
 
-    # Apply learnings
+    # 应用知识
     print("\n" + "=" * 60)
-    print("MESSAGE 3: Apply learnings to new question")
+    print("MESSAGE 3: 将知识应用于新问题")
     print("=" * 60 + "\n")
 
     agent.print_response(

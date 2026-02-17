@@ -1,15 +1,14 @@
 """
-User Profile: Always Mode
+用户画像：Always 模式
 =========================
-User Profile captures structured profile fields about users:
-- Name and preferred name
-- Custom profile fields (when using extended schemas)
+用户画像捕获关于用户的结构化字段：
+- 姓名和偏好称呼
+- 自定义画像字段（使用扩展 schema 时）
 
-ALWAYS mode extracts profile information automatically in parallel
-while the agent responds - no explicit tool calls needed.
+ALWAYS 模式在 Agent 响应时自动并行提取画像信息 - 无需显式工具调用。
 
-Compare with: 1b_user_profile_agentic.py for explicit tool-based updates.
-See also: 2a_user_memory_always.py for unstructured observations.
+对比：1b_user_profile_agentic.py 使用基于工具的显式更新。
+另见：2a_user_memory_always.py 了解非结构化观察。
 """
 
 from agno.agent import Agent
@@ -18,14 +17,14 @@ from agno.learn import LearningMachine, LearningMode, UserProfileConfig
 from agno.models.openai import OpenAIResponses
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
-# ALWAYS mode: Extraction happens automatically after each response.
-# The agent doesn't see or call any profile tools - it's invisible.
-# UserProfile stores structured fields (name, preferred_name, custom fields)
+# ALWAYS 模式：每次响应后自动提取。
+# Agent 不会看到或调用任何画像工具 - 这是不可见的。
+# UserProfile 存储结构化字段（name、preferred_name、自定义字段）
 agent = Agent(
     model=OpenAIResponses(id="gpt-5.2"),
     db=db,
@@ -38,15 +37,15 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Demo
+# 运行演示
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     user_id = "alice@example.com"
 
-    # Session 1: Share information naturally
+    # Session 1: 自然分享信息
     print("\n" + "=" * 60)
-    print("SESSION 1: Share information (extraction happens automatically)")
+    print("SESSION 1: 分享信息（自动提取）")
     print("=" * 60 + "\n")
 
     agent.print_response(
@@ -57,9 +56,9 @@ if __name__ == "__main__":
     )
     agent.learning_machine.user_profile_store.print(user_id=user_id)
 
-    # Session 2: New session - profile is recalled automatically
+    # Session 2: 新 Session - 画像自动召回
     print("\n" + "=" * 60)
-    print("SESSION 2: Profile recalled in new session")
+    print("SESSION 2: 新 Session 中召回画像")
     print("=" * 60 + "\n")
 
     agent.print_response(
