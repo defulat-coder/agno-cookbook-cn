@@ -17,13 +17,18 @@ Agent 会验证输入并保证输出结构。
 - {"ticker": "TSLA", "analysis_type": "deep", "include_risks": True}
 """
 
+import os
 from typing import List, Literal, Optional
+
+from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
 from pydantic import BaseModel, Field
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -100,7 +105,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_typed_input_output = Agent(
     name="Agent with Typed Input Output",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[YFinanceTools()],
     input_schema=AnalysisRequest,

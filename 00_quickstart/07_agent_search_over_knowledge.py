@@ -14,13 +14,19 @@ Agent 可以在文档（PDF、文本、URL）中进行搜索以回答问题。
 - "AgentOS 是什么？"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.knowledge.embedder.google import GeminiEmbedder
 from agno.knowledge.knowledge import Knowledge
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.vectordb.chroma import ChromaDb
 from agno.vectordb.search import SearchType
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 初始化配置
@@ -82,7 +88,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_knowledge = Agent(
     name="Agent with Knowledge",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     knowledge=knowledge,
     search_knowledge=True,

@@ -19,12 +19,18 @@ Agent 可以跨所有对话记住关于你的信息。
 - "你会为我推荐什么股票？"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.memory import MemoryManager
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
 from rich.pretty import pprint
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -35,7 +41,11 @@ agent_db = SqliteDb(db_file="tmp/agents.db")
 # 记忆管理器配置
 # ---------------------------------------------------------------------------
 memory_manager = MemoryManager(
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     db=agent_db,
     additional_instructions="""
     捕获用户喜爱的股票、风险承受能力和投资目标。
@@ -87,7 +97,11 @@ user_id = "investor@example.com"
 
 agent_with_memory = Agent(
     name="Agent with Memory",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[YFinanceTools()],
     db=agent_db,

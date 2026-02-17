@@ -22,11 +22,17 @@
 - "苹果现在是否被高估？"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.team.team import Team
 from agno.tools.yfinance import YFinanceTools
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -39,7 +45,11 @@ team_db = SqliteDb(db_file="tmp/agents.db")
 bull_agent = Agent(
     name="Bull Analyst",
     role="Make the investment case FOR a stock",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     tools=[YFinanceTools()],
     db=team_db,
     instructions="""\
@@ -63,7 +73,11 @@ bull_agent = Agent(
 bear_agent = Agent(
     name="Bear Analyst",
     role="Make the investment case AGAINST a stock",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     tools=[YFinanceTools()],
     db=team_db,
     instructions="""\
@@ -86,7 +100,11 @@ bear_agent = Agent(
 # ---------------------------------------------------------------------------
 multi_agent_team = Team(
     name="Multi-Agent Team",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     members=[bull_agent, bear_agent],
     instructions="""\
 你领导一个投资研究团队，包含一名多头分析师和一名空头分析师。

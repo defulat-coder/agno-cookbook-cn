@@ -25,14 +25,17 @@
 """
 
 import json
+import os
 from datetime import datetime, timezone
+
+from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.knowledge.embedder.google import GeminiEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.knowledge.reader.text_reader import TextReader
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools import tool
 from agno.tools.yfinance import YFinanceTools
 from agno.utils import pprint
@@ -40,6 +43,8 @@ from agno.vectordb.chroma import ChromaDb
 from agno.vectordb.search import SearchType
 from rich.console import Console
 from rich.prompt import Prompt
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -140,7 +145,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 human_in_the_loop_agent = Agent(
     name="Agent with Human in the Loop",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[
         YFinanceTools(),

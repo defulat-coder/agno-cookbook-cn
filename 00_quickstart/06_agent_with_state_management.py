@@ -19,11 +19,17 @@ Agent 在多轮对话中维护一个股票自选列表。
 - "我的自选股票今天表现如何？"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.run import RunContext
 from agno.tools.yfinance import YFinanceTools
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -111,7 +117,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_state_management = Agent(
     name="Agent with State Management",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[
         add_to_watchlist,

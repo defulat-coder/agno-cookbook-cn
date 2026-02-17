@@ -18,11 +18,17 @@
 - "给我一份关于苹果的报告"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
 from agno.workflow import Step, Workflow
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -34,7 +40,11 @@ workflow_db = SqliteDb(db_file="tmp/agents.db")
 # ---------------------------------------------------------------------------
 data_agent = Agent(
     name="Data Gatherer",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     tools=[YFinanceTools()],
     instructions="""\
 你是一个数据采集 Agent。你的任务是获取全面的市场数据。
@@ -65,7 +75,11 @@ data_step = Step(
 # ---------------------------------------------------------------------------
 analyst_agent = Agent(
     name="Analyst",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions="""\
 你是一名金融分析师。你从数据团队获取原始市场数据。
 
@@ -94,7 +108,11 @@ analysis_step = Step(
 # ---------------------------------------------------------------------------
 report_agent = Agent(
     name="Report Writer",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions="""\
 你是一名报告撰写者。你从研究团队获取分析结果。
 

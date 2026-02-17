@@ -21,16 +21,21 @@
 - "URGENT!!! ACT NOW!!!"（垃圾信息——被自定义护栏阻止）
 """
 
+import os
 from typing import Union
+
+from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.exceptions import InputCheckError
 from agno.guardrails import PIIDetectionGuardrail, PromptInjectionGuardrail
 from agno.guardrails.base import BaseGuardrail
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.run.agent import RunInput
 from agno.run.team import TeamRunInput
 from agno.tools.yfinance import YFinanceTools
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -89,7 +94,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_guardrails = Agent(
     name="Agent with Guardrails",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[YFinanceTools()],
     pre_hooks=[
