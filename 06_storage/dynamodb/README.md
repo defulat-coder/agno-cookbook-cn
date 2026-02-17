@@ -1,14 +1,14 @@
-# DynamoDB Integration
+# DynamoDB Integration（DynamoDB 集成）
 
-Examples demonstrating AWS DynamoDB integration with Agno agents.
+演示 AWS DynamoDB 与 Agno agents 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install boto3
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -23,21 +23,21 @@ agent = Agent(
 )
 ```
 
-## Authentication
+## Authentication（认证）
 
-Configure AWS credentials using one of these methods:
+使用以下方法之一配置 AWS 凭证：
 
 ```shell
-# Using AWS CLI
+# 使用 AWS CLI
 aws configure
 
-# Using environment variables
+# 使用环境变量
 export AWS_ACCESS_KEY_ID="your-access-key"
 export AWS_SECRET_ACCESS_KEY="your-secret-key"
 export AWS_REGION="us-east-1"
 ```
 
-## Examples
+## Examples（示例）
 
-- [`dynamo_for_agent.py`](dynamo_for_agent.py) - Agent with DynamoDB storage
-- [`dynamo_for_team.py`](dynamo_for_team.py) - Team with DynamoDB storage
+- [`dynamo_for_agent.py`](dynamo_for_agent.py) - 使用 DynamoDB storage 的 Agent
+- [`dynamo_for_team.py`](dynamo_for_team.py) - 使用 DynamoDB storage 的 Team

@@ -1,24 +1,24 @@
-# MySQL Integration
+# MySQL Integration（MySQL 集成）
 
-Examples demonstrating MySQL database integration with Agno agents, teams, and workflows.
+演示 MySQL 数据库与 Agno agents、teams 和 workflows 集成的示例。
 
-## Setup
+## Setup（设置）
 
-### Synchronous MySQL
+### Synchronous MySQL（同步 MySQL）
 
 ```shell
 uv pip install mysql-connector-python sqlalchemy pymysql
 ```
 
-### Asynchronous MySQL
+### Asynchronous MySQL（异步 MySQL）
 
 ```shell
 uv pip install sqlalchemy asyncmy
 ```
 
-## Configuration
+## Configuration（配置）
 
-### Synchronous MySQL
+### Synchronous MySQL（同步 MySQL）
 
 ```python
 from agno.agent import Agent
@@ -32,7 +32,7 @@ agent = Agent(
 )
 ```
 
-### Asynchronous MySQL
+### Asynchronous MySQL（异步 MySQL）
 
 ```python
 import asyncio
@@ -49,36 +49,36 @@ agent = Agent(
 asyncio.run(agent.aprint_response("Hello!"))
 ```
 
-## Synchronous Examples
+## Synchronous Examples（同步示例）
 
-- [`mysql_for_agent.py`](mysql_for_agent.py) - Agent with MySQL storage
-- [`mysql_for_team.py`](mysql_for_team.py) - Team with MySQL storage
+- [`mysql_for_agent.py`](mysql_for_agent.py) - 使用 MySQL storage 的 Agent
+- [`mysql_for_team.py`](mysql_for_team.py) - 使用 MySQL storage 的 Team
 
-## Asynchronous Examples
+## Asynchronous Examples（异步示例）
 
-- [`async_mysql/async_mysql_for_agent.py`](async_mysql/async_mysql_for_agent.py) - Agent with Async MySQL storage
-- [`async_mysql/async_mysql_for_team.py`](async_mysql/async_mysql_for_team.py) - Team with Async MySQL storage
-- [`async_mysql/async_mysql_for_workflow.py`](async_mysql/async_mysql_for_workflow.py) - Workflow with Async MySQL storage
+- [`async_mysql/async_mysql_for_agent.py`](async_mysql/async_mysql_for_agent.py) - 使用异步 MySQL storage 的 Agent
+- [`async_mysql/async_mysql_for_team.py`](async_mysql/async_mysql_for_team.py) - 使用异步 MySQL storage 的 Team
+- [`async_mysql/async_mysql_for_workflow.py`](async_mysql/async_mysql_for_workflow.py) - 使用异步 MySQL storage 的 Workflow
 
-## Database URL Format
+## Database URL Format（数据库 URL 格式）
 
-### Synchronous Drivers
+### Synchronous Drivers（同步驱动）
 
-- **PyMySQL**: `mysql+pymysql://user:password@host:port/database`
-- **MySQL Connector/Python**: `mysql+mysqlconnector://user:password@host:port/database`
+- **PyMySQL**：`mysql+pymysql://user:password@host:port/database`
+- **MySQL Connector/Python**：`mysql+mysqlconnector://user:password@host:port/database`
 
-### Asynchronous Drivers
+### Asynchronous Drivers（异步驱动）
 
-- **asyncmy**: `mysql+asyncmy://user:password@host:port/database`
+- **asyncmy**：`mysql+asyncmy://user:password@host:port/database`
 
-## Async vs Sync
+## Async vs Sync（异步 vs 同步）
 
-Choose **AsyncMySQLDb** when:
-- Building high-concurrency applications
-- Working with async frameworks (FastAPI, Sanic, etc.)
-- Need non-blocking database operations
+选择 **AsyncMySQLDb** 当：
+- 构建高并发应用程序
+- 使用异步框架（FastAPI、Sanic 等）
+- 需要非阻塞数据库操作
 
-Choose **MySQLDb** when:
-- Building traditional synchronous applications
-- Simpler deployment requirements
-- Working with sync-only libraries
+选择 **MySQLDb** 当：
+- 构建传统同步应用程序
+- 更简单的部署要求
+- 使用仅支持同步的库

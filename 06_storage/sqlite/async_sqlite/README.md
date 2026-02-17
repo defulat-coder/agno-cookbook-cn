@@ -1,14 +1,14 @@
-# Async SQLite Integration
+# Async SQLite Integration（异步 SQLite 集成）
 
-Examples demonstrating asynchronous SQLite integration with Agno agents, teams, and workflows.
+演示异步 SQLite 与 Agno agents、teams 和 workflows 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install sqlalchemy aiosqlite
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.db.sqlite import AsyncSqliteDb
@@ -16,8 +16,8 @@ from agno.db.sqlite import AsyncSqliteDb
 db = AsyncSqliteDb(db_file="path/to/database.db")
 ```
 
-## Examples
+## Examples（示例）
 
-- [`async_sqlite_for_agent.py`](async_sqlite_for_agent.py) - Agent with AsyncSqliteDb storage
-- [`async_sqlite_for_team.py`](async_sqlite_for_team.py) - Team with AsyncSqliteDb storage
-- [`async_sqlite_for_workflow.py`](async_sqlite_for_workflow.py) - Workflow with AsyncSqliteDb storage
+- [`async_sqlite_for_agent.py`](async_sqlite_for_agent.py) - 使用 AsyncSqliteDb storage 的 Agent
+- [`async_sqlite_for_team.py`](async_sqlite_for_team.py) - 使用 AsyncSqliteDb storage 的 Team
+- [`async_sqlite_for_workflow.py`](async_sqlite_for_workflow.py) - 使用 AsyncSqliteDb storage 的 Workflow

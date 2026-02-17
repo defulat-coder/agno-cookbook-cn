@@ -1,5 +1,5 @@
-"""Use Async MySQL as the database for an agent.
-Run `uv pip install openai duckduckgo-search sqlalchemy asyncmy agno` to install dependencies.
+"""使用 Async MySQL 作为 Agent 的数据库。
+运行 `uv pip install openai duckduckgo-search sqlalchemy asyncmy agno` 安装依赖。
 """
 
 import asyncio
@@ -11,13 +11,13 @@ from agno.db.mysql import AsyncMySQLDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mysql+asyncmy://ai:ai@localhost:3306/ai"
 db = AsyncMySQLDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -28,10 +28,10 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 async def main():
-    """Run the agent queries in the same event loop"""
+    """在同一个事件循环中运行 Agent 查询"""
     session_id = str(uuid.uuid4())
     await agent.aprint_response(
         "How many people live in Canada?", session_id=session_id

@@ -1,6 +1,6 @@
-"""Use SQLite as the database for an agent.
+"""使用 SQLite 作为 Agent 的数据库。
 
-Run `uv pip install openai ddgs sqlalchemy aiosqlite` to install dependencies."""
+运行 `uv pip install openai ddgs sqlalchemy aiosqlite` 安装依赖。"""
 
 import asyncio
 
@@ -9,12 +9,12 @@ from agno.db.sqlite import AsyncSqliteDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = AsyncSqliteDb(db_file="tmp/data.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -24,7 +24,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(agent.aprint_response("How many people live in Canada?"))

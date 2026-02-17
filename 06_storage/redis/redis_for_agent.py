@@ -1,13 +1,13 @@
 """
-Example showing how to use Redis as the database for an agent.
+演示如何使用 Redis 作为 Agent 的数据库的示例。
 
-Run `uv pip install redis ddgs openai` to install dependencies.
+运行 `uv pip install redis ddgs openai` 安装依赖。
 
-We can start Redis locally using docker:
-1. Start Redis container
+我们可以使用 docker 在本地启动 Redis：
+1. 启动 Redis 容器
 docker run --name my-redis -p 6379:6379 -d redis
 
-2. Verify container is running
+2. 验证容器正在运行
 docker ps
 """
 
@@ -17,12 +17,12 @@ from agno.db.redis import RedisDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = RedisDb(db_url="redis://localhost:6379")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -31,13 +31,13 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("How many people live in Canada?")
     agent.print_response("What is their national anthem called?")
 
-    # Verify db contents
+    # 验证数据库内容
     print("\nVerifying db contents...")
     all_sessions = db.get_sessions(session_type=SessionType.AGENT)
     print(f"Total sessions in Redis: {len(all_sessions)}")

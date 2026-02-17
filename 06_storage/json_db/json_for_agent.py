@@ -1,8 +1,8 @@
 """
-Use JSON files as the database for an Agent.
-Useful for simple demos where performance is not critical.
+使用 JSON 文件作为 Agent 的数据库。
+适用于性能不是关键的简单演示。
 
-Run `uv pip install ddgs openai` to install dependencies."""
+运行 `uv pip install ddgs openai` 安装依赖。"""
 
 from agno.agent import Agent
 from agno.db.json import JsonDb

@@ -1,18 +1,18 @@
-"""Use MySQL as the database for an agent.
+"""使用 MySQL 作为 Agent 的数据库。
 
-Run `uv pip install openai` to install dependencies."""
+运行 `uv pip install openai` 安装依赖。"""
 
 from agno.agent import Agent
 from agno.db.mysql import MySQLDb
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mysql+pymysql://ai:ai@localhost:3306/ai"
 db = MySQLDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -20,7 +20,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("How many people live in Canada?")

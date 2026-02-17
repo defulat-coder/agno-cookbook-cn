@@ -1,21 +1,21 @@
-"""Run `uv pip install ddgs openai` to install dependencies."""
+"""运行 `uv pip install ddgs openai` 安装依赖。"""
 
 from agno.agent import Agent
 from agno.db.in_memory import InMemoryDb
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = InMemoryDb()
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(db=db)
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # The Agent sessions will now be stored in the in-memory database
+    # Agent 的 session 现在将存储在内存数据库中
     agent.print_response("Give me an easy and healthy dinner recipe")

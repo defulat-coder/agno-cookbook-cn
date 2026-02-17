@@ -1,19 +1,19 @@
-"""Use Postgres as the database for an agent.
+"""使用 Postgres 作为 Agent 的数据库。
 
-Run `uv pip install ddgs sqlalchemy openai` to install dependencies."""
+运行 `uv pip install ddgs sqlalchemy openai` 安装依赖。"""
 
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -22,7 +22,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("How many people live in Canada?")

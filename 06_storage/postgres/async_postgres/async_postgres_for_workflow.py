@@ -1,8 +1,8 @@
 """
-Async Postgres Storage for Workflow
-===================================
+用于工作流的 Async Postgres 存储
+=================================
 
-Demonstrates using AsyncPostgresDb as the session storage backend for a workflow.
+演示如何使用 AsyncPostgresDb 作为工作流的 session 存储后端。
 """
 
 import asyncio
@@ -17,44 +17,44 @@ from agno.workflow.step import Step
 from agno.workflow.workflow import Workflow
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg_async://ai:ai@localhost:5532/ai"
 db = AsyncPostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 hackernews_agent = Agent(
     name="Hackernews Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts",
+    role="从 Hackernews 帖子中提取关键见解和内容",
 )
 web_agent = Agent(
     name="Web Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[WebSearchTools()],
-    role="Search the web for the latest news and trends",
+    role="在网上搜索最新的新闻和趋势",
 )
 
-# Define research team for complex analysis
+# 定义用于复杂分析的研究团队
 research_team = Team(
     name="Research Team",
     members=[hackernews_agent, web_agent],
-    instructions="Research tech topics from Hackernews and the web",
+    instructions="从 Hackernews 和网络研究科技话题",
 )
 
 content_planner = Agent(
     name="Content Planner",
     model=OpenAIChat(id="gpt-4o"),
     instructions=[
-        "Plan a content schedule over 4 weeks for the provided topic and research content",
-        "Ensure that I have posts for 3 posts per week",
+        "为提供的主题和研究内容计划 4 周的内容时间表",
+        "确保每周有 3 篇帖子",
     ],
 )
 
-# Define steps
+# 定义步骤
 research_step = Step(
     name="Research Step",
     team=research_team,
@@ -66,12 +66,12 @@ content_planning_step = Step(
 )
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     content_creation_workflow = Workflow(
         name="Content Creation Workflow",
-        description="Automated content creation from blog posts to social media",
+        description="从博客文章到社交媒体的自动化内容创建",
         db=db,
         steps=[research_step, content_planning_step],
     )

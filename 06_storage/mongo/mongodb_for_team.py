@@ -1,9 +1,9 @@
 """
-Use MongoDb as the database for a team.
+使用 MongoDb 作为团队的数据库。
 
-Run `uv pip install openai ddgs newspaper4k lxml_html_clean agno` to install the dependencies
+运行 `uv pip install openai ddgs newspaper4k lxml_html_clean agno` 安装依赖
 
-Run a local MongoDB server using:
+使用以下命令运行本地 MongoDB 服务器：
 ```bash
 docker run -d \
   --name local-mongo \
@@ -12,7 +12,7 @@ docker run -d \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
 ```
-or use our script:
+或使用我们的脚本：
 ```bash
 ./scripts/run_mongodb.sh
 """
@@ -28,14 +28,14 @@ from agno.tools.websearch import WebSearchTools
 from pydantic import BaseModel
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mongodb://mongoadmin:secret@localhost:27017"
 db = MongoDb(db_url=db_url)
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 class Article(BaseModel):
     title: str
@@ -46,14 +46,14 @@ class Article(BaseModel):
 hn_researcher = Agent(
     name="HackerNews Researcher",
     model=OpenAIChat("gpt-4o"),
-    role="Gets top stories from hackernews.",
+    role="从 hackernews 获取热门故事。",
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
     name="Web Searcher",
     model=OpenAIChat("gpt-4o"),
-    role="Searches the web for information on a topic",
+    role="在网上搜索某个主题的信息",
     tools=[WebSearchTools()],
     add_datetime_to_context=True,
 )
@@ -65,9 +65,9 @@ hn_team = Team(
     members=[hn_researcher, web_searcher],
     db=db,
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hackernews 上搜索用户询问的内容。",
+        "然后，让网络搜索者搜索每个故事以获取更多信息。",
+        "最后，提供一个有思想和吸引力的摘要。",
     ],
     output_schema=Article,
     markdown=True,
@@ -76,7 +76,7 @@ hn_team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     hn_team.print_response("Write an article about the top 2 stories on hackernews")

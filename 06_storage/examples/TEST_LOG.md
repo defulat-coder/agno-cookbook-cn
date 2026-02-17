@@ -1,20 +1,20 @@
 # Test Log: examples
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### multi_user_multi_session.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `multi_user_multi_session.py`.
+**描述：** `multi_user_multi_session.py` 的测试覆盖待处理。
 
 ---
 
 ### selecting_tables.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `selecting_tables.py`.
+**描述：** `selecting_tables.py` 的测试覆盖待处理。
 
 ---
 

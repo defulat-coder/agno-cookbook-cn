@@ -1,8 +1,8 @@
 """
-Chat History
-============
+聊天历史
+========
 
-Demonstrates retrieving chat history from agent sessions stored in PostgresDb.
+演示如何从存储在 PostgresDb 中的 Agent session 获取聊天历史。
 """
 
 from agno.agent.agent import Agent
@@ -10,24 +10,24 @@ from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url, session_table="sessions")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     db=db,
     session_id="chat_history",
-    instructions="You are a helpful assistant that can answer questions about space and oceans.",
+    instructions="你是一个能够回答关于太空和海洋问题的助手。",
     add_history_to_context=True,
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("Tell me a new interesting fact about space")

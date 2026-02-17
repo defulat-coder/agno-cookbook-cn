@@ -1,12 +1,12 @@
 # Test Log: gcs
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### gcs_json_for_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `gcs_json_for_agent.py`.
+**描述：** `gcs_json_for_agent.py` 的测试覆盖待处理。
 
 ---
 

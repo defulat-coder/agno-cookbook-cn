@@ -1,5 +1,5 @@
-"""Use Async MySQL as the database for a workflow.
-Run `uv pip install openai duckduckgo-search sqlalchemy asyncmy agno` to install dependencies.
+"""使用 Async MySQL 作为工作流的数据库。
+运行 `uv pip install openai duckduckgo-search sqlalchemy asyncmy agno` 安装依赖。
 """
 
 import asyncio
@@ -15,14 +15,14 @@ from agno.workflow.workflow import Workflow
 from pydantic import BaseModel
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mysql+asyncmy://ai:ai@localhost:3306/ai"
 db = AsyncMySQLDb(db_url=db_url)
 
 
 # ---------------------------------------------------------------------------
-# Create Workflow
+# 创建工作流
 # ---------------------------------------------------------------------------
 class ResearchTopic(BaseModel):
     topic: str
@@ -30,32 +30,32 @@ class ResearchTopic(BaseModel):
     summary: str
 
 
-# Create researcher agent
+# 创建研究者 Agent
 researcher = Agent(
     name="Researcher",
     tools=[WebSearchTools()],
-    instructions="Research the given topic thoroughly and provide key insights",
+    instructions="深入研究给定的主题并提供关键见解",
     output_schema=ResearchTopic,
 )
 
-# Create writer agent
+# 创建写作者 Agent
 writer = Agent(
     name="Writer",
-    instructions="Write a well-structured blog post based on the research provided",
+    instructions="根据提供的研究撰写结构良好的博客文章",
 )
 
 
-# Define the workflow
+# 定义工作流
 async def blog_workflow(workflow: Workflow, execution_input: WorkflowExecutionInput):
     """
-    A workflow that researches a topic and writes a blog post about it.
+    一个研究主题并撰写博客文章的工作流。
     """
     topic = execution_input.input
 
-    # Step 1: Research the topic
+    # 步骤 1：研究主题
     research_result = await researcher.arun(f"Research this topic: {topic}")
 
-    # Step 2: Write the blog post
+    # 步骤 2：撰写博客文章
     if research_result and research_result.content:
         blog_result = await writer.arun(
             f"Write a blog post about {topic}. Use this research: {research_result.content.model_dump_json()}"
@@ -73,10 +73,10 @@ workflow = Workflow(
 
 
 # ---------------------------------------------------------------------------
-# Run Workflow
+# 运行工作流
 # ---------------------------------------------------------------------------
 async def main():
-    """Run the workflow with a sample topic"""
+    """使用示例主题运行工作流"""
     session_id = str(uuid.uuid4())
 
     await workflow.aprint_response(

@@ -1,8 +1,8 @@
-"""Use MongoDb as the database for an agent.
+"""使用 MongoDb 作为 Agent 的数据库。
 
-Run `uv pip install openai pymongo` to install dependencies
+运行 `uv pip install openai pymongo` 安装依赖
 
-Run a local MongoDB server using:
+使用以下命令运行本地 MongoDB 服务器：
 ```bash
 docker run -d \
   --name local-mongo \
@@ -11,7 +11,7 @@ docker run -d \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
 ```
-or use our script:
+或使用我们的脚本：
 ```bash
 ./scripts/run_mongodb.sh
 ```
@@ -22,13 +22,13 @@ from agno.db.mongo import MongoDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mongodb://mongoadmin:secret@localhost:27017"
 db = MongoDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -37,7 +37,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response("How many people live in Canada?")

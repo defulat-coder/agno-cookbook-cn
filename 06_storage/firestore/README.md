@@ -1,14 +1,14 @@
-# Firestore Integration
+# Firestore Integration（Firestore 集成）
 
-Examples demonstrating Google Cloud Firestore integration with Agno agents.
+演示 Google Cloud Firestore 与 Agno agents 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install google-cloud-firestore
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -22,18 +22,18 @@ agent = Agent(
 )
 ```
 
-## Authentication
+## Authentication（认证）
 
-Set up authentication using one of these methods:
+使用以下方法之一设置认证：
 
 ```shell
-# Using gcloud CLI
+# 使用 gcloud CLI
 gcloud auth application-default login
 
-# Using environment variable
+# 使用环境变量
 export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
 ```
 
-## Examples
+## Examples（示例）
 
-- [`firestore_for_agent.py`](firestore_for_agent.py) - Agent with Firestore storage
+- [`firestore_for_agent.py`](firestore_for_agent.py) - 使用 Firestore storage 的 Agent

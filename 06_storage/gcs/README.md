@@ -1,14 +1,14 @@
-# Google Cloud Storage Integration
+# Google Cloud Storage Integration（Google Cloud Storage 集成）
 
-Examples demonstrating Google Cloud Storage (GCS) integration with Agno agents using JSON blob storage.
+演示使用 JSON blob storage 将 Google Cloud Storage (GCS) 与 Agno agents 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install google-cloud-storage
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -24,21 +24,21 @@ agent = Agent(
 )
 ```
 
-## Authentication
+## Authentication（认证）
 
-Set up authentication using one of these methods:
+使用以下方法之一设置认证：
 
 ```shell
-# Using gcloud CLI
+# 使用 gcloud CLI
 gcloud auth application-default login
 
-# Using environment variable
+# 使用环境变量
 export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
 ```
 
-## Permissions
+## Permissions（权限）
 
-Ensure your account has Storage Admin permissions:
+确保您的账户具有 Storage Admin 权限：
 
 ```shell
 gcloud projects add-iam-policy-binding PROJECT_ID \
@@ -47,7 +47,7 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
 ```
 
 
-Install the required Python packages:
+安装所需的 Python 包：
 
 
 ```bash
@@ -55,12 +55,12 @@ uv pip install google-auth google-cloud-storage openai ddgs
 ```
 
 
-## Example Script
+## Example Script（示例脚本）
 
-### Debugging and Bucket Dump
+### Debugging and Bucket Dump（调试和桶转储）
 
-In the example script, a global variable `DEBUG_MODE` controls whether the bucket contents are printed at the end of execution.
-Set `DEBUG_MODE = True` in the script to see content of the bucket.
+在示例脚本中，全局变量 `DEBUG_MODE` 控制是否在执行结束时打印桶内容。
+在脚本中设置 `DEBUG_MODE = True` 以查看桶的内容。
 
 ```bash
 gcloud init
@@ -68,19 +68,18 @@ gcloud auth application-default login
 python gcs_json_storage_for_agent.py
 ```
 
-## Local Testing with Fake GCS
+## Local Testing with Fake GCS（使用 Fake GCS 进行本地测试）
 
-If you want to test the storage functionality locally without using real GCS, you can use [fake-gcs-server](https://github.com/fsouza/fake-gcs-server) :
+如果您想在不使用真实 GCS 的情况下本地测试存储功能，可以使用 [fake-gcs-server](https://github.com/fsouza/fake-gcs-server)：
 
-### Setup Fake GCS with Docker
+### Setup Fake GCS with Docker（使用 Docker 设置 Fake GCS）
 
 
-2. **Install Docker:**
+2. **安装 Docker：**
 
-Make sure Docker is installed on your system.
+确保您的系统上安装了 Docker。
 
-4. **
-Create a `docker-compose.yml` File**  in your project root with the following content:
+4. **在项目根目录创建 `docker-compose.yml` 文件**，内容如下：
 
 
 ```yaml
@@ -95,20 +94,20 @@ services:
       - ./fake-gcs-data:/data
 ```
 
-6. **Start the Fake GCS Server:**
+6. **启动 Fake GCS 服务器：**
 
 
 ```bash
 docker-compose up -d
 ```
 
-This will start the fake GCS server on `http://localhost:4443`.
+这将在 `http://localhost:4443` 上启动 fake GCS 服务器。
 
 
-### Configuring the Script to Use Fake GCS
+### Configuring the Script to Use Fake GCS（配置脚本使用 Fake GCS）
 
 
-Set the environment variable so the GCS client directs API calls to the emulator:
+设置环境变量，使 GCS 客户端将 API 调用定向到模拟器：
 
 
 
@@ -118,4 +117,4 @@ python gcs_json_for_agent.py
 ```
 
 
-When using Fake GCS, authentication isn’t enforced. The client will automatically detect the emulator endpoint.
+使用 Fake GCS 时，不强制进行身份验证。客户端将自动检测模拟器端点。

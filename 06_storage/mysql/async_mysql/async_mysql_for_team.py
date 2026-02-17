@@ -1,5 +1,5 @@
-"""Use Async MySQL as the database for a team.
-Run `uv pip install openai duckduckgo-search newspaper4k lxml_html_clean agno sqlalchemy asyncmy` to install the dependencies
+"""使用 Async MySQL 作为团队的数据库。
+运行 `uv pip install openai duckduckgo-search newspaper4k lxml_html_clean agno sqlalchemy asyncmy` 安装依赖
 """
 
 import asyncio
@@ -15,14 +15,14 @@ from agno.tools.websearch import WebSearchTools
 from pydantic import BaseModel
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "mysql+asyncmy://ai:ai@localhost:3306/ai"
 db = AsyncMySQLDb(db_url=db_url)
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 class Article(BaseModel):
     title: str
@@ -32,13 +32,13 @@ class Article(BaseModel):
 
 hn_researcher = Agent(
     name="HackerNews Researcher",
-    role="Gets top stories from hackernews.",
+    role="从 hackernews 获取热门故事。",
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
     name="Web Searcher",
-    role="Searches the web for information on a topic",
+    role="在网上搜索某个主题的信息",
     tools=[WebSearchTools()],
     add_datetime_to_context=True,
 )
@@ -49,9 +49,9 @@ hn_team = Team(
     members=[hn_researcher, web_searcher],
     db=db,
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hackernews 上搜索用户询问的内容。",
+        "然后，让网络搜索者搜索每个故事以获取更多信息。",
+        "最后，提供一个有思想和吸引力的摘要。",
     ],
     output_schema=Article,
     markdown=True,
@@ -60,10 +60,10 @@ hn_team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 async def main():
-    """Run the agent queries in the same event loop"""
+    """在同一个事件循环中运行 Agent 查询"""
     session_id = str(uuid.uuid4())
     await hn_team.aprint_response(
         "Write an article about the top 2 stories on hackernews", session_id=session_id

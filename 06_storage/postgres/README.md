@@ -1,14 +1,14 @@
-# PostgreSQL Integration
+# PostgreSQL Integration（PostgreSQL 集成）
 
-Examples demonstrating PostgreSQL database integration with Agno agents, teams, and workflows.
+演示 PostgreSQL 数据库与 Agno agents、teams 和 workflows 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install psycopg2-binary
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -22,9 +22,9 @@ agent = Agent(
 )
 ```
 
-## Async usage
+## Async usage（异步使用）
 
-Agno also supports using your PostgreSQL database asynchronously, via the `AsyncPostgresDb` class:
+Agno 还支持通过 `AsyncPostgresDb` 类异步使用 PostgreSQL 数据库：
 
 ```python
 from agno.agent import Agent
@@ -38,8 +38,8 @@ agent = Agent(
 )
 ```
 
-## Examples
+## Examples（示例）
 
-- [`postgres_for_agent.py`](postgres_for_agent.py) - Agent with PostgreSQL storage
-- [`postgres_for_team.py`](postgres_for_team.py) - Team with PostgreSQL storage
-- [`postgres_for_workflow.py`](postgres_for_workflow.py) - Workflow with PostgreSQL storage
+- [`postgres_for_agent.py`](postgres_for_agent.py) - 使用 PostgreSQL storage 的 Agent
+- [`postgres_for_team.py`](postgres_for_team.py) - 使用 PostgreSQL storage 的 Team
+- [`postgres_for_workflow.py`](postgres_for_workflow.py) - 使用 PostgreSQL storage 的 Workflow

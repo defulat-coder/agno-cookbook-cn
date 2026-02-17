@@ -1,14 +1,14 @@
-# MongoDB Integration
+# MongoDB Integration（MongoDB 集成）
 
-Examples demonstrating MongoDB integration with Agno agents and teams.
+演示 MongoDB 与 Agno agents 和 teams 集成的示例。
 
-## Setup
+## Setup（设置）
 
 ```shell
 uv pip install pymongo
 ```
 
-Run a local MongoDB server using:
+使用以下命令运行本地 MongoDB 服务器：
 ```bash
 docker run -d \
   --name local-mongo \
@@ -17,12 +17,12 @@ docker run -d \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
 ```
-or use our script:
+或使用我们的脚本：
 ```bash
 ./scripts/run_mongodb.sh
 ```
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -36,7 +36,7 @@ agent = Agent(
 )
 ```
 
-## Examples
+## Examples（示例）
 
-- [`mongodb_for_agent.py`](mongodb_for_agent.py) - Agent with MongoDB storage
-- [`mongodb_for_team.py`](mongodb_for_team.py) - Team with MongoDB storage
+- [`mongodb_for_agent.py`](mongodb_for_agent.py) - 使用 MongoDB storage 的 Agent
+- [`mongodb_for_team.py`](mongodb_for_team.py) - 使用 MongoDB storage 的 Team

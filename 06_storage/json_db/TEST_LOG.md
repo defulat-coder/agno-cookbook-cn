@@ -1,28 +1,28 @@
 # Test Log: json_db
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。运行每个文件并更新此日志。
 
 ### json_for_agent.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `json_for_agent.py`.
+**描述：** `json_for_agent.py` 的测试覆盖待处理。
 
 ---
 
 ### json_for_team.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `json_for_team.py`.
+**描述：** `json_for_team.py` 的测试覆盖待处理。
 
 ---
 
 ### json_for_workflows.py
 
-**Status:** PENDING
+**状态：** PENDING
 
-**Description:** Pending test coverage for `json_for_workflows.py`.
+**描述：** `json_for_workflows.py` 的测试覆盖待处理。
 
 ---
 

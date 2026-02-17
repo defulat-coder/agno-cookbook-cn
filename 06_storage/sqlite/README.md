@@ -1,8 +1,8 @@
-# SQLite Integration
+# SQLite Integration（SQLite 集成）
 
-Examples demonstrating SQLite database integration with Agno agents, teams, and workflows.
+演示 SQLite 数据库与 Agno agents、teams 和 workflows 集成的示例。
 
-## Configuration
+## Configuration（配置）
 
 ```python
 from agno.agent import Agent
@@ -16,9 +16,9 @@ agent = Agent(
 )
 ```
 
-## Async usage
+## Async usage（异步使用）
 
-Agno also supports using your SQLite database asynchronously, via the `AsyncSqliteDb` class:
+Agno 还支持通过 `AsyncSqliteDb` 类异步使用 SQLite 数据库：
 
 ```python
 from agno.agent import Agent
@@ -32,9 +32,9 @@ agent = Agent(
 )
 ```
 
-## Examples
+## Examples（示例）
 
-- [`sqlite_for_agent.py`](sqlite_for_agent.py) - Agent with SQLite storage
-- [`sqlite_for_team.py`](sqlite_for_team.py) - Team with SQLite storage
-- [`sqlite_for_workflow.py`](sqlite_for_workflow.py) - Workflow with SQLite storage
+- [`sqlite_for_agent.py`](sqlite_for_agent.py) - 使用 SQLite storage 的 Agent
+- [`sqlite_for_team.py`](sqlite_for_team.py) - 使用 SQLite storage 的 Team
+- [`sqlite_for_workflow.py`](sqlite_for_workflow.py) - 使用 SQLite storage 的 Workflow
 

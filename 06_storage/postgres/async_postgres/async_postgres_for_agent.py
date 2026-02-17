@@ -1,6 +1,6 @@
-"""Use Postgres as the database for an agent.
+"""使用 Postgres 作为 Agent 的数据库。
 
-Run `uv pip install openai ddgs sqlalchemy psycopg` to install dependencies."""
+运行 `uv pip install openai ddgs sqlalchemy psycopg` 安装依赖。"""
 
 import asyncio
 
@@ -9,13 +9,13 @@ from agno.db.postgres import AsyncPostgresDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg_async://ai:ai@localhost:5532/ai"
 db = AsyncPostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -25,7 +25,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(agent.aprint_response("How many people live in Canada?"))

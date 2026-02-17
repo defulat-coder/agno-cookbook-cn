@@ -1,6 +1,6 @@
-"""Use SQLite as the database for an Agent.
+"""使用 SQLite 作为 Agent 的数据库。
 
-Run `uv pip install ddgs sqlalchemy openai` to install dependencies.
+运行 `uv pip install ddgs sqlalchemy openai` 安装依赖。
 """
 
 from agno.agent import Agent
@@ -8,12 +8,12 @@ from agno.db.sqlite import SqliteDb
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/data.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     db=db,
@@ -23,10 +23,10 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # The Agent sessions and runs will now be stored in SQLite
+    # Agent 的 session 和运行记录现在将存储在 SQLite 中
     agent.print_response("How many people live in Canada?")
     agent.print_response("What is their national anthem?")
     agent.print_response("List my messages one by one")

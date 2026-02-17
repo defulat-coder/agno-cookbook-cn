@@ -1,8 +1,8 @@
 """
-Persistent Session Storage
-==========================
+持久化 Session 存储
+==================
 
-Demonstrates using PostgresDb for persistent session storage with a team.
+演示如何使用 PostgresDb 为团队提供持久化 session 存储功能。
 """
 
 from agno.agent.agent import Agent
@@ -11,13 +11,13 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Setup
+# 设置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url, session_table="sessions")
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 agent = Agent(name="test_agent", model=OpenAIChat(id="gpt-5.2"))
 team = Team(
@@ -28,7 +28,7 @@ team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Run Team
+# 运行团队
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     team.print_response("Tell me a new interesting fact about space")
