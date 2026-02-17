@@ -19,6 +19,8 @@
 """
 
 import os
+
+from dotenv import load_dotenv
 from typing import List, Optional
 
 from agno.agent import Agent
@@ -26,6 +28,8 @@ from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
 from pydantic import BaseModel, Field
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -90,7 +94,7 @@ agent_with_structured_output = Agent(
     name="Agent with Structured Output",
     model=OpenAILike(
         id=os.getenv("MODEL_ID", "GLM-4.7"),
-        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
         api_key=os.getenv("MODEL_API_KEY"),
     ),
     instructions=instructions,
