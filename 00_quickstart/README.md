@@ -8,18 +8,18 @@
 
 | # | 文件 | 学习内容 | 核心特性 |
 |:--|:---------|:------------------|:-------------|
-| 01 | `agent_with_tools.py` | 为 Agent 提供工具以获取实时数据 | 工具调用、数据获取 |
-| 02 | `agent_with_structured_output.py` | 返回类型化的 Pydantic 对象 | 结构化输出、类型安全 |
-| 03 | `agent_with_typed_input_output.py` | 输入和输出的完整类型安全 | 输入 Schema、输出 Schema |
-| 04 | `agent_with_storage.py` | 跨运行持久化对话 | 持久化存储、Session 管理 |
-| 05 | `agent_with_memory.py` | 跨 Session 记住用户偏好 | Memory Manager、个性化 |
-| 06 | `agent_with_state_management.py` | 跟踪、修改和持久化结构化 State | Session State、State 管理 |
-| 07 | `agent_search_over_knowledge.py` | 将文档加载到知识库并使用混合搜索 | 分块、嵌入、混合搜索、Agentic 检索 |
-| 08 | `custom_tool_for_self_learning.py` | 如何编写自定义工具并添加自学习能力 | 自定义工具、自学习 |
-| 09 | `agent_with_guardrails.py` | 添加输入验证和安全检查 | 护栏、PII 检测、Prompt 注入检测 |
-| 10 | `human_in_the_loop.py` | 执行工具前需要用户确认 | 人机协作、工具确认 |
-| 11 | `multi_agent_team.py` | 通过组织多个 Agent 为团队来协调它们 | 多 Agent 团队、动态协作 |
-| 12 | `sequential_workflow.py` | 按顺序执行 Agent/团队/函数 | Agentic 工作流、管道 |
+| 01 | `01_agent_with_tools.py` | 为 Agent 提供工具以获取实时数据 | 工具调用、数据获取 |
+| 02 | `02_agent_with_structured_output.py` | 返回类型化的 Pydantic 对象 | 结构化输出、类型安全 |
+| 03 | `03_agent_with_typed_input_output.py` | 输入和输出的完整类型安全 | 输入 Schema、输出 Schema |
+| 04 | `04_agent_with_storage.py` | 跨运行持久化对话 | 持久化存储、Session 管理 |
+| 05 | `05_agent_with_memory.py` | 跨 Session 记住用户偏好 | Memory Manager、个性化 |
+| 06 | `06_agent_with_state_management.py` | 跟踪、修改和持久化结构化 State | Session State、State 管理 |
+| 07 | `07_agent_search_over_knowledge.py` | 将文档加载到知识库并使用混合搜索 | 分块、嵌入、混合搜索、Agentic 检索 |
+| 08 | `08_custom_tool_for_self_learning.py` | 如何编写自定义工具并添加自学习能力 | 自定义工具、自学习 |
+| 09 | `09_agent_with_guardrails.py` | 添加输入验证和安全检查 | 护栏、PII 检测、Prompt 注入检测 |
+| 10 | `10_human_in_the_loop.py` | 执行工具前需要用户确认 | 人机协作、工具确认 |
+| 11 | `11_multi_agent_team.py` | 通过组织多个 Agent 为团队来协调它们 | 多 Agent 团队、动态协作 |
+| 12 | `12_sequential_workflow.py` | 按顺序执行 Agent/团队/函数 | Agentic 工作流、管道 |
 
 ## 核心概念
 
@@ -69,7 +69,7 @@ export GOOGLE_API_KEY=your-google-api-key
 
 ### 5. 运行任意 cookbook
 ```bash
-python cookbook/00_quickstart/agent_with_tools.py
+python cookbook/00_quickstart/01_agent_with_tools.py
 ```
 
 **就这么简单。** 无需 Docker，无需 Postgres — 只需 Python 和一个 API key。
@@ -91,7 +91,7 @@ https://github.com/user-attachments/assets/aae0086b-86f6-4939-a0ce-e1ec9b87ba1f
 > [!TIP]
 > 要运行 agent-with-knowledge，请记得先使用以下命令加载知识库：
 > ```bash
-> python cookbook/00_quickstart/agent_search_over_knowledge.py
+> python cookbook/00_quickstart/07_agent_search_over_knowledge.py
 > ```
 
 ## 随时切换模型
@@ -116,40 +116,40 @@ model = Claude(id="claude-sonnet-4-5")
 
 ```bash
 # 01 - 工具：获取实时市场数据
-python cookbook/00_quickstart/agent_with_tools.py
+python cookbook/00_quickstart/01_agent_with_tools.py
 
 # 02 - 结构化输出：获取类型化响应
-python cookbook/00_quickstart/agent_with_structured_output.py
+python cookbook/00_quickstart/02_agent_with_structured_output.py
 
 # 03 - 类型化输入输出：完整类型安全
-python cookbook/00_quickstart/agent_with_typed_input_output.py
+python cookbook/00_quickstart/03_agent_with_typed_input_output.py
 
 # 04 - 存储：记住对话
-python cookbook/00_quickstart/agent_with_storage.py
+python cookbook/00_quickstart/04_agent_with_storage.py
 
 # 05 - 记忆：记住用户偏好
-python cookbook/00_quickstart/agent_with_memory.py
+python cookbook/00_quickstart/05_agent_with_memory.py
 
 # 06 - 状态：管理观察列表
-python cookbook/00_quickstart/agent_with_state_management.py
+python cookbook/00_quickstart/06_agent_with_state_management.py
 
 # 07 - 知识库：搜索你的文档
-python cookbook/00_quickstart/agent_search_over_knowledge.py
+python cookbook/00_quickstart/07_agent_search_over_knowledge.py
 
 # 08 - 自定义工具：编写你自己的工具
-python cookbook/00_quickstart/custom_tool_for_self_learning.py
+python cookbook/00_quickstart/08_custom_tool_for_self_learning.py
 
 # 09 - 护栏：输入验证和安全检查
-python cookbook/00_quickstart/agent_with_guardrails.py
+python cookbook/00_quickstart/09_agent_with_guardrails.py
 
 # 10 - 人机协作：执行前确认
-python cookbook/00_quickstart/human_in_the_loop.py
+python cookbook/00_quickstart/10_human_in_the_loop.py
 
 # 11 - 团队：多头 vs 空头分析
-python cookbook/00_quickstart/multi_agent_team.py
+python cookbook/00_quickstart/11_multi_agent_team.py
 
 # 12 - 工作流：研究管道
-python cookbook/00_quickstart/sequential_workflow.py
+python cookbook/00_quickstart/12_sequential_workflow.py
 ```
 
 ## 异步模式
