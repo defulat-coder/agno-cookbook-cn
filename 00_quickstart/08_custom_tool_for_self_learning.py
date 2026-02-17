@@ -27,7 +27,7 @@ from dotenv import load_dotenv
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.knowledge import Knowledge
-from agno.knowledge.embedder.google import GeminiEmbedder
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 from agno.knowledge.reader.text_reader import TextReader
 from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
@@ -53,7 +53,11 @@ learnings_kb = Knowledge(
         persistent_client=True,
         search_type=SearchType.hybrid,
         hybrid_rrf_k=60,
-        embedder=GeminiEmbedder(id="gemini-embedding-001"),
+        embedder=OpenAIEmbedder(
+            id=os.getenv("EMBEDDER_MODEL", "embedding-3"),
+            api_key=os.getenv("EMBEDDER_API_KEY"),
+            base_url=os.getenv("EMBEDDER_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        ),
     ),
     max_results=5,
     contents_db=agent_db,
