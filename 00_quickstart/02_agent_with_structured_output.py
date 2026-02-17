@@ -18,11 +18,12 @@
 - "苹果的投资案例是什么？"
 """
 
+import os
 from typing import List, Optional
 
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
 from pydantic import BaseModel, Field
 
@@ -87,7 +88,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_structured_output = Agent(
     name="Agent with Structured Output",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[YFinanceTools()],
     output_schema=StockAnalysis,
@@ -96,6 +101,7 @@ agent_with_structured_output = Agent(
     add_history_to_context=True,
     num_history_runs=5,
     markdown=True,
+    debug_mode=True,
 )
 
 # ---------------------------------------------------------------------------
