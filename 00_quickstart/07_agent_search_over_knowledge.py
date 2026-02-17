@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.knowledge.embedder.google import GeminiEmbedder
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAILike
 from agno.vectordb.chroma import ChromaDb
@@ -46,7 +46,11 @@ knowledge = Knowledge(
         # 值越大（如 60），低排名结果获得的权重越多；
         # 值越小，排名靠前的结果更具主导性。默认值为 60（参考原始 RRF 论文）。
         hybrid_rrf_k=60,
-        embedder=GeminiEmbedder(id="gemini-embedding-001"),
+        embedder=OpenAIEmbedder(
+            id=os.getenv("EMBEDDER_MODEL", "embedding-3"),
+            api_key=os.getenv("EMBEDDER_API_KEY"),
+            base_url=os.getenv("EMBEDDER_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        ),
     ),
     # 每次查询返回 5 条结果
     max_results=5,

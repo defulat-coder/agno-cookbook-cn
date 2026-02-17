@@ -82,6 +82,130 @@ MODEL_API_KEY=your-api-key-here
 uv add python-dotenv openai sqlalchemy yfinance
 ```
 
+## Embedder 迁移（知识库场景）
+
+如果代码使用了知识库（Knowledge）和向量搜索，需要同时迁移 Embedder。
+
+### 1. 替换 import
+
+```python
+# 旧代码
+from agno.knowledge.embedder.google import GeminiEmbedder
+
+# 新代码
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+```
+
+### 2. 替换 Embedder 配置
+
+```python
+# 旧代码
+embedder=GeminiEmbedder(id="gemini-embedding-001")
+
+# 新代码
+embedder=OpenAIEmbedder(
+    id=os.getenv("EMBEDDER_MODEL", "embedding-3"),
+    api_key=os.getenv("EMBEDDER_API_KEY"),
+    base_url=os.getenv("EMBEDDER_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+)
+```
+
+### 3. 更新 .env 文件
+
+添加 Embedder 相关环境变量：
+
+```env
+# Agent 模型配置
+MODEL_ID=GLM-4.7
+MODEL_BASE_URL=https://open.bigmodel.cn/api/coding/paas/v4
+MODEL_API_KEY=your-api-key
+
+# Embedder 配置（用于知识库向量化）
+EMBEDDER_MODEL=embedding-3
+EMBEDDER_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
+EMBEDDER_API_KEY=your-embedder-api-key
+```
+
+**注意：** Embedder 的 `base_url` 使用标准端点（`paas/v4/`），不是 coding 端点。
+
+### 4. 完整示例（Knowledge 场景）
+
+**迁移前：**
+
+```python
+from agno.knowledge import Knowledge
+from agno.knowledge.embedder.google import GeminiEmbedder
+from agno.vectordb.chroma import ChromaDb
+
+knowledge = Knowledge(
+    name="Agno Documentation",
+    vector_db=ChromaDb(
+        name="agno_docs",
+        embedder=GeminiEmbedder(id="gemini-embedding-001"),
+    ),
+)
+```
+
+**迁移后：**
+
+```python
+import os
+from dotenv import load_dotenv
+
+from agno.knowledge import Knowledge
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+from agno.vectordb.chroma import ChromaDb
+
+load_dotenv()
+
+knowledge = Knowledge(
+    name="Agno Documentation",
+    vector_db=ChromaDb(
+        name="agno_docs",
+        embedder=OpenAIEmbedder(
+            id=os.getenv("EMBEDDER_MODEL", "embedding-3"),
+            api_key=os.getenv("EMBEDDER_API_KEY"),
+            base_url=os.getenv("EMBEDDER_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        ),
+    ),
+)
+```
+
+### 5. 智谱 AI Embedding 模型
+
+**可用模型：**
+- `embedding-3`：新一代向量模型（推荐）
+- `embedding-2`：上一代模型
+
+**API 端点：**
+```
+https://open.bigmodel.cn/api/paas/v4/embeddings
+```
+
+**向量维度：**
+- embedding-3: 2048 维
+- embedding-2: 1024 维
+
+### 6. ChromaDB 兼容性问题
+
+**Python 3.14 不兼容：**
+
+当前 ChromaDB 与 Python 3.14 存在兼容性问题：
+
+```
+pydantic.v1.errors.ConfigError: unable to infer type for attribute "chroma_server_nofile"
+```
+
+**解决方案：**
+1. **降级到 Python 3.12 或 3.13**（推荐）
+2. **等待 ChromaDB 更新**
+3. **改用其他向量数据库**（如 Qdrant、Weaviate）
+
+**受影响文件：**
+- `07_agent_search_over_knowledge.py`
+- `08_custom_tool_for_self_learning.py`
+- `10_human_in_the_loop.py`
+
 ## 完整示例
 
 ### 迁移前
@@ -632,6 +756,135 @@ Grep pattern="MemoryManager" path="file.py"
 
 # 确认其模型配置也已替换
 ```
+
+### Q: 知识库（Knowledge）场景如何迁移 Embedder？
+
+**问题：** 使用知识库的文件需要同时迁移 Embedder 和 Agent 模型。
+
+**完整迁移步骤：**
+
+1. **替换 Embedder import**
+   ```python
+   # from agno.knowledge.embedder.google import GeminiEmbedder
+   from agno.knowledge.embedder.openai import OpenAIEmbedder
+   ```
+
+2. **替换 Embedder 配置**
+   ```python
+   embedder=OpenAIEmbedder(
+       id=os.getenv("EMBEDDER_MODEL", "embedding-3"),
+       api_key=os.getenv("EMBEDDER_API_KEY"),
+       base_url=os.getenv("EMBEDDER_BASE_URL"),
+   )
+   ```
+
+3. **更新 .env 文件**
+   ```env
+   # 添加 Embedder 配置
+   EMBEDDER_MODEL=embedding-3
+   EMBEDDER_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
+   EMBEDDER_API_KEY=your-embedder-key
+   ```
+
+4. **完整示例（07_agent_search_over_knowledge.py）：**
+   ```python
+   knowledge = Knowledge(
+       vector_db=ChromaDb(
+           embedder=OpenAIEmbedder(
+               id=os.getenv("EMBEDDER_MODEL"),
+               api_key=os.getenv("EMBEDDER_API_KEY"),
+               base_url=os.getenv("EMBEDDER_BASE_URL"),
+           ),
+       ),
+   )
+   
+   agent = Agent(
+       model=OpenAILike(...),  # Agent 模型
+       knowledge=knowledge,
+   )
+   ```
+
+**受影响文件：**
+- `07_agent_search_over_knowledge.py`
+- `08_custom_tool_for_self_learning.py`
+- `10_human_in_the_loop.py`
+
+### Q: ChromaDB 在 Python 3.14 不兼容怎么办？
+
+**错误信息：**
+```
+pydantic.v1.errors.ConfigError: unable to infer type for attribute "chroma_server_nofile"
+```
+
+**原因：** ChromaDB 依赖 Pydantic v1，与 Python 3.14 不兼容。
+
+**解决方案：**
+
+1. **降级 Python 版本**（推荐）
+   ```bash
+   # 使用 Python 3.12 或 3.13
+   pyenv install 3.13.0
+   pyenv local 3.13.0
+   ```
+
+2. **改用其他向量数据库**
+   - **Qdrant**：支持 Python 3.14
+   - **Weaviate**：支持 Python 3.14
+   - **Milvus**：支持 Python 3.14
+
+3. **等待 ChromaDB 更新**
+   - 关注 ChromaDB GitHub 仓库
+   - 等待兼容 Pydantic v2 的版本
+
+**临时方案：**
+- 跳过需要 ChromaDB 的示例文件
+- 或在独立的 Python 3.12 环境中运行
+
+### Q: Embedder 和 Agent 模型可以用不同的 API Key 吗？
+
+**可以。** 实际上，这是推荐的做法。
+
+**场景 1：使用相同 API Key**
+```env
+MODEL_API_KEY=shared-key
+EMBEDDER_API_KEY=shared-key
+```
+
+**场景 2：使用不同 API Key**（推荐，便于成本跟踪）
+```env
+MODEL_API_KEY=agent-model-key  # 用于 GLM-4.7 推理
+EMBEDDER_API_KEY=embedder-key  # 用于 embedding-3 向量化
+```
+
+**优势：**
+- 分开计费和成本跟踪
+- 不同场景配置不同的速率限制
+- 提高安全性（最小权限原则）
+
+### Q: Embedder 的 base_url 为什么和 Agent 不同？
+
+**Agent 模型端点：**
+```
+https://open.bigmodel.cn/api/coding/paas/v4  # Coding 端点
+```
+
+**Embedder 端点：**
+```
+https://open.bigmodel.cn/api/paas/v4/  # 标准端点
+```
+
+**原因：**
+- Agent 模型（GLM-4.7）在 Coding 端点表现更好
+- Embedder 模型（embedding-3）使用标准端点
+- 两个端点的 API 规范略有不同
+
+**配置示例：**
+```env
+MODEL_BASE_URL=https://open.bigmodel.cn/api/coding/paas/v4
+EMBEDDER_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
+```
+
+**注意：** Embedder 的 URL 末尾有斜杠 `/`。
 
 ## 性能对比
 
