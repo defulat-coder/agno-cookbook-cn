@@ -13,9 +13,9 @@
 - 通过 response.content 访问结构化数据
 
 可尝试的示例提示：
-- "Analyze NVDA"
-- "Give me a report on Tesla"
-- "What's the investment case for Apple?"
+- "分析 NVDA"
+- "给我一份关于特斯拉的报告"
+- "苹果的投资案例是什么？"
 """
 
 from typing import List, Optional
@@ -103,27 +103,27 @@ agent_with_structured_output = Agent(
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     # 获取结构化输出
-    response = agent_with_structured_output.run("Analyze NVIDIA")
+    response = agent_with_structured_output.run("分析英伟达")
 
     # 访问类型化数据
     analysis: StockAnalysis = response.content
 
     # 以编程方式使用数据
     print(f"\n{'=' * 60}")
-    print(f"Stock Analysis: {analysis.company_name} ({analysis.ticker})")
+    print(f"股票分析: {analysis.company_name} ({analysis.ticker})")
     print(f"{'=' * 60}")
-    print(f"Price: ${analysis.current_price:.2f}")
-    print(f"Market Cap: {analysis.market_cap}")
-    print(f"P/E Ratio: {analysis.pe_ratio or 'N/A'}")
-    print(f"52-Week Range: ${analysis.week_52_low:.2f} - ${analysis.week_52_high:.2f}")
-    print(f"\nSummary: {analysis.summary}")
-    print("\nKey Drivers:")
+    print(f"价格: ${analysis.current_price:.2f}")
+    print(f"市值: {analysis.market_cap}")
+    print(f"市盈率: {analysis.pe_ratio or 'N/A'}")
+    print(f"52周范围: ${analysis.week_52_low:.2f} - ${analysis.week_52_high:.2f}")
+    print(f"\n摘要: {analysis.summary}")
+    print("\n关键驱动因素:")
     for driver in analysis.key_drivers:
         print(f"  • {driver}")
-    print("\nKey Risks:")
+    print("\n关键风险:")
     for risk in analysis.key_risks:
         print(f"  • {risk}")
-    print(f"\nRecommendation: {analysis.recommendation}")
+    print(f"\n推荐: {analysis.recommendation}")
     print(f"{'=' * 60}\n")
 
 # ---------------------------------------------------------------------------

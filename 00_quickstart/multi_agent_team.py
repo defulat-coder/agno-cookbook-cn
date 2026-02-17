@@ -17,9 +17,9 @@
 - 领导负责分配任务、综合信息并输出最终结果
 
 可尝试的示例提示：
-- "Should I invest in NVIDIA?"
-- "Analyze Tesla as a long-term investment"
-- "Is Apple overvalued right now?"
+- "我应该投资英伟达吗？"
+- "分析特斯拉作为长期投资的价值"
+- "苹果现在是否被高估？"
 """
 
 from agno.agent import Agent
@@ -122,13 +122,13 @@ multi_agent_team = Team(
 if __name__ == "__main__":
     # 第一次分析
     multi_agent_team.print_response(
-        "Should I invest in NVIDIA (NVDA)?",
+        "我应该投资英伟达（NVDA）吗？",
         stream=True,
     )
 
     # 追问 — 团队会记住之前的分析
     multi_agent_team.print_response(
-        "How does AMD compare to that?",
+        "AMD 与它相比如何？",
         stream=True,
     )
 

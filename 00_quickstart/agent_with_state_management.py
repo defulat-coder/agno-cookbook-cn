@@ -13,10 +13,10 @@ Agent 在多轮对话中维护一个股票自选列表。
 - 状态变量可通过 {variable_name} 注入到指令中
 
 可尝试的示例提示：
-- "Add NVDA and AMD to my watchlist"
-- "What's on my watchlist?"
-- "Remove AMD from the list"
-- "How are my watched stocks doing today?"
+- "将 NVDA 和 AMD 添加到我的自选列表"
+- "我的自选列表有什么？"
+- "从列表中移除 AMD"
+- "我的自选股票今天表现如何？"
 """
 
 from agno.agent import Agent
@@ -133,13 +133,13 @@ agent_with_state_management = Agent(
 if __name__ == "__main__":
     # 添加一些股票
     agent_with_state_management.print_response(
-        "Add NVDA, AAPL, and GOOGL to my watchlist",
+        "将 NVDA、AAPL 和 GOOGL 添加到我的自选列表",
         stream=True,
     )
 
     # 查看自选列表
     agent_with_state_management.print_response(
-        "How are my watched stocks doing today?",
+        "我的自选股票今天表现如何？",
         stream=True,
     )
 
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("Session State:")
     print(
-        f"  Watchlist: {agent_with_state_management.get_session_state().get('watchlist', [])}"
+        f"  自选列表: {agent_with_state_management.get_session_state().get('watchlist', [])}"
     )
     print("=" * 60)
 

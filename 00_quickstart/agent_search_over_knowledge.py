@@ -10,8 +10,8 @@ Agent 可以在文档（PDF、文本、URL）中进行搜索以回答问题。
 - Hybrid search（混合搜索）：结合语义相似度与关键词匹配
 
 可尝试的示例提示：
-- "What is Agno?"
-- "What is the AgentOS?"
+- "Agno 是什么？"
+- "AgentOS 是什么？"
 """
 
 from agno.agent import Agent
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     )
 
     agent_with_knowledge.print_response(
-        "What is Agno?",
+        "Agno 是什么？",
         stream=True,
     )
 

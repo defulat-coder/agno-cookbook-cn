@@ -13,9 +13,9 @@
 - 步骤按顺序执行，每一步基于前一步的结果
 
 可尝试的示例提示：
-- "Analyze NVDA"
-- "Research Tesla for investment"
-- "Give me a report on Apple"
+- "分析 NVDA"
+- "研究特斯拉的投资价值"
+- "给我一份关于苹果的报告"
 """
 
 from agno.agent import Agent
@@ -138,7 +138,7 @@ sequential_workflow = Workflow(
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     sequential_workflow.print_response(
-        "Analyze NVIDIA (NVDA) for investment",
+        "分析英伟达（NVDA）的投资价值",
         stream=True,
     )
 

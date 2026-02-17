@@ -44,7 +44,19 @@ description: Translate Python project files (comments, docstrings, instructions,
 
 ## 工作流程
 
-### 小型目录（< 20 个文件）
+### 极小型目录（< 15 个文件）
+**直接处理，效率最高**
+1. 并行 `Glob` 查找 `.py` 和 `.md` 文件
+2. Python 文件：`Read` + 多次 `StrReplace`，逐段翻译
+3. Markdown 文件：`Read` + `Write` 整体写入
+4. 预计耗时：10-20 分钟
+
+**翻译优先级**：
+- 优先：用户可见文本（示例提示、print 输出、错误信息）
+- 其次：模块 docstring、函数 docstring
+- 最后：instructions 等 AI prompt（如果时间允许）
+
+### 小型目录（15-20 个文件）
 1. 并行 `Glob` 查找 `.py` 和 `.md` 文件
 2. 逐文件 `Read` + `StrReplace` 翻译
 3. Markdown 用 `Write` 整体写入（效率更高）
@@ -112,6 +124,7 @@ description: Translate Python project files (comments, docstrings, instructions,
 - 技术术语保留英文或附中文括号说明，如 Agent、Workflow、Knowledge Base（知识库）
 - 翻译要自然通顺，不生硬直译
 - 保留原有代码结构、缩进、格式不变
+- **用户可见文本优先翻译**：示例提示、print 输出、错误消息
 - 常用术语统一：
   - Agent → Agent
   - Team → 团队
@@ -134,6 +147,8 @@ description: Translate Python project files (comments, docstrings, instructions,
   - Parser → Parser
   - Hook → Hook
   - Event → 事件
+  - Run → Run
+  - Step → 步骤
 
 ## 性能优化与实战经验
 
@@ -144,7 +159,8 @@ description: Translate Python project files (comments, docstrings, instructions,
 - **并行启动 2 个 Task**：Python Task + Markdown Task 同时运行
 
 ### Task 数量与分组
-- **小型任务**（< 20 文件）：不启动 Task，直接处理
+- **极小型任务**（< 15 文件）：不启动 Task，直接处理（10-20 分钟搞定）
+- **小型任务**（15-20 文件）：不启动 Task，直接处理
 - **中型任务**（20-50 文件）：2 个 Task（py + md 分离）
 - **大型任务**（> 50 文件）：2 个 Task + resume 持续推进
   - **避免启动 4 个并行 Task**：实际效率不如 2 个 Task + 多次 resume
@@ -219,21 +235,23 @@ task_py_3 = Task(
 
 **核心发现：Python Task 第一轮完成度 25-70%，视文件结构而定**
 
-1. ✅ **预期 Python Task 需要多轮**：第一轮完成度差异大，需根据结构调整预期
+1. ✅ **极小型目录（< 15 文件）直接处理**：启动 Task 反而慢，逐文件翻译 10-20 分钟搞定
+2. ✅ **预期 Python Task 需要多轮**：第一轮完成度差异大，需根据结构调整预期
    - **简单结构**（如 07_knowledge）：第一轮 60-70%，2-3 轮完成
    - **复杂结构**（如 05_agent_os）：第一轮 25-35%，4-5 轮完成
-2. ✅ **Markdown Task 无需 resume**：50+ md 文件通常一次完成（Write 效率高）
-3. ✅ **立即 Resume Python Task**：第一轮返回后立即查看进度，马上 resume 继续
-4. ✅ **Resume 提示词要具体**：明确说明"已完成 X/总数，剩余 Y 个"，并列出剩余目录
-5. ✅ **先 Glob 两次**：并行查找 py 和 md，避免串行等待
-6. ✅ **Markdown 用 Write**：比 StrReplace 快 3-5 倍
-7. ✅ **Python 用 StrReplace**：保持格式和结构完整
-8. ✅ **2 Task + Resume**：比 4 Task 并行更可控、更可靠
-9. ✅ **分离 Python 和 Markdown**：两种文件处理方式不同，分离效率更高
-10. ✅ **评估文件结构**：第一轮前先分析子目录独立性和文件相似度，预测完成轮数
-11. ❌ **避免 4 个并行 Task**：大量文件时每个 Task 都太重，容易中断
-12. ❌ **避免过细拆分**：10 个小 Task 不如 2 个大 Task + resume
-13. ❌ **避免固定预期**：不同目录结构差异大，灵活调整 resume 策略
+3. ✅ **Markdown Task 无需 resume**：50+ md 文件通常一次完成（Write 效率高）
+4. ✅ **立即 Resume Python Task**：第一轮返回后立即查看进度，马上 resume 继续
+5. ✅ **Resume 提示词要具体**：明确说明"已完成 X/总数，剩余 Y 个"，并列出剩余目录
+6. ✅ **先 Glob 两次**：并行查找 py 和 md，避免串行等待
+7. ✅ **Markdown 用 Write**：比 StrReplace 快 3-5 倍
+8. ✅ **Python 用 StrReplace**：保持格式和结构完整
+9. ✅ **2 Task + Resume**：比 4 Task 并行更可控、更可靠
+10. ✅ **分离 Python 和 Markdown**：两种文件处理方式不同，分离效率更高
+11. ✅ **评估文件结构**：第一轮前先分析子目录独立性和文件相似度，预测完成轮数
+12. ✅ **翻译优先级**：用户可见文本（示例提示、print）> docstring > instructions
+13. ❌ **避免 4 个并行 Task**：大量文件时每个 Task 都太重，容易中断
+14. ❌ **避免过细拆分**：10 个小 Task 不如 2 个大 Task + resume
+15. ❌ **避免固定预期**：不同目录结构差异大，灵活调整 resume 策略
 
 **为什么 Python Task 第一轮完成度差异大？**
 
@@ -269,7 +287,8 @@ task_py_3 = Task(
 
 ### Token 管理与预期
 
-- **小型任务**（< 20 文件）：5-10k tokens，单次完成
+- **极小型任务**（< 15 文件）：3-8k tokens，单次完成，10-20 分钟
+- **小型任务**（15-20 文件）：8-15k tokens，单次完成
 - **中型任务**（20-50 文件）：15-30k tokens，1-2 轮
 - **大型任务**（50-100 文件）：40-80k tokens，2-3 轮 resume
 - **超大型任务**（100-200 文件）：80-150k tokens，4-5 轮 resume
@@ -283,17 +302,20 @@ task_py_3 = Task(
 
 | 目录 | Python 文件数 | Markdown 文件数 | Python 轮数 | Markdown 轮数 | 总耗时 |
 |------|--------------|----------------|------------|--------------|--------|
+| 00_quickstart | 13 | 3 | 直接处理 | 直接处理 | 20 分钟 |
 | 03_teams | 118 | 48 | 2 轮（38% 停止）| 1 轮 | 3 次 Task |
 | 04_workflows | 79 | 52 | 3 轮（28%→35%→100%）| 1 轮 | 4 次 Task |
 | 05_agent_os | 168 | 66 | 5 轮（32%→67%→71%→82%→88%）| 1 轮 | 6 次 Task |
 | 07_knowledge | 137 | 63 | 3 轮（70%→85%→100%）✨| 1 轮 | 4 次 Task |
 
 **经验教训**：
+- **极小型目录（< 15 文件）直接处理最快**：启动 Task 反而慢，直接逐文件翻译 10-20 分钟搞定
 - Python Task 第一轮完成度：25-70%（视文件复杂度和结构）
   - 简单结构目录（如 07_knowledge）：第一轮可达 70%
   - 复杂嵌套目录（如 05_agent_os）：第一轮约 30-35%
 - Markdown Task 第一轮完成度：100%（无需 resume）
-- Python 文件数 < 50：通常 2 轮
+- Python 文件数 < 15：直接处理（无需 Task）
+- Python 文件数 15-50：通常 2 轮
 - Python 文件数 50-100：通常 2-3 轮
 - Python 文件数 100-200：通常 3-5 轮（取决于文件结构）
 - 超长文件（800+ 行）可能因格式复杂无法完全翻译，需单独处理

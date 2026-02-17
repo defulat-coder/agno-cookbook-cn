@@ -13,10 +13,10 @@
 - 相同的 session_id = 连续的对话，即使跨运行也是如此
 
 可尝试的示例提示：
-- "What's the current price of AAPL?"
-- "Compare that to Microsoft"（它记得 AAPL）
-- "Based on our discussion, which looks better?"
-- "What stocks have we analyzed so far?"
+- "AAPL 的当前价格是多少？"
+- "将它与微软对比"（它记得 AAPL）
+- "根据我们的讨论，哪个看起来更好？"
+- "到目前为止我们分析了哪些股票？"
 """
 
 from agno.agent import Agent
@@ -90,21 +90,21 @@ if __name__ == "__main__":
 
     # 第 1 轮：分析一只股票
     agent_with_storage.print_response(
-        "Give me a quick investment brief on NVIDIA",
+        "给我一份关于英伟达的快速投资简报",
         session_id=session_id,
         stream=True,
     )
 
     # 第 2 轮：对比——Agent 记得第 1 轮的 NVDA
     agent_with_storage.print_response(
-        "Compare that to Tesla",
+        "将它与特斯拉对比",
         session_id=session_id,
         stream=True,
     )
 
     # 第 3 轮：基于完整对话给出推荐
     agent_with_storage.print_response(
-        "Based on our discussion, which looks like the better investment?",
+        "根据我们的讨论，哪个看起来是更好的投资？",
         session_id=session_id,
         stream=True,
     )

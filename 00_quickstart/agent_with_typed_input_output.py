@@ -129,19 +129,19 @@ if __name__ == "__main__":
     analysis_1: StockAnalysis = response_1.content
 
     print(f"\n{'=' * 60}")
-    print(f"Stock Analysis: {analysis_1.company_name} ({analysis_1.ticker})")
+    print(f"股票分析: {analysis_1.company_name} ({analysis_1.ticker})")
     print(f"{'=' * 60}")
-    print(f"Price: ${analysis_1.current_price:.2f}")
-    print(f"Summary: {analysis_1.summary}")
+    print(f"价格: ${analysis_1.current_price:.2f}")
+    print(f"摘要: {analysis_1.summary}")
     if analysis_1.key_drivers:
-        print("\nKey Drivers:")
+        print("\n关键驱动因素:")
         for driver in analysis_1.key_drivers:
             print(f"  • {driver}")
     if analysis_1.key_risks:
-        print("\nKey Risks:")
+        print("\n关键风险:")
         for risk in analysis_1.key_risks:
             print(f"  • {risk}")
-    print(f"\nRecommendation: {analysis_1.recommendation}")
+    print(f"\n推荐: {analysis_1.recommendation}")
     print(f"{'=' * 60}\n")
 
     # 方式 2：以 Pydantic 模型形式传入输入
@@ -156,19 +156,19 @@ if __name__ == "__main__":
     analysis_2: StockAnalysis = response_2.content
 
     print(f"\n{'=' * 60}")
-    print(f"Stock Analysis: {analysis_2.company_name} ({analysis_2.ticker})")
+    print(f"股票分析: {analysis_2.company_name} ({analysis_2.ticker})")
     print(f"{'=' * 60}")
-    print(f"Price: ${analysis_2.current_price:.2f}")
-    print(f"Summary: {analysis_2.summary}")
+    print(f"价格: ${analysis_2.current_price:.2f}")
+    print(f"摘要: {analysis_2.summary}")
     if analysis_2.key_drivers:
-        print("\nKey Drivers:")
+        print("\n关键驱动因素:")
         for driver in analysis_2.key_drivers:
             print(f"  • {driver}")
     if analysis_2.key_risks:
-        print("\nKey Risks:")
+        print("\n关键风险:")
         for risk in analysis_2.key_risks:
             print(f"  • {risk}")
-    print(f"\nRecommendation: {analysis_2.recommendation}")
+    print(f"\n推荐: {analysis_2.recommendation}")
     print(f"{'=' * 60}\n")
 
 # ---------------------------------------------------------------------------

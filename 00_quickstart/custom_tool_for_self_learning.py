@@ -13,9 +13,9 @@
 - 返回字符串将结果传达给 Agent
 
 可尝试的示例提示：
-- "What's a good P/E ratio for tech stocks? Save that insight."
-- "Remember that NVDA's data center revenue is the key growth driver"
-- "What learnings do we have saved?"
+- "科技股的合理市盈率是多少？保存这个洞察。"
+- "记住 NVDA 的数据中心收入是关键增长驱动因素"
+- "我们保存了哪些学习心得？"
 """
 
 import json
@@ -164,19 +164,19 @@ self_learning_agent = Agent(
 if __name__ == "__main__":
     # 提一个可能产生学习心得的问题
     self_learning_agent.print_response(
-        "What's a healthy P/E ratio for tech stocks?",
+        "科技股的健康市盈率是多少？",
         stream=True,
     )
 
-    # 如果 Agent 提议了一条学习心得，批准它
+    # 如果 Agent 提议了一条学习心得,批准它
     self_learning_agent.print_response(
-        "yes",
+        "是",
         stream=True,
     )
 
     # 之后，Agent 可以检索已保存的学习心得
     self_learning_agent.print_response(
-        "What learnings do we have saved?",
+        "我们保存了哪些学习心得？",
         stream=True,
     )
 

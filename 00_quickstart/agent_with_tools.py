@@ -8,11 +8,11 @@
 Agent 使用 YFinanceTools 获取实时市场数据。
 
 可尝试的示例提示：
-- "What's the current price of AAPL?"
-- "Compare NVDA and AMD — which looks stronger?"
-- "Give me a quick investment brief on Microsoft"
-- "What's Tesla's P/E ratio and how does it compare to the industry?"
-- "Show me the key metrics for the FAANG stocks"
+- "AAPL 的当前价格是多少？"
+- "对比 NVDA 和 AMD — 哪个更强？"
+- "给我一份关于微软的快速投资简报"
+- "特斯拉的市盈率是多少，与行业相比如何？"
+- "展示 FAANG 股票的关键指标"
 """
 
 from agno.agent import Agent
@@ -71,7 +71,7 @@ agent_with_tools = Agent(
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent_with_tools.print_response(
-        "Give me a quick investment brief on NVIDIA", stream=True
+        "给我一份关于英伟达的快速投资简报", stream=True
     )
 
 # ---------------------------------------------------------------------------
@@ -81,17 +81,17 @@ if __name__ == "__main__":
 可尝试以下提示：
 
 1. 单只股票分析
-   "What's Apple's current valuation? Is it expensive?"
+   "苹果的当前估值是多少？贵吗？"
 
 2. 股票对比
-   "Compare Google and Microsoft as investments"
+   "比较谷歌和微软的投资价值"
 
 3. 板块概览
-   "Show me key metrics for the top AI stocks: NVDA, AMD, GOOGL, MSFT"
+   "展示顶级 AI 股票的关键指标：NVDA、AMD、GOOGL、MSFT"
 
 4. 快速查询
-   "What's Tesla trading at today?"
+   "特斯拉今天的交易价格是多少？"
 
 5. 深度分析
-   "Break down Amazon's financials — revenue, margins, and growth"
+   "分解亚马逊的财务状况 — 收入、利润率和增长"
 """

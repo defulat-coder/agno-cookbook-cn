@@ -14,9 +14,9 @@ Agent 可以跨所有对话记住关于你的信息。
 - user_id：将记忆关联到特定用户
 
 可尝试的示例提示：
-- "I'm interested in tech stocks, especially AI companies"
-- "My risk tolerance is moderate"
-- "What stocks would you recommend for me?"
+- "我对科技股感兴趣，尤其是 AI 公司"
+- "我的风险承受能力是中等"
+- "你会为我推荐什么股票？"
 """
 
 from agno.agent import Agent
@@ -105,14 +105,14 @@ agent_with_memory = Agent(
 if __name__ == "__main__":
     # 告诉 Agent 你的偏好
     agent_with_memory.print_response(
-        "I'm interested in AI and semiconductor stocks. My risk tolerance is moderate.",
+        "我对 AI 和半导体股票感兴趣。我的风险承受能力是中等。",
         user_id=user_id,
         stream=True,
     )
 
     # Agent 现在知道了你的偏好
     agent_with_memory.print_response(
-        "What stocks would you recommend for me?",
+        "你会为我推荐什么股票？",
         user_id=user_id,
         stream=True,
     )
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     # 查看已存储的记忆
     memories = agent_with_memory.get_user_memories(user_id=user_id)
     print("\n" + "=" * 60)
-    print("Stored Memories:")
+    print("已存储的记忆:")
     print("=" * 60)
     pprint(memories)
 

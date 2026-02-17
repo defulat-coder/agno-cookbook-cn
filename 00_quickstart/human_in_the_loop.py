@@ -19,9 +19,9 @@
 - 审批关键系统中的自动化操作
 
 可尝试的示例提示：
-- "What's a good P/E ratio for tech stocks? Save that insight."
-- "Analyze NVDA and save any insights"
-- "What learnings do we have saved?"
+- "科技股的合理市盈率是多少？保存这个洞察。"
+- "分析 NVDA 并保存任何洞察"
+- "我们保存了哪些学习心得？"
 """
 
 import json
@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
     # 提一个可能触发保存操作的问题
     run_response = human_in_the_loop_agent.run(
-        "What's a healthy P/E ratio for tech stocks? Save that insight."
+        "科技股的健康市盈率是多少？保存这个洞察。"
     )
 
     # 打印初始响应内容（实际的回答）
@@ -175,14 +175,14 @@ if __name__ == "__main__":
         for requirement in run_response.active_requirements:
             if requirement.needs_confirmation:
                 console.print(
-                    f"\n[bold yellow]Confirmation Required[/bold yellow]\n"
-                    f"Tool: [bold blue]{requirement.tool_execution.tool_name}[/bold blue]\n"
-                    f"Args: {requirement.tool_execution.tool_args}"
+                    f"\n[bold yellow]需要确认[/bold yellow]\n"
+                    f"工具: [bold blue]{requirement.tool_execution.tool_name}[/bold blue]\n"
+                    f"参数: {requirement.tool_execution.tool_args}"
                 )
 
                 choice = (
                     Prompt.ask(
-                        "Do you want to continue?",
+                        "你想继续吗？",
                         choices=["y", "n"],
                         default="y",
                     )
@@ -192,10 +192,10 @@ if __name__ == "__main__":
 
                 if choice == "n":
                     requirement.reject()
-                    console.print("[red]Rejected[/red]")
+                    console.print("[red]已拒绝[/red]")
                 else:
                     requirement.confirm()
-                    console.print("[green]Approved[/green]")
+                    console.print("[green]已批准[/green]")
 
         # 使用用户的决定继续运行
         run_response = human_in_the_loop_agent.continue_run(
