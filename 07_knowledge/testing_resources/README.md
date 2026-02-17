@@ -1,5 +1,5 @@
-# testing_resources
+# testing_resources（测试资源）
 
-This directory stores test data files used by the 07_knowledge cookbook examples.
+本目录存储 07_knowledge cookbook 示例使用的测试数据文件。
 
-Do not modify these files when restructuring cookbook code.
+在重构 cookbook 代码时不要修改这些文件。

@@ -10,7 +10,7 @@ download_file(
     "ThaiRecipes_protected.pdf",
 )
 
-# Create a knowledge base with simplified password handling
+# 创建带有简化密码处理的知识库
 knowledge = Knowledge(
     vector_db=PgVector(
         table_name="pdf_documents_password",
@@ -23,10 +23,10 @@ knowledge.insert(
     auth=ContentAuth(password="ThaiRecipes"),
 )
 
-# Create an agent with the knowledge base
+# 创建包含知识库的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-agent.print_response("Give me the recipe for pad thai")
+agent.print_response("给我泰式炒河粉的食谱")

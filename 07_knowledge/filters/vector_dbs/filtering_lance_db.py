@@ -6,22 +6,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # 您可以更改此路径以将数据存储在其他位置
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 knowledge = Knowledge(
     name="LanceDB Knowledge Base",

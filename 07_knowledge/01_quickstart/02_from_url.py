@@ -1,8 +1,8 @@
 """
-From URL
-========
+从 URL 加载
+===========
 
-Demonstrates loading knowledge from a URL using sync and async inserts.
+演示如何使用同步和异步方式从 URL 加载知识。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 contents_db = PostgresDb(
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -22,7 +22,7 @@ contents_db = PostgresDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -36,7 +36,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_agent(knowledge: Knowledge) -> Agent:
     return Agent(
@@ -48,7 +48,7 @@ def create_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

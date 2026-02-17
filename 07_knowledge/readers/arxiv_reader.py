@@ -5,25 +5,25 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with the ArXiv documents
+# 创建包含 ArXiv 文档的知识库
 knowledge = Knowledge(
-    # Table name: ai.arxiv_documents
+    # 表名：ai.arxiv_documents
     vector_db=PgVector(
         table_name="arxiv_documents",
         db_url=db_url,
     ),
 )
-# Load the knowledge
+# 加载知识
 knowledge.insert(
     topics=["Generative AI", "Machine Learning"],
     reader=ArxivReader(),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-# Ask the agent about the knowledge
-agent.print_response("What can you tell me about Generative AI?", markdown=True)
+# 向 Agent 询问知识
+agent.print_response("你能告诉我关于生成式 AI 的什么信息？", markdown=True)

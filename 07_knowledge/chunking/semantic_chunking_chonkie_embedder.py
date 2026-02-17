@@ -10,10 +10,10 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 agno_embedder = (
     GeminiEmbedder()
-)  # Agno embedder is used to get the embedding for the vector database
+)  # Agno embedder 用于获取向量数据库的嵌入
 chonkie_embedder = GeminiEmbeddings(
     model="gemini-embedding-exp-03-07"
-)  # Chonkie embedder is used to get the embedding for the semantic chunking
+)  # Chonkie embedder 用于获取语义分块的嵌入
 
 knowledge = Knowledge(
     vector_db=PgVector(

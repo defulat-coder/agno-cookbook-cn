@@ -1,8 +1,8 @@
 """
-Milvus Hybrid Search
-====================
+Milvus 混合搜索
+===============
 
-Demonstrates Milvus hybrid search with sync and async flows.
+演示 Milvus 混合搜索，支持同步和异步流程。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.milvus import Milvus, SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = Milvus(
     collection="recipes",
@@ -22,7 +22,7 @@ vector_db = Milvus(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(vector_db=vector_db)
 

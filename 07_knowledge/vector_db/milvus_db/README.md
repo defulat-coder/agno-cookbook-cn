@@ -1,8 +1,8 @@
 # milvus_db
 
-This directory contains Agno knowledge cookbook examples for milvus_db.
+本目录包含 Agno 知识库 cookbook 的 milvus_db 示例。
 
-Run an example with:
+运行示例：
 
 ```bash
 .venvs/demo/bin/python <path-to-example>.py

@@ -23,4 +23,4 @@ agent = Agent(
     search_knowledge=True,
 )
 
-agent.print_response("How to make Thai curry?", markdown=True)
+agent.print_response("如何制作泰式咖喱？", markdown=True)

@@ -6,7 +6,7 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with simplified password handling
+# 创建带有简化密码处理的知识库
 knowledge = Knowledge(
     vector_db=PgVector(
         table_name="pdf_documents_password",
@@ -21,10 +21,10 @@ knowledge.insert(
 )
 
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-agent.print_response("Give me the recipe for pad thai")
+agent.print_response("给我泰式炒河粉的食谱")

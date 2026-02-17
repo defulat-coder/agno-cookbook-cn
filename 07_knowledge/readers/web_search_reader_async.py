@@ -21,7 +21,7 @@ knowledge = Knowledge(
 )
 
 
-# Initialize the Agent with the knowledge
+# 使用知识初始化 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
@@ -29,7 +29,7 @@ agent = Agent(
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(
         knowledge.ainsert(
             topics=["web3 latest trends 2025"],
@@ -41,10 +41,10 @@ if __name__ == "__main__":
         )
     )
 
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
         agent.aprint_response(
-            "What are the latest AI trends according to the search results?",
+            "根据搜索结果，最新的 AI 趋势是什么？",
             markdown=True,
         )
     )

@@ -1,63 +1,63 @@
-# Coffee Guide
+# 咖啡指南
 
-A comprehensive guide to understanding and brewing great coffee.
+一份全面的指南，帮助您了解和冲泡优质咖啡。
 
-## Types of Coffee
+## 咖啡类型
 
-Coffee comes in many varieties and preparations.
+咖啡有多种类型和制作方法。
 
-### Espresso-Based Drinks
+### 浓缩咖啡饮品
 
-Espresso is the foundation for many popular coffee beverages.
+浓缩咖啡是许多流行咖啡饮品的基础。
 
-#### Espresso
+#### Espresso（浓缩咖啡）
 
-A concentrated coffee brewed by forcing hot water through finely-ground coffee beans. Served in small 1-2 oz shots.
+通过迫使热水通过精细研磨的咖啡豆而制成的浓缩咖啡。以 1-2 盎司的小杯装盛。
 
-#### Cappuccino
+#### Cappuccino（卡布奇诺）
 
-Equal parts espresso, steamed milk, and milk foam. Traditionally served in a 6 oz cup.
+等份浓缩咖啡、蒸奶和奶泡。传统上以 6 盎司的杯子盛装。
 
-#### Latte
+#### Latte（拿铁）
 
-Espresso with steamed milk and a thin layer of foam. Typically served in 8-12 oz cups.
+浓缩咖啡配蒸奶和薄薄一层奶泡。通常以 8-12 盎司的杯子盛装。
 
-### Brewed Coffee
+### 冲泡咖啡
 
-Traditional brewing methods that extract coffee through immersion or filtration.
+通过浸泡或过滤提取咖啡的传统冲泡方法。
 
-#### Drip Coffee
+#### Drip Coffee（滴滤咖啡）
 
-Hot water dripped through ground coffee in a filter. Most common home brewing method.
+热水通过过滤器中的咖啡粉滴落。最常见的家庭冲泡方法。
 
-#### French Press
+#### French Press（法压壶）
 
-Coffee grounds steeped in hot water, then separated with a plunger filter. Full-bodied flavor.
+咖啡粉在热水中浸泡，然后用柱塞过滤器分离。味道浓郁。
 
-## Brewing Methods
+## 冲泡方法
 
-Different methods highlight different aspects of coffee flavor.
+不同的方法突出咖啡风味的不同方面。
 
-### Pour Over
+### Pour Over（手冲）
 
-Manual brewing where water is poured over coffee grounds in a circular motion. Offers precise control.
+手动冲泡，水以圆周运动倒在咖啡粉上。提供精确控制。
 
-### Cold Brew
+### Cold Brew（冷萃）
 
-Coffee steeped in cold water for 12-24 hours. Smooth, low-acid result.
+咖啡在冷水中浸泡 12-24 小时。口感顺滑，酸度低。
 
-## Coffee Regions
+## 咖啡产区
 
-Coffee growing regions impart distinct flavor profiles.
+咖啡种植地区赋予独特的风味特征。
 
-### Latin America
+### 拉丁美洲
 
-Bright, clean coffees with nutty and chocolate notes. Includes Colombia, Brazil, and Costa Rica.
+明亮、干净的咖啡，带有坚果和巧克力风味。包括哥伦比亚、巴西和哥斯达黎加。
 
-### Africa
+### 非洲
 
-Fruity, floral coffees with wine-like acidity. Ethiopia and Kenya are notable producers.
+果香、花香的咖啡，带有类似葡萄酒的酸度。埃塞俄比亚和肯尼亚是著名的产地。
 
-### Asia-Pacific
+### 亚太地区
 
-Earthy, full-bodied coffees with herbal notes. Indonesia and Vietnam are key regions.
+泥土味、醇厚的咖啡，带有草本风味。印度尼西亚和越南是主要产区。

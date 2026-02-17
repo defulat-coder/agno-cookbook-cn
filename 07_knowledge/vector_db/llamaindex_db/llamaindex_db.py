@@ -1,8 +1,8 @@
 """
-LlamaIndex Vector DB
-====================
+LlamaIndex 向量数据库
+=====================
 
-Install dependencies:
+安装依赖：
 - uv pip install llama-index-core llama-index-readers-file llama-index-embeddings-openai agno
 """
 
@@ -20,14 +20,14 @@ from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.retrievers import VectorIndexRetriever
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 data_dir = Path(__file__).parent.parent.parent.joinpath("wip", "data", "paul_graham")
 source_url = "https://raw.githubusercontent.com/run-llama/llama_index/main/docs/docs/examples/data/paul_graham/paul_graham_essay.txt"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def prepare_data() -> Path:
     if data_dir.is_dir():

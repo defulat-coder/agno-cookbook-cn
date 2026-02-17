@@ -1,8 +1,8 @@
 """
-MongoDB Hybrid Search
-=====================
+MongoDB 混合搜索
+================
 
-Demonstrates MongoDB vector + keyword hybrid retrieval.
+演示 MongoDB 向量 + 关键词混合检索。
 """
 
 import typer
@@ -13,7 +13,7 @@ from agno.vectordb.search import SearchType
 from rich.prompt import Prompt
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 mdb_connection_string = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
 
@@ -26,7 +26,7 @@ vector_db = MongoVectorDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_base = Knowledge(vector_db=vector_db)
 

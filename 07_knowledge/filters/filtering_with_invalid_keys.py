@@ -6,19 +6,19 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample sales documents and get their paths
+# 下载所有样本销售文档并获取其路径
 downloaded_csv_paths = download_knowledge_filters_sample_data(
     num_files=4, file_extension=SampleDataFileExtension.CSV
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # 您可以更改此路径以将数据存储在其他位置
 )
 
-# Step 1: Initialize knowledge with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # -----------------------------------------------------------------------------
 knowledge = Knowledge(
     name="CSV Knowledge Base",
@@ -26,7 +26,7 @@ knowledge = Knowledge(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge.insert_many(
     [
         {

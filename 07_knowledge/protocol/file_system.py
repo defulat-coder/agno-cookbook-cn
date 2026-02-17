@@ -1,22 +1,22 @@
 """
-FileSystemKnowledge Example
-===========================
-Demonstrates using FileSystemKnowledge to let an agent search local files.
+FileSystemKnowledge 示例
+========================
+演示如何使用 FileSystemKnowledge 让 Agent 搜索本地文件。
 
-The FileSystemKnowledge class implements the KnowledgeProtocol and provides
-three tools to the agent:
-- grep_file: Search for patterns in file contents
-- list_files: List files matching a glob pattern
-- get_file: Read the full contents of a specific file
+FileSystemKnowledge 类实现了 KnowledgeProtocol 并为 Agent 提供
+三个工具：
+- grep_file: 在文件内容中搜索模式
+- list_files: 列出匹配 glob 模式的文件
+- get_file: 读取特定文件的完整内容
 
-Run: `python cookbook/07_knowledge/protocol/file_system.py`
+运行：`python cookbook/07_knowledge/protocol/file_system.py`
 """
 
 from agno.agent import Agent
 from agno.knowledge.filesystem import FileSystemKnowledge
 from agno.models.openai import OpenAIChat
 
-# Create a filesystem knowledge base pointing to the agno library source
+# 创建指向 agno 库源代码的文件系统知识库
 fs_knowledge = FileSystemKnowledge(
     base_dir="libs/agno/agno",
     include_patterns=["*.py"],
@@ -25,64 +25,64 @@ fs_knowledge = FileSystemKnowledge(
 
 if __name__ == "__main__":
     # ==========================================
-    # Single agent with all three filesystem tools
+    # 具有全部三个文件系统工具的单个 Agent
     # ==========================================
-    # The agent automatically gets: grep_file, list_files, get_file
-    # Plus context explaining how to use them
+    # Agent 自动获得：grep_file、list_files、get_file
+    # 以及解释如何使用它们的上下文
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=fs_knowledge,
         search_knowledge=True,
         instructions=(
-            "You are a code assistant that helps users explore the agno codebase. "
-            "Use the available tools to search, list, and read files."
+            "你是一个代码助手，帮助用户探索 agno 代码库。"
+            "使用可用的工具来搜索、列出和读取文件。"
         ),
         markdown=True,
     )
 
-    # Example 1: Grep - find where something is defined
+    # 示例 1：Grep - 查找定义的位置
     print("\n" + "=" * 60)
-    print("EXAMPLE 1: Using grep_file to find code patterns")
+    print("示例 1：使用 grep_file 查找代码模式")
     print("=" * 60 + "\n")
 
     agent.print_response(
-        "Find where the KnowledgeProtocol class is defined",
+        "查找 KnowledgeProtocol 类的定义位置",
         stream=True,
     )
 
-    # Example 2: List files in a directory
+    # 示例 2：列出目录中的文件
     print("\n" + "=" * 60)
-    print("EXAMPLE 2: Using list_files to explore directories")
+    print("示例 2：使用 list_files 探索目录")
     print("=" * 60 + "\n")
 
     agent.print_response(
-        "What Python files exist in the knowledge directory?",
+        "knowledge 目录中存在哪些 Python 文件？",
         stream=True,
     )
 
-    # Example 3: Read a specific file
+    # 示例 3：读取特定文件
     print("\n" + "=" * 60)
-    print("EXAMPLE 3: Using get_file to read file contents")
+    print("示例 3：使用 get_file 读取文件内容")
     print("=" * 60 + "\n")
 
     agent.print_response(
-        "Read the knowledge/protocol.py file and explain what it defines",
+        "读取 knowledge/protocol.py 文件并解释它定义了什么",
         stream=True,
     )
 
     # ==========================================
-    # Example 4: Document search (text files only)
+    # 示例 4：文档搜索（仅文本文件）
     # ==========================================
-    # Note: FileSystemKnowledge only works with text files (md, txt, etc.)
-    # For PDFs, use the main Knowledge class with proper readers
+    # 注意：FileSystemKnowledge 仅适用于文本文件（md、txt 等）
+    # 对于 PDF，请使用带有适当读取器的主 Knowledge 类
     print("\n" + "=" * 60)
-    print("EXAMPLE 4: Searching document files (coffee guide)")
+    print("示例 4：搜索文档文件（咖啡指南）")
     print("=" * 60 + "\n")
 
     docs_knowledge = FileSystemKnowledge(
         base_dir="cookbook/07_knowledge/testing_resources",
-        include_patterns=["*.md", "*.txt"],  # Text files only, not PDFs
+        include_patterns=["*.md", "*.txt"],  # 仅文本文件，不包括 PDF
         exclude_patterns=[],
     )
 
@@ -90,11 +90,11 @@ if __name__ == "__main__":
         model=OpenAIChat(id="gpt-4o"),
         knowledge=docs_knowledge,
         search_knowledge=True,
-        instructions="You are a helpful assistant that answers questions from documents.",
+        instructions="你是一个有用的助手，从文档中回答问题。",
         markdown=True,
     )
 
     docs_agent.print_response(
-        "What knowledge do you have about coffee? Which coffee region produces Bright and nutty notes?",
+        "你有什么关于咖啡的知识？哪个咖啡产区产生明亮和坚果味？",
         stream=True,
     )

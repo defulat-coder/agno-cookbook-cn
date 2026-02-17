@@ -17,11 +17,11 @@ knowledge_base.insert(
     ),
 )
 
-# Initialize the Agent with the knowledge_base
+# 使用知识库初始化 Agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
-# Use the agent
-agent.print_response("Tell me about the movie Guardians of the Galaxy", markdown=True)
+# 使用 agent
+agent.print_response("告诉我关于电影《银河护卫队》的信息", markdown=True)

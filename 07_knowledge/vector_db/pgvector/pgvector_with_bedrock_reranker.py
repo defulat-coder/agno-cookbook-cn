@@ -1,14 +1,14 @@
 """
-AWS Bedrock Reranker Example with PgVector
-==========================================
+AWS Bedrock Reranker 与 PgVector 示例
+====================================
 
-Demonstrates AWS Bedrock rerankers with PgVector for retrieval augmented generation.
+演示使用 AWS Bedrock rerankers 与 PgVector 进行检索增强生成。
 
-Requirements:
-- AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-- AWS region configured (AWS_REGION)
-- boto3 installed: pip install boto3
-- PostgreSQL with pgvector running
+需求：
+- AWS 凭证（AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY）
+- AWS 区域配置（AWS_REGION）
+- 安装 boto3：pip install boto3
+- 运行中的 PostgreSQL 与 pgvector
 """
 
 from agno.agent import Agent
@@ -23,7 +23,7 @@ from agno.models.aws.bedrock import AwsBedrock
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_cohere = Knowledge(
     vector_db=PgVector(
@@ -70,7 +70,7 @@ knowledge_amazon = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=AwsBedrock(id="anthropic.claude-sonnet-4-20250514-v1:0"),
@@ -80,7 +80,7 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge_cohere.insert(
@@ -88,7 +88,7 @@ def main() -> None:
     )
     _ = knowledge_convenience
     _ = knowledge_amazon
-    agent.print_response("What are the key features?")
+    agent.print_response("关键特性有哪些？")
 
 
 if __name__ == "__main__":

@@ -7,14 +7,14 @@ from agno.vectordb.qdrant import Qdrant
 from qdrant_client import QdrantClient
 
 # ---------------------------------------------------------
-# This section loads the knowledge base. Skip if your knowledge base was populated elsewhere.
-# Define the embedder
+# 此部分加载知识库。如果您的知识库已在其他地方填充，请跳过。
+# 定义 embedder
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
-# Initialize vector database connection
+# 初始化向量数据库连接
 vector_db = Qdrant(
     collection="thai-recipes", url="http://localhost:6333", embedder=embedder
 )
-# Load the knowledge base
+# 加载知识库
 knowledge = Knowledge(
     vector_db=vector_db,
 )
@@ -26,22 +26,22 @@ knowledge.insert(
 # ---------------------------------------------------------
 
 
-# Define the custom knowledge retriever
-# This is the function that the agent will use to retrieve documents
+# 定义自定义知识检索器
+# 这是 Agent 将用来检索文档的函数
 def knowledge_retriever(
     query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
 ) -> Optional[list[dict]]:
     """
-    Custom knowledge retriever function to search the vector database for relevant documents.
+    自定义知识检索器函数，用于在向量数据库中搜索相关文档。
 
-    Args:
-        query (str): The search query string
-        agent (Agent): The agent instance making the query
-        num_documents (int): Number of documents to retrieve (default: 5)
-        **kwargs: Additional keyword arguments
+    参数：
+        query (str): 搜索查询字符串
+        agent (Agent): 发起查询的 Agent 实例
+        num_documents (int): 要检索的文档数量（默认：5）
+        **kwargs: 其他关键字参数
 
-    Returns:
-        Optional[list[dict]]: List of retrieved documents or None if search fails
+    返回：
+        Optional[list[dict]]: 检索到的文档列表，如果搜索失败则返回 None
     """
     try:
         qdrant_client = QdrantClient(url="http://localhost:6333")
@@ -57,24 +57,24 @@ def knowledge_retriever(
         else:
             return None
     except Exception as e:
-        print(f"Error during vector database search: {str(e)}")
+        print(f"向量数据库搜索期间出错: {str(e)}")
         return None
 
 
 def main():
-    """Main function to demonstrate agent usage."""
-    # Initialize agent with custom knowledge retriever
-    # The knowledge object is required to register the search_knowledge_base tool
-    # The knowledge_retriever overrides the default retrieval logic
+    """主函数，演示 Agent 使用。"""
+    # 使用自定义知识检索器初始化 Agent
+    # Knowledge 对象是注册 search_knowledge_base 工具所必需的
+    # knowledge_retriever 覆盖默认的检索逻辑
     agent = Agent(
         knowledge=knowledge,
         knowledge_retriever=knowledge_retriever,
         search_knowledge=True,
-        instructions="Search the knowledge base for information",
+        instructions="在知识库中搜索信息",
     )
 
-    # Example query
-    query = "List down the ingredients to make Massaman Gai"
+    # 示例查询
+    query = "列出制作 Massaman Gai 的配料"
     agent.print_response(query, markdown=True)
 
 

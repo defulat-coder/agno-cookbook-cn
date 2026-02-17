@@ -1,8 +1,8 @@
 """
-Weaviate Hybrid Search
-======================
+Weaviate 混合搜索
+=================
 
-Demonstrates Weaviate hybrid retrieval with interactive querying.
+演示 Weaviate 混合检索与交互式查询。
 """
 
 import typer
@@ -13,7 +13,7 @@ from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 from rich.prompt import Prompt
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = Weaviate(
     collection="recipes",
@@ -26,7 +26,7 @@ vector_db = Weaviate(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_base = Knowledge(
     name="Weaviate Hybrid Search",
@@ -36,7 +36,7 @@ knowledge_base = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def weaviate_agent(user: str = "user"):
     agent = Agent(
@@ -53,7 +53,7 @@ def weaviate_agent(user: str = "user"):
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge_base.insert(

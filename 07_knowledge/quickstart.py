@@ -5,7 +5,7 @@ from agno.models.google import Gemini
 from agno.vectordb.chroma import ChromaDb
 from agno.vectordb.search import SearchType
 
-# Create a knowledge base with ChromaDB
+# 使用 ChromaDB 创建知识库
 knowledge = Knowledge(
     vector_db=ChromaDb(
         collection="docs",
@@ -16,10 +16,10 @@ knowledge = Knowledge(
     ),
 )
 
-# Load content into the knowledge base
+# 将内容加载到知识库中
 knowledge.insert(url="https://docs.agno.com/introduction.md", skip_if_exists=True)
 
-# Create an agent that searches the knowledge base
+# 创建一个会搜索知识库的 Agent
 agent = Agent(
     model=Gemini(id="gemini-3-flash-preview"),
     knowledge=knowledge,

@@ -1,32 +1,32 @@
-# Embedding Models
+# Embedding Models（嵌入模型）
 
-Embedders convert text into vector representations for semantic search and knowledge retrieval. Agno supports multiple embedding providers to fit different deployment needs.
+Embedder 将文本转换为向量表示，用于语义搜索和知识检索。Agno 支持多个嵌入提供商以适应不同的部署需求。
 
-## Setup
+## 设置
 
-Choose your preferred provider and install dependencies:
+选择您首选的提供商并安装依赖项：
 
 ```bash
-# OpenAI (default)
+# OpenAI（默认）
 uv pip install agno openai
 export OPENAI_API_KEY=your_api_key
 
-# Local models with Ollama
+# 使用 Ollama 的本地模型
 uv pip install agno ollama
 
-# HuggingFace models
+# HuggingFace 模型
 uv pip install agno transformers torch
 
-# Cloud providers
+# 云提供商
 uv pip install agno cohere google-generativeai
 ```
 
-## Embedding Dimensions
+## 嵌入维度
 
-Different models produce different vector dimensions. Higher dimensions can capture more nuanced meaning but require more storage:
+不同的模型产生不同的向量维度。更高的维度可以捕获更细微的含义，但需要更多存储空间：
 
 ```python
-# Example dimension sizes
+# 示例维度大小
 embedder_dimensions = {
     'text-embedding-3-small': 1536,
     'text-embedding-3-large': 3072,
@@ -35,9 +35,9 @@ embedder_dimensions = {
 }
 ```
 
-## Basic Integration
+## 基础集成
 
-Embedders integrate with vector databases through the Knowledge system:
+Embedder 通过 Knowledge 系统与向量数据库集成：
 
 ```python
 from agno.knowledge.knowledge import Knowledge
@@ -53,21 +53,21 @@ knowledge = Knowledge(
 )
 ```
 
-## Supported Embedding Providers
+## 支持的嵌入提供商
 
-- **[AWS Bedrock](./aws_bedrock_embedder.py)** - AWS models
-- **[Azure OpenAI](./azure_embedder.py)** - OpenAI models via Azure
-- **[Cohere](./cohere_embedder.py)** - Multilingual embedding models
-- **[Fireworks](./fireworks_embedder.py)** - Fast inference embedding models
-- **[Google Gemini](./gemini_embedder.py)** - Google's embedding models
-- **[HuggingFace](./huggingface_embedder.py)** - Transformers library models
-- **[Jina](./jina_embedder.py)** - Jina AI embedding models
-- **[LangDB](./langdb_embedder.py)** - LangDB embedding service
-- **[Mistral](./mistral_embedder.py)** - Mistral AI embedding models
-- **[Nebius](./nebius_embedder.py)** - Nebius embedding service
-- **[Ollama](./ollama_embedder.py)** - Local models via Ollama
-- **[OpenAI](./openai_embedder.py)** - OpenAI embedding models (default)
-- **[Qdrant FastEmbed](./qdrant_fastembed.py)** - Fast local embeddings
-- **[SentenceTransformers](./sentence_transformer_embedder.py)** - Local transformer models
-- **[Together](./together_embedder.py)** - Together AI embedding models
-- **[VoyageAI](./voyageai_embedder.py)** - VoyageAI embedding models
+- **[AWS Bedrock](./aws_bedrock_embedder.py)** - AWS 模型
+- **[Azure OpenAI](./azure_embedder.py)** - 通过 Azure 的 OpenAI 模型
+- **[Cohere](./cohere_embedder.py)** - 多语言嵌入模型
+- **[Fireworks](./fireworks_embedder.py)** - 快速推理嵌入模型
+- **[Google Gemini](./gemini_embedder.py)** - Google 的嵌入模型
+- **[HuggingFace](./huggingface_embedder.py)** - Transformers 库模型
+- **[Jina](./jina_embedder.py)** - Jina AI 嵌入模型
+- **[LangDB](./langdb_embedder.py)** - LangDB 嵌入服务
+- **[Mistral](./mistral_embedder.py)** - Mistral AI 嵌入模型
+- **[Nebius](./nebius_embedder.py)** - Nebius 嵌入服务
+- **[Ollama](./ollama_embedder.py)** - 通过 Ollama 的本地模型
+- **[OpenAI](./openai_embedder.py)** - OpenAI 嵌入模型（默认）
+- **[Qdrant FastEmbed](./qdrant_fastembed.py)** - 快速本地嵌入
+- **[SentenceTransformers](./sentence_transformer_embedder.py)** - 本地 transformer 模型
+- **[Together](./together_embedder.py)** - Together AI 嵌入模型
+- **[VoyageAI](./voyageai_embedder.py)** - VoyageAI 嵌入模型

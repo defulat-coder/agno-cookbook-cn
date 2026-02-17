@@ -2,7 +2,7 @@
 FastEmbed Embedder
 ==================
 
-Demonstrates FastEmbed embeddings and knowledge insertion.
+演示 FastEmbed 嵌入和知识插入。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     vector_db=PgVector(
@@ -25,7 +25,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 async def main() -> None:
     embeddings = FastEmbedEmbedder().get_embedding(

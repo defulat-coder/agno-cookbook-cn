@@ -10,24 +10,24 @@ from agno.vectordb.pgvector import PgVector
 
 class CustomSeparatorChunking(ChunkingStrategy):
     """
-    Example implementation of a custom chunking strategy.
+    自定义分块策略的示例实现。
 
-    This demonstrates how you can implement your own chunking strategy by:
-    1. Inheriting from ChunkingStrategy
-    2. Implementing the chunk() method
-    3. Using the inherited clean_text() method
-    4. Adding your own custom logic and parameters
+    这演示了如何通过以下方式实现自己的分块策略：
+    1. 继承自 ChunkingStrategy
+    2. 实现 chunk() 方法
+    3. 使用继承的 clean_text() 方法
+    4. 添加您自己的自定义逻辑和参数
 
-    You can extend this pattern for your specific needs:
-    - Different splitting logic (regex patterns, AI-based splitting, etc.)
-    - Custom parameters (max_words, min_length, overlap, etc.)
-    - Domain-specific chunking (code blocks, tables, sections, etc.)
-    - Custom metadata and chunk enrichment
+    您可以根据特定需求扩展此模式：
+    - 不同的分割逻辑（正则表达式模式、基于 AI 的分割等）
+    - 自定义参数（max_words、min_length、overlap 等）
+    - 特定领域的分块（代码块、表格、章节等）
+    - 自定义元数据和块增强
     """
 
     def __init__(self, separator: str = "---", **kwargs):
         """
-        Initialize your custom chunking strategy.
+        初始化您的自定义分块策略。
 
         Args:
             separator: The string pattern to split documents on

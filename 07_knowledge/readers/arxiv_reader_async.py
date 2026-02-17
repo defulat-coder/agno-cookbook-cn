@@ -15,7 +15,7 @@ knowledge = Knowledge(
     ),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
@@ -23,7 +23,7 @@ agent = Agent(
 
 
 def main():
-    # Load the knowledge
+    # 加载知识
     asyncio.run(
         knowledge.ainsert(
             topics=["Generative AI", "Machine Learning"],
@@ -31,10 +31,10 @@ def main():
         )
     )
 
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
         agent.aprint_response(
-            "What can you tell me about Generative AI?", markdown=True
+            "你能告诉我关于生成式 AI 的什么信息？", markdown=True
         )
     )
 

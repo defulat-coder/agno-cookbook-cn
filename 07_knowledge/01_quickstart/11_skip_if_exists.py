@@ -1,8 +1,8 @@
 """
-Skip If Exists
-==============
+存在时跳过
+==========
 
-Demonstrates skip-if-exists behavior for repeated knowledge inserts with sync and async APIs.
+演示使用同步和异步 API 重复插入知识时的"存在时跳过"行为。
 """
 
 import asyncio
@@ -11,7 +11,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = PgVector(
     table_name="vectors", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -19,7 +19,7 @@ vector_db = PgVector(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -30,7 +30,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

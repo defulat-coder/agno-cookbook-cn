@@ -16,21 +16,21 @@ knowledge = Knowledge(
     contents_db=PostgresDb(db_url=db_url),
 )
 
-# Initialize the Agent with the knowledge
+# 使用知识初始化 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(
         knowledge.ainsert(
             url="https://agno-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv"
         )
     )
 
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
-        agent.aprint_response("What genre of movies are present here?", markdown=True)
+        agent.aprint_response("这里有哪些类型的电影？", markdown=True)
     )

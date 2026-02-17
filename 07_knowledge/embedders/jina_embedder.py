@@ -2,7 +2,7 @@
 Jina Embedder
 =============
 
-Demonstrates Jina embeddings, usage metadata retrieval, and a batching variant.
+演示 Jina 嵌入、使用元数据检索以及批量处理变体。
 """
 
 import asyncio
@@ -13,16 +13,16 @@ from agno.vectordb.pgvector import PgVector
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
-    # Standard mode
+    # 标准模式
     embedder = JinaEmbedder(
         late_chunking=True,
         timeout=30.0,
     )
 
-    # Batching mode (uncomment to use)
+    # 批量模式（取消注释以使用）
     # embedder = JinaEmbedder(
     #     late_chunking=True,
     #     timeout=30.0,
@@ -40,7 +40,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 async def main() -> None:
     embeddings = JinaEmbedder().get_embedding(

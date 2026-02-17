@@ -5,19 +5,19 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 fun_facts = """
-- Earth is the third planet from the Sun and the only known astronomical object to support life.
-- Approximately 71% of Earth's surface is covered by water, with the Pacific Ocean being the largest.
-- The Earth's atmosphere is composed mainly of nitrogen (78%) and oxygen (21%), with traces of other gases.
-- Earth rotates on its axis once every 24 hours, leading to the cycle of day and night.
-- The planet has one natural satellite, the Moon, which influences tides and stabilizes Earth's axial tilt.
-- Earth's tectonic plates are constantly shifting, leading to geological activities like earthquakes and volcanic eruptions.
-- The highest point on Earth is Mount Everest, standing at 8,848 meters (29,029 feet) above sea level.
-- The deepest part of the ocean is the Mariana Trench, reaching depths of over 11,000 meters (36,000 feet).
-- Earth has a diverse range of ecosystems, from rainforests and deserts to coral reefs and tundras.
-- The planet's magnetic field protects life by deflecting harmful solar radiation and cosmic rays.
+- 地球是距离太阳第三近的行星，也是已知唯一支持生命的天体。
+- 地球表面约71%被水覆盖，其中太平洋是最大的海洋。
+- 地球大气主要由氮气（78%）和氧气（21%）组成，还有微量的其他气体。
+- 地球每24小时自转一圈，形成昼夜循环。
+- 地球有一颗天然卫星——月球，它影响潮汐并稳定地球的轴向倾斜。
+- 地球的构造板块不断移动，导致地震和火山爆发等地质活动。
+- 地球的最高点是珠穆朗玛峰，海拔8,848米（29,029英尺）。
+- 海洋最深处是马里亚纳海沟，深度超过11,000米（36,000英尺）。
+- 地球拥有多样化的生态系统，从雨林、沙漠到珊瑚礁和苔原。
+- 地球的磁场通过偏转有害的太阳辐射和宇宙射线来保护生命。
 """
 
-# Database connection URL
+# 数据库连接 URL
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 knowledge = Knowledge(
@@ -27,20 +27,20 @@ knowledge = Knowledge(
     ),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     knowledge=knowledge,
 )
 
 
 async def main():
-    # Load the knowledge
+    # 加载知识
     await knowledge.ainsert(
         text_content=fun_facts,
     )
 
-    # Ask the agent about the knowledge
-    await agent.aprint_response("Could you tell me about the earth?", markdown=True)
+    # 向 Agent 询问知识
+    await agent.aprint_response("你能告诉我关于地球的信息吗？", markdown=True)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 """
-Remove Content
-==============
+删除内容
+========
 
-Demonstrates removing knowledge content by id and clearing all content, with sync and async APIs.
+演示如何使用同步和异步 API 通过 ID 删除知识内容以及清除所有内容。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = PgVector(
     table_name="vectors", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -24,7 +24,7 @@ contents_db = PostgresDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -36,7 +36,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

@@ -1,8 +1,8 @@
 """
-ClickHouse Database
-===================
+ClickHouse 数据库
+=================
 
-Demonstrates ClickHouse-backed knowledge with sync, async, and async-batching flows.
+演示基于 ClickHouse 的知识库，支持同步、异步和异步批量流程。
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.clickhouse import Clickhouse
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 HOST = "localhost"
 PORT = 8123
@@ -23,7 +23,7 @@ PASSWORD = "ai"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, Clickhouse]:
     vector_db = Clickhouse(

@@ -1,8 +1,8 @@
 """
-Markdown Chunking Examples
+Markdown 分块示例
 
-This cookbook demonstrates different ways to use MarkdownChunking for splitting
-markdown documents based on heading structure.
+此 cookbook 演示使用 MarkdownChunking 基于标题结构
+分割 markdown 文档的不同方法。
 """
 
 import asyncio
@@ -16,12 +16,12 @@ from agno.vectordb.pgvector import PgVector
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 # ==============================================================================
-# Example 1: Split on ALL headings (H1-H6)
+# 示例 1：在所有标题（H1-H6）上分割
 # ==============================================================================
-# This creates the most granular chunks, with each heading becoming a separate chunk.
+# 这会创建最精细的块，每个标题都成为一个单独的块。
 
 print("\n" + "=" * 80)
-print("Example 1: Split on ALL headings (H1-H6)")
+print("示例 1：在所有标题（H1-H6）上分割")
 print("=" * 80)
 
 knowledge_all_headings = Knowledge(

@@ -1,8 +1,8 @@
 """
-LanceDB With Mistral Embedder
-=============================
+LanceDB 与 Mistral Embedder
+============================
 
-Demonstrates LanceDB hybrid search with the Mistral embedder.
+演示使用 Mistral embedder 的 LanceDB 混合搜索。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 embedder_mi = MistralEmbedder()
 reader = PDFReader(chunk_size=1024)
@@ -27,7 +27,7 @@ vector_db = LanceDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My Document Knowledge Base",

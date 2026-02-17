@@ -1,8 +1,8 @@
 """
-PgVector Hybrid Search
-======================
+PgVector 混合搜索
+=================
 
-Demonstrates PgVector hybrid search with conversational memory.
+演示 PgVector 混合搜索与对话记忆。
 """
 
 from agno.agent import Agent
@@ -11,13 +11,13 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My PG Vector Knowledge Base",
@@ -31,7 +31,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -43,7 +43,7 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge.insert(
@@ -52,9 +52,9 @@ def main() -> None:
         metadata={"doc_type": "recipe_book"},
     )
     agent.print_response(
-        "How do I make chicken and galangal in coconut milk soup", stream=True
+        "如何制作椰奶鸡肉高良姜汤", stream=True
     )
-    agent.print_response("What was my last question?", stream=True)
+    agent.print_response("我上一个问题是什么？", stream=True)
 
 
 if __name__ == "__main__":

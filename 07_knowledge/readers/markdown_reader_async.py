@@ -13,7 +13,7 @@ knowledge = Knowledge(
         table_name="markdown_documents",
         db_url=db_url,
     ),
-    max_results=5,  # Number of results to return on search
+    max_results=5,  # 搜索时返回的结果数量
 )
 
 agent = Agent(
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     asyncio.run(
         agent.aprint_response(
-            "What can you tell me about Agno?",
+            "你能告诉我关于 Agno 的什么信息？",
             markdown=True,
         )
     )

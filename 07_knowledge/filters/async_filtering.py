@@ -12,12 +12,12 @@ from agno.utils.media import (
 )
 from agno.vectordb.pgvector import PgVector
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.DOCX
 )
 
-# Clean up old databases
+# 清理旧数据库
 if os.path.exists("tmp/knowledge_contents.db"):
     os.remove("tmp/knowledge_contents.db")
 db = AsyncSqliteDb(
@@ -29,16 +29,16 @@ db = AsyncPostgresDb(
     knowledge_table="knowledge_contents",
 )
 
-# Initialize Vector Database
+# 初始化向量数据库
 vector_db = PgVector(
     table_name="CVs",
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 knowledge = Knowledge(
     name="Async Filtering",
@@ -94,11 +94,11 @@ asyncio.run(
 )
 
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同的过滤器组合查询知识库
 # ------------------------------------------------------------------------------
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base and filters
+# 选项 1：Agent 上的过滤器
+# 使用知识库和过滤器初始化 Agent
 agent = Agent(
     db=db,
     knowledge=knowledge,
@@ -106,10 +106,10 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Query for Jordan Mitchell's experience and skills
+    # 查询 Jordan Mitchell 的经验和技能
     asyncio.run(
         agent.aprint_response(
-            "Search the knowledge base for the candidate's experience and skills",
+            "在知识库中搜索候选人的经验和技能",
             knowledge_filters={"user_id": "jordan_mitchell"},
             markdown=True,
         )
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     asyncio.run(
         agent.aprint_response(
-            "Tell me about the candidate's experience and skills",
+            "告诉我候选人的经验和技能",
             knowledge_filters=[(IN("user_id", ["jordan_mitchell"]))],
             markdown=True,
         )

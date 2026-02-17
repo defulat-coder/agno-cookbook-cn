@@ -1,16 +1,16 @@
 """
-Content Sources for Knowledge — DX Design
-============================================================
+知识库内容源 — DX 设计
+======================
 
-This cookbook demonstrates the API for adding content from various
-remote sources (S3, GCS, SharePoint, GitHub, etc.) to Knowledge.
+此示例演示从各种远程源（S3、GCS、SharePoint、GitHub 等）
+向知识库添加内容的 API。
 
-Key Concepts:
-- RemoteContentConfig: Base class for configuring remote content sources
-- Each source type has its own config: S3Config, GcsConfig, SharePointConfig, GitHubConfig
-- Configs are registered on Knowledge via `content_sources` parameter
-- Configs have factory methods (.file(), .folder()) to create content references
-- Content references are passed to knowledge.insert()
+核心概念：
+- RemoteContentConfig：配置远程内容源的基类
+- 每种源类型都有自己的配置：S3Config、GcsConfig、SharePointConfig、GitHubConfig
+- 配置通过 `content_sources` 参数在 Knowledge 上注册
+- 配置具有工厂方法（.file()、.folder()）来创建内容引用
+- 内容引用传递给 knowledge.insert()
 """
 
 from os import getenv
@@ -27,7 +27,7 @@ from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
 from agno.vectordb.pgvector import PgVector
 
-# Database connections
+# 数据库连接
 contents_db = PostgresDb(
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     knowledge_table="knowledge_contents",
@@ -37,12 +37,12 @@ vector_db = PgVector(
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
 )
 
-# Define content source configs (credentials can come from env vars)
+# 定义内容源配置（凭证可以来自环境变量）
 
 sharepoint = SharePointConfig(
     id="sharepoint",
     name="Product Data",
-    tenant_id=getenv("SHAREPOINT_TENANT_ID"),  # or os.getenv("SHAREPOINT_TENANT_ID")
+    tenant_id=getenv("SHAREPOINT_TENANT_ID"),  # 或 os.getenv("SHAREPOINT_TENANT_ID")
     client_id=getenv("SHAREPOINT_CLIENT_ID"),
     client_secret=getenv("SHAREPOINT_CLIENT_SECRET"),
     hostname=getenv("SHAREPOINT_HOSTNAME"),
@@ -53,7 +53,7 @@ github_docs = GitHubConfig(
     id="my-repo",
     name="My Repository",
     repo="private/repo",
-    token=getenv("GITHUB_TOKEN"),  # Fine-grained PAT with Contents: read
+    token=getenv("GITHUB_TOKEN"),  # 具有 Contents: read 的细粒度 PAT
     branch="main",
 )
 
@@ -67,7 +67,7 @@ azure_blob = AzureBlobConfig(
     container=getenv("AZURE_CONTAINER_NAME"),
 )
 
-# Create Knowledge with content sources
+# 创建包含内容源的 Knowledge
 knowledge = Knowledge(
     name="Company Knowledge Base",
     description="Unified knowledge from multiple sources",
@@ -89,24 +89,24 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 # ============================================================================
-# Run AgentOS
+# 运行 AgentOS
 # ============================================================================
 if __name__ == "__main__":
-    # Serves a FastAPI app exposed by AgentOS. Use reload=True for local dev.
+    # 提供由 AgentOS 公开的 FastAPI 应用。本地开发时使用 reload=True。
     agent_os.serve(app="cloud_agentos:app", reload=True)
 
 
 # ============================================================================
-# Using the Knowledge API
+# 使用 Knowledge API
 # ============================================================================
 """
-Once AgentOS is running, use the Knowledge API to upload content from remote sources.
+AgentOS 运行后，使用 Knowledge API 从远程源上传内容。
 
-## Step 1: Get available content sources
+## 步骤 1：获取可用的内容源
 
     curl -s http://localhost:7777/v1/knowledge/company-knowledge-base/config | jq
 
-Response:
+响应：
     {
       "remote_content_sources": [
         {"id": "my-repo", "name": "My Repository", "type": "github"},
@@ -114,7 +114,7 @@ Response:
       ]
     }
 
-## Step 2: Upload content
+## 步骤 2：上传内容
 
     curl -X POST http://localhost:7777/v1/knowledge/company-knowledge-base/remote-content \\
       -H "Content-Type: application/json" \\

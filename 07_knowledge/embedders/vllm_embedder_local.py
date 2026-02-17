@@ -1,8 +1,8 @@
 """
-vLLM Local Embedder
-===================
+vLLM 本地 Embedder
+==================
 
-Demonstrates local vLLM embeddings and knowledge insertion with standard and batching modes.
+演示本地 vLLM 嵌入和知识插入，支持标准和批量模式。
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from agno.vectordb.pgvector import PgVector
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_embedder(enable_batch: bool = False) -> VLLMEmbedder:
     return VLLMEmbedder(
@@ -48,25 +48,25 @@ def create_knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_search(knowledge: Knowledge) -> None:
-    query = "What are the candidate's skills?"
+    query = "候选人有什么技能？"
     results = knowledge.search(query=query)
-    print(f"Query: {query}")
-    print(f"Results found: {len(results)}")
+    print(f"查询: {query}")
+    print(f"找到结果: {len(results)}")
     for i, result in enumerate(results, 1):
-        print(f"Result {i}: {result.content[:100]}...")
+        print(f"结果 {i}: {result.content[:100]}...")
 
 
 async def run_variant(enable_batch: bool = False) -> None:
     embedder = create_embedder(enable_batch=enable_batch)
-    mode = "batched" if enable_batch else "standard"
+    mode = "批量" if enable_batch else "标准"
 
     embeddings = embedder.get_embedding("The quick brown fox jumps over the lazy dog.")
-    print(f"Mode: {mode}")
-    print(f"Embedding dimensions: {len(embeddings)}")
-    print(f"First 5 values: {embeddings[:5]}")
+    print(f"模式: {mode}")
+    print(f"嵌入维度: {len(embeddings)}")
+    print(f"前5个值: {embeddings[:5]}")
 
     table_name = (
         "vllm_embeddings_minilm_batch_local"

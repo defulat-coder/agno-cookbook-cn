@@ -3,7 +3,7 @@ from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Load knowledge base using vector search
+# 使用向量搜索加载知识库
 vector_db = PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.vector)
 knowledge = Knowledge(
     name="Vector Search Knowledge Base",
@@ -14,6 +14,6 @@ knowledge.insert(
     url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
 )
 
-# Run a vector-based query
+# 运行基于向量的查询
 results = vector_db.search("chicken coconut soup", limit=5)
-print("Vector Search Results:", results)
+print("向量搜索结果:", results)

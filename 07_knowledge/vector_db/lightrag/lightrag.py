@@ -1,8 +1,8 @@
 """
-LightRAG Vector DB
-==================
+LightRAG 向量数据库
+===================
 
-Demonstrates LightRAG-backed knowledge and retrieval with references.
+演示基于 LightRAG 的知识和带引用的检索。
 """
 
 import asyncio
@@ -15,7 +15,7 @@ from agno.knowledge.reader.wikipedia_reader import WikipediaReader
 from agno.vectordb.lightrag import LightRag
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = LightRag(
     server_url=getenv("LIGHTRAG_SERVER_URL", "http://localhost:9621"),
@@ -24,7 +24,7 @@ vector_db = LightRag(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="LightRAG Knowledge Base",

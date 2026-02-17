@@ -1,33 +1,33 @@
 """
-MongoDB Vector DB
-=================
+MongoDB 向量数据库
+==================
 
-1. Create a MongoDB Atlas Account:
-   - Go to https://www.mongodb.com/cloud/atlas/register
-   - Sign up for a free account
+1. 创建 MongoDB Atlas 账户：
+   - 访问 https://www.mongodb.com/cloud/atlas/register
+   - 注册免费账户
 
-2. Create a New Cluster:
-   - Click "Build a Database"
-   - Choose the FREE tier (M0)
-   - Select your preferred cloud provider and region
-   - Click "Create Cluster"
+2. 创建新集群：
+   - 点击"Build a Database"
+   - 选择免费层级（M0）
+   - 选择您首选的云提供商和区域
+   - 点击"Create Cluster"
 
-3. Set Up Database Access:
-   - Follow the instructions in the MongoDB Atlas UI
-   - Create a username and password
-   - Click "Add New Database User"
+3. 设置数据库访问：
+   - 按照 MongoDB Atlas UI 中的说明操作
+   - 创建用户名和密码
+   - 点击"Add New Database User"
 
-5. Get Connection String:
-   - Select "Drivers" as connection method
-   - Select "Python" as driver
-   - Copy the connection string
+5. 获取连接字符串：
+   - 选择"Drivers"作为连接方法
+   - 选择"Python"作为驱动程序
+   - 复制连接字符串
 
-7. Test Connection:
-   - Use the connection string in your code
-   - Ensure pymongo is installed: uv pip install "pymongo[srv]"
-   - Test with a simple query to verify connectivity
+7. 测试连接：
+   - 在代码中使用连接字符串
+   - 确保已安装 pymongo：uv pip install "pymongo[srv]"
+   - 使用简单查询测试以验证连接
 
-Alternatively to test locally, you can run a docker container
+或者，要在本地测试，您可以运行 docker 容器
 
 docker run -p 27017:27017 -d --name mongodb-container --rm -v ./tmp/mongo-data:/data/db mongodb/mongodb-atlas-local:8.0.3
 """
@@ -41,13 +41,13 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.mongodb import MongoVectorDb
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 mdb_connection_string = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> Knowledge:
     return Knowledge(
@@ -78,7 +78,7 @@ def create_async_knowledge(enable_batch: bool = False) -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(knowledge=knowledge)
@@ -96,7 +96,7 @@ def create_async_agent(knowledge: Knowledge, enable_batch: bool = False) -> Agen
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_sync_knowledge()
@@ -107,7 +107,7 @@ def run_sync() -> None:
     )
 
     agent = create_sync_agent(knowledge)
-    agent.print_response("How to make Thai curry?", markdown=True)
+    agent.print_response("如何制作泰式咖喱？", markdown=True)
 
 
 async def run_async(enable_batch: bool = False) -> None:
@@ -117,14 +117,14 @@ async def run_async(enable_batch: bool = False) -> None:
     if enable_batch:
         await knowledge.ainsert(path="cookbook/07_knowledge/testing_resources/cv_1.pdf")
         await agent.aprint_response(
-            "What can you tell me about the candidate and what are his skills?",
+            "你能告诉我关于候选人的什么信息，他的技能是什么？",
             markdown=True,
         )
     else:
         await knowledge.ainsert(
             url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
         )
-        await agent.aprint_response("How to make Thai curry?", markdown=True)
+        await agent.aprint_response("如何制作泰式咖喱？", markdown=True)
 
 
 if __name__ == "__main__":

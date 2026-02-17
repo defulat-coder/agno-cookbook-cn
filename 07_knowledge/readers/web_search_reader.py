@@ -21,7 +21,7 @@ knowledge = Knowledge(
 )
 
 
-# Load knowledge from web search
+# 从网络搜索加载知识
 knowledge.insert(
     topics=["agno"],
     reader=WebSearchReader(
@@ -31,7 +31,7 @@ knowledge.insert(
     ),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     knowledge=knowledge,
@@ -39,7 +39,7 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Ask the agent about the knowledge
+# 向 Agent 询问知识
 agent.print_response(
-    "What are the latest AI trends according to the search results?", markdown=True
+    "根据搜索结果，最新的 AI 趋势是什么？", markdown=True
 )

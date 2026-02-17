@@ -1,8 +1,8 @@
 """
-Remove Vectors
-==============
+删除向量
+========
 
-Demonstrates removing vectors by metadata and by name using sync and async insert flows.
+演示如何使用同步和异步插入流程通过元数据和名称删除向量。
 """
 
 import asyncio
@@ -11,7 +11,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = PgVector(
     table_name="vectors", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -19,7 +19,7 @@ vector_db = PgVector(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -30,7 +30,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

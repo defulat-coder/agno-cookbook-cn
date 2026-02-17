@@ -1,8 +1,8 @@
 """
-Milvus Range Search
-===================
+Milvus 范围搜索
+===============
 
-Demonstrates Milvus range-search parameters (`radius`, `range_filter`) in sync and async calls.
+演示在同步和异步调用中使用 Milvus 范围搜索参数（`radius`、`range_filter`）。
 """
 
 import asyncio
@@ -12,7 +12,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.milvus import Milvus
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = Milvus(
     collection="recipes_range_search",
@@ -21,7 +21,7 @@ vector_db = Milvus(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My Milvus Range Search Knowledge Base",

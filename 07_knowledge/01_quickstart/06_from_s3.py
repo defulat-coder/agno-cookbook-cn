@@ -1,8 +1,8 @@
 """
-From S3
-=======
+从 S3 加载
+==========
 
-Demonstrates loading knowledge from S3 remote content using sync and async inserts.
+演示如何使用同步和异步方式从 S3 远程内容加载知识。
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from agno.knowledge.remote_content.remote_content import S3Content
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 contents_db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 vector_db = PgVector(
@@ -23,7 +23,7 @@ vector_db = PgVector(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -35,7 +35,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_agent(knowledge: Knowledge) -> Agent:
     return Agent(
@@ -48,7 +48,7 @@ def create_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

@@ -11,7 +11,7 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 
 class LineTokenizer(Tokenizer):
-    """Custom tokenizer that counts lines of code."""
+    """计算代码行数的自定义 tokenizer。"""
 
     def __init__(self):
         self.vocab = []

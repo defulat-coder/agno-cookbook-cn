@@ -6,21 +6,21 @@ from agno.utils.media import (
 )
 from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Step 1: Initialize knowledge with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 vector_db = Weaviate(
     collection="recipes",
     vector_index=VectorIndex.HNSW,
     distance=Distance.COSINE,
-    local=False,  # Set to False if using Weaviate Cloud and True if using local instance
+    local=False,  # 使用 Weaviate Cloud 时设置为 False，使用本地实例时设置为 True
 )
 
 knowledge = Knowledge(

@@ -1,10 +1,10 @@
 """
-Redis Vector DB
-===============
+Redis 向量数据库
+================
 
-Demonstrates Redis-backed knowledge with sync and async flows.
+演示基于 Redis 的知识库，支持同步和异步流程。
 
-To get started, either set `REDIS_URL`, or start local Redis with:
+开始使用，可以设置 `REDIS_URL`，或使用以下命令启动本地 Redis：
 `./cookbook/scripts/run_redis.sh`
 """
 
@@ -17,7 +17,7 @@ from agno.vectordb.redis import RedisVectorDb
 from agno.vectordb.search import SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 INDEX_NAME = os.getenv("REDIS_INDEX", "agno_cookbook_vectors")
@@ -30,7 +30,7 @@ vector_db = RedisVectorDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My Redis Vector Knowledge Base",
@@ -40,13 +40,13 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(knowledge=knowledge)
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge.insert(
@@ -56,7 +56,7 @@ def run_sync() -> None:
         skip_if_exists=True,
     )
     agent.print_response(
-        "List down the ingredients to make Massaman Gai", markdown=True
+        "列出制作 Massaman Gai 的配料", markdown=True
     )
 
 
@@ -68,7 +68,7 @@ async def run_async() -> None:
         skip_if_exists=True,
     )
     await agent.aprint_response(
-        "List down the ingredients to make Massaman Gai", markdown=True
+        "列出制作 Massaman Gai 的配料", markdown=True
     )
 
 

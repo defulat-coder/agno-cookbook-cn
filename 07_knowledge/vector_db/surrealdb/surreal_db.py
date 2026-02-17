@@ -1,8 +1,8 @@
 """
-SurrealDB Vector DB
-===================
+SurrealDB 向量数据库
+====================
 
-Run SurrealDB before running this example:
+运行此示例前请先运行 SurrealDB：
 `docker run --rm --pull always -p 8000:8000 surrealdb/surrealdb:latest start --user root --pass root`
 """
 
@@ -15,7 +15,7 @@ from agno.vectordb.surrealdb import SurrealDb
 from surrealdb import AsyncSurreal, Surreal
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 SURREALDB_URL = "ws://localhost:8000"
 SURREALDB_USER = "root"
@@ -25,7 +25,7 @@ SURREALDB_DATABASE = "test"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> Knowledge:
     client = Surreal(url=SURREALDB_URL)

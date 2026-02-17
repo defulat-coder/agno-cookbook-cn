@@ -1,10 +1,10 @@
 """
-Couchbase Vector DB Example
-==========================
+Couchbase 向量数据库示例
+========================
 
-Setup Couchbase Cluster (Local via Docker):
+设置 Couchbase 集群（通过 Docker 本地运行）：
 -------------------------------------------
-1. Run Couchbase locally:
+1. 本地运行 Couchbase：
 
    docker run -d --name couchbase-server \
      -p 8091-8096:8091-8096 \
@@ -13,21 +13,21 @@ Setup Couchbase Cluster (Local via Docker):
      -e COUCHBASE_ADMINISTRATOR_PASSWORD=password \
      couchbase:latest
 
-2. Access the Couchbase UI at: http://localhost:8091
-   (Login with the username and password above)
+2. 访问 Couchbase UI：http://localhost:8091
+   （使用上面的用户名和密码登录）
 
-3. Create a new cluster. You can select "Finish with defaults".
+3. 创建新集群。您可以选择"Finish with defaults"。
 
-4. Create a bucket named 'recipe_bucket', a scope 'recipe_scope', and a collection 'recipes'.
+4. 创建名为 'recipe_bucket' 的 bucket，一个 'recipe_scope' scope，以及一个 'recipes' collection。
 
-Managed Couchbase (Capella):
+托管 Couchbase（Capella）：
 ----------------------------
-- For a managed cluster, use Couchbase Capella: https://cloud.couchbase.com/
-- Follow Capella's UI to create a database, bucket, scope, and collection as above.
+- 对于托管集群，使用 Couchbase Capella：https://cloud.couchbase.com/
+- 按照 Capella 的 UI 创建数据库、bucket、scope 和 collection，如上所述。
 
-Environment Variables (export before running):
+环境变量（运行前导出）：
 ----------------------------------------------
-Create a shell script (e.g., set_couchbase_env.sh):
+创建一个 shell 脚本（例如 set_couchbase_env.sh）：
 
     export COUCHBASE_USER="Administrator"
     export COUCHBASE_PASSWORD="password"

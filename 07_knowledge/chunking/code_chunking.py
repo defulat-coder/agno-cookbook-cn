@@ -10,7 +10,7 @@ knowledge = Knowledge(
     vector_db=PgVector(table_name="python_code_chunking", db_url=db_url),
 )
 
-# Add code with CodeChunking
+# 使用 CodeChunking 添加代码
 knowledge.insert(
     url="https://raw.githubusercontent.com/agno-agi/agno/main/libs/agno/agno/session/workflow.py",
     reader=TextReader(
@@ -20,6 +20,6 @@ knowledge.insert(
     ),
 )
 
-# Query with agent
+# 使用 agent 查询
 agent = Agent(knowledge=knowledge, search_knowledge=True)
-agent.print_response("How does the Workflow class work?", markdown=True)
+agent.print_response("Workflow 类是如何工作的？", markdown=True)

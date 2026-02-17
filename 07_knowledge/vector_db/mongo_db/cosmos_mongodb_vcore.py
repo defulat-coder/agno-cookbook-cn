@@ -2,7 +2,7 @@
 Cosmos MongoDB vCore
 ====================
 
-Demonstrates Cosmos DB (MongoDB vCore compatibility) as a vector DB backend.
+演示 Cosmos DB（MongoDB vCore 兼容）作为向量数据库后端。
 """
 
 from agno.agent import Agent
@@ -10,13 +10,13 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.mongodb import MongoVectorDb
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 mdb_connection_string = "mongodb+srv://<username>:<encoded_password>@cluster0.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_base = Knowledge(
     vector_db=MongoVectorDb(

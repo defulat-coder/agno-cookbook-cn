@@ -1,8 +1,8 @@
 """
-PgVector Database
-=================
+PgVector 数据库
+===============
 
-Demonstrates PgVector-backed knowledge with sync, async, and async-batching flows.
+演示基于 PgVector 的知识库，支持同步、异步和异步批量流程。
 """
 
 import asyncio
@@ -13,13 +13,13 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, PgVector]:
     vector_db = PgVector(table_name="vectors", db_url=db_url)
@@ -45,7 +45,7 @@ def create_async_knowledge(enable_batch: bool = False) -> tuple[Knowledge, PgVec
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(
@@ -60,7 +60,7 @@ def create_async_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge, vector_db = create_sync_knowledge()
@@ -71,7 +71,7 @@ def run_sync() -> None:
     )
 
     agent = create_sync_agent(knowledge)
-    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("如何制作泰式炒河粉？", markdown=True)
 
     vector_db.delete_by_name("Recipes")
     vector_db.delete_by_metadata({"doc_type": "recipe_book"})
@@ -82,7 +82,7 @@ async def run_async(enable_batch: bool = False) -> None:
     agent = create_async_agent(knowledge)
 
     await knowledge.ainsert(url="https://docs.agno.com/basics/agents/overview.md")
-    await agent.aprint_response("What is the purpose of an Agno Agent?", markdown=True)
+    await agent.aprint_response("Agno Agent 的目的是什么？", markdown=True)
 
 
 if __name__ == "__main__":

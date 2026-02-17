@@ -1,8 +1,8 @@
 """
-LanceDB Hybrid Search
-=====================
+LanceDB 混合搜索
+================
 
-Demonstrates hybrid search with LanceDB.
+演示使用 LanceDB 进行混合搜索。
 """
 
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 vector_db = LanceDb(
     table_name="vectors",
@@ -21,7 +21,7 @@ vector_db = LanceDb(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My LanceDB Knowledge Base",
@@ -31,7 +31,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -42,7 +42,7 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge.insert(
@@ -51,7 +51,7 @@ def main() -> None:
         metadata={"doc_type": "recipe_book"},
     )
     agent.print_response(
-        "How do I make chicken and galangal in coconut milk soup",
+        "如何制作椰奶鸡肉高良姜汤",
         stream=True,
     )
 

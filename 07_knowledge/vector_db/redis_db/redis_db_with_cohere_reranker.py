@@ -1,8 +1,8 @@
 """
-Redis With Cohere Reranker
-==========================
+Redis 与 Cohere Reranker
+========================
 
-Demonstrates Redis vector retrieval with Cohere reranking.
+演示 Redis 向量检索与 Cohere 重排序。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.redis import RedisDB
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     vector_db=RedisDB(
@@ -26,7 +26,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
@@ -36,11 +36,11 @@ agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge.insert(name="Agno Docs", url="https://docs.agno.com/introduction.md")
-    agent.print_response("What are Agno's key features?")
+    agent.print_response("Agno 的关键特性有哪些？")
 
 
 if __name__ == "__main__":

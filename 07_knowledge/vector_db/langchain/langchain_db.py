@@ -1,8 +1,8 @@
 """
-LangChain Vector DB
-===================
+LangChain 向量数据库
+====================
 
-Install dependencies:
+安装依赖：
 - uv pip install langchain langchain-community langchain-openai langchain-chroma agno
 """
 
@@ -19,7 +19,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_openai import OpenAIEmbeddings
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 chroma_db_dir = pathlib.Path("./chroma_db")
 state_of_the_union = pathlib.Path(

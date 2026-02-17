@@ -1,12 +1,12 @@
-# Agent Knowledge
+# Agent Knowledge（知识库）
 
-**Knowledge Base:** is information that the Agent can search to improve its responses. This directory contains a series of cookbooks that demonstrate how to build a knowledge base for the Agent.
+**Knowledge Base（知识库）：** 是 Agent 可以搜索以改进其响应的信息。本目录包含一系列示例，演示如何为 Agent 构建知识库。
 
-> Note: Fork and clone this repository if needed
+> 注意：如果需要，请 fork 并克隆此仓库
 
-## Getting Started
+## 快速开始
 
-### 1. Setup Environment
+### 1. 设置环境
 
 ```bash
 python3 -m venv ~/.venvs/aienv
@@ -14,7 +14,7 @@ source ~/.venvs/aienv/bin/activate
 uv pip install -U agno openai pgvector "psycopg[binary]" sqlalchemy
 ```
 
-### 2. Start PgVector Database
+### 2. 启动 PgVector 数据库
 
 ```bash
 docker run -d \
@@ -28,7 +28,7 @@ docker run -d \
   agnohq/pgvector:16
 ```
 
-### 3. Basic Knowledge Base
+### 3. 基础知识库
 
 ```python
 from agno.agent import Agent
@@ -42,12 +42,12 @@ knowledge = Knowledge(
     )
 )
 
-# Add content from URL
+# 从 URL 添加内容
 knowledge.add_content(
     url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
 )
 
-# Create agent with knowledge
+# 创建带有知识库的 agent
 agent = Agent(
     name="Knowledge Agent",
     knowledge=knowledge,
@@ -57,21 +57,21 @@ agent = Agent(
 agent.print_response("What can you tell me about Thai recipes?")
 ```
 
-## Examples
+## 示例
 
-Add docs, manuals, and databases so agents can search and cite specific sources instead of guessing.
+添加文档、手册和数据库，以便 Agent 可以搜索并引用特定来源，而不是猜测。
 
-### Quickstart
-- **[01_from_path.py](./01_quickstart/01_from_path.py)** - Add content from local files
-- **[02_from_url.py](./01_quickstart/02_from_url.py)** - Add content from URLs
-- **[04_from_multiple.py](./01_quickstart/04_from_multiple.py)** - Add multiple sources
-- **[13_specify_reader.py](./01_quickstart/13_specify_reader.py)** - Use specific document readers
-- **[15_batching.py](./01_quickstart/15_batching.py)** - Batch embedding workflow
+### 快速开始
+- **[01_from_path.py](./01_quickstart/01_from_path.py)** - 从本地文件添加内容
+- **[02_from_url.py](./01_quickstart/02_from_url.py)** - 从 URL 添加内容
+- **[04_from_multiple.py](./01_quickstart/04_from_multiple.py)** - 添加多个来源
+- **[13_specify_reader.py](./01_quickstart/13_specify_reader.py)** - 使用特定文档 reader
+- **[15_batching.py](./01_quickstart/15_batching.py)** - 批量嵌入工作流
 
-### Other Topics
-- **[chunking/](./chunking/)** - Text chunking strategies
-- **[embedders/](./embedders/)** - Embedding model providers  
-- **[filters/](./filters/)** - Content filtering and access control
-- **[readers/](./readers/)** - Document format processors
-- **[search_type/](./search_type/)** - Search algorithm options
-- **[vector_db/](./vector_db/)** - Vector database implementations
+### 其他主题
+- **[chunking/](./chunking/)** - 文本分块策略
+- **[embedders/](./embedders/)** - 嵌入模型提供商  
+- **[filters/](./filters/)** - 内容过滤和访问控制
+- **[readers/](./readers/)** - 文档格式处理器
+- **[search_type/](./search_type/)** - 搜索算法选项
+- **[vector_db/](./vector_db/)** - 向量数据库实现

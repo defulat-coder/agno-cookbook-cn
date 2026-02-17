@@ -1,8 +1,8 @@
 """
-Qdrant Hybrid Search
-====================
+Qdrant 混合搜索
+===============
 
-Demonstrates Qdrant hybrid retrieval in an interactive loop.
+演示在交互式循环中使用 Qdrant 混合检索。
 """
 
 import typer
@@ -13,7 +13,7 @@ from agno.vectordb.search import SearchType
 from rich.prompt import Prompt
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 COLLECTION_NAME = "thai-recipes"
 vector_db = Qdrant(
@@ -24,7 +24,7 @@ vector_db = Qdrant(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     name="My Qdrant Vector Knowledge Base",
@@ -33,7 +33,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def qdrantdb_agent(user: str = "user"):
     agent = Agent(
@@ -50,7 +50,7 @@ def qdrantdb_agent(user: str = "user"):
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge.insert(

@@ -26,28 +26,28 @@ knowledge = Knowledge(
 
 async def main():
     """
-    Example demonstrating async TavilyReader usage with Knowledge base integration.
+    演示异步 TavilyReader 与知识库集成的使用示例。
 
-    This example shows:
-    1. Adding content from URLs using TavilyReader asynchronously
-    2. Integrating with Knowledge base for RAG
-    3. Querying the agent with search_knowledge enabled
+    此示例展示：
+    1. 使用 TavilyReader 异步从 URL 添加内容
+    2. 与知识库集成以实现 RAG
+    3. 在启用 search_knowledge 的情况下查询 Agent
     """
 
-    # URLs to extract content from
+    # 要提取内容的 URL
     urls_to_extract = [
         "https://github.com/agno-agi/agno",
         "https://docs.tavily.com/documentation/api-reference/endpoint/extract",
     ]
 
     print("=" * 80)
-    print("Adding content to Knowledge base using TavilyReader (async)")
+    print("使用 TavilyReader 向知识库添加内容（异步）")
     print("=" * 80)
 
-    # Add content from URLs using TavilyReader
-    # Note: Comment out after first run to avoid re-adding the same content
+    # 使用 TavilyReader 从 URL 添加内容
+    # 注意：首次运行后注释掉，以避免重复添加相同内容
     for url in urls_to_extract:
-        print(f"\nExtracting content from: {url}")
+        print(f"\n从以下位置提取内容: {url}")
         await knowledge.ainsert(
             url,
             reader=TavilyReader(
@@ -59,37 +59,37 @@ async def main():
         )
 
     print("\n" + "=" * 80)
-    print("Creating Agent with Knowledge base")
+    print("使用知识库创建 Agent")
     print("=" * 80)
 
-    # Create an agent with the knowledge
+    # 创建包含知识的 Agent
     agent = Agent(
         model=OpenAIChat(id="gpt-5.2"),
         knowledge=knowledge,
-        search_knowledge=True,  # Enable knowledge search
+        search_knowledge=True,  # 启用知识搜索
         debug_mode=True,
     )
 
     print("\n" + "=" * 80)
-    print("Querying Agent")
+    print("查询 Agent")
     print("=" * 80)
 
-    # Ask questions about the extracted content
+    # 询问有关提取内容的问题
     await agent.aprint_response(
-        "What is Agno and what are its main features based on the documentation?",
+        "根据文档，Agno 是什么以及它的主要特性是什么？",
         markdown=True,
     )
 
     print("\n" + "=" * 80)
-    print("Second Query")
+    print("第二次查询")
     print("=" * 80)
 
     await agent.aprint_response(
-        "What is the Tavily Extract API and how does it work?",
+        "Tavily Extract API 是什么以及它如何工作？",
         markdown=True,
     )
 
 
 if __name__ == "__main__":
-    # Run the async main function
+    # 运行异步主函数
     asyncio.run(main())

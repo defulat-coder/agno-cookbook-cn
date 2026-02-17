@@ -1,10 +1,10 @@
 """
-Cassandra Database
-==================
+Cassandra 数据库
+================
 
-Demonstrates Cassandra-backed knowledge with sync, async, and async-batching flows.
+演示基于 Cassandra 的知识库，支持同步、异步和异步批量流程。
 
-Requirement:
+需求：
 - uv pip install cassandra-driver
 """
 
@@ -26,7 +26,7 @@ except (ImportError, ModuleNotFoundError):
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_session():
     cluster = Cluster()
@@ -41,7 +41,7 @@ def create_session():
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge(session) -> tuple[Knowledge, Cassandra]:
     vector_db = Cassandra(

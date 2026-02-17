@@ -1,38 +1,38 @@
 """
-SharePoint Content Source for Knowledge
-========================================
+SharePoint 内容源知识库
+=======================
 
-Load files and folders from SharePoint document libraries into your Knowledge base.
-Uses Microsoft Graph API with OAuth2 client credentials flow.
+从 SharePoint 文档库加载文件和文件夹到您的知识库。
+使用带有 OAuth2 客户端凭证流的 Microsoft Graph API。
 
-Features:
-- Load single files or entire folders recursively
-- Supports any SharePoint Online site
-- Automatic file type detection and reader selection
-- Rich metadata stored for each file (site, path, filename)
+特性：
+- 递归加载单个文件或整个文件夹
+- 支持任何 SharePoint Online 站点
+- 自动文件类型检测和读取器选择
+- 为每个文件存储丰富的元数据（站点、路径、文件名）
 
-Requirements:
-- Azure AD App Registration with:
-  - Application (client) ID
-  - Client secret
-  - API permissions: Sites.Read.All (Application)
-- SharePoint site ID or site path
+需求：
+- Azure AD 应用注册，包含：
+  - 应用程序（客户端）ID
+  - 客户端密钥
+  - API 权限：Sites.Read.All（应用程序）
+- SharePoint 站点 ID 或站点路径
 
-Setup:
-    1. Register an app in Azure AD (portal.azure.com)
-    2. Add API permission: Microsoft Graph > Sites.Read.All (Application)
-    3. Grant admin consent
-    4. Create a client secret
-    5. Set environment variables (see below)
+设置：
+    1. 在 Azure AD 中注册应用（portal.azure.com）
+    2. 添加 API 权限：Microsoft Graph > Sites.Read.All（应用程序）
+    3. 授予管理员同意
+    4. 创建客户端密钥
+    5. 设置环境变量（见下文）
 
-Environment Variables:
-    SHAREPOINT_TENANT_ID    - Azure AD tenant ID
-    SHAREPOINT_CLIENT_ID    - App registration client ID
-    SHAREPOINT_CLIENT_SECRET - App registration client secret
-    SHAREPOINT_HOSTNAME     - e.g., "contoso.sharepoint.com"
-    SHAREPOINT_SITE_ID      - Full site ID (hostname,guid,guid format)
+环境变量：
+    SHAREPOINT_TENANT_ID    - Azure AD 租户 ID
+    SHAREPOINT_CLIENT_ID    - 应用注册客户端 ID
+    SHAREPOINT_CLIENT_SECRET - 应用注册客户端密钥
+    SHAREPOINT_HOSTNAME     - 例如："contoso.sharepoint.com"
+    SHAREPOINT_SITE_ID      - 完整站点 ID（hostname,guid,guid 格式）
 
-Run this cookbook:
+运行此示例：
     python cookbook/07_knowledge/cloud/sharepoint.py
 """
 
@@ -42,22 +42,22 @@ from agno.knowledge.knowledge import Knowledge
 from agno.knowledge.remote_content import SharePointConfig
 from agno.vectordb.pgvector import PgVector
 
-# Configure SharePoint content source
-# All credentials should come from environment variables
+# 配置 SharePoint 内容源
+# 所有凭证应来自环境变量
 sharepoint_config = SharePointConfig(
     id="company-docs",
     name="Company Documents",
     tenant_id=getenv("SHAREPOINT_TENANT_ID"),
     client_id=getenv("SHAREPOINT_CLIENT_ID"),
     client_secret=getenv("SHAREPOINT_CLIENT_SECRET"),
-    hostname=getenv("SHAREPOINT_HOSTNAME"),  # e.g., "contoso.sharepoint.com"
-    # Option 1: Provide site_id directly (recommended, faster)
-    site_id=getenv("SHAREPOINT_SITE_ID"),  # e.g., "contoso.sharepoint.com,guid1,guid2"
-    # Option 2: Or provide site_path and let the API look up the site ID
+    hostname=getenv("SHAREPOINT_HOSTNAME"),  # 例如："contoso.sharepoint.com"
+    # 选项 1：直接提供 site_id（推荐，更快）
+    site_id=getenv("SHAREPOINT_SITE_ID"),  # 例如："contoso.sharepoint.com,guid1,guid2"
+    # 选项 2：或提供 site_path 让 API 查找站点 ID
     # site_path="/sites/documents",
 )
 
-# Create Knowledge with SharePoint as a content source
+# 创建以 SharePoint 作为内容源的 Knowledge
 knowledge = Knowledge(
     name="SharePoint Knowledge",
     vector_db=PgVector(
@@ -68,15 +68,15 @@ knowledge = Knowledge(
 )
 
 if __name__ == "__main__":
-    # Insert a single file from SharePoint
-    print("Inserting single file from SharePoint...")
+    # 从 SharePoint 插入单个文件
+    print("从 SharePoint 插入单个文件...")
     knowledge.insert(
         name="Q1 Report",
         remote_content=sharepoint_config.file("Shared Documents/Reports/q1-2024.pdf"),
     )
 
-    # Insert an entire folder (recursive)
-    print("Inserting folder from SharePoint...")
+    # 插入整个文件夹（递归）
+    print("从 SharePoint 插入文件夹...")
     knowledge.insert(
         name="Policy Documents",
         remote_content=sharepoint_config.folder("Shared Documents/Policies"),

@@ -1,11 +1,11 @@
 """
-SingleStore Vector DB
-=====================
+SingleStore 向量数据库
+======================
 
-Run setup script:
+运行设置脚本：
 `./cookbook/scripts/run_singlestore.sh`
 
-Then create a database in Studio (http://localhost:8080).
+然后在 Studio 中创建一个数据库（http://localhost:8080）。
 """
 
 import asyncio
@@ -19,7 +19,7 @@ from agno.vectordb.singlestore import SingleStore
 from sqlalchemy.engine import create_engine
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 USERNAME = getenv("SINGLESTORE_USERNAME")
 PASSWORD = getenv("SINGLESTORE_PASSWORD")
@@ -37,7 +37,7 @@ def get_engine():
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, SingleStore]:
     vector_db = SingleStore(
@@ -60,7 +60,7 @@ def create_async_batch_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(
@@ -80,7 +80,7 @@ def create_async_batch_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge, vector_db = create_sync_knowledge()
@@ -91,7 +91,7 @@ def run_sync() -> None:
     )
 
     agent = create_sync_agent(knowledge)
-    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("如何制作泰式炒河粉？", markdown=True)
 
     vector_db.delete_by_name("Recipes")
     vector_db.delete_by_metadata({"doc_type": "recipe_book"})
@@ -103,7 +103,7 @@ async def run_async_batch() -> None:
 
     await knowledge.ainsert(path="cookbook/07_knowledge/testing_resources/cv_1.pdf")
     await agent.aprint_response(
-        "What can you tell me about the candidate and what are his skills?",
+        "你能告诉我关于候选人的什么信息，他的技能是什么？",
         markdown=True,
     )
 

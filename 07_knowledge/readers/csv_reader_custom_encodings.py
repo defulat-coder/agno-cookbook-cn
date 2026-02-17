@@ -13,10 +13,10 @@ knowledge = Knowledge(
         table_name="csv_documents",
         db_url=db_url,
     ),
-    max_results=5,  # Number of results to return on search
+    max_results=5,  # 搜索时返回的结果数量
 )
 
-# Initialize the Agent with the knowledge
+# 使用知识初始化 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4.1-mini"),
     knowledge=knowledge,
@@ -25,7 +25,7 @@ agent = Agent(
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(
         knowledge.ainsert(
             url="https://agno-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
@@ -33,5 +33,5 @@ if __name__ == "__main__":
         )
     )
 
-    # Create and use the agent
-    asyncio.run(agent.aprint_response("What is the csv file about", markdown=True))
+    # 创建并使用 Agent
+    asyncio.run(agent.aprint_response("csv 文件的内容是什么", markdown=True))

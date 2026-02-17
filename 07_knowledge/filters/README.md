@@ -1,21 +1,21 @@
-# Filters
+# Filters（过滤器）
 
-Filters help you selectively retrieve and process knowledge based on metadata, content patterns, or custom criteria for targeted information retrieval.
+过滤器帮助您根据元数据、内容模式或自定义条件有选择地检索和处理知识，以实现目标信息检索。
 
-## Setup
+## 设置
 
 ```bash
 uv pip install agno lancedb pandas
 ```
 
-Set your API key:
+设置您的 API 密钥：
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
-## Basic Integration
+## 基础集成
 
-Filters integrate with the Knowledge system to enable targeted search:
+过滤器与 Knowledge 系统集成以启用目标搜索：
 
 ```python
 from agno.knowledge.knowledge import Knowledge
@@ -30,9 +30,9 @@ results = knowledge.search(
 )
 ```
 
-## Agent Integration
+## Agent 集成
 
-Agents can use filtered knowledge for targeted responses:
+Agent 可以使用过滤的知识进行目标响应：
 
 ```python
 from agno.agent import Agent
@@ -44,7 +44,7 @@ agent = Agent(
     search_knowledge=True
 )
 
-# Agent automatically applies filters during knowledge search
+# Agent 在知识搜索期间自动应用过滤器
 response = agent.print_response(
     "What are the Q1 sales trends?",
     knowledge_filters={"quarter": "Q1"},
@@ -52,44 +52,44 @@ response = agent.print_response(
 )
 ```
 
-## Filter Expressions
+## 过滤表达式
 
-For complex filtering logic, use `FilterExpr` objects from `agno.filters`:
+对于复杂的过滤逻辑，使用 `agno.filters` 中的 `FilterExpr` 对象：
 
 ```python
 from agno.filters import EQ, IN, GT, LT, AND, OR, NOT
 
-# Simple equality
+# 简单相等
 filter = EQ("status", "published")
 
-# Range queries
+# 范围查询
 filter = AND(GT("views", 1000), LT("views", 10000))
 
-# Complex logic
+# 复杂逻辑
 filter = OR(AND(EQ("type", "article"), GT("word_count", 500)), IN("priority", ["high", "urgent"]))
 
-# Negation
+# 否定
 filter = NOT(EQ("status", "archived"))
 
-# Use with agent
+# 与 agent 一起使用
 agent.run("Query", knowledge_filters=[filter])
 ```
 
-**Operators:**
-- `EQ(key, value)` - Equality
-- `IN(key, [values])` - Value in list
-- `GT(key, value)` - Greater than
-- `LT(key, value)` - Less than
-- `AND(...)` - AND logic
-- `OR(...)` - OR logic
-- `NOT(...)` - NOT logic
+**操作符：**
+- `EQ(key, value)` - 相等
+- `IN(key, [values])` - 值在列表中
+- `GT(key, value)` - 大于
+- `LT(key, value)` - 小于
+- `AND(...)` - AND 逻辑
+- `OR(...)` - OR 逻辑
+- `NOT(...)` - NOT 逻辑
 
-## Supported Filter Types
+## 支持的过滤器类型
 
-- **[Agentic Filtering](./agentic_filtering.py)** - Agent integrated filtering
-- **[Async Filtering](./async_filtering.py)** - Asynchronous filtering operations
-- **[Basic Filtering](./filtering.py)** - Metadata-based filtering
-- **[Filter Expressions](./filtering_with_conditions_on_agent.py)** - Complex filtering with FilterExpr
-- **[API Filter Examples](../../agent_os/knowledge/knowledge_filters.py)** - Using filters through HTTP API
-- **[Filtering on Load](./filtering_on_load.py)** - Set metadata during content loading
-- **[Invalid Keys Handling](./filtering_with_invalid_keys.py)** - Filtering with error handling
+- **[Agentic Filtering](./agentic_filtering.py)** - Agent 集成过滤
+- **[Async Filtering](./async_filtering.py)** - 异步过滤操作
+- **[Basic Filtering](./filtering.py)** - 基于元数据的过滤
+- **[Filter Expressions](./filtering_with_conditions_on_agent.py)** - 使用 FilterExpr 的复杂过滤
+- **[API Filter Examples](../../agent_os/knowledge/knowledge_filters.py)** - 通过 HTTP API 使用过滤器
+- **[Filtering on Load](./filtering_on_load.py)** - 在内容加载期间设置元数据
+- **[Invalid Keys Handling](./filtering_with_invalid_keys.py)** - 带错误处理的过滤

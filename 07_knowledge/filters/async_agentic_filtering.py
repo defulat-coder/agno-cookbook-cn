@@ -11,12 +11,12 @@ from agno.utils.media import (
 )
 from agno.vectordb.pgvector import PgVector
 
-# Download all sample sales files and get their paths
+# 下载所有样本销售文件并获取其路径
 downloaded_csv_paths = download_knowledge_filters_sample_data(
     num_files=4, file_extension=SampleDataFileExtension.CSV
 )
 
-# Clean up old database
+# 清理旧数据库
 if os.path.exists("tmp/knowledge_contents.db"):
     os.remove("tmp/knowledge_contents.db")
 
@@ -25,13 +25,13 @@ db = AsyncSqliteDb(
     db_file="tmp/knowledge_contents.db",
 )
 
-# Initialize PgVector
+# 初始化 PgVector
 vector_db = PgVector(
     table_name="recipes",
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
 
 knowledge = Knowledge(

@@ -7,22 +7,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.pgvector import PgVector
 
-# Download all sample sales files and get their paths
+# 下载所有样本销售文件并获取其路径
 downloaded_csv_paths = download_knowledge_filters_sample_data(
     num_files=4, file_extension=SampleDataFileExtension.CSV
 )
 
-# Initialize PgVector
+# 初始化 PgVector
 vector_db = PgVector(
     table_name="recipes",
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
+# 加载知识库时，我们可以附加元数据，这些元数据将用于过滤
 
-# Initialize Knowledge
+# 初始化 Knowledge
 knowledge = Knowledge(
     vector_db=vector_db,
     contents_db=PostgresDb(
@@ -73,7 +73,7 @@ knowledge.insert(
     },
 )
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同的过滤器组合查询知识库
 # ------------------------------------------------------------------------------
 agent = Agent(
     knowledge=knowledge,
@@ -81,6 +81,6 @@ agent = Agent(
     knowledge_filters={"region": "north_america", "data_type": "sales"},
 )
 agent.print_response(
-    "Revenue performance and top selling products",
+    "收入表现和最畅销产品",
     markdown=True,
 )

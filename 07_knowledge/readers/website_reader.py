@@ -7,27 +7,27 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with website content
+# 创建包含网站内容的知识库
 knowledge = Knowledge(
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=PgVector(
         table_name="website_documents",
         db_url=db_url,
         embedder=OpenAIEmbedder(),
     ),
 )
-# Load the knowledge
+# 加载知识
 knowledge.insert(
     url="https://en.wikipedia.org/wiki/OpenAI",
     reader=WebsiteReader(),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-# Ask the agent about the knowledge
-agent.print_response("What can you tell me about Generative AI?", markdown=True)
+# 向 Agent 询问知识
+agent.print_response("你能告诉我关于生成式 AI 的什么信息？", markdown=True)

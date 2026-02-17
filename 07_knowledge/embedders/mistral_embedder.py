@@ -2,7 +2,7 @@
 Mistral Embedder
 ================
 
-Demonstrates Mistral embeddings and knowledge insertion, including a batching variant.
+演示 Mistral 嵌入和知识插入，包括批量处理变体。
 """
 
 import asyncio
@@ -13,13 +13,13 @@ from agno.vectordb.pgvector import PgVector
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
-    # Standard mode
+    # 标准模式
     embedder = MistralEmbedder()
 
-    # Batching mode (uncomment to use)
+    # 批量模式（取消注释以使用）
     # embedder = MistralEmbedder(enable_batch=True)
 
     return Knowledge(
@@ -33,7 +33,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 async def main() -> None:
     embeddings = MistralEmbedder().get_embedding(

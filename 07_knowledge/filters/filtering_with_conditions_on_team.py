@@ -1,8 +1,8 @@
 """
-This example demonstrates how to use knowledge filter expressions with teams.
+此示例演示如何在团队中使用知识过滤器表达式。
 
-Knowledge filters allow you to restrict knowledge searches to specific documents
-or metadata criteria, enabling personalized and contextual responses.
+知识过滤器允许您将知识搜索限制为特定文档
+或元数据条件，实现个性化和上下文响应。
 """
 
 from agno.agent import Agent
@@ -17,23 +17,23 @@ from agno.utils.media import (
 )
 from agno.vectordb.pgvector import PgVector
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize PGVector
+# 初始化 PGVector
 vector_db = PgVector(
     table_name="recipes",
     db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
 )
 
-# Create knowledge base
+# 创建知识库
 knowledge_base = Knowledge(
     vector_db=vector_db,
 )
 
-# Add documents with metadata for filtering
+# 添加带有过滤元数据的文档
 knowledge_base.insert_many(
     [
         {

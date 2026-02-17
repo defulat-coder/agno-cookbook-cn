@@ -7,27 +7,27 @@ from agno.utils.media import (
 from agno.vectordb.surrealdb import SurrealDb
 from surrealdb import Surreal
 
-# SurrealDB connection parameters
+# SurrealDB 连接参数
 SURREALDB_URL = "ws://localhost:8000"
 SURREALDB_USER = "root"
 SURREALDB_PASSWORD = "root"
 SURREALDB_NAMESPACE = "test"
 SURREALDB_DATABASE = "test"
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Create a client
+# 创建客户端
 client = Surreal(url=SURREALDB_URL)
 client.signin({"username": SURREALDB_USER, "password": SURREALDB_PASSWORD})
 client.use(namespace=SURREALDB_NAMESPACE, database=SURREALDB_DATABASE)
 
 vector_db = SurrealDb(
     client=client,
-    collection="recipes",  # Collection name for storing documents
-    efc=150,  # HNSW construction time/accuracy trade-off
+    collection="recipes",  # 用于存储文档的集合名称
+    efc=150,  # HNSW 构建时间/准确性权衡
     m=12,  # HNSW max number of connections per element
     search_ef=40,  # HNSW search time/accuracy trade-off
 )

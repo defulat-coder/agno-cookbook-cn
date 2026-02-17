@@ -7,7 +7,7 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with markdown content
+# 创建包含 markdown 内容的知识库
 knowledge = Knowledge(
     vector_db=PgVector(
         table_name="markdown_documents",
@@ -15,7 +15,7 @@ knowledge = Knowledge(
     )
 )
 
-# Create an agent with the knowledge base
+# 创建包含知识库的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
@@ -28,10 +28,10 @@ if __name__ == "__main__":
             reader=MarkdownReader(),
         )
     )
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
         agent.aprint_response(
-            "What can you tell me about Agno?",
+            "你能告诉我关于 Agno 的什么信息？",
             markdown=True,
         )
     )

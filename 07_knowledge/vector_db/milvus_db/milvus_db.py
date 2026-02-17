@@ -1,11 +1,11 @@
 """
-Milvus Database
-===============
+Milvus 数据库
+=============
 
-Demonstrates Milvus-backed knowledge with sync, async, and async-batching flows.
+演示基于 Milvus 的知识库，支持同步、异步和异步批量流程。
 
-Set the URI/token for your Milvus deployment. For local development, `/tmp/milvus.db`
-uses Milvus Lite.
+为您的 Milvus 部署设置 URI/token。对于本地开发，`/tmp/milvus.db`
+使用 Milvus Lite。
 """
 
 import asyncio
@@ -18,7 +18,7 @@ from agno.vectordb.milvus import Milvus
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, Milvus]:
     vector_db = Milvus(collection="recipes", uri="/tmp/milvus.db")
@@ -46,7 +46,7 @@ def create_async_knowledge(enable_batch: bool = False) -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(knowledge=knowledge)
@@ -64,7 +64,7 @@ def create_async_agent(knowledge: Knowledge, enable_batch: bool = False) -> Agen
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge, vector_db = create_sync_knowledge()
@@ -75,7 +75,7 @@ def run_sync() -> None:
     )
 
     agent = create_sync_agent(knowledge)
-    agent.print_response("How to make Tom Kha Gai", markdown=True)
+    agent.print_response("如何制作 Tom Kha Gai", markdown=True)
 
     vector_db.delete_by_name("Recipes")
     vector_db.delete_by_metadata({"doc_type": "recipe_book"})
@@ -88,14 +88,14 @@ async def run_async(enable_batch: bool = False) -> None:
     if enable_batch:
         await knowledge.ainsert(path="cookbook/07_knowledge/testing_resources/cv_1.pdf")
         await agent.aprint_response(
-            "What can you tell me about the candidate and what are his skills?",
+            "你能告诉我关于候选人的什么信息，他的技能是什么？",
             markdown=True,
         )
     else:
         await knowledge.ainsert(
             url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
         )
-        await agent.aprint_response("How to make Tom Kha Gai", markdown=True)
+        await agent.aprint_response("如何制作 Tom Kha Gai", markdown=True)
 
 
 if __name__ == "__main__":

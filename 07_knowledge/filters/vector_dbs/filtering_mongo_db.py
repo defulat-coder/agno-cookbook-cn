@@ -6,17 +6,17 @@ from agno.utils.media import (
 )
 from agno.vectordb.mongodb import MongoVectorDb
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
 mdb_connection_string = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 knowledge = Knowledge(
     name="MongoDB Knowledge Base",

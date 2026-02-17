@@ -2,16 +2,16 @@
 
 ## mongo_db
 
-No tests recorded yet.
+尚未记录测试。
 
 ---
 
 ### check_cookbook_pattern.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Ran cookbook structure validation for cookbook/07_knowledge/vector_db/mongo_db.
+**描述：** 对 cookbook/07_knowledge/vector_db/mongo_db 运行了 cookbook 结构验证。
 
-**Result:** Checked 3 file(s) in /Users/ab/conductor/workspaces/agno/marseille/cookbook/07_knowledge/vector_db/mongo_db. Violations: 0
+**结果：** 在 /Users/ab/conductor/workspaces/agno/marseille/cookbook/07_knowledge/vector_db/mongo_db 中检查了 3 个文件。违规：0
 
 ---

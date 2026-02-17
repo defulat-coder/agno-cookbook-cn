@@ -2,7 +2,7 @@
 Weaviate Upsert
 ===============
 
-Demonstrates repeated inserts with `skip_if_exists` in Weaviate.
+演示在 Weaviate 中使用 `skip_if_exists` 进行重复插入。
 """
 
 from agno.knowledge.embedder.sentence_transformer import SentenceTransformerEmbedder
@@ -12,7 +12,7 @@ from agno.vectordb.search import SearchType
 from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 embedder = SentenceTransformerEmbedder()
 vector_db = Weaviate(
@@ -26,13 +26,13 @@ vector_db = Weaviate(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_base = Knowledge(vector_db=vector_db)
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     vector_db.drop()
@@ -42,7 +42,7 @@ def main() -> None:
         url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
     )
     print(
-        "Knowledge base loaded with PDF content. Loading the same data again will not recreate it."
+        "知识库已加载 PDF 内容。再次加载相同数据不会重新创建。"
     )
 
     knowledge_base.insert(

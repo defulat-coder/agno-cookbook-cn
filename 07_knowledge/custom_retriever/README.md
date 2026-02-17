@@ -1,32 +1,32 @@
-# Custom Retrievers
+# Custom Retrievers（自定义检索器）
 
-Custom retrievers provide complete control over how your agents find and process information from knowledge sources.
+自定义检索器提供对 Agent 如何从知识源查找和处理信息的完全控制。
 
-## Setup
+## 设置
 
 ```bash
 uv pip install agno qdrant-client openai
 ```
 
-Start Qdrant locally:
+本地启动 Qdrant：
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
-Set your API key:
+设置您的 API 密钥：
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
-## Basic Integration
+## 基础集成
 
-Custom retrievers integrate with agents to replace default knowledge search:
+自定义检索器与 Agent 集成以替换默认的知识搜索：
 
 ```python
 from agno.agent import Agent
 
 def custom_knowledge_retriever(query: str, num_documents: int = 5) -> str:
-    # Your custom retrieval logic
+    # 您的自定义检索逻辑
     results = your_search_logic(query, num_documents)
     return format_results(results)
 
@@ -38,8 +38,8 @@ agent = Agent(
 agent.print_response(query, markdown=True)
 ```
 
-## Supported Custom Retrievers
+## 支持的自定义检索器
 
-- **[Async Retriever](./async_retriever.py)** - Asynchronous retrieval with concurrent processing
-- **[Basic Retriever](./retriever.py)** - Custom retrieval logic and processing
-- **[Retriever with Dependencies](./retriever_with_dependencies.py)** - Access runtime dependencies in custom retrievers
+- **[Async Retriever](./async_retriever.py)** - 异步检索与并发处理
+- **[Basic Retriever](./retriever.py)** - 自定义检索逻辑和处理
+- **[Retriever with Dependencies](./retriever_with_dependencies.py)** - 在自定义检索器中访问运行时依赖项

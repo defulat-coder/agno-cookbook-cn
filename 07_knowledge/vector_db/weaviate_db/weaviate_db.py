@@ -1,10 +1,10 @@
 """
-Weaviate Vector DB
-==================
+Weaviate 向量数据库
+===================
 
-Demonstrates Weaviate-backed knowledge with sync, async, and async-batching flows.
+演示基于 Weaviate 的知识库，支持同步、异步和异步批量流程。
 
-Install dependency:
+安装依赖：
 - uv pip install weaviate-client
 """
 
@@ -20,7 +20,7 @@ from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, Weaviate]:
     vector_db = Weaviate(
@@ -58,7 +58,7 @@ def create_async_knowledge(enable_batch: bool = False) -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(knowledge=knowledge)
@@ -76,7 +76,7 @@ def create_async_agent(knowledge: Knowledge, enable_batch: bool = False) -> Agen
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge, vector_db = create_sync_knowledge()
@@ -89,7 +89,7 @@ def run_sync() -> None:
 
     agent = create_sync_agent(knowledge)
     agent.print_response(
-        "List down the ingredients to make Massaman Gai", markdown=True
+        "列出制作 Massaman Gai 的配料", markdown=True
     )
 
     vector_db.delete_by_name("Recipes")
@@ -103,7 +103,7 @@ async def run_async(enable_batch: bool = False) -> None:
     if enable_batch:
         await knowledge.ainsert(path="cookbook/07_knowledge/testing_resources/cv_1.pdf")
         await agent.aprint_response(
-            "What can you tell me about the candidate and what are his skills?",
+            "你能告诉我关于候选人的什么信息，他的技能是什么？",
             markdown=True,
         )
     else:
@@ -111,7 +111,7 @@ async def run_async(enable_batch: bool = False) -> None:
             name="Recipes",
             url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
         )
-        await agent.aprint_response("How to make Tom Kha Gai", markdown=True)
+        await agent.aprint_response("如何制作 Tom Kha Gai", markdown=True)
 
 
 if __name__ == "__main__":

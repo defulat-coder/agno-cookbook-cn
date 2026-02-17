@@ -1,8 +1,8 @@
 """
-Batching
+批量处理
 ========
 
-Demonstrates knowledge insertion with batch embeddings using sync and async APIs.
+演示如何使用同步和异步 API 进行批量嵌入的知识插入。
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from agno.vectordb.lancedb import LanceDb
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_vector_db() -> LanceDb:
     return LanceDb(
@@ -29,7 +29,7 @@ def create_vector_db() -> LanceDb:
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 def create_knowledge() -> Knowledge:
     return Knowledge(
@@ -40,7 +40,7 @@ def create_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_agent(knowledge: Knowledge) -> Agent:
     return Agent(
@@ -53,7 +53,7 @@ def create_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_knowledge()

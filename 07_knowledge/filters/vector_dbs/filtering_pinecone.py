@@ -8,12 +8,12 @@ from agno.utils.media import (
 )
 from agno.vectordb.pineconedb import PineconeDb
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize Pinecone
+# 初始化 Pinecone
 api_key = getenv("PINECONE_API_KEY")
 index_name = "filtering-index"
 
@@ -26,7 +26,7 @@ vector_db = PineconeDb(
 )
 
 
-# Step 1: Initialize knowledge with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 knowledge = Knowledge(
     name="Pinecone Knowledge Base",
     description="A knowledge base for Pinecone",

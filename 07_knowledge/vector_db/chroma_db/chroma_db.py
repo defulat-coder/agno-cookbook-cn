@@ -1,10 +1,10 @@
 """
-Chroma Database
-===============
+Chroma 数据库
+=============
 
-Demonstrates Chroma-backed knowledge with sync, async, and async-batching flows.
+演示基于 Chroma 的知识库，支持同步、异步和异步批量流程。
 
-Install dependency:
+安装依赖：
 - uv pip install chromadb
 """
 
@@ -17,7 +17,7 @@ from agno.vectordb.chroma import ChromaDb
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, ChromaDb]:
     vector_db = ChromaDb(
@@ -49,14 +49,14 @@ def create_async_knowledge(enable_batch: bool = False) -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_agent(knowledge: Knowledge) -> Agent:
     return Agent(knowledge=knowledge)
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge, vector_db = create_sync_knowledge()
@@ -67,9 +67,7 @@ def run_sync() -> None:
     )
 
     agent = create_agent(knowledge)
-    agent.print_response(
-        "List down the ingredients to make Massaman Gai", markdown=True
-    )
+    agent.print_response("列出制作 Massaman Gai 的配料", markdown=True)
 
     vector_db.delete_by_name("Recipes")
     vector_db.delete_by_metadata({"doc_type": "recipe_book"})
@@ -84,7 +82,7 @@ async def run_async(enable_batch: bool = False) -> None:
     else:
         await knowledge.ainsert(url="https://docs.agno.com/basics/agents/overview.md")
 
-    await agent.aprint_response("What is the purpose of an Agno Agent?", markdown=True)
+    await agent.aprint_response("Agno Agent 的目的是什么？", markdown=True)
 
 
 if __name__ == "__main__":

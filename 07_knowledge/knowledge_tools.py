@@ -1,9 +1,9 @@
 """
-Here is a tool with reasoning capabilities to allow agents to search and analyze information from a knowledge base.
+这是一个具有推理能力的工具，允许 Agent 从知识库中搜索和分析信息。
 
-1. Run: `uv pip install openai agno lancedb tantivy sqlalchemy` to install the dependencies
-2. Export your OPENAI_API_KEY
-3. Run: `python cookbook/07_knowledge/knowledge_tools.py` to run the agent
+1. 运行：`uv pip install openai agno lancedb tantivy sqlalchemy` 安装依赖
+2. 导出你的 OPENAI_API_KEY
+3. 运行：`python cookbook/07_knowledge/knowledge_tools.py` 执行 Agent
 """
 
 from agno.agent import Agent
@@ -13,9 +13,9 @@ from agno.models.openai import OpenAIChat
 from agno.tools.knowledge import KnowledgeTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge containing information from a URL
+# 创建一个包含来自 URL 信息的知识库
 agno_docs = Knowledge(
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -23,7 +23,7 @@ agno_docs = Knowledge(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Add content to the knowledge
+# 向知识库添加内容
 agno_docs.insert(url="https://docs.agno.com/llms-full.txt")
 
 knowledge_tools = KnowledgeTools(

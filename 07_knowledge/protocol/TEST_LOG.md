@@ -2,6 +2,6 @@
 
 ## protocol
 
-No tests recorded yet.
+尚未记录测试。
 
 ---

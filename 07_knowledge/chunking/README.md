@@ -1,22 +1,22 @@
-# Text Chunking
+# Text Chunking（文本分块）
 
-Chunking breaks down large documents into manageable pieces for efficient knowledge retrieval and processing in databases.
+分块将大型文档分解为可管理的片段，以便在数据库中进行高效的知识检索和处理。
 
-## Setup
+## 设置
 
 ```bash
 uv pip install agno openai
 ```
 
-Set your OpenAI API key:
+设置您的 OpenAI API 密钥：
 
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
-## Basic Integration
+## 基础集成
 
-Chunking strategies integrate with readers to process documents:
+分块策略与 reader 集成以处理文档：
 
 ```python
 from agno.knowledge.reader.pdf_reader import PDFReader
@@ -38,18 +38,18 @@ agent.print_response(
 )
 ```
 
-## Implementing Your Own Chunking Strategy
+## 实现您自己的分块策略
 
-You can implement custom chunking strategies by inheriting from `ChunkingStrategy` and implementing the `chunk()` method. This allows you to create domain-specific chunking logic tailored to your content and use cases.
+您可以通过继承 `ChunkingStrategy` 并实现 `chunk()` 方法来实现自定义分块策略。这允许您创建针对您的内容和用例量身定制的特定领域的分块逻辑。
 
-See the [custom strategy example](./custom_strategy_example.py) for a complete walkthrough.
+有关完整的演练，请参阅 [自定义策略示例](./custom_strategy_example.py)。
 
-## Supported Chunking Strategies
+## 支持的分块策略
 
-- **[Agentic Chunking](./agentic_chunking.py)** - AI-powered intelligent chunk boundaries
-- **[CSV Row Chunking](./csv_row_chunking.py)** - Each CSV row as a separate chunk
-- **[Document Chunking](./document_chunking.py)** - Treat entire document as single chunk
-- **[Fixed Size Chunking](./fixed_size_chunking.py)** - Fixed character/token length chunks
-- **[Recursive Chunking](./recursive_chunking.py)** - Natural boundary-aware chunking
-- **[Semantic Chunking](./semantic_chunking.py)** - Semantically coherent chunks
-- **[Custom Strategy Example](./custom_strategy_example.py)** - Learn how to implement your own chunking strategy
+- **[Agentic Chunking](./agentic_chunking.py)** - AI 驱动的智能块边界
+- **[CSV Row Chunking](./csv_row_chunking.py)** - 每个 CSV 行作为单独的块
+- **[Document Chunking](./document_chunking.py)** - 将整个文档视为单个块
+- **[Fixed Size Chunking](./fixed_size_chunking.py)** - 固定字符/token 长度的块
+- **[Recursive Chunking](./recursive_chunking.py)** - 自然边界感知分块
+- **[Semantic Chunking](./semantic_chunking.py)** - 语义连贯的块
+- **[Custom Strategy Example](./custom_strategy_example.py)** - 学习如何实现您自己的分块策略

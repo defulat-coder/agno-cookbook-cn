@@ -1,8 +1,8 @@
 """
-From Multiple Sources
-=====================
+从多个来源加载
+==============
 
-Demonstrates loading knowledge from multiple paths and URLs using sync and async operations.
+演示如何使用同步和异步操作从多个路径和 URL 加载知识。
 """
 
 import asyncio
@@ -15,7 +15,7 @@ from agno.vectordb.pgvector import PgVector
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> Knowledge:
     return Knowledge(
@@ -40,7 +40,7 @@ def create_async_knowledge() -> Knowledge:
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 def create_sync_agent(knowledge: Knowledge) -> Agent:
     return Agent(knowledge=knowledge, search_knowledge=True)
@@ -55,7 +55,7 @@ def create_async_agent(knowledge: Knowledge) -> Agent:
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def run_sync() -> None:
     knowledge = create_sync_knowledge()

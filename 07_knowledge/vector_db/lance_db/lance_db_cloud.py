@@ -1,11 +1,11 @@
 """
-LanceDB Cloud connection test.
+LanceDB Cloud 连接测试。
 
-Requires environment variables:
-- LANCE_DB_URI: LanceDB Cloud database URI (e.g. db://your-database-id)
-- LANCE_DB_API_KEY or LANCEDB_API_KEY: LanceDB Cloud API key
+需要环境变量：
+- LANCE_DB_URI: LanceDB Cloud 数据库 URI（例如 db://your-database-id）
+- LANCE_DB_API_KEY 或 LANCEDB_API_KEY: LanceDB Cloud API 密钥
 
-Run from repo root with env loaded (e.g. direnv):
+从仓库根目录加载环境变量运行（例如 direnv）：
   .venvs/demo/bin/python cookbook/07_knowledge/vector_db/lance_db_cloud/lance_db_cloud.py
 """
 
@@ -16,7 +16,7 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.lancedb import LanceDb
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 TABLE_NAME = "agno_cloud_test"
 URI = os.getenv("LANCE_DB_URI")
@@ -24,22 +24,22 @@ API_KEY = os.getenv("LANCE_DB_API_KEY") or os.getenv("LANCEDB_API_KEY")
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
-# The cloud vector DB and knowledge instance are created inside `main()`
-# after validating required environment variables.
+# 云向量数据库和知识实例在验证所需环境变量后
+# 在 `main()` 中创建。
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main():
     if not URI:
-        print("Set LANCE_DB_URI (e.g. db://your-database-id)")
+        print("设置 LANCE_DB_URI（例如 db://your-database-id）")
         return
 
     # ---------------------------------------------------------------------------
-    # Create Knowledge Base
+    # 创建知识库
     # ---------------------------------------------------------------------------
     vector_db = LanceDb(
         uri=URI,
@@ -54,24 +54,24 @@ def main():
     )
 
     async def run():
-        print("Inserting test content...")
+        print("插入测试内容...")
         await knowledge.ainsert(
             name="cloud_test_doc",
-            text_content="LanceDB Cloud is a hosted vector database. "
-            "Agno supports it via the LanceDb vector store with uri and api_key. "
-            "Use db:// URI and set LANCEDB_API_KEY for cloud connections.",
+            text_content="LanceDB Cloud 是一个托管的向量数据库。"
+            "Agno 通过带有 uri 和 api_key 的 LanceDb 向量存储支持它。"
+            "使用 db:// URI 并设置 LANCEDB_API_KEY 进行云连接。",
             metadata={"source": "lance_db_cloud_cookbook"},
         )
 
-        print("Searching for 'vector database'...")
+        print("搜索'vector database'...")
         results = knowledge.search("vector database", max_results=3)
-        print(f"Found {len(results)} document(s)")
+        print(f"找到 {len(results)} 个文档")
         for i, doc in enumerate(results):
             print(f"  [{i + 1}] {doc.name}: {doc.content[:80]}...")
 
-        print("Deleting test document...")
+        print("删除测试文档...")
         vector_db.delete_by_name("cloud_test_doc")
-        print("Done.")
+        print("完成。")
 
     asyncio.run(run())
 

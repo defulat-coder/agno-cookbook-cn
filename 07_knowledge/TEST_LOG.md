@@ -2,16 +2,16 @@
 
 ## 07_knowledge
 
-No tests recorded yet.
+尚未记录测试。
 
 ---
 
 ### check_cookbook_pattern.py
 
-**Status:** PASS
+**状态：** PASS
 
-**Description:** Validated restructured knowledge cookbooks by running the checker across merged quickstart, embedders, and all vector_db backend subdirectories.
+**描述：** 通过在合并的 quickstart、embedders 和所有 vector_db 后端子目录中运行检查器来验证重构的知识库 cookbook。
 
-**Result:** All checked directories reported 0 violations after restructuring.
+**结果：** 所有检查的目录在重构后报告了 0 个违规。
 
 ---

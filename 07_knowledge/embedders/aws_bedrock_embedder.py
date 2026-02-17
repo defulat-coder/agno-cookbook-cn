@@ -2,12 +2,12 @@
 AWS Bedrock Embedder
 ====================
 
-Demonstrates Cohere v3 embeddings through AWS Bedrock and knowledge insertion.
+演示通过 AWS Bedrock 使用 Cohere v3 嵌入和知识插入。
 
-Requirements:
-- AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-- AWS region configured (AWS_REGION)
-- boto3 installed: pip install boto3
+需求：
+- AWS 凭证（AWS_ACCESS_KEY_ID、AWS_SECRET_ACCESS_KEY）
+- AWS 区域配置（AWS_REGION）
+- 安装 boto3：pip install boto3
 """
 
 from agno.knowledge.chunking.fixed import FixedSizeChunking
@@ -17,12 +17,12 @@ from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 embedder = AwsBedrockEmbedder()
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge = Knowledge(
     vector_db=PgVector(
@@ -34,7 +34,7 @@ knowledge = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     embeddings = embedder.get_embedding("The quick brown fox jumps over the lazy dog.")

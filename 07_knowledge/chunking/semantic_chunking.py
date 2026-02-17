@@ -14,7 +14,7 @@ knowledge.insert(
     reader=PDFReader(
         name="Semantic Chunking Reader",
         chunking_strategy=SemanticChunking(
-            embedder="text-embedding-3-small",  # When a string is provided, it is used as the model ID for chonkie's built-in embedders
+            embedder="text-embedding-3-small",  # 当提供字符串时，它用作 chonkie 内置 embedder 的模型 ID
             chunk_size=500,
             similarity_threshold=0.5,
             similarity_window=3,
@@ -35,4 +35,4 @@ agent = Agent(
     search_knowledge=True,
 )
 
-agent.print_response("How to make Thai curry?", markdown=True)
+agent.print_response("如何制作泰式咖喱？", markdown=True)

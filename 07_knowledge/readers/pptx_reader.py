@@ -6,31 +6,31 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with PPTX documents
+# 创建包含 PPTX 文档的知识库
 knowledge = Knowledge(
-    # Table name: ai.pptx_documents
+    # 表名：ai.pptx_documents
     vector_db=PgVector(
         table_name="pptx_documents",
         db_url=db_url,
     ),
 )
 
-# Load PPTX content from file(s)
-# You can load multiple PPTX files by calling insert multiple times
+# 从文件加载 PPTX 内容
+# 您可以通过多次调用 insert 加载多个 PPTX 文件
 knowledge.insert(
-    path="path/to/your/presentation.pptx",  # Replace with actual PPTX file path
+    path="path/to/your/presentation.pptx",  # 替换为实际的 PPTX 文件路径
     reader=PPTXReader(),
 )
 
-# Create an agent with the knowledge
+# 创建包含知识的 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-# Ask the agent about the knowledge
+# 向 Agent 询问知识
 agent.print_response(
-    "Search through the presentation content and tell me what key topics, main points, or information are covered in the slides. Be specific about what you find in the knowledge base.",
+    "搜索演示文稿内容，告诉我幻灯片中涵盖了哪些关键主题、要点或信息。具体说明你在知识库中发现的内容。",
     markdown=True,
 )

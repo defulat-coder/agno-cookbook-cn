@@ -1,11 +1,11 @@
 """
-Upstash Vector DB
-=================
+Upstash 向量数据库
+==================
 
-Install dependency:
+安装依赖：
 - uv pip install upstash-vector
 
-Set OpenAI and Upstash environment variables before running.
+运行前设置 OpenAI 和 Upstash 环境变量。
 """
 
 import asyncio
@@ -20,7 +20,7 @@ from agno.vectordb.upstashdb import UpstashVectorDb
 
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 def create_sync_knowledge() -> tuple[Knowledge, UpstashVectorDb]:
     vector_db = UpstashVectorDb(

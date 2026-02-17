@@ -6,7 +6,7 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
+# 创建包含 data/pdfs 目录中 PDF 的知识库
 knowledge = Knowledge(
     vector_db=PgVector(
         table_name="pdf_documents",
@@ -14,7 +14,7 @@ knowledge = Knowledge(
     )
 )
 
-# Create an agent with the knowledge base
+# 创建包含知识库的 Agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
@@ -26,10 +26,10 @@ if __name__ == "__main__":
             path="cookbook/07_knowledge/testing_resources/cv_1.pdf",
         )
     )
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
         agent.aprint_response(
-            "What skills does an applicant require to apply for the Software Engineer position?",
+            "申请软件工程师职位需要具备哪些技能？",
             markdown=True,
         )
     )

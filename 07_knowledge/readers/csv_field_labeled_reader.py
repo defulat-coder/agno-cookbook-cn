@@ -1,8 +1,8 @@
 """
-Field Labeled CSV Reader
-========================
+字段标记的 CSV Reader
+=====================
 
-Demonstrates field-labeled CSV ingestion for movie metadata.
+演示电影元数据的字段标记 CSV 导入。
 """
 
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.knowledge.reader.field_labeled_csv_reader import FieldLabeledCSVReader
 from agno.vectordb.pgvector import PgVector
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
@@ -37,7 +37,7 @@ reader = FieldLabeledCSVReader(
 
 
 # ---------------------------------------------------------------------------
-# Create Knowledge Base
+# 创建知识库
 # ---------------------------------------------------------------------------
 knowledge_base = Knowledge(
     vector_db=PgVector(
@@ -48,23 +48,23 @@ knowledge_base = Knowledge(
 
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     instructions=[
-        "You are a movie expert assistant.",
-        "Use the search_knowledge_base tool to find detailed information about movies.",
-        "The movie data is formatted in a field-labeled, human-readable way with clear field labels.",
-        "Each movie entry starts with 'Movie Information' followed by labeled fields.",
-        "Provide comprehensive answers based on the movie information available.",
+        "你是一个电影专家助手。",
+        "使用 search_knowledge_base 工具查找关于电影的详细信息。",
+        "电影数据以字段标记、人类可读的方式格式化，带有清晰的字段标签。",
+        "每个电影条目以'Movie Information'开头，后跟标记的字段。",
+        "根据可用的电影信息提供全面的答案。",
     ],
 )
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 def main() -> None:
     knowledge_base.insert(
@@ -72,7 +72,7 @@ def main() -> None:
         reader=reader,
     )
     agent.print_response(
-        "which movies are directed by Christopher Nolan",
+        "哪些电影是由克里斯托弗·诺兰导演的",
         markdown=True,
         stream=True,
     )
