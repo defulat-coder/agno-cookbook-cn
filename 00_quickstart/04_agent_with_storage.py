@@ -19,10 +19,16 @@
 - "到目前为止我们分析了哪些股票？"
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
-from agno.models.google import Gemini
+from agno.models.openai import OpenAILike
 from agno.tools.yfinance import YFinanceTools
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 存储配置
@@ -70,7 +76,11 @@ instructions = """\
 # ---------------------------------------------------------------------------
 agent_with_storage = Agent(
     name="Agent with Storage",
-    model=Gemini(id="gemini-3-flash-preview"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     instructions=instructions,
     tools=[YFinanceTools()],
     db=agent_db,
