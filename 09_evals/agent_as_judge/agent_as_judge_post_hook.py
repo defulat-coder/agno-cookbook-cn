@@ -1,8 +1,8 @@
 """
-Post-Hook Agent-as-Judge Evaluation
+Post-Hook Agent 评估器评估
 ===================================
 
-Demonstrates synchronous and asynchronous post-hook judging.
+演示同步与异步 post-hook 评判。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.eval.agent_as_judge import AgentAsJudgeEval
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Sync Resources
+# 创建同步资源
 # ---------------------------------------------------------------------------
 sync_db = SqliteDb(db_file="tmp/agent_as_judge_post_hook.db")
 
@@ -34,7 +34,7 @@ sync_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Async Resources
+# 创建异步资源
 # ---------------------------------------------------------------------------
 async_db = AsyncSqliteDb(db_file="tmp/agent_as_judge_post_hook_async.db")
 
@@ -60,9 +60,9 @@ def print_latest_result(eval_runs):
         latest = eval_runs[-1]
         if latest.eval_data and "results" in latest.eval_data:
             result = latest.eval_data["results"][0]
-            print(f"Score: {result.get('score', 'N/A')}/10")
-            print(f"Status: {'PASSED' if result.get('passed') else 'FAILED'}")
-            print(f"Reason: {result.get('reason', 'N/A')[:200]}...")
+            print(f"得分: {result.get('score', 'N/A')}/10")
+            print(f"状态: {'通过' if result.get('passed') else '失败'}")
+            print(f"原因: {result.get('reason', 'N/A')[:200]}...")
 
 
 async def run_async_evaluation():
@@ -71,19 +71,19 @@ async def run_async_evaluation():
     )
     print(async_response.content)
 
-    print("Async Evaluation Results:")
+    print("异步评估结果:")
     async_eval_runs = await async_db.get_eval_runs()
     print_latest_result(async_eval_runs)
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     sync_response = sync_agent.run("What are the benefits of renewable energy?")
     print(sync_response.content)
 
-    print("Evaluation Results:")
+    print("评估结果:")
     sync_eval_runs = sync_db.get_eval_runs()
     print_latest_result(sync_eval_runs)
 

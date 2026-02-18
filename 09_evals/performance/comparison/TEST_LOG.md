@@ -1,51 +1,51 @@
-# Test Log: performance/comparison
+# 测试日志：performance/comparison（性能对比）
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### autogen_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures AutoGen agent instantiation performance.
+**说明：** 测量 AutoGen Agent（代理）的实例化性能。
 
 ---
 
 ### crewai_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures CrewAI agent instantiation performance.
+**说明：** 测量 CrewAI Agent（代理）的实例化性能。
 
 ---
 
 ### langgraph_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures LangGraph react-agent instantiation performance.
+**说明：** 测量 LangGraph react-agent 的实例化性能。
 
 ---
 
 ### openai_agents_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures OpenAI Agents SDK instantiation performance.
+**说明：** 测量 OpenAI Agents SDK 的实例化性能。
 
 ---
 
 ### pydantic_ai_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures PydanticAI agent instantiation performance.
+**说明：** 测量 PydanticAI Agent（代理）的实例化性能。
 
 ---
 
 ### smolagents_instantiation.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures Smolagents tool-calling agent instantiation performance.
+**说明：** 测量 Smolagents 工具调用 Agent（代理）的实例化性能。
 
 ---

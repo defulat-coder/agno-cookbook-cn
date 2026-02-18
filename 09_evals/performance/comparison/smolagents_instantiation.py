@@ -1,8 +1,8 @@
 """
-Smolagents Instantiation Performance Evaluation
+Smolagents 实例化性能评估
 ===============================================
 
-Demonstrates agent instantiation benchmarking with Smolagents.
+演示使用 Smolagents 进行 Agent 实例化基准测试。
 """
 
 from agno.eval.performance import PerformanceEval
@@ -10,7 +10,7 @@ from smolagents import InferenceClientModel, Tool, ToolCallingAgent
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Tool
+# 创建基准测试工具
 # ---------------------------------------------------------------------------
 class WeatherTool(Tool):
     name = "weather_tool"
@@ -25,7 +25,7 @@ class WeatherTool(Tool):
     output_type = "string"
 
     def forward(self, city: str):
-        """Use this to get weather information."""
+        """使用此工具获取天气信息。"""
         if city == "nyc":
             return "It might be cloudy in nyc"
         elif city == "sf":
@@ -35,7 +35,7 @@ class WeatherTool(Tool):
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 def instantiate_agent():
     return ToolCallingAgent(
@@ -45,12 +45,12 @@ def instantiate_agent():
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 smolagents_instantiation = PerformanceEval(func=instantiate_agent, num_iterations=1000)
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     smolagents_instantiation.run(print_results=True, print_summary=True)

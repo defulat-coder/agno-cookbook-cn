@@ -1,8 +1,8 @@
 """
-Binary Agent-as-Judge Evaluation
+二元 Agent 评估器评估
 ================================
 
-Demonstrates pass/fail response quality evaluation.
+演示基于通过/失败的响应质量评估。
 """
 
 from agno.agent import Agent
@@ -11,12 +11,12 @@ from agno.eval.agent_as_judge import AgentAsJudgeEval
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agent_as_judge_binary.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -25,7 +25,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AgentAsJudgeEval(
     name="Professional Tone Check",
@@ -34,7 +34,7 @@ evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response = agent.run("I need help with my account")
@@ -44,4 +44,4 @@ if __name__ == "__main__":
         print_results=True,
         print_summary=True,
     )
-    print(f"Result: {'PASSED' if result.results[0].passed else 'FAILED'}")
+    print(f"结果: {'通过' if result.results[0].passed else '失败'}")

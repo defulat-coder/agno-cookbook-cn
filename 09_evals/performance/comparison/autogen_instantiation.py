@@ -1,8 +1,8 @@
 """
-AutoGen Instantiation Performance Evaluation
+AutoGen 实例化性能评估
 ============================================
 
-Demonstrates agent instantiation benchmarking with AutoGen.
+演示使用 AutoGen 进行 Agent 实例化基准测试。
 """
 
 from typing import Literal
@@ -13,10 +13,10 @@ from autogen_ext.models.openai import OpenAIChatCompletionClient
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Tool
+# 创建基准测试工具
 # ---------------------------------------------------------------------------
 def get_weather(city: Literal["nyc", "sf"]):
-    """Use this to get weather information."""
+    """使用此工具获取天气信息。"""
     if city == "nyc":
         return "It might be cloudy in nyc"
     elif city == "sf":
@@ -29,7 +29,7 @@ tools = [get_weather]
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 def instantiate_agent():
     return AssistantAgent(
@@ -49,12 +49,12 @@ def instantiate_agent():
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 autogen_instantiation = PerformanceEval(func=instantiate_agent, num_iterations=1000)
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     autogen_instantiation.run(print_results=True, print_summary=True)

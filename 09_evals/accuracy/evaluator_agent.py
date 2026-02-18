@@ -1,8 +1,8 @@
 """
-Accuracy Evaluation with Custom Evaluator Agent
+使用自定义评估器 Agent 的精度评估
 ================================================
 
-Demonstrates accuracy evaluation using a custom evaluator agent.
+演示如何使用自定义评估器 Agent 进行精度评估。
 """
 
 from typing import Optional
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Evaluator Agent
+# 创建评估器 Agent
 # ---------------------------------------------------------------------------
 evaluator_agent = Agent(
     model=OpenAIChat(id="gpt-5"),
@@ -21,7 +21,7 @@ evaluator_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
@@ -33,7 +33,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)

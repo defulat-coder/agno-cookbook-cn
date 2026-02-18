@@ -1,8 +1,8 @@
 """
-Agent-with-Tool Instantiation Performance Evaluation
+带工具的 Agent 实例化性能评估
 ====================================================
 
-Demonstrates measuring instantiation performance for a tooled agent.
+演示如何测量带工具的 Agent 实例化性能。
 """
 
 from typing import Literal
@@ -13,10 +13,10 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Tool
+# 创建基准测试工具
 # ---------------------------------------------------------------------------
 def get_weather(city: Literal["nyc", "sf"]):
-    """Use this to get weather information."""
+    """使用此工具获取天气信息。"""
     if city == "nyc":
         return "It might be cloudy in nyc"
     elif city == "sf":
@@ -27,21 +27,21 @@ tools = [get_weather]
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 def instantiate_agent():
     return Agent(model=OpenAIChat(id="gpt-4o"), tools=tools)  # type: ignore
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 instantiation_perf = PerformanceEval(
     name="Agent Instantiation", func=instantiate_agent, num_iterations=1000
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     instantiation_perf.run(print_results=True, print_summary=True)

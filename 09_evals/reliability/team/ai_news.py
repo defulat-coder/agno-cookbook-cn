@@ -1,8 +1,8 @@
 """
-Team Reliability Evaluation for News Search
+新闻搜索团队可靠性评估
 ===========================================
 
-Demonstrates tool-call reliability checks for a team workflow.
+演示对团队工作流的工具调用可靠性检查。
 """
 
 from typing import Optional
@@ -15,7 +15,7 @@ from agno.team.team import Team
 from agno.tools.websearch import WebSearchTools
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 team_member = Agent(
     name="News Searcher",
@@ -37,7 +37,7 @@ expected_tool_calls = [
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation Function
+# 创建评估函数
 # ---------------------------------------------------------------------------
 def evaluate_team_reliability():
     response: TeamRunOutput = team.run("What is the latest news on AI?")
@@ -52,7 +52,7 @@ def evaluate_team_reliability():
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     evaluate_team_reliability()

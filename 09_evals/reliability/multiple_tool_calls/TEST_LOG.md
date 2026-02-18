@@ -1,11 +1,11 @@
-# Test Log: reliability/multiple_tool_calls
+# 测试日志：reliability/multiple_tool_calls（多次工具调用可靠性）
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### calculator.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Evaluates reliability for expected multiply and exponentiate tool calls.
+**说明：** 评估预期乘法和求幂工具调用的可靠性。
 
 ---

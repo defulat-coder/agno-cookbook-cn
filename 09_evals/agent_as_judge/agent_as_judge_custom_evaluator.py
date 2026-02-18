@@ -1,8 +1,8 @@
 """
-Custom Evaluator Agent-as-Judge Evaluation
+自定义评估器 Agent 评估
 ==========================================
 
-Demonstrates using a custom evaluator agent for judging.
+演示如何使用自定义评估器 Agent 进行评判。
 """
 
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.eval.agent_as_judge import AgentAsJudgeEval
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -18,7 +18,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluator Agent
+# 创建评估器 Agent
 # ---------------------------------------------------------------------------
 custom_evaluator = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -27,7 +27,7 @@ custom_evaluator = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AgentAsJudgeEval(
     name="Technical Accuracy",
@@ -38,7 +38,7 @@ evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response = agent.run("What is machine learning?")
@@ -47,5 +47,5 @@ if __name__ == "__main__":
         output=str(response.content),
         print_results=True,
     )
-    print(f"Score: {result.results[0].score}/10")
-    print(f"Passed: {result.results[0].passed}")
+    print(f"得分: {result.results[0].score}/10")
+    print(f"是否通过: {result.results[0].passed}")

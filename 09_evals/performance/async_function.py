@@ -1,8 +1,8 @@
 """
-Async Function Performance Evaluation
+异步函数性能评估
 =====================================
 
-Demonstrates performance evaluation for an asynchronous function.
+演示如何对异步函数进行性能评估。
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 async def arun_agent():
     agent = Agent(
@@ -25,12 +25,12 @@ async def arun_agent():
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 performance_eval = PerformanceEval(func=arun_agent, num_iterations=10)
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(performance_eval.arun(print_summary=True, print_results=True))

@@ -1,18 +1,18 @@
-# Performance Eval Cookbooks
+# Performance Eval Cookbooks（性能评估示例集）
 
-Performance examples benchmark runtime and memory impact for agents and teams.
+性能示例对 Agent（代理）和 Team（团队）的运行时与内存影响进行基准测试。
 
-## Files
+## 文件列表
 
-- `async_function.py` - Async function performance benchmark.
-- `db_logging.py` - Performance benchmark with PostgreSQL logging.
-- `instantiate_agent.py` - Agent instantiation benchmark.
-- `instantiate_agent_with_tool.py` - Tooled agent instantiation benchmark.
-- `instantiate_team.py` - Team instantiation benchmark.
-- `response_with_memory_updates.py` - Response performance with memory updates.
-- `response_with_storage.py` - Response performance with storage-backed history.
-- `simple_response.py` - Baseline single-response performance benchmark.
-- `team_response_with_memory_simple.py` - Single-team memory impact benchmark.
-- `team_response_with_memory_multi_user.py` - Multi-user concurrent team memory benchmark.
-- `team_response_with_memory_and_reasoning.py` - Team memory benchmark with reasoning tools and rich tool outputs.
-- `comparison/` - Framework comparison benchmarks.
+- `async_function.py` - 异步函数性能基准测试。
+- `db_logging.py` - 带 PostgreSQL 日志记录的性能基准测试。
+- `instantiate_agent.py` - Agent（代理）实例化基准测试。
+- `instantiate_agent_with_tool.py` - 配置工具的 Agent（代理）实例化基准测试。
+- `instantiate_team.py` - Team（团队）实例化基准测试。
+- `response_with_memory_updates.py` - 启用内存更新的响应性能测试。
+- `response_with_storage.py` - 带存储历史记录的响应性能测试。
+- `simple_response.py` - 单次响应基线性能基准测试。
+- `team_response_with_memory_simple.py` - 单 Team（团队）内存影响基准测试。
+- `team_response_with_memory_multi_user.py` - 多用户并发 Team（团队）内存基准测试。
+- `team_response_with_memory_and_reasoning.py` - 带推理工具和大型工具输出的 Team（团队）内存基准测试。
+- `comparison/` - 框架对比基准测试。

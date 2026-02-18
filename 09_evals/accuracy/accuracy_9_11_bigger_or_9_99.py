@@ -1,8 +1,8 @@
 """
-Comparison Accuracy Evaluation
+比较精度评估
 ==============================
 
-Demonstrates accuracy evaluation for numeric comparison tasks.
+演示针对数值比较任务的精度评估。
 """
 
 from typing import Optional
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     name="Comparison Evaluation",
@@ -29,7 +29,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)

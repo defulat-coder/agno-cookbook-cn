@@ -1,75 +1,75 @@
-# Test Log: agent_as_judge
+# 测试日志：agent_as_judge（Agent 作为裁判）
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### agent_as_judge_basic.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Runs sync and async agent-as-judge evaluations.
+**说明：** 运行同步与异步 Agent-as-judge（Agent 作为裁判）评估。
 
 ---
 
 ### agent_as_judge_post_hook.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Runs sync and async post-hook quality evaluation flows.
+**说明：** 运行同步与异步后置钩子质量评估流程。
 
 ---
 
 ### agent_as_judge_batch.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Evaluates multiple customer-service cases in one batch run.
+**说明：** 在一次批量运行中评估多个客服案例。
 
 ---
 
 ### agent_as_judge_binary.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Executes binary pass/fail tone evaluation.
+**说明：** 执行二元 PASS/FAIL（通过/失败）语气评估。
 
 ---
 
 ### agent_as_judge_custom_evaluator.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Evaluates a response using a custom evaluator agent.
+**说明：** 使用自定义 Evaluator（评估器）Agent 评估响应。
 
 ---
 
 ### agent_as_judge_team.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Scores a research team response for quality.
+**说明：** 对研究 Team（团队）的响应质量进行评分。
 
 ---
 
 ### agent_as_judge_team_post_hook.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Runs post-hook team evaluation and prints stored score details.
+**说明：** 运行后置钩子 Team（团队）评估并打印存储的评分详情。
 
 ---
 
 ### agent_as_judge_with_guidelines.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Evaluates output quality with explicit additional guidelines.
+**说明：** 使用明确的附加指导方针评估输出质量。
 
 ---
 
 ### agent_as_judge_with_tools.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Scores a tool-assisted math response for quality.
+**说明：** 对工具辅助的数学响应质量进行评分。
 
 ---

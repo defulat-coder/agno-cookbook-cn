@@ -1,8 +1,8 @@
 """
-Asynchronous Reliability Evaluation
+异步可靠性评估
 ==================================
 
-Demonstrates running reliability checks with asynchronous evaluation.
+演示如何以异步方式运行可靠性检查评估。
 """
 
 import asyncio
@@ -16,7 +16,7 @@ from agno.tools.calculator import CalculatorTools
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation Function
+# 创建评估函数
 # ---------------------------------------------------------------------------
 def factorial():
     agent = Agent(
@@ -29,7 +29,7 @@ def factorial():
         expected_tool_calls=["factorial"],
     )
 
-    # Run the evaluation calling the arun method.
+    # 调用 arun 方法以异步方式运行评估
     result: Optional[ReliabilityResult] = asyncio.run(
         evaluation.arun(print_results=True)
     )
@@ -38,7 +38,7 @@ def factorial():
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     factorial()

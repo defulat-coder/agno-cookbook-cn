@@ -1,8 +1,8 @@
 """
-Accuracy Evaluation with Database Logging
+精度评估与数据库日志记录
 =========================================
 
-Demonstrates storing accuracy evaluation results in PostgreSQL.
+演示如何将精度评估结果存储到 PostgreSQL 数据库。
 """
 
 from typing import Optional
@@ -14,13 +14,13 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5432/ai"
 db = PostgresDb(db_url=db_url, eval_table="eval_runs_cookbook")
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     db=db,
@@ -37,7 +37,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)

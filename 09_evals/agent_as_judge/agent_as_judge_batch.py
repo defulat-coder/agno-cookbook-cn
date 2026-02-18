@@ -1,20 +1,20 @@
 """
-Batch Agent-as-Judge Evaluation
+批量 Agent 评估器评估
 ===============================
 
-Demonstrates evaluating multiple cases in one run.
+演示在一次运行中评估多个案例。
 """
 
 from agno.db.sqlite import SqliteDb
 from agno.eval.agent_as_judge import AgentAsJudgeEval
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agent_as_judge_batch.db")
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AgentAsJudgeEval(
     name="Customer Service Quality",
@@ -24,7 +24,7 @@ evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result = evaluation.run(
@@ -46,13 +46,13 @@ if __name__ == "__main__":
         print_summary=True,
     )
 
-    print(f"Pass rate: {result.pass_rate:.1f}%")
-    print(f"Passed: {sum(1 for r in result.results if r.passed)}/{len(result.results)}")
+    print(f"通过率: {result.pass_rate:.1f}%")
+    print(f"通过数: {sum(1 for r in result.results if r.passed)}/{len(result.results)}")
 
-    print("Database Results:")
+    print("数据库结果:")
     eval_runs = db.get_eval_runs()
-    print(f"Total evaluations stored: {len(eval_runs)}")
+    print(f"已存储评估总数: {len(eval_runs)}")
     if eval_runs:
         latest = eval_runs[-1]
-        print(f"Eval ID: {latest.run_id}")
-        print(f"Cases evaluated: {len(result.results)}")
+        print(f"评估 ID: {latest.run_id}")
+        print(f"已评估案例数: {len(result.results)}")

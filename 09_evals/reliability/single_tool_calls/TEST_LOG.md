@@ -1,11 +1,11 @@
-# Test Log: reliability/single_tool_calls
+# 测试日志：reliability/single_tool_calls（单次工具调用可靠性）
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### calculator.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Evaluates reliability for a single factorial tool call.
+**说明：** 评估单次阶乘工具调用的可靠性。
 
 ---

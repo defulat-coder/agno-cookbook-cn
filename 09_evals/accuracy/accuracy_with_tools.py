@@ -1,8 +1,8 @@
 """
-Tool-Enabled Accuracy Evaluation
+使用工具的精度评估
 ================================
 
-Demonstrates accuracy evaluation for an agent using calculator tools.
+演示对使用计算器工具的 Agent 进行精度评估。
 """
 
 from typing import Optional
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     name="Tools Evaluation",
@@ -27,7 +27,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)

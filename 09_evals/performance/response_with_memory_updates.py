@@ -1,8 +1,8 @@
 """
-Memory Update Performance Evaluation
+记忆更新性能评估
 ====================================
 
-Demonstrates measuring performance when memory updates are enabled.
+演示启用记忆更新时的性能测量。
 """
 
 from agno.agent import Agent
@@ -11,13 +11,13 @@ from agno.eval.performance import PerformanceEval
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/memory.db")
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 def run_agent():
     agent = Agent(
@@ -28,13 +28,13 @@ def run_agent():
     )
 
     response = agent.run("My name is Tom! I'm 25 years old and I live in New York.")
-    print(f"Agent response: {response.content}")
+    print(f"Agent 响应: {response.content}")
 
     return response
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 response_with_memory_updates_perf = PerformanceEval(
     name="Memory Updates Performance",
@@ -44,7 +44,7 @@ response_with_memory_updates_perf = PerformanceEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response_with_memory_updates_perf.run(print_results=True, print_summary=True)

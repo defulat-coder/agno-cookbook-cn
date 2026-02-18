@@ -1,91 +1,91 @@
-# Test Log: performance
+# 测试日志：performance（性能）
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### async_function.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks an async agent call path.
+**说明：** 对异步 Agent（代理）调用路径进行基准测试。
 
 ---
 
 ### db_logging.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks runtime while persisting eval output to PostgreSQL.
+**说明：** 在将 Eval（评估）输出持久化到 PostgreSQL 时进行运行时基准测试。
 
 ---
 
 ### instantiate_agent.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures base agent instantiation cost.
+**说明：** 测量 Agent（代理）基础实例化的开销。
 
 ---
 
 ### instantiate_agent_with_tool.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures instantiation cost for an agent configured with tools.
+**说明：** 测量配置了工具的 Agent（代理）的实例化开销。
 
 ---
 
 ### instantiate_team.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Measures team object instantiation performance.
+**说明：** 测量 Team（团队）对象的实例化性能。
 
 ---
 
 ### response_with_memory_updates.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks response path with memory updates enabled.
+**说明：** 对启用内存更新的响应路径进行基准测试。
 
 ---
 
 ### response_with_storage.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks response path with stored chat history.
+**说明：** 对带存储聊天历史的响应路径进行基准测试。
 
 ---
 
 ### simple_response.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Baseline single-response runtime benchmark.
+**说明：** 单次响应基线运行时基准测试。
 
 ---
 
 ### team_response_with_memory_simple.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks memory impact for a single-team scenario.
+**说明：** 对单 Team（团队）场景的内存影响进行基准测试。
 
 ---
 
 ### team_response_with_memory_multi_user.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks multi-user concurrent team memory behavior.
+**说明：** 对多用户并发 Team（团队）内存行为进行基准测试。
 
 ---
 
 ### team_response_with_memory_and_reasoning.py
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Benchmarks team memory growth with reasoning tools and large tool payloads.
+**说明：** 对带推理工具和大型工具载荷的 Team（团队）内存增长进行基准测试。
 
 ---

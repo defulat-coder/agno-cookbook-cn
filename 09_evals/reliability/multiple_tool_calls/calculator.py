@@ -1,8 +1,8 @@
 """
-Multiple Tool Call Reliability Evaluation
+多工具调用可靠性评估
 =========================================
 
-Demonstrates reliability checks for multiple expected tool calls.
+演示对多个预期工具调用进行可靠性检查。
 """
 
 from typing import Optional
@@ -15,7 +15,7 @@ from agno.tools.calculator import CalculatorTools
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation Function
+# 创建评估函数
 # ---------------------------------------------------------------------------
 def multiply_and_exponentiate():
     agent = Agent(
@@ -36,7 +36,7 @@ def multiply_and_exponentiate():
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     multiply_and_exponentiate()

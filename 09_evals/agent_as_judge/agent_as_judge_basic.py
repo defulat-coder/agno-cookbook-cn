@@ -1,8 +1,8 @@
 """
-Basic Agent-as-Judge Evaluation
+基础 Agent 评估器评估
 ===============================
 
-Demonstrates synchronous and asynchronous agent-as-judge evaluations.
+演示同步与异步的 Agent 评估器评估。
 """
 
 import asyncio
@@ -15,13 +15,13 @@ from agno.models.openai import OpenAIChat
 
 
 def on_evaluation_failure(evaluation: AgentAsJudgeEvaluation):
-    """Callback triggered when an evaluation score is below threshold."""
-    print(f"Evaluation failed - Score: {evaluation.score}/10")
-    print(f"Reason: {evaluation.reason[:100]}...")
+    """评估分数低于阈值时触发的回调函数。"""
+    print(f"评估失败 - 得分: {evaluation.score}/10")
+    print(f"原因: {evaluation.reason[:100]}...")
 
 
 # ---------------------------------------------------------------------------
-# Create Sync Resources
+# 创建同步资源
 # ---------------------------------------------------------------------------
 sync_db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 sync_db = PostgresDb(db_url=sync_db_url)
@@ -42,7 +42,7 @@ sync_evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Create Async Resources
+# 创建异步资源
 # ---------------------------------------------------------------------------
 async_db = AsyncSqliteDb(db_file="tmp/agent_as_judge_async.db")
 
@@ -71,19 +71,19 @@ async def run_async_evaluation():
         print_results=True,
         print_summary=True,
     )
-    assert async_result is not None, "Evaluation should return a result"
+    assert async_result is not None, "评估应返回结果"
 
-    print("Async Database Results:")
+    print("异步数据库结果:")
     async_eval_runs = await async_db.get_eval_runs()
-    print(f"Total evaluations stored: {len(async_eval_runs)}")
+    print(f"已存储评估总数: {len(async_eval_runs)}")
     if async_eval_runs:
         latest = async_eval_runs[-1]
-        print(f"Eval ID: {latest.run_id}")
-        print(f"Name: {latest.name}")
+        print(f"评估 ID: {latest.run_id}")
+        print(f"名称: {latest.name}")
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     sync_response = sync_agent.run("Explain what an API is")
@@ -94,12 +94,12 @@ if __name__ == "__main__":
         print_summary=True,
     )
 
-    print("Database Results:")
+    print("数据库结果:")
     sync_eval_runs = sync_db.get_eval_runs()
-    print(f"Total evaluations stored: {len(sync_eval_runs)}")
+    print(f"已存储评估总数: {len(sync_eval_runs)}")
     if sync_eval_runs:
         latest = sync_eval_runs[-1]
-        print(f"Eval ID: {latest.run_id}")
-        print(f"Name: {latest.name}")
+        print(f"评估 ID: {latest.run_id}")
+        print(f"名称: {latest.name}")
 
     asyncio.run(run_async_evaluation())

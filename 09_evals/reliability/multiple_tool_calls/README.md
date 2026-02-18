@@ -1,7 +1,7 @@
-# Multiple Tool Call Reliability Cookbooks
+# Multiple Tool Call Reliability Cookbooks（多次工具调用可靠性示例集）
 
-These examples validate reliability for multi-step tool workflows.
+这些示例验证多步骤工具工作流的可靠性。
 
-## Files
+## 文件列表
 
-- `calculator.py` - Checks expected multiply and exponentiate tool calls.
+- `calculator.py` - 检查预期的乘法和求幂工具调用。

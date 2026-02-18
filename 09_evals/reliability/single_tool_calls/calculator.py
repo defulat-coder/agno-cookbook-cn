@@ -1,8 +1,8 @@
 """
-Single Tool Call Reliability Evaluation
+单工具调用可靠性评估
 =======================================
 
-Demonstrates reliability checks for one expected tool call.
+演示对单个预期工具调用进行可靠性检查。
 """
 
 from typing import Optional
@@ -15,7 +15,7 @@ from agno.tools.calculator import CalculatorTools
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation Function
+# 创建评估函数
 # ---------------------------------------------------------------------------
 def factorial():
     agent = Agent(
@@ -34,7 +34,7 @@ def factorial():
 
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     factorial()

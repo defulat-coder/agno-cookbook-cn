@@ -1,8 +1,8 @@
 """
-Performance Evaluation with Database Logging
+性能评估与数据库日志记录
 ============================================
 
-Demonstrates storing performance evaluation results in PostgreSQL.
+演示如何将性能评估结果存储到 PostgreSQL 数据库。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 def run_agent():
     agent = Agent(
@@ -25,13 +25,13 @@ def run_agent():
 
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5432/ai"
 db = PostgresDb(db_url=db_url, eval_table="eval_runs_cookbook")
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 simple_response_perf = PerformanceEval(
     db=db,
@@ -42,7 +42,7 @@ simple_response_perf = PerformanceEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     simple_response_perf.run(print_results=True, print_summary=True)

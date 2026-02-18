@@ -1,8 +1,8 @@
 """
-Guideline-Based Agent-as-Judge Evaluation
+基于指南的 Agent 评估器评估
 =========================================
 
-Demonstrates agent-as-judge scoring with additional guidelines.
+演示带有附加指南的 Agent 评估器评分。
 """
 
 from typing import Optional
@@ -13,12 +13,12 @@ from agno.eval.agent_as_judge import AgentAsJudgeEval, AgentAsJudgeResult
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agent_as_judge_guidelines.db")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -27,7 +27,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AgentAsJudgeEval(
     name="Product Info Quality",
@@ -44,7 +44,7 @@ evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response = agent.run("What is the maximum speed of the Tesla Model 3?")
@@ -53,12 +53,12 @@ if __name__ == "__main__":
         output=str(response.content),
         print_results=True,
     )
-    assert result is not None, "Evaluation should return a result"
+    assert result is not None, "评估应返回结果"
 
-    print("Database Results:")
+    print("数据库结果:")
     eval_runs = db.get_eval_runs()
-    print(f"Total evaluations stored: {len(eval_runs)}")
+    print(f"已存储评估总数: {len(eval_runs)}")
     if eval_runs:
         latest = eval_runs[-1]
-        print(f"Eval ID: {latest.run_id}")
-        print(f"Additional guidelines used: {len(evaluation.additional_guidelines)}")
+        print(f"评估 ID: {latest.run_id}")
+        print(f"使用的附加指南数: {len(evaluation.additional_guidelines)}")

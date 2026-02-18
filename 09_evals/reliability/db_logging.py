@@ -1,8 +1,8 @@
 """
-Reliability Evaluation with Database Logging
+可靠性评估与数据库日志记录
 ============================================
 
-Demonstrates storing reliability evaluation results in PostgreSQL.
+演示如何将可靠性评估结果存储到 PostgreSQL 数据库。
 """
 
 from typing import Optional
@@ -15,13 +15,13 @@ from agno.run.agent import RunOutput
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5432/ai"
 db = PostgresDb(db_url=db_url, eval_table="eval_runs")
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-5.2"),
@@ -29,11 +29,11 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response: RunOutput = agent.run("What is 10!?")

@@ -1,8 +1,8 @@
 """
-Multi-User Team Memory Performance Evaluation
+多用户团队记忆性能评估
 =============================================
 
-Demonstrates concurrent team performance across multiple users with memory.
+演示多用户并发场景下启用记忆时的团队性能。
 """
 
 import asyncio
@@ -16,7 +16,7 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Sample Inputs
+# 创建示例输入
 # ---------------------------------------------------------------------------
 users = [
     "abel@example.com",
@@ -42,14 +42,14 @@ cities = [
 ]
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 
 # ---------------------------------------------------------------------------
-# Create Tools
+# 创建工具
 # ---------------------------------------------------------------------------
 def get_weather(city: str) -> str:
     return f"The weather in {city} is sunny."
@@ -73,7 +73,7 @@ def get_activities(city: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 weather_agent = Agent(
     id="weather_agent",
@@ -109,7 +109,7 @@ team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 async def run_team():
     async def run_team_for_user(user: str):
@@ -122,16 +122,16 @@ async def run_team():
 
     tasks = []
 
-    # Run all 5 users concurrently
+    # 并发运行全部 5 个用户
     for user in users:
         tasks.append(run_team_for_user(user))
     await asyncio.gather(*tasks)
 
-    return "Successfully ran team"
+    return "成功运行团队"
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 team_response_with_memory_impact = PerformanceEval(
     name="Team Memory Impact",
@@ -145,7 +145,7 @@ team_response_with_memory_impact = PerformanceEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(

@@ -1,43 +1,43 @@
-# Test Log: 09_evals
+# 测试日志：09_evals
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未运行。请运行各文件后更新本日志。
 
 ### accuracy/*
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Accuracy evaluation examples for agents, teams, and evaluator configurations.
+**说明：** Agent（代理）、Team（团队）及 Evaluator（评估器）配置的准确性评估示例。
 
 ---
 
 ### agent_as_judge/*
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Agent-as-judge examples covering scoring modes, hooks, and team cases.
+**说明：** Agent-as-judge（Agent 作为裁判）示例，涵盖评分模式、钩子和 Team（团队）场景。
 
 ---
 
 ### performance/*
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Performance benchmark examples for runtime and memory impact.
+**说明：** 运行时与内存影响的性能基准测试示例。
 
 ---
 
 ### performance/comparison/*
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Framework comparison benchmarks for agent instantiation.
+**说明：** Agent 实例化的框架对比基准测试。
 
 ---
 
 ### reliability/*
 
-**Status:** PENDING
+**状态：** PENDING（待测试）
 
-**Description:** Reliability examples for expected tool-call behavior.
+**说明：** 预期工具调用行为的可靠性示例。
 
 ---

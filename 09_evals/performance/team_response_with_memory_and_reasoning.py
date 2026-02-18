@@ -1,8 +1,8 @@
 """
-Team Memory and Reasoning Performance Evaluation
+团队记忆与推理性能评估
 ================================================
 
-Demonstrates memory growth performance for a reasoning-enabled team.
+演示启用推理功能的团队的记忆增长性能。
 """
 
 import asyncio
@@ -17,7 +17,7 @@ from agno.team.team import Team
 from agno.tools.reasoning import ReasoningTools
 
 # ---------------------------------------------------------------------------
-# Create Sample Inputs
+# 创建示例输入
 # ---------------------------------------------------------------------------
 users = [
     "abel@example.com",
@@ -44,17 +44,17 @@ cities = [
 
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 
 # ---------------------------------------------------------------------------
-# Create Tools
+# 创建工具
 # ---------------------------------------------------------------------------
 def get_weather(city: str) -> str:
-    """Get detailed weather information for a city."""
+    """获取指定城市的详细天气信息。"""
     weather_conditions = {
         "New York": {
             "current": "Partly cloudy with scattered showers",
@@ -287,7 +287,7 @@ def get_weather(city: str) -> str:
     }
 
     if city not in weather_conditions:
-        return f"Weather data for {city} is not available in our database."
+        return f"我们的数据库中没有 {city} 的天气数据。"
 
     weather = weather_conditions[city]
 
@@ -330,7 +330,7 @@ This comprehensive weather report provides all the essential information needed 
 
 
 def get_activities(city: str) -> str:
-    """Get detailed activity information for a city."""
+    """获取指定城市的详细活动信息。"""
     city_activities = {
         "New York": {
             "outdoor": [
@@ -959,7 +959,7 @@ def get_activities(city: str) -> str:
     }
 
     if city not in city_activities:
-        return f"Activity information for {city} is not available in our database."
+        return f"我们的数据库中没有 {city} 的活动信息。"
 
     activities = city_activities[city]
 
@@ -1006,7 +1006,7 @@ This comprehensive guide provides a starting point for discovering all that {cit
 
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 weather_agent = Agent(
     id="weather_agent",
@@ -1054,10 +1054,10 @@ team = Team(
 
 
 # ---------------------------------------------------------------------------
-# Create Benchmark Function
+# 创建基准测试函数
 # ---------------------------------------------------------------------------
 async def run_team_for_user(user: str, print_responses: bool = False):
-    # Make four requests to the team, to build up history
+    # 向团队发送四次请求，以积累历史记录
     random_city = random.choice(cities)
     session_id = f"session_{user}_{uuid.uuid4()}"
 
@@ -1082,16 +1082,16 @@ async def run_team_for_user(user: str, print_responses: bool = False):
 async def run_team():
     tasks = []
 
-    # Run all 5 users concurrently
+    # 并发运行全部 5 个用户
     for user in users:
         tasks.append(run_team_for_user(user))
     await asyncio.gather(*tasks)
 
-    return "Successfully ran team"
+    return "成功运行团队"
 
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 team_response_with_memory_impact = PerformanceEval(
     name="Team Memory Impact",
@@ -1105,7 +1105,7 @@ team_response_with_memory_impact = PerformanceEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(

@@ -1,8 +1,8 @@
 """
-Team Agent-as-Judge Evaluation
+团队 Agent 评估器评估
 ==============================
 
-Demonstrates response quality evaluation for team outputs.
+演示对团队输出进行响应质量评估。
 """
 
 from typing import Optional
@@ -14,12 +14,12 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Database
+# 创建数据库
 # ---------------------------------------------------------------------------
 db = SqliteDb(db_file="tmp/agent_as_judge_team.db")
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 researcher = Agent(
     name="Researcher",
@@ -40,7 +40,7 @@ research_team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AgentAsJudgeEval(
     name="Team Response Quality",
@@ -51,7 +51,7 @@ evaluation = AgentAsJudgeEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     response = research_team.run("Explain quantum computing")
@@ -61,12 +61,12 @@ if __name__ == "__main__":
         print_results=True,
         print_summary=True,
     )
-    assert result is not None, "Evaluation should return a result"
+    assert result is not None, "评估应返回结果"
 
-    print("Database Results:")
+    print("数据库结果:")
     eval_runs = db.get_eval_runs()
-    print(f"Total evaluations stored: {len(eval_runs)}")
+    print(f"已存储评估总数: {len(eval_runs)}")
     if eval_runs:
         latest = eval_runs[-1]
-        print(f"Eval ID: {latest.run_id}")
-        print(f"Team: {research_team.name}")
+        print(f"评估 ID: {latest.run_id}")
+        print(f"团队: {research_team.name}")

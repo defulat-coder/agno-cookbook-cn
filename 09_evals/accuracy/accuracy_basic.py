@@ -1,8 +1,8 @@
 """
-Basic Accuracy Evaluation
+基础精度评估
 =========================
 
-Demonstrates synchronous and asynchronous accuracy evaluations.
+演示同步与异步精度评估。
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calculator import CalculatorTools
 
 # ---------------------------------------------------------------------------
-# Create Sync Evaluation
+# 创建同步评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     name="Calculator Evaluation",
@@ -30,7 +30,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Create Async Evaluation
+# 创建异步评估
 # ---------------------------------------------------------------------------
 async_evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
@@ -45,7 +45,7 @@ async_evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)

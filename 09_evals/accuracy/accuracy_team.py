@@ -1,8 +1,8 @@
 """
-Team Accuracy Evaluation
+团队精度评估
 ========================
 
-Demonstrates evaluating language routing accuracy for a team.
+演示如何评估团队的语言路由精度。
 """
 
 from typing import Optional
@@ -13,7 +13,7 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
 # ---------------------------------------------------------------------------
-# Create Team Members
+# 创建团队成员
 # ---------------------------------------------------------------------------
 english_agent = Agent(
     name="English Agent",
@@ -27,7 +27,7 @@ spanish_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Create Team
+# 创建团队
 # ---------------------------------------------------------------------------
 multi_language_team = Team(
     name="Multi Language Team",
@@ -44,7 +44,7 @@ multi_language_team = Team(
 )
 
 # ---------------------------------------------------------------------------
-# Create Evaluation
+# 创建评估
 # ---------------------------------------------------------------------------
 evaluation = AccuracyEval(
     name="Multi Language Team",
@@ -56,7 +56,7 @@ evaluation = AccuracyEval(
 )
 
 # ---------------------------------------------------------------------------
-# Run Evaluation
+# 运行评估
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     result: Optional[AccuracyResult] = evaluation.run(print_results=True)
