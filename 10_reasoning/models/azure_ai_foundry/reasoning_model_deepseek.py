@@ -1,8 +1,8 @@
 """
-Reasoning Model Deepseek
+推理模型 DeepSeek（Azure AI Foundry）
 ========================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 import os
@@ -12,7 +12,7 @@ from agno.models.azure import AzureAIFoundry
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     agent = Agent(
@@ -26,14 +26,13 @@ def run_example() -> None:
     )
 
     agent.print_response(
-        "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-        "Include an ASCII diagram of your solution.",
+        "请解答电车难题，评估多种伦理框架，并用 ASCII 图示展示你的解答。",
         stream=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

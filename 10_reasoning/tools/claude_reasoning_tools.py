@@ -1,8 +1,8 @@
 """
-Claude Reasoning Tools
+Claude 推理工具
 ======================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     reasoning_agent = Agent(
@@ -21,26 +21,26 @@ def run_example() -> None:
             ReasoningTools(add_instructions=True),
             WebSearchTools(enable_news=False),
         ],
-        instructions="Use tables to display data.",
+        instructions="使用表格展示数据。",
         markdown=True,
     )
 
-    # Semiconductor market analysis example
+    # 半导体市场分析示例
     reasoning_agent.print_response(
         """\
-        Analyze the semiconductor market performance focusing on:
-        - NVIDIA (NVDA)
+        请分析以下半导体公司的市场表现：
+        - 英伟达 (NVDA)
         - AMD (AMD)
-        - Intel (INTC)
-        - Taiwan Semiconductor (TSM)
-        Compare their market positions, growth metrics, and future outlook.""",
+        - 英特尔 (INTC)
+        - 台积电 (TSM)
+        比较它们的市场地位、增长指标和未来展望。""",
         stream=True,
         show_full_reasoning=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

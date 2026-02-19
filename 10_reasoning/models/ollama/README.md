@@ -1,8 +1,8 @@
 # Ollama
 
-Local Ollama reasoning examples.
+本地 Ollama 推理示例。
 
-## Examples
+## 示例
 
 - `local_reasoning.py`
 - `reasoning_model_deepseek.py`

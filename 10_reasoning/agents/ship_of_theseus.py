@@ -1,8 +1,8 @@
 """
-Ship Of Theseus Debate
+忒修斯之船辩论
 ======================
 
-Demonstrates built-in and DeepSeek-backed reasoning for philosophical analysis.
+演示内置推理和 DeepSeek 推理模型在哲学分析中的应用。
 """
 
 from agno.agent import Agent
@@ -10,12 +10,12 @@ from agno.models.deepseek import DeepSeek
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 task = (
-    "Discuss the concept of 'The Ship of Theseus' and its implications on the notions of identity and change. "
-    "Present arguments for and against the idea that an object that has had all of its components replaced remains "
-    "fundamentally the same object. Conclude with your own reasoned position on the matter."
+    "请探讨"忒修斯之船"的概念及其对身份认同与变化观念的启示。"
+    "分别陈述支持和反对"一个已更换所有组件的物体本质上仍是同一物体"这一观点的论据。"
+    "最后给出你自己有理有据的立场。"
 )
 
 cot_agent = Agent(
@@ -31,11 +31,11 @@ deepseek_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Built-in Chain Of Thought ===")
+    print("=== 内置思维链（Chain Of Thought） ===")
     cot_agent.print_response(task, stream=True, show_full_reasoning=True)
 
-    print("\n=== DeepSeek Reasoning Model ===")
+    print("\n=== DeepSeek 推理模型 ===")
     deepseek_agent.print_response(task, stream=True, show_full_reasoning=True)

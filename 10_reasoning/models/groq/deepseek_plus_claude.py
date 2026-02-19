@@ -1,8 +1,8 @@
 """
-Deepseek Plus Claude
+DeepSeek + Claude 组合
 ====================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.models.groq import Groq
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     deepseek_plus_claude = Agent(
@@ -23,11 +23,11 @@ def run_example() -> None:
             top_p=0.95,
         ),
     )
-    deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+    deepseek_plus_claude.print_response("9.11 和 9.9 哪个更大？", stream=True)
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

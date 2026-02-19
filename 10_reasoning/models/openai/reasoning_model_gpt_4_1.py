@@ -1,8 +1,8 @@
 """
-Reasoning Model Gpt 4 1
+推理模型 GPT-4.1
 =======================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.models.openai.responses import OpenAIResponses
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     agent = Agent(
@@ -18,14 +18,13 @@ def run_example() -> None:
         reasoning_model=OpenAIResponses(id="gpt-4.1"),
     )
     agent.print_response(
-        "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-        "Include an ASCII diagram of your solution.",
+        "请解答电车难题，评估多种伦理框架，并用 ASCII 图示展示你的解答。",
         stream=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

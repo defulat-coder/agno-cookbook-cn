@@ -1,8 +1,8 @@
 """
-Decimal Comparison Reasoning
+小数比较推理
 ============================
 
-Demonstrates regular, built-in, and DeepSeek-backed reasoning for 9.11 vs 9.9.
+演示普通、内置推理和 DeepSeek 推理模型在 9.11 与 9.9 比较中的应用。
 """
 
 from agno.agent import Agent
@@ -12,11 +12,11 @@ from agno.models.openai import OpenAIChat
 from rich.console import Console
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 console = Console()
 
-task = "9.11 and 9.9 -- which is bigger?"
+task = "9.11 和 9.9 哪个更大？"
 
 regular_agent_openai = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
 
@@ -41,20 +41,20 @@ deepseek_agent_openai = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    console.rule("[bold blue]Regular OpenAI Agent[/bold blue]")
+    console.rule("[bold blue]普通 OpenAI Agent[/bold blue]")
     regular_agent_openai.print_response(task, stream=True)
 
-    console.rule("[bold yellow]OpenAI Built-in Reasoning Agent[/bold yellow]")
+    console.rule("[bold yellow]OpenAI 内置推理 Agent[/bold yellow]")
     cot_agent_openai.print_response(task, stream=True, show_full_reasoning=True)
 
-    console.rule("[bold green]Regular Claude Agent[/bold green]")
+    console.rule("[bold green]普通 Claude Agent[/bold green]")
     regular_agent_claude.print_response(task, stream=True)
 
-    console.rule("[bold cyan]Claude + DeepSeek Reasoning Agent[/bold cyan]")
+    console.rule("[bold cyan]Claude + DeepSeek 推理 Agent[/bold cyan]")
     deepseek_agent_claude.print_response(task, stream=True)
 
-    console.rule("[bold magenta]OpenAI + DeepSeek Reasoning Agent[/bold magenta]")
+    console.rule("[bold magenta]OpenAI + DeepSeek 推理 Agent[/bold magenta]")
     deepseek_agent_openai.print_response(task, stream=True)

@@ -1,15 +1,15 @@
 """
-OpenAI Default Chain Of Thought
+OpenAI 默认思维链（Chain Of Thought）
 ===============================
 
-Demonstrates fallback chain-of-thought and built-in reasoning in one script.
+在同一脚本中演示回退思维链和内置推理的使用。
 """
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 manual_cot_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -27,19 +27,19 @@ default_cot_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    prompt = "Give me steps to write a python script for fibonacci series"
+    prompt = "请给我编写 Fibonacci 数列 Python 脚本的步骤"
 
-    print("=== Explicit reasoning_model fallback ===")
+    print("=== 显式指定 reasoning_model 回退 ===")
     manual_cot_agent.print_response(
         prompt,
         stream=True,
         show_full_reasoning=True,
     )
 
-    print("\n=== Built-in reasoning=True ===")
+    print("\n=== 内置 reasoning=True ===")
     default_cot_agent.print_response(
         prompt,
         stream=True,

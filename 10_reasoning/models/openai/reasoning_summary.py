@@ -1,8 +1,8 @@
 """
-Reasoning Summary
+推理摘要
 =================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -11,28 +11,28 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
-    # Setup the reasoning Agent
+    # 设置推理 Agent
     agent = Agent(
         model=OpenAIResponses(
             id="o4-mini",
-            reasoning_summary="auto",  # Requesting a reasoning summary
+            reasoning_summary="auto",  # 请求推理摘要
         ),
         tools=[WebSearchTools(enable_news=False)],
-        instructions="Use tables to display the analysis",
+        instructions="使用表格展示分析结果",
         markdown=True,
     )
 
     agent.print_response(
-        "Write a brief report comparing NVDA to TSLA",
+        "撰写一份简短的对比 NVDA 与 TSLA 的报告",
         stream=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

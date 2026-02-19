@@ -1,8 +1,8 @@
 """
-Vercel Reasoning Tools
+Vercel 推理工具
 ======================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     reasoning_agent = Agent(
@@ -22,20 +22,20 @@ def run_example() -> None:
             WebSearchTools(),
         ],
         instructions=[
-            "Use tables to display data",
-            "Only output the report, no other text",
+            "使用表格展示数据",
+            "只输出报告内容，不要其他文字",
         ],
         markdown=True,
     )
     reasoning_agent.print_response(
-        "Write a report on TSLA",
+        "撰写一份关于 TSLA 的报告",
         stream=True,
         show_full_reasoning=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

@@ -1,8 +1,8 @@
 """
-Capture Reasoning Content
+捕获推理内容
 =========================
 
-Demonstrates how to inspect reasoning_content in streaming and non-streaming runs.
+演示如何在流式和非流式运行中检查 reasoning_content。
 """
 
 from agno.agent import Agent
@@ -10,28 +10,28 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Helpers
+# 辅助函数
 # ---------------------------------------------------------------------------
 def print_reasoning_content(response, label: str) -> None:
-    """Print a short reasoning_content report for a run response."""
-    print(f"\n--- reasoning_content from {label} ---")
+    """打印运行响应中 reasoning_content 的简短报告。"""
+    print(f"\n--- 来自 {label} 的 reasoning_content ---")
     if hasattr(response, "reasoning_content") and response.reasoning_content:
-        print("[OK] reasoning_content FOUND")
-        print(f"   Length: {len(response.reasoning_content)} characters")
-        print("\n=== reasoning_content preview ===")
+        print("[OK] reasoning_content 已找到")
+        print(f"   长度：{len(response.reasoning_content)} 个字符")
+        print("\n=== reasoning_content 预览 ===")
         preview = response.reasoning_content[:1000]
         if len(response.reasoning_content) > 1000:
             preview += "..."
         print(preview)
     else:
-        print("[NOT FOUND] reasoning_content NOT FOUND")
+        print("[未找到] reasoning_content 不存在")
 
 
 # ---------------------------------------------------------------------------
-# Run Examples
+# 运行示例
 # ---------------------------------------------------------------------------
 def run_examples() -> None:
-    print("\n=== Example 1: Using reasoning=True (default COT) ===\n")
+    print("\n=== 示例 1：使用 reasoning=True（默认思维链） ===\n")
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
@@ -39,11 +39,11 @@ def run_examples() -> None:
         markdown=True,
     )
 
-    print("Running with reasoning=True (non-streaming)...")
-    response = agent.run("What is the sum of the first 10 natural numbers?")
-    print_reasoning_content(response, label="non-streaming response")
+    print("使用 reasoning=True 运行（非流式）...")
+    response = agent.run("前 10 个自然数之和是多少？")
+    print_reasoning_content(response, label="非流式响应")
 
-    print("\n\n=== Example 2: Using a custom reasoning_model ===\n")
+    print("\n\n=== 示例 2：使用自定义 reasoning_model ===\n")
 
     agent_with_reasoning_model = Agent(
         model=OpenAIChat(id="gpt-4o"),
@@ -51,13 +51,13 @@ def run_examples() -> None:
         markdown=True,
     )
 
-    print("Running with reasoning_model specified (non-streaming)...")
+    print("使用指定 reasoning_model 运行（非流式）...")
     response = agent_with_reasoning_model.run(
-        "What is the sum of the first 10 natural numbers?"
+        "前 10 个自然数之和是多少？"
     )
-    print_reasoning_content(response, label="non-streaming response")
+    print_reasoning_content(response, label="非流式响应")
 
-    print("\n\n=== Example 3: Processing stream with reasoning=True ===\n")
+    print("\n\n=== 示例 3：使用 reasoning=True 处理流式输出 ===\n")
 
     streaming_agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
@@ -65,10 +65,10 @@ def run_examples() -> None:
         markdown=True,
     )
 
-    print("Running with reasoning=True (streaming)...")
+    print("使用 reasoning=True 运行（流式）...")
     final_response = None
     for event in streaming_agent.run(
-        "What is the value of 5! (factorial)?",
+        "5! （阶乘）的值是多少？",
         stream=True,
         stream_events=True,
     ):
@@ -78,9 +78,9 @@ def run_examples() -> None:
         if hasattr(event, "reasoning_content"):
             final_response = event
 
-    print_reasoning_content(final_response, label="final stream event")
+    print_reasoning_content(final_response, label="最终流式事件")
 
-    print("\n\n=== Example 4: Processing stream with reasoning_model ===\n")
+    print("\n\n=== 示例 4：使用 reasoning_model 处理流式输出 ===\n")
 
     streaming_agent_with_model = Agent(
         model=OpenAIChat(id="gpt-4o"),
@@ -88,10 +88,10 @@ def run_examples() -> None:
         markdown=True,
     )
 
-    print("Running with reasoning_model specified (streaming)...")
+    print("使用指定 reasoning_model 运行（流式）...")
     final_response_with_model = None
     for event in streaming_agent_with_model.run(
-        "What is the value of 7! (factorial)?",
+        "7! （阶乘）的值是多少？",
         stream=True,
         stream_events=True,
     ):
@@ -103,7 +103,7 @@ def run_examples() -> None:
 
     print_reasoning_content(
         final_response_with_model,
-        label="final stream event (reasoning_model)",
+        label="最终流式事件（reasoning_model）",
     )
 
 

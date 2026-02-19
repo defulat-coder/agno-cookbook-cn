@@ -1,8 +1,8 @@
 """
-Strawberry Letter Counting
+草莓字母计数
 ==========================
 
-Demonstrates regular, built-in, and DeepSeek-backed reasoning for counting tasks.
+演示普通、内置推理和 DeepSeek 推理模型在字母计数任务中的应用。
 """
 
 import asyncio
@@ -17,7 +17,7 @@ from rich.console import Console
 # ---------------------------------------------------------------------------
 console = Console()
 
-task = "How many 'r' are in the word 'strawberry'?"
+task = "单词 'strawberry' 中有多少个字母 'r'？"
 
 regular_agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
 
@@ -35,20 +35,20 @@ deepseek_agent = Agent(
 
 
 async def run_agents() -> None:
-    console.rule("[bold blue]Counting 'r' In 'strawberry'[/bold blue]")
+    console.rule("[bold blue]统计 'strawberry' 中的字母 'r'[/bold blue]")
 
-    console.rule("[bold green]Regular Agent[/bold green]")
+    console.rule("[bold green]普通 Agent[/bold green]")
     await regular_agent.aprint_response(task, stream=True)
 
-    console.rule("[bold yellow]Built-in Reasoning Agent[/bold yellow]")
+    console.rule("[bold yellow]内置推理 Agent[/bold yellow]")
     await cot_agent.aprint_response(task, stream=True, show_full_reasoning=True)
 
-    console.rule("[bold cyan]DeepSeek Reasoning Agent[/bold cyan]")
+    console.rule("[bold cyan]DeepSeek 推理 Agent[/bold cyan]")
     await deepseek_agent.aprint_response(task, stream=True)
 
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     asyncio.run(run_agents())

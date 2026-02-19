@@ -1,8 +1,8 @@
 """
-Llama Reasoning Tools
+Llama 推理工具
 =====================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.tools.yfinance import YFinanceTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     reasoning_agent = Agent(
@@ -25,17 +25,17 @@ def run_example() -> None:
             ),
             YFinanceTools(),
         ],
-        instructions="Use tables where possible",
+        instructions="尽可能使用表格",
         markdown=True,
     )
     reasoning_agent.print_response(
-        "What is the NVDA stock price? Write me a report",
+        "NVDA 的股价是多少？请撰写一份报告",
         show_full_reasoning=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

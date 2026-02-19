@@ -1,15 +1,15 @@
 """
-Mistral Reasoning COT
+Mistral 推理思维链（COT）
 =====================
 
-Demonstrates built-in chain-of-thought reasoning with Mistral.
+演示使用 Mistral 模型进行内置思维链推理。
 """
 
 from agno.agent import Agent
 from agno.models.mistral import MistralChat
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 reasoning_agent = Agent(
     model=MistralChat(id="mistral-large-latest"),
@@ -19,11 +19,11 @@ reasoning_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     reasoning_agent.print_response(
-        "Give me steps to write a python script for fibonacci series",
+        "请给我编写 Fibonacci 数列 Python 脚本的步骤",
         stream=True,
         show_full_reasoning=True,
     )

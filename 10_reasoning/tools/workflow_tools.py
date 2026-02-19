@@ -1,8 +1,8 @@
 """
-Workflow Tools
+工作流工具（Workflow Tools）
 ==============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from textwrap import dedent
@@ -19,21 +19,21 @@ from agno.workflow.workflow import Workflow
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     FEW_SHOT_EXAMPLES = dedent("""\
-        You can refer to the examples below as guidance for how to use each tool.
-        ### Examples
-        #### Example: Blog Post Workflow
-        User: Please create a blog post on the topic: AI trends in 2024
-        Think: The user wants to process customer feedback data. I need to understand what format the data is in and what kind of summary they want. Let me start with a basic workflow run.
-        Run: input_data="AI trends in 2024", additional_data={"topic": "AI, AI agents, AI workflows", "style": "The blog post should be written in a style that is easy to understand and follow."}
-        Analyze: The workflow ran successfully and generated a basic blog post. However, the format might not be exactly what the user wants. Let me check if the results meet their expectations.
-        Final Answer: I've created a blog post on the topic: AI trends in 2024 through the workflow. The blog post shows...
+        你可以参考以下示例作为每个工具使用方式的指导。
+        ### 示例
+        #### 示例：博客文章工作流
+        用户：请创建一篇关于 2024 年 AI 趋势的博客文章
+        思考：用户想要处理客户反馈数据。我需要了解数据的格式以及他们想要什么类型的摘要。让我从基本的工作流运行开始。
+        运行：input_data="AI trends in 2024", additional_data={"topic": "AI, AI agents, AI workflows", "style": "博客文章应以通俗易懂的风格撰写。"}
+        分析：工作流成功运行并生成了基本的博客文章。但格式可能不完全符合用户需求。让我检查结果是否达到他们的预期。
+        最终答案：我已通过工作流创建了一篇关于 2024 年 AI 趋势的博客文章。博客文章显示...
     """)
 
-    # Define agents
+    # 定义 Agent
     web_agent = Agent(
         name="Web Agent",
         model=OpenAIChat(id="gpt-4o-mini"),
@@ -50,7 +50,7 @@ def run_example() -> None:
     writer_agent = Agent(
         name="Writer Agent",
         model=OpenAIChat(id="gpt-4o-mini"),
-        instructions="Write a blog post on the topic",
+        instructions="撰写一篇关于该话题的博客文章",
     )
 
     def prepare_input_for_web_search(step_input: StepInput) -> StepOutput:
@@ -58,11 +58,11 @@ def run_example() -> None:
         topic = step_input.additional_data.get("topic")
         return StepOutput(
             content=dedent(f"""\
-    	I'm writing a blog post with the title: {title}
+    	我正在撰写标题为：{title} 的博客文章
     	<topic>
     	{topic}
     	</topic>
-    	Search the web for atleast 10 articles\
+    	请在网络上搜索至少 10 篇相关文章\
     	""")
         )
 
@@ -75,32 +75,32 @@ def run_example() -> None:
 
         return StepOutput(
             content=dedent(f"""\
-    	I'm writing a blog post with the title: {title}
+    	我正在撰写标题为：{title} 的博客文章
     	<required_style>
     	{style}
     	</required_style>
     	<topic>
     	{topic}
     	</topic>
-    	Here is information from the web:
+    	以下是来自网络的信息：
     	<research_results>
     	{research_team_output}
     	<research_results>\
     	""")
         )
 
-    # Define research team for complex analysis
+    # 定义用于复杂分析的研究团队
     research_team = Team(
         name="Research Team",
         members=[hackernews_agent, web_agent],
-        instructions="Research tech topics from Hackernews and the web",
+        instructions="从 Hackernews 和网络研究科技话题",
     )
 
-    # Create and use workflow
+    # 创建并使用工作流
     if __name__ == "__main__":
         content_creation_workflow = Workflow(
             name="Blog Post Workflow",
-            description="Automated blog post creation from Hackernews and the web",
+            description="从 Hackernews 和网络自动创建博客文章",
             db=SqliteDb(
                 session_table="workflow_session",
                 db_file="tmp/workflow.db",
@@ -128,15 +128,15 @@ def run_example() -> None:
         )
 
         agent.print_response(
-            "Create a blog post with the following title: AI trends in 2024",
-            instructions="When you run the workflow using the `run_workflow` tool, remember to pass `additional_data` as a dictionary of key-value pairs.",
+            "请创建一篇博客文章，标题为：2024 年 AI 趋势",
+            instructions="使用 `run_workflow` 工具运行工作流时，请记得将 `additional_data` 作为键值对字典传入。",
             markdown=True,
             stream=True,
         )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

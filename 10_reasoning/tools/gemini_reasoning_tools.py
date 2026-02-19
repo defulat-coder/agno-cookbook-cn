@@ -1,8 +1,8 @@
 """
-Gemini Reasoning Tools
+Gemini 推理工具
 ======================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -12,7 +12,7 @@ from agno.tools.yfinance import YFinanceTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     reasoning_agent = Agent(
@@ -24,17 +24,17 @@ def run_example() -> None:
             ),
             YFinanceTools(),
         ],
-        instructions="Use tables where possible",
+        instructions="尽可能使用表格",
         stream_events=True,
         markdown=True,
     )
     reasoning_agent.print_response(
-        "Write a report comparing NVDA to TSLA.", show_full_reasoning=True
+        "撰写一份对比 NVDA 与 TSLA 的报告。", show_full_reasoning=True
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

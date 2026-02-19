@@ -1,8 +1,8 @@
 """
-Groq Llama Finance Agent
+Groq Llama 金融 Agent
 ========================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from textwrap import dedent
@@ -14,7 +14,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     thinking_llama = Agent(
@@ -24,26 +24,26 @@ def run_example() -> None:
             WebSearchTools(),
         ],
         instructions=dedent("""\
-        ## General Instructions
-        - Always start by using the think tool to map out the steps needed to complete the task.
-        - After receiving tool results, use the think tool as a scratchpad to validate the results for correctness
-        - Before responding to the user, use the think tool to jot down final thoughts and ideas.
-        - Present final outputs in well-organized tables whenever possible.
+        ## 通用指令
+        - 始终先使用 think 工具梳理完成任务所需的步骤。
+        - 收到工具结果后，使用 think 工具作为草稿本验证结果的正确性。
+        - 在回复用户之前，使用 think 工具记录最终想法和思路。
+        - 尽可能以整洁的表格呈现最终输出。
 
-        ## Using the think tool
-        At every step, use the think tool as a scratchpad to:
-        - Restate the object in your own words to ensure full comprehension.
-        - List the  specific rules that apply to the current request
-        - Check if all required information is collected and is valid
-        - Verify that the planned action completes the task\
+        ## 使用 think 工具
+        在每个步骤中，使用 think 工具作为草稿本：
+        - 用自己的话重述目标，确保完全理解。
+        - 列出适用于当前请求的具体规则。
+        - 检查是否已收集所有必要信息且信息有效。
+        - 验证计划的行动是否能完成任务。\
         """),
         markdown=True,
     )
-    thinking_llama.print_response("Write a report comparing NVDA to TSLA", stream=True)
+    thinking_llama.print_response("撰写一份对比 NVDA 与 TSLA 的报告", stream=True)
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

@@ -1,8 +1,8 @@
 """
-Reasoning Finance Team
+推理金融团队
 ======================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from textwrap import dedent
@@ -16,7 +16,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     web_agent = Agent(
@@ -24,7 +24,7 @@ def run_example() -> None:
         role="Handle web search requests",
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[WebSearchTools()],
-        instructions="Always include sources",
+        instructions="始终注明信息来源",
         add_datetime_to_context=True,
     )
 
@@ -34,11 +34,11 @@ def run_example() -> None:
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[WebSearchTools(enable_news=False)],
         instructions=[
-            "You are a financial data specialist. Provide concise and accurate data.",
-            "Use tables to display stock prices, fundamentals (P/E, Market Cap), and recommendations.",
-            "Clearly state the company name and ticker symbol.",
-            "Briefly summarize recent company-specific news if available.",
-            "Focus on delivering the requested financial data points clearly.",
+            "你是一位金融数据专家，请提供简洁准确的数据。",
+            "使用表格展示股价、基本面数据（市盈率、市值）和分析师建议。",
+            "清晰注明公司名称和股票代码。",
+            "如有最新公司相关新闻，请简要摘要。",
+            "专注于清晰呈现所请求的金融数据点。",
         ],
         add_datetime_to_context=True,
     )
@@ -52,8 +52,8 @@ def run_example() -> None:
         ],
         tools=[ReasoningTools(add_instructions=True)],
         instructions=[
-            "Only output the final answer, no other text.",
-            "Use tables to display data",
+            "只输出最终答案，不要其他文字。",
+            "使用表格展示数据",
         ],
         markdown=True,
         show_members_responses=True,
@@ -70,67 +70,67 @@ def run_example() -> None:
     if __name__ == "__main__":
         run_team(
             dedent("""\
-        Analyze the impact of recent US tariffs on market performance across these key sectors:
-        - Steel & Aluminum: (X, NUE, AA)
-        - Technology Hardware: (AAPL, DELL, HPQ)
-        - Agricultural Products: (ADM, BG, INGR)
-        - Automotive: (F, GM, TSLA)
+        分析近期美国关税对以下关键行业市场表现的影响：
+        - 钢铁与铝材：(X, NUE, AA)
+        - 科技硬件：(AAPL, DELL, HPQ)
+        - 农产品：(ADM, BG, INGR)
+        - 汽车：(F, GM, TSLA)
 
-        For each sector:
-        1. Compare stock performance before and after tariff implementation
-        2. Identify supply chain disruptions and cost impact percentages
-        3. Analyze companies' strategic responses (reshoring, price adjustments, supplier diversification)
-        4. Assess analyst outlook changes directly attributed to tariff policies
+        对于每个行业：
+        1. 比较关税实施前后的股价表现
+        2. 识别供应链中断情况和成本影响百分比
+        3. 分析企业的战略应对措施（回流、价格调整、供应商多元化）
+        4. 评估直接归因于关税政策的分析师展望变化
         """)
         )
 
         # run_team(dedent("""\
-        # Assess the impact of recent semiconductor export controls on:
-        # - US chip designers (Nvidia, AMD, Intel)
-        # - Asian manufacturers (TSMC, Samsung)
-        # - Equipment makers (ASML, Applied Materials)
-        # Include effects on R&D investments, supply chain restructuring, and market share shifts."""))
+        # 评估近期半导体出口管制对以下方面的影响：
+        # - 美国芯片设计商 (Nvidia, AMD, Intel)
+        # - 亚洲制造商 (TSMC, Samsung)
+        # - 设备制造商 (ASML, Applied Materials)
+        # 包括对研发投资、供应链重组和市场份额变化的影响。"""))
 
         # run_team(dedent("""\
-        # Compare the retail sector's response to consumer goods tariffs:
-        # - Major retailers (Walmart, Target, Amazon)
-        # - Consumer brands (Nike, Apple, Hasbro)
-        # - Discount retailers (Dollar General, Five Below)
-        # Include pricing strategy changes, inventory management, and consumer behavior impacts."""))
+        # 比较零售行业对消费品关税的应对：
+        # - 大型零售商 (Walmart, Target, Amazon)
+        # - 消费品牌 (Nike, Apple, Hasbro)
+        # - 折扣零售商 (Dollar General, Five Below)
+        # 包括定价策略变化、库存管理和消费者行为影响。"""))
 
         # run_team(dedent("""\
-        # Analyze the semiconductor market performance focusing on:
-        # - NVIDIA (NVDA)
+        # 分析半导体市场表现，重点关注：
+        # - 英伟达 (NVDA)
         # - AMD (AMD)
-        # - Intel (INTC)
-        # - Taiwan Semiconductor (TSM)
-        # Compare their market positions, growth metrics, and future outlook."""))
+        # - 英特尔 (INTC)
+        # - 台积电 (TSM)
+        # 比较它们的市场地位、增长指标和未来展望。"""))
 
         # run_team(dedent("""\
-        # Evaluate the automotive industry's current state:
-        # - Tesla (TSLA)
-        # - Ford (F)
-        # - General Motors (GM)
-        # - Toyota (TM)
-        # Include EV transition progress and traditional auto metrics."""))
+        # 评估汽车行业当前状况：
+        # - 特斯拉 (TSLA)
+        # - 福特 (F)
+        # - 通用汽车 (GM)
+        # - 丰田 (TM)
+        # 包括电动车转型进展和传统汽车指标。"""))
 
         # run_team(dedent("""\
-        # Compare the financial metrics of Apple (AAPL) and Google (GOOGL):
-        # - Market Cap
-        # - P/E Ratio
-        # - Revenue Growth
-        # - Profit Margin"""))
+        # 比较苹果 (AAPL) 和谷歌 (GOOGL) 的财务指标：
+        # - 市值
+        # - 市盈率
+        # - 收入增长
+        # - 利润率"""))
 
         # run_team(dedent("""\
-        # Analyze the impact of recent Chinese solar panel tariffs on:
-        # - US solar manufacturers (First Solar, SunPower)
-        # - Chinese exporters (JinkoSolar, Trina Solar)
-        # - US installation companies (Sunrun, SunPower)
-        # Include effects on pricing, supply chains, and installation rates."""))
+        # 分析近期中国太阳能电池板关税对以下方面的影响：
+        # - 美国太阳能制造商 (First Solar, SunPower)
+        # - 中国出口商 (JinkoSolar, Trina Solar)
+        # - 美国安装公司 (Sunrun, SunPower)
+        # 包括对定价、供应链和安装率的影响。"""))
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

@@ -1,8 +1,8 @@
-# Deepseek
+# DeepSeek
 
-DeepSeek-specific reasoning model examples.
+DeepSeek 专属推理模型示例。
 
-## Examples
+## 示例
 
 - `ethical_dilemma.py`
 - `plan_itinerary.py`

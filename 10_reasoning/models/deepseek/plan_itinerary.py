@@ -1,8 +1,8 @@
 """
-Plan Itinerary
+行程规划（DeepSeek）
 ==============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -11,13 +11,13 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     # ---------------------------------------------------------------------------
-    # Create Agent
+    # 创建 Agent
     # ---------------------------------------------------------------------------
-    task = "Plan an itinerary from Los Angeles to Las Vegas"
+    task = "请规划一份从洛杉矶到拉斯维加斯的行程"
 
     reasoning_agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
@@ -26,14 +26,14 @@ def run_example() -> None:
     )
 
     # ---------------------------------------------------------------------------
-    # Run Agent
+    # 运行 Agent
     # ---------------------------------------------------------------------------
     if __name__ == "__main__":
         reasoning_agent.print_response(task, stream=True)
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

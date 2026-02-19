@@ -1,8 +1,8 @@
 """
-Capture Reasoning Content Reasoning Tools
+捕获推理内容 - 推理工具
 =========================================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from textwrap import dedent
@@ -13,83 +13,83 @@ from agno.tools.reasoning import ReasoningTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
-    """Test function to verify reasoning_content is populated in RunOutput."""
-    print("\n=== Testing reasoning_content generation ===\n")
+    """测试函数，验证 RunOutput 中的 reasoning_content 是否被正确填充。"""
+    print("\n=== 测试 reasoning_content 生成 ===\n")
 
-    # Create an agent with ReasoningTools
+    # 创建带有 ReasoningTools 的 Agent
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[ReasoningTools(add_instructions=True)],
         instructions=dedent("""\
-            You are an expert problem-solving assistant with strong analytical skills!         Use step-by-step reasoning to solve the problem.
+            你是一位拥有强大分析能力的专业问题解决助手！请使用逐步推理来解决问题。
             \
         """),
     )
 
-    # Test 1: Non-streaming mode
-    print("Running with stream=False...")
+    # 测试 1：非流式模式
+    print("使用 stream=False 运行...")
     response = agent.run(
-        "What is the sum of the first 10 natural numbers?", stream=False
+        "前 10 个自然数之和是多少？", stream=False
     )
 
-    # Check reasoning_content
+    # 检查 reasoning_content
     if hasattr(response, "reasoning_content") and response.reasoning_content:
-        print("[OK] reasoning_content FOUND in non-streaming response")
-        print(f"   Length: {len(response.reasoning_content)} characters")
-        print("\n=== reasoning_content preview (non-streaming) ===")
+        print("[OK] 非流式响应中找到 reasoning_content")
+        print(f"   长度：{len(response.reasoning_content)} 个字符")
+        print("\n=== reasoning_content 预览（非流式） ===")
         preview = response.reasoning_content[:1000]
         if len(response.reasoning_content) > 1000:
             preview += "..."
         print(preview)
     else:
-        print("[NOT FOUND] reasoning_content NOT FOUND in non-streaming response")
+        print("[未找到] 非流式响应中不存在 reasoning_content")
 
-    # Process streaming responses to find the final one
-    print("\n\n=== Test 2: Processing stream to find final response ===\n")
+    # 处理流式响应以查找最终响应
+    print("\n\n=== 测试 2：处理流式输出以找到最终响应 ===\n")
 
-    # Create another fresh agent
+    # 创建另一个新的 Agent
     streaming_agent_alt = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[ReasoningTools(add_instructions=True)],
         instructions=dedent("""\
-            You are an expert problem-solving assistant with strong analytical skills!         Use step-by-step reasoning to solve the problem.
+            你是一位拥有强大分析能力的专业问题解决助手！请使用逐步推理来解决问题。
             \
         """),
     )
 
-    # Process streaming responses and look for the final RunOutput
+    # 处理流式响应并查找最终的 RunOutput
     final_response = None
     for event in streaming_agent_alt.run(
-        "What is the value of 3! (factorial)?",
+        "3!（阶乘）的值是多少？",
         stream=True,
         stream_events=True,
     ):
-        # The final event in the stream should be a RunOutput object
+        # 流中的最终事件应该是 RunOutput 对象
         if hasattr(event, "reasoning_content"):
             final_response = event
 
-    print("--- Checking reasoning_content from final stream event ---")
+    print("--- 检查最终流式事件中的 reasoning_content ---")
     if (
         final_response
         and hasattr(final_response, "reasoning_content")
         and final_response.reasoning_content
     ):
-        print("[OK] reasoning_content FOUND in final stream event")
-        print(f"   Length: {len(final_response.reasoning_content)} characters")
-        print("\n=== reasoning_content preview (final stream event) ===")
+        print("[OK] 最终流式事件中找到 reasoning_content")
+        print(f"   长度：{len(final_response.reasoning_content)} 个字符")
+        print("\n=== reasoning_content 预览（最终流式事件） ===")
         preview = final_response.reasoning_content[:1000]
         if len(final_response.reasoning_content) > 1000:
             preview += "..."
         print(preview)
     else:
-        print("[NOT FOUND] reasoning_content NOT FOUND in final stream event")
+        print("[未找到] 最终流式事件中不存在 reasoning_content")
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

@@ -1,8 +1,8 @@
-# Agents
+# Agents（推理 Agent）
 
-Reasoning agent examples, including built-in COT and DeepSeek reasoning-model comparisons.
+推理 Agent 示例，包括内置思维链（Chain of Thought，COT）以及 DeepSeek 推理模型对比。
 
-## Examples
+## 示例
 
 - `analyse_treaty_of_versailles.py`
 - `capture_reasoning_content_default_COT.py`

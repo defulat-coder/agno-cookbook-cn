@@ -1,8 +1,8 @@
 """
-Scientific Abstract Critique
+科学摘要评审
 ============================
 
-Demonstrates built-in and DeepSeek-backed reasoning for methodology critique.
+演示内置推理和 DeepSeek 推理模型在研究方法评审中的应用。
 """
 
 from agno.agent import Agent
@@ -10,15 +10,14 @@ from agno.models.deepseek import DeepSeek
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 task = (
-    "Read the following abstract of a scientific paper and provide a critical evaluation of its methodology,"
-    "results, conclusions, and any potential biases or flaws:\n\n"
-    "Abstract: This study examines the effect of a new teaching method on student performance in mathematics. "
-    "A sample of 30 students was selected from a single school and taught using the new method over one semester. "
-    "The results showed a 15% increase in test scores compared to the previous semester. "
-    "The study concludes that the new teaching method is effective in improving mathematical performance among high school students."
+    "请阅读以下科学论文摘要，并对其研究方法、结果、结论以及潜在偏差或缺陷进行批判性评估：\n\n"
+    "摘要：本研究考察了一种新教学方法对学生数学成绩的影响。"
+    "从一所学校抽取 30 名学生作为样本，在一个学期内使用新方法进行教学。"
+    "结果显示，与上学期相比，考试成绩提高了 15%。"
+    "研究得出结论：新教学方法能有效提升高中生的数学成绩。"
 )
 
 cot_agent = Agent(
@@ -34,11 +33,11 @@ deepseek_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Built-in Chain Of Thought ===")
+    print("=== 内置思维链（Chain Of Thought） ===")
     cot_agent.print_response(task, stream=True, show_full_reasoning=True)
 
-    print("\n=== DeepSeek Reasoning Model ===")
+    print("\n=== DeepSeek 推理模型 ===")
     deepseek_agent.print_response(task, stream=True, show_full_reasoning=True)

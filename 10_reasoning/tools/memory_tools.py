@@ -1,8 +1,8 @@
 """
-Memory Tools
+记忆工具（Memory Tools）
 ============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -13,7 +13,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     db = SqliteDb(db_file="tmp/memory.db")
@@ -28,32 +28,32 @@ def run_example() -> None:
         model=OpenAIChat(id="gpt-5-mini"),
         tools=[memory_tools, WebSearchTools()],
         instructions=[
-            "You are a personalized trip planner that remembers everything about the user.",
-            "Always start by retrieving stored memories to personalize your response.",
-            "Store user preferences, interests, and trip details using MemoryTools.",
-            "Use WebSearchTools to find real destinations, costs, and activities.",
-            "Be proactive: propose specific plans tailored to the user's known interests instead of asking questions.",
+            "你是一个个性化的旅行规划师，能记住关于用户的一切。",
+            "始终先检索已存储的记忆，以个性化你的响应。",
+            "使用 MemoryTools 存储用户偏好、兴趣和旅行详情。",
+            "使用 WebSearchTools 查找真实的目的地、费用和活动。",
+            "主动出击：根据用户已知的兴趣提出具体计划，而不是反复提问。",
         ],
         markdown=True,
     )
 
     agent.print_response(
-        "My name is John Doe and I like to hike in the mountains on weekends. "
-        "I like to travel to new places and experience different cultures. "
-        "I am planning to travel to Africa in December. ",
+        "我叫 John Doe，我喜欢在周末去山区徒步旅行。"
+        "我喜欢去新地方旅行，体验不同的文化。"
+        "我计划在 12 月去非洲旅行。",
         stream=True,
         user_id=john_doe_id,
     )
 
     agent.print_response(
-        "Make me a travel itinerary for my trip, and propose where I should go, how much I should budget, etc.",
+        "请为我的旅行制定一份行程安排，并建议我应该去哪里、预算多少等。",
         stream=True,
         user_id=john_doe_id,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

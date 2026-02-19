@@ -1,8 +1,8 @@
 """
-Treaty Of Versailles Analysis
+《凡尔赛条约》分析
 ============================
 
-Demonstrates built-in and DeepSeek-backed reasoning for historical analysis.
+演示内置推理和 DeepSeek 推理模型在历史分析中的应用。
 """
 
 from agno.agent import Agent
@@ -10,13 +10,12 @@ from agno.models.deepseek import DeepSeek
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 task = (
-    "Analyze the key factors that led to the signing of the Treaty of Versailles in 1919. "
-    "Discuss the political, economic, and social impacts of the treaty on Germany and how it "
-    "contributed to the onset of World War II. Provide a nuanced assessment that includes "
-    "multiple historical perspectives."
+    "分析导致 1919 年《凡尔赛条约》签订的关键因素。"
+    "探讨该条约对德国的政治、经济和社会影响，以及它如何促成了第二次世界大战的爆发。"
+    "请提供包含多元历史视角的深入评估。"
 )
 
 cot_agent = Agent(
@@ -32,11 +31,11 @@ deepseek_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Built-in Chain Of Thought ===")
+    print("=== 内置思维链（Chain Of Thought） ===")
     cot_agent.print_response(task, stream=True, show_full_reasoning=True)
 
-    print("\n=== DeepSeek Reasoning Model ===")
+    print("\n=== DeepSeek 推理模型 ===")
     deepseek_agent.print_response(task, stream=True, show_full_reasoning=True)

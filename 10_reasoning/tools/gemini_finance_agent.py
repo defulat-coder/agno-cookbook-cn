@@ -1,8 +1,8 @@
 """
-Gemini Finance Agent
+Gemini 金融 Agent
 ====================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 # ! pip install -U agno
 
@@ -13,7 +13,7 @@ from agno.tools.yfinance import YFinanceTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     thinking_agent = Agent(
@@ -22,19 +22,19 @@ def run_example() -> None:
             ReasoningTools(add_instructions=True),
             YFinanceTools(),
         ],
-        instructions="Use tables where possible",
+        instructions="尽可能使用表格",
         markdown=True,
         stream_events=True,
     )
     thinking_agent.print_response(
-        "Write a report comparing NVDA to TSLA in detail",
+        "撰写一份详细对比 NVDA 与 TSLA 的报告",
         stream=True,
         show_reasoning=True,
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

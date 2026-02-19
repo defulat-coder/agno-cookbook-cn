@@ -1,51 +1,51 @@
-Goal: Thoroughly test and validate `cookbook/10_reasoning` so it aligns with our cookbook standards.
+目标：对 `cookbook/10_reasoning` 进行全面测试与验证，使其符合 cookbook 规范标准。
 
-Context files (read these first):
-- `AGENTS.md` — Project conventions, virtual environments, testing workflow
-- `cookbook/STYLE_GUIDE.md` — Python file structure rules
+上下文文件（请先阅读）：
+- `AGENTS.md` — 项目规范、虚拟环境、测试工作流
+- `cookbook/STYLE_GUIDE.md` — Python 文件结构规则
 
-Environment:
-- Python: `.venvs/demo/bin/python`
-- API keys: loaded via `direnv allow`
+环境：
+- Python：`.venvs/demo/bin/python`
+- API 密钥：通过 `direnv allow` 加载
 
-Execution requirements:
-1. **Read every `.py` file** in the target cookbook directory before making any changes.
-   Do not rely solely on grep or the structure checker — open and read each file to understand its full contents. This ensures you catch issues the automated checker might miss (e.g., imports inside sections, stale model references in comments, inconsistent patterns).
+执行要求：
+1. **读取每一个 `.py` 文件**，在做任何修改之前，先读取目标 cookbook 目录中的所有文件。
+   不要仅依赖 grep 或结构检查器——需逐一打开并阅读每个文件，了解其完整内容。这样可以发现自动检查器可能遗漏的问题（例如：section 内部的 import、注释中过时的模型引用、不一致的代码模式）。
 
-2. Spawn a parallel agent for each top-level subdirectory under `cookbook/10_reasoning/` (`agents/`, `models/`, `teams/`, `tools/`). Each agent handles one subdirectory independently, including any nested subdirectories within it.
+2. 为 `cookbook/10_reasoning/` 下的每个顶级子目录（`agents/`、`models/`、`teams/`、`tools/`）启动一个并行 Agent。每个 Agent 独立处理一个子目录，包括其中的所有嵌套子目录。
 
-3. Each agent must:
-   a. Run `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/10_reasoning/<SUBDIR> --recursive` and fix any violations.
-   b. Run all `*.py` files in that subdirectory (and nested subdirectories) using `.venvs/demo/bin/python` and capture outcomes. Skip `__init__.py`.
-   c. Ensure Python examples align with `cookbook/STYLE_GUIDE.md`:
-      - Module docstring with `=====` underline
-      - Section banners: `# ---------------------------------------------------------------------------`
-      - Imports between docstring and first banner
-      - `if __name__ == "__main__":` gate
-      - No emoji characters
-   d. Also check non-Python files (`README.md`, etc.) in the directory for stale `OpenAIChat` references and update them.
-   e. Make only minimal, behavior-preserving edits where needed for style compliance.
-   f. Update `cookbook/10_reasoning/<SUBDIR>/TEST_LOG.md` with fresh PASS/FAIL entries per file. For nested subdirectories, create a TEST_LOG.md in each.
+3. 每个 Agent 必须：
+   a. 运行 `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/10_reasoning/<SUBDIR> --recursive` 并修复所有违规项。
+   b. 使用 `.venvs/demo/bin/python` 运行该子目录（及嵌套子目录）中的所有 `*.py` 文件，并记录运行结果。跳过 `__init__.py`。
+   c. 确保 Python 示例符合 `cookbook/STYLE_GUIDE.md`：
+      - 模块文档字符串，使用 `=====` 下划线
+      - Section 分隔符：`# ---------------------------------------------------------------------------`
+      - import 语句位于文档字符串和第一个分隔符之间
+      - 使用 `if __name__ == "__main__":` 守卫
+      - 不含 emoji 字符
+   d. 同时检查该目录中的非 Python 文件（`README.md` 等），更新其中过时的 `OpenAIChat` 引用。
+   e. 仅做最小限度、保持行为不变的编辑以符合风格规范。
+   f. 将新的 PASS/FAIL 条目更新到 `cookbook/10_reasoning/<SUBDIR>/TEST_LOG.md`。对于嵌套子目录，在每个目录中创建对应的 TEST_LOG.md。
 
-4. After all agents complete, collect and merge results.
+4. 所有 Agent 完成后，汇总并合并结果。
 
-Special cases:
-- Reasoning examples may produce longer outputs with chain-of-thought — use a generous timeout (120s).
-- `models/` subdirectories may require specific model provider API keys — skip if unavailable.
-- `tools/` examples combine reasoning with tool use — may require additional API keys (e.g., web search).
+特殊情况：
+- 推理示例可能产生较长的思维链输出——请使用较宽裕的超时时间（120 秒）。
+- `models/` 子目录中的示例可能需要特定模型提供商的 API 密钥——若不可用则跳过。
+- `tools/` 示例将推理与工具使用结合——可能需要额外的 API 密钥（例如网络搜索）。
 
-Validation commands (must all pass before finishing):
-- `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/10_reasoning/<SUBDIR> --recursive` (for each subdirectory)
-- `source .venv/bin/activate && ./scripts/format.sh` — format all code (ruff format)
-- `source .venv/bin/activate && ./scripts/validate.sh` — validate all code (ruff check, mypy)
+验证命令（完成前必须全部通过）：
+- `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/10_reasoning/<SUBDIR> --recursive`（每个子目录分别运行）
+- `source .venv/bin/activate && ./scripts/format.sh` — 格式化所有代码（ruff format）
+- `source .venv/bin/activate && ./scripts/validate.sh` — 验证所有代码（ruff check、mypy）
 
-Final response format:
-1. Findings (inconsistencies, failures, risks) with file references.
-2. Test/validation commands run with results.
-3. Any remaining gaps or manual follow-ups.
-4. Results table in this format:
+最终响应格式：
+1. 发现的问题（不一致、失败、风险）及文件引用。
+2. 已运行的测试/验证命令及结果。
+3. 任何遗留问题或需要人工跟进的事项。
+4. 结果表格，格式如下：
 
-| Subdirectory | File | Status | Notes |
+| 子目录 | 文件 | 状态 | 备注 |
 |-------------|------|--------|-------|
-| `agents/chain_of_thought` | `cot_agent.py` | PASS | Reasoning chain produced correct result |
-| `models/deepseek` | `deepseek_reasoning.py` | SKIP | DeepSeek API key not available |
+| `agents/chain_of_thought` | `cot_agent.py` | PASS | 推理链产生了正确结果 |
+| `models/deepseek` | `deepseek_reasoning.py` | SKIP | DeepSeek API 密钥不可用 |

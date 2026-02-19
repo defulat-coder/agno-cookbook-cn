@@ -1,7 +1,7 @@
-# Xai
+# xAI
 
-xAI reasoning examples.
+xAI 推理示例。
 
-## Examples
+## 示例
 
 - `reasoning_effort.py`

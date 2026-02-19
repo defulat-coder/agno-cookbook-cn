@@ -1,8 +1,8 @@
 """
-Ethical Dilemma
+伦理困境（DeepSeek）
 ===============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -11,18 +11,17 @@ from agno.models.openai import OpenAIChat
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     # ---------------------------------------------------------------------------
-    # Create Agent
+    # 创建 Agent
     # ---------------------------------------------------------------------------
     task = (
-        "You are a train conductor faced with an emergency: the brakes have failed, and the train is heading towards "
-        "five people tied on the track. You can divert the train onto another track, but there is one person tied there. "
-        "Do you divert the train, sacrificing one to save five? Provide a well-reasoned answer considering utilitarian "
-        "and deontological ethical frameworks. "
-        "Provide your answer also as an ascii art diagram."
+        "你是一名火车司机，面临紧急情况：刹车失灵，火车正驶向被绑在轨道上的五个人。"
+        "你可以将火车转向另一条轨道，但那条轨道上绑着一个人。"
+        "你是否应该转向，牺牲一人以救五人？"
+        "请从功利主义和义务论伦理框架出发，给出有理有据的回答，并附上 ASCII 艺术图示。"
     )
 
     reasoning_agent = Agent(
@@ -32,14 +31,14 @@ def run_example() -> None:
     )
 
     # ---------------------------------------------------------------------------
-    # Run Agent
+    # 运行 Agent
     # ---------------------------------------------------------------------------
     if __name__ == "__main__":
         reasoning_agent.print_response(task, stream=True)
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

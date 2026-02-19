@@ -1,8 +1,8 @@
-# Teams
+# Teams（团队）
 
-Reasoning-oriented team orchestration examples.
+面向推理的团队（Team）编排示例。
 
-## Examples
+## 示例
 
 - `finance_team_chain_of_thought.py`
 - `knowledge_tool_team.py`

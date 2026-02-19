@@ -1,8 +1,8 @@
 """
-Basic Reasoning
+基础推理（Gemini）
 ===============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -11,50 +11,50 @@ from rich.console import Console
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     console = Console()
 
-    # Classic reasoning test
-    task = "9.11 and 9.9 -- which is bigger? Explain your reasoning."
+    # 经典推理测试
+    task = "9.11 和 9.9 哪个更大？请解释你的推理过程。"
 
-    # Create a regular agent (no reasoning)
+    # 创建普通 Agent（无推理）
     regular_agent = Agent(
         model=Gemini(id="gemini-2.5-flash"),
         markdown=True,
     )
 
-    # Create an agent with thinking budget
+    # 创建带思考预算的 Agent
     reasoning_agent = Agent(
         model=Gemini(id="gemini-2.5-flash"),
         reasoning_model=Gemini(id="gemini-2.5-flash", thinking_budget=1024),
         markdown=True,
     )
 
-    console.rule("[bold blue]Regular Gemini Agent (No Reasoning)[/bold blue]")
-    console.print("This agent will answer directly without extended thinking.\n")
+    console.rule("[bold blue]普通 Gemini Agent（无推理）[/bold blue]")
+    console.print("此 Agent 将直接回答，不使用扩展思考。\n")
     regular_agent.print_response(task, stream=True)
 
-    console.rule("[bold green]Gemini with Thinking Budget[/bold green]")
-    console.print("This agent uses thinking budget to analyze the problem.\n")
+    console.rule("[bold green]Gemini（带思考预算）[/bold green]")
+    console.print("此 Agent 使用思考预算来分析问题。\n")
     reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 
-    console.rule("[bold cyan]Accessing Reasoning Content[/bold cyan]")
+    console.rule("[bold cyan]访问推理内容[/bold cyan]")
     response = reasoning_agent.run(task, stream=False)
     if response.reasoning_content:
         console.print(
-            f"[dim]Reasoning tokens used: ~{len(response.reasoning_content.split())}[/dim]"
+            f"[dim]使用的推理 Token 数：约 {len(response.reasoning_content.split())} 个[/dim]"
         )
         console.print(
-            f"\n[bold]Reasoning process:[/bold]\n{response.reasoning_content[:400]}..."
+            f"\n[bold]推理过程：[/bold]\n{response.reasoning_content[:400]}..."
         )
     else:
-        console.print("[yellow]No reasoning content available[/yellow]")
+        console.print("[yellow]无可用的推理内容[/yellow]")
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

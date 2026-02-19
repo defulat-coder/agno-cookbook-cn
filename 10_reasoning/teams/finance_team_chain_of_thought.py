@@ -1,8 +1,8 @@
 """
-Finance Team Chain Of Thought
+金融团队思维链（Chain Of Thought）
 =============================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 import asyncio
@@ -15,7 +15,7 @@ from agno.tools.websearch import WebSearchTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     web_agent = Agent(
@@ -23,7 +23,7 @@ def run_example() -> None:
         role="Handle web search requests",
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[WebSearchTools()],
-        instructions="Always include sources",
+        instructions="始终注明信息来源",
         add_datetime_to_context=True,
     )
 
@@ -33,11 +33,11 @@ def run_example() -> None:
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[WebSearchTools(enable_news=False)],
         instructions=[
-            "You are a financial data specialist. Provide concise and accurate data.",
-            "Use tables to display stock prices, fundamentals (P/E, Market Cap), and recommendations.",
-            "Clearly state the company name and ticker symbol.",
-            "Briefly summarize recent company-specific news if available.",
-            "Focus on delivering the requested financial data points clearly.",
+            "你是一位金融数据专家，请提供简洁准确的数据。",
+            "使用表格展示股价、基本面数据（市盈率、市值）和分析师建议。",
+            "清晰注明公司名称和股票代码。",
+            "如有最新公司相关新闻，请简要摘要。",
+            "专注于清晰呈现所请求的金融数据点。",
         ],
         add_datetime_to_context=True,
     )
@@ -49,8 +49,8 @@ def run_example() -> None:
             finance_agent,
         ],
         instructions=[
-            "Only output the final answer, no other text.",
-            "Use tables to display data",
+            "只输出最终答案，不要其他文字。",
+            "使用表格展示数据",
         ],
         markdown=True,
         reasoning=True,
@@ -68,24 +68,24 @@ def run_example() -> None:
         asyncio.run(
             run_team(
                 dedent("""\
-        Analyze the impact of recent US tariffs on market performance across these key sectors:
-        - Steel & Aluminum: (X, NUE, AA)
-        - Technology Hardware: (AAPL, DELL, HPQ)
-        - Agricultural Products: (ADM, BG, INGR)
-        - Automotive: (F, GM, TSLA)
+        分析近期美国关税对以下关键行业市场表现的影响：
+        - 钢铁与铝材：(X, NUE, AA)
+        - 科技硬件：(AAPL, DELL, HPQ)
+        - 农产品：(ADM, BG, INGR)
+        - 汽车：(F, GM, TSLA)
 
-        For each sector:
-        1. Compare stock performance before and after tariff implementation
-        2. Identify supply chain disruptions and cost impact percentages
-        3. Analyze companies' strategic responses (reshoring, price adjustments, supplier diversification)
-        4. Assess analyst outlook changes directly attributed to tariff policies
+        对于每个行业：
+        1. 比较关税实施前后的股价表现
+        2. 识别供应链中断情况和成本影响百分比
+        3. 分析企业的战略应对措施（回流、价格调整、供应商多元化）
+        4. 评估直接归因于关税政策的分析师展望变化
         """)
             )
         )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

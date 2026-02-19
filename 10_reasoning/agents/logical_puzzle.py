@@ -1,8 +1,8 @@
 """
-Missionaries And Cannibals Puzzle
+传教士与食人族谜题
 =================================
 
-Demonstrates built-in and DeepSeek-backed reasoning for logic puzzle solving.
+演示内置推理和 DeepSeek 推理模型在逻辑谜题求解中的应用。
 """
 
 from agno.agent import Agent
@@ -10,13 +10,13 @@ from agno.models.deepseek import DeepSeek
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Create Agents
+# 创建 Agent
 # ---------------------------------------------------------------------------
 task = (
-    "Three missionaries and three cannibals need to cross a river. "
-    "They have a boat that can carry up to two people at a time. "
-    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
-    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
+    "三名传教士和三名食人族需要过河。"
+    "他们有一艘每次最多能载两人的船。"
+    "如果在任何时刻，河的任意一侧食人族人数超过传教士，食人族就会吃掉传教士。"
+    "怎样才能让六人全部安全过河？请提供逐步解答，并以 ASCII 图示展示解答过程。"
 )
 
 cot_agent = Agent(
@@ -32,11 +32,11 @@ deepseek_agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agents
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("=== Built-in Chain Of Thought ===")
+    print("=== 内置思维链（Chain Of Thought） ===")
     cot_agent.print_response(task, stream=True, show_full_reasoning=True)
 
-    print("\n=== DeepSeek Reasoning Model ===")
+    print("\n=== DeepSeek 推理模型 ===")
     deepseek_agent.print_response(task, stream=True, show_full_reasoning=True)

@@ -1,8 +1,8 @@
 """
-Ibm Watsonx Reasoning Tools
+IBM WatsonX 推理工具
 ===========================
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from textwrap import dedent
@@ -13,58 +13,56 @@ from agno.tools.reasoning import ReasoningTools
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
-    """Problem-Solving Reasoning Agent
+    """问题解决推理 Agent
 
-    This example shows how to create an agent that uses the ReasoningTools to solve
-    complex problems through step-by-step reasoning. The agent breaks down questions,
-    analyzes intermediate results, and builds structured reasoning paths to arrive at
-    well-justified conclusions.
+    本示例展示如何创建一个使用 ReasoningTools 通过逐步推理解决复杂问题的 Agent。
+    该 Agent 分解问题、分析中间结果，并构建结构化推理路径，以得出有充分依据的结论。
 
-    Example prompts to try:
-    - "Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river."
-    - "Is it better to rent or buy a home given current interest rates?"
-    - "Evaluate the pros and cons of remote work versus office work."
-    - "How would increasing interest rates affect the housing market?"
-    - "What's the best strategy for saving for retirement in your 30s?"
+    可尝试的示例提示：
+    - "请解决这道逻辑谜题：一个人需要将一只狐狸、一只鸡和一袋谷物运过河。"
+    - "在当前利率下，租房还是买房更合适？"
+    - "评估远程工作与办公室工作的利弊。"
+    - "加息会如何影响房地产市场？"
+    - "30 多岁时为退休储蓄的最佳策略是什么？"
     """
 
     reasoning_agent = Agent(
         model=WatsonX(id="meta-llama/llama-3-3-70b-instruct"),
         tools=[ReasoningTools(add_instructions=True)],
         instructions=dedent("""\
-            You are an expert problem-solving assistant with strong analytical skills! 
+            你是一位拥有强大分析能力的专业问题解决助手！
 
-            Your approach to problems:
-            1. First, break down complex questions into component parts
-            2. Clearly state your assumptions
-            3. Develop a structured reasoning path
-            4. Consider multiple perspectives
-            5. Evaluate evidence and counter-arguments
-            6. Draw well-justified conclusions
+            解决问题的方式：
+            1. 首先，将复杂问题分解为各个组成部分
+            2. 清晰陈述你的假设
+            3. 制定结构化的推理路径
+            4. 考虑多种视角
+            5. 评估证据和反驳论点
+            6. 得出有充分依据的结论
 
-            When solving problems:
-            - Use explicit step-by-step reasoning
-            - Identify key variables and constraints
-            - Explore alternative scenarios
-            - Highlight areas of uncertainty
-            - Explain your thought process clearly
-            - Consider both short and long-term implications
-            - Evaluate trade-offs explicitly
+            解决问题时：
+            - 使用明确的逐步推理
+            - 识别关键变量和约束条件
+            - 探索替代方案
+            - 突出不确定性领域
+            - 清晰解释你的思考过程
+            - 同时考虑短期和长期影响
+            - 明确评估权衡取舍
 
-            For quantitative problems:
-            - Show your calculations
-            - Explain the significance of numbers
-            - Consider confidence intervals when appropriate
-            - Identify source data reliability
+            对于定量问题：
+            - 展示你的计算过程
+            - 解释数字的重要性
+            - 在适当情况下考虑置信区间
+            - 识别数据来源的可靠性
 
-            For qualitative reasoning:
-            - Assess how different factors interact
-            - Consider psychological and social dynamics
-            - Evaluate practical constraints
-            - Address value considerations
+            对于定性推理：
+            - 评估不同因素的相互作用
+            - 考虑心理和社会动态
+            - 评估实际约束条件
+            - 考虑价值因素
             \
         """),
         add_datetime_to_context=True,
@@ -72,32 +70,32 @@ def run_example() -> None:
         markdown=True,
     )
 
-    # Example usage with a complex reasoning problem
+    # 使用复杂推理问题的示例
     reasoning_agent.print_response(
-        "Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river. "
-        "The boat is only big enough for the man and one item. If left unattended together, the fox will "
-        "eat the chicken, and the chicken will eat the grain. How can the man get everything across safely?",
+        "请解决这道逻辑谜题：一个人需要将一只狐狸、一只鸡和一袋谷物运过河。"
+        "船只能容纳这个人和一样东西。如果无人看管，狐狸会吃鸡，鸡会吃谷物。"
+        "这个人怎样才能将所有东西安全运过河？",
         stream=True,
     )
 
-    # # Economic analysis example
+    # # 经济分析示例
     # reasoning_agent.print_response(
-    #     "Is it better to rent or buy a home given current interest rates, inflation, and market trends? "
-    #     "Consider both financial and lifestyle factors in your analysis.",
+    #     "在当前利率、通货膨胀和市场趋势下，租房还是买房更合适？"
+    #     "请在分析中同时考虑财务和生活方式因素。",
     #     stream=True
     # )
 
-    # # Strategic decision-making example
+    # # 战略决策示例
     # reasoning_agent.print_response(
-    #     "A startup has $500,000 in funding and needs to decide between spending it on marketing or "
-    #     "product development. They want to maximize growth and user acquisition within 12 months. "
-    #     "What factors should they consider and how should they analyze this decision?",
+    #     "一家初创公司有 50 万美元资金，需要决定将其用于市场营销还是产品开发。"
+    #     "他们希望在 12 个月内最大化增长和用户获取。"
+    #     "他们应该考虑哪些因素，如何分析这个决策？",
     #     stream=True
     # )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

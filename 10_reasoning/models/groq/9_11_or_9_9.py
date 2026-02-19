@@ -1,8 +1,8 @@
 """
-9 11 Or 9 9
+9.11 还是 9.9（Groq）
 ===========
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.models.groq import Groq
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
     agent = Agent(
@@ -24,12 +24,12 @@ def run_example() -> None:
         markdown=True,
     )
     agent.print_response(
-        "9.11 and 9.9 -- which is bigger?", stream=True, show_full_reasoning=True
+        "9.11 和 9.9 哪个更大？", stream=True, show_full_reasoning=True
     )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

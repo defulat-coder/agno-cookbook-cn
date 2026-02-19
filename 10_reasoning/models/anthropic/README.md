@@ -1,8 +1,8 @@
 # Anthropic
 
-Anthropic Claude reasoning examples and streaming demos.
+Anthropic Claude 推理示例与流式输出演示。
 
-## Examples
+## 示例
 
 - `async_reasoning_stream.py`
 - `basic_reasoning.py`

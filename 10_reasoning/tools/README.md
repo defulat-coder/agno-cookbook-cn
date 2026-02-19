@@ -1,8 +1,8 @@
-# Tools
+# Tools（推理工具）
 
-Reasoning tools integrations across multiple providers.
+跨多个提供商的推理工具（Reasoning Tools）集成示例。
 
-## Examples
+## 示例
 
 - `azure_openai_reasoning_tools.py`
 - `capture_reasoning_content_knowledge_tools.py`

@@ -1,8 +1,8 @@
 """
-Knowledge Tools
+知识库工具（Knowledge Tools）
 ===============
 
-Demonstrates this reasoning cookbook example.
+演示推理 Cookbook 示例。
 """
 
 from agno.agent import Agent
@@ -14,12 +14,12 @@ from agno.vectordb.lancedb import LanceDb, SearchType
 
 
 # ---------------------------------------------------------------------------
-# Create Example
+# 创建示例
 # ---------------------------------------------------------------------------
 def run_example() -> None:
-    # Create a knowledge containing information from a URL
+    # 创建包含 URL 信息的知识库
     agno_docs = Knowledge(
-        # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+        # 使用 LanceDB 作为向量数据库，将嵌入向量存储在 `agno_docs` 表中
         vector_db=LanceDb(
             uri="tmp/lancedb",
             table_name="agno_docs",
@@ -27,7 +27,7 @@ def run_example() -> None:
             embedder=OpenAIEmbedder(id="text-embedding-3-small"),
         ),
     )
-    # Add content to the knowledge
+    # 向知识库添加内容
     agno_docs.insert(url="https://docs.agno.com/llms-full.txt")
 
     knowledge_tools = KnowledgeTools(
@@ -46,14 +46,14 @@ def run_example() -> None:
 
     if __name__ == "__main__":
         agent.print_response(
-            "How do I build a team of agents in agno?",
+            "如何在 agno 中构建一个 Agent 团队？",
             markdown=True,
             stream=True,
         )
 
 
 # ---------------------------------------------------------------------------
-# Run Example
+# 运行示例
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     run_example()

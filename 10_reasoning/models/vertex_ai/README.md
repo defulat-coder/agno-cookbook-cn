@@ -1,7 +1,7 @@
-# Vertex Ai
+# Vertex AI
 
-Vertex AI reasoning stream examples with Gemini.
+基于 Gemini 的 Vertex AI 推理流式输出示例。
 
-## Examples
+## 示例
 
 - `basic_reasoning_stream.py`

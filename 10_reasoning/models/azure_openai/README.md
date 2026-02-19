@@ -1,8 +1,8 @@
-# Azure Openai
+# Azure OpenAI
 
-Azure OpenAI reasoning examples and tooling demos.
+Azure OpenAI 推理示例及工具使用演示。
 
-## Examples
+## 示例
 
 - `basic_reasoning_stream.py`
 - `o3_mini_with_tools.py`
