@@ -25,7 +25,7 @@ class TopicGuardrail(BaseGuardrail):
         blocked_terms = ["build malware", "phishing template", "exploit"]
         if any(term in content for term in blocked_terms):
             raise InputCheckError(
-                "Input contains blocked security-abuse content.",
+                "输入包含被禁止的安全滥用内容。",
                 check_trigger=CheckTrigger.INPUT_NOT_ALLOWED,
             )
 
@@ -37,13 +37,14 @@ class TopicGuardrail(BaseGuardrail):
 # 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
-    name="Guarded Agent",
+    name="带护栏的 Agent",
     model=OpenAILike(
         id=os.getenv("MODEL_ID", "GLM-4.7"),
         base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
         api_key=os.getenv("MODEL_API_KEY"),
     ),
     pre_hooks=[TopicGuardrail()],
+    debug_mode=True
 )
 
 # ---------------------------------------------------------------------------
@@ -51,5 +52,5 @@ agent = Agent(
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(
-        "Explain secure password management best practices.", stream=True
+        "请解释安全密码管理的最佳实践。", stream=True
     )

@@ -28,15 +28,15 @@ async def main():
 
     # 创建一个带有 PII 检测防护的 agent
     agent = Agent(
-        name="Privacy-Protected Agent",
+        name="隐私保护 Agent",
         model=OpenAILike(
             id=os.getenv("MODEL_ID", "GLM-4.7"),
             base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
             api_key=os.getenv("MODEL_API_KEY"),
         ),
         pre_hooks=[PIIDetectionGuardrail()],
-        description="An agent that helps with customer service while protecting privacy.",
-        instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
+        description="在保护隐私的同时提供客服帮助的 Agent。",
+        instructions="你是一个有帮助的客服助手。请始终保护用户隐私并妥善处理敏感信息。",
     )
 
     # 测试 1：无 PII 的正常请求（应该通过）
@@ -44,7 +44,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="Can you help me understand your return policy?",
+            input="你能帮我了解一下你们的退换货政策吗？",
         )
         print("[成功] 正常请求处理成功")
     except InputCheckError as e:
@@ -55,7 +55,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="Hi, my Social Security Number is 123-45-6789. Can you help me with my account?",
+            input="你好，我的社会保障号是 123-45-6789。能帮我处理账户问题吗？",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -67,7 +67,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="I'd like to update my payment method. My new card number is 4532 1234 5678 9012.",
+            input="我想更新支付方式。新卡号是 4532 1234 5678 9012。",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -79,7 +79,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="Please send the receipt to john.doe@example.com for my recent purchase.",
+            input="请将最近购买的收据发送到 john.doe@example.com。",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -91,7 +91,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="My phone number is 555-123-4567. Please call me about my order status.",
+            input="我的电话号码是 555-123-4567。请致电告知我的订单状态。",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -103,7 +103,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="Hi, I'm John Smith. My email is john@company.com and phone is 555.987.6543. I need help with my account.",
+            input="你好，我是 John Smith。邮箱是 john@company.com，电话 555.987.6543。需要帮忙处理账户。",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -115,7 +115,7 @@ async def main():
     print("-" * 30)
     try:
         agent.print_response(
-            input="Can you verify my credit card ending in 4532123456789012?",
+            input="能帮我核实一下尾号为 4532123456789012 的信用卡吗？",
         )
         print("[警告] 这应该被拦截！")
     except InputCheckError as e:
@@ -128,22 +128,22 @@ async def main():
 
     # 创建一个 PII 检测 agent，它会对输入中的 PII 进行掩码处理
     agent = Agent(
-        name="Privacy-Protected Agent (Masked)",
+        name="隐私保护 Agent（掩码模式）",
         model=OpenAILike(
             id=os.getenv("MODEL_ID", "GLM-4.7"),
             base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
             api_key=os.getenv("MODEL_API_KEY"),
         ),
         pre_hooks=[PIIDetectionGuardrail(mask_pii=True)],
-        description="An agent that helps with customer service while protecting privacy.",
-        instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
+        description="在保护隐私的同时提供客服帮助的 Agent。",
+        instructions="你是一个有帮助的客服助手。请始终保护用户隐私并妥善处理敏感信息。",
     )
 
     # 测试 8：包含社会安全号码的请求（应该被掩码）
     print("\n[测试 8] 包含社会安全号码的输入（掩码模式）")
     print("-" * 30)
     agent.print_response(
-        input="Hi, my Social Security Number is 123-45-6789. Can you help me with my account?",
+        input="你好，我的社会保障号是 123-45-6789。能帮我处理账户问题吗？",
     )
 
 
