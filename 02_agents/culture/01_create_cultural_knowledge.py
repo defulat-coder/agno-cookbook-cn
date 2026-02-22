@@ -5,10 +5,16 @@
 创建文化知识以供你的 Agents 使用。
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.culture.manager import CultureManager
 from agno.db.sqlite import SqliteDb
-from agno.models.openai import OpenAIResponses
+from agno.models.openai import OpenAILike
 from rich.pretty import pprint
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # 步骤 1. 初始化用于存储文化知识的数据库
@@ -22,7 +28,11 @@ db = SqliteDb(db_file="tmp/demo.db")
 # 你的 Agents 可以访问这些文化知识以保持一致的推理和行为。
 culture_manager = CultureManager(
     db=db,
-    model=OpenAIResponses(id="gpt-5.2"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
 )
 
 # ---------------------------------------------------------------------------

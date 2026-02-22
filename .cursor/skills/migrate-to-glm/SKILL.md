@@ -1,34 +1,41 @@
 ---
 name: migrate-to-glm
-description: 将 Agno 项目代码从 Gemini 模型迁移到 GLM 模型（OpenAILike）。用于用户需要切换模型、替换 Gemini 为 GLM、配置 OpenAI 兼容模型时。
+description: 将 Agno 项目代码从 Gemini 或 OpenAIResponses 迁移到 GLM 模型（OpenAILike）。用于用户需要切换模型、替换 Gemini/OpenAI 为 GLM、配置 OpenAI 兼容模型时。
 ---
 
 # 迁移到 GLM 模型
 
-将 Agno 项目中使用 Gemini 的代码迁移到 GLM 模型（通过 OpenAILike）。
+将 Agno 项目中使用 Gemini 或 OpenAI/OpenAIResponses 的代码迁移到 GLM 模型（通过 OpenAILike）。
 
 ## 适用场景
 
-- 代码使用 `Gemini(id="gemini-3-flash-preview")`
-- 需要切换到 GLM-4.7 或其他 OpenAI 兼容模型
-- 需要统一项目的模型配置
+- 代码使用 `Gemini(id="gemini-3-flash-preview")`，需要切换到 GLM
+- 代码使用 `OpenAIResponses(id="gpt-5.2")` 等 OpenAI 系模型，需要切换到 GLM
+- 需要统一项目的模型配置为 GLM-4.7 或其他 OpenAI 兼容模型
 
 ## 迁移步骤
 
 ### 1. 检查当前代码
 
-使用 Grep 查找所有使用 Gemini 的文件：
+使用 Grep 查找需要迁移的文件：
 
 ```bash
+# 来自 Gemini 的文件
 grep -r "from agno.models.google import Gemini" .
 grep -r "Gemini(id=" .
+
+# 来自 OpenAIResponses 的文件（同一 openai 模块，换为 OpenAILike）
+grep -r "OpenAIResponses(id=" .
+grep -r "from agno.models.openai import OpenAIResponses" .
 ```
 
 ### 2. 更新单个文件
 
-对每个需要迁移的 Python 文件执行以下操作：
+对每个需要迁移的 Python 文件执行以下操作。
 
-#### A. 替换 import 语句
+#### 场景 A：从 Gemini 迁移
+
+**A1. 替换 import 语句**
 
 ```python
 # 旧代码
@@ -42,7 +49,7 @@ from agno.models.openai import OpenAILike
 load_dotenv()
 ```
 
-#### B. 替换模型配置
+**A2. 替换模型配置**
 
 ```python
 # 旧代码
@@ -55,6 +62,40 @@ model=OpenAILike(
     api_key=os.getenv("MODEL_API_KEY"),
 )
 ```
+
+#### 场景 B：从 OpenAIResponses 迁移
+
+同一文件已使用 `agno.models.openai`，只需换类名并改为 GLM 配置（如 CultureManager、Agent 等）。
+
+**B1. 替换 import 语句**
+
+```python
+# 旧代码
+from agno.models.openai import OpenAIResponses
+
+# 新代码
+import os
+from dotenv import load_dotenv
+from agno.models.openai import OpenAILike
+
+load_dotenv()
+```
+
+**B2. 替换模型配置**
+
+```python
+# 旧代码
+model=OpenAIResponses(id="gpt-5.2")
+
+# 新代码
+model=OpenAILike(
+    id=os.getenv("MODEL_ID", "GLM-4.7"),
+    base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+    api_key=os.getenv("MODEL_API_KEY"),
+)
+```
+
+**实战示例（02_agents/culture/01_create_cultural_knowledge.py）：** CultureManager 的 `model` 从 `OpenAIResponses(id="gpt-5.2")` 改为上述 OpenAILike 配置即可，其他逻辑不变。
 
 ### 3. 配置环境变量
 
@@ -522,9 +563,10 @@ uv add yfinance       # 金融工具（如果使用）
 
 ### 检查清单
 
-- [ ] 所有 `Gemini` import 已替换为 `OpenAILike`
-- [ ] 添加了 `dotenv` 加载
-- [ ] 模型配置使用环境变量
+- [ ] 所有 `Gemini` 或 `OpenAIResponses` 的 model 配置已替换为 `OpenAILike`
+- [ ] 对应 import 已改为 `from agno.models.openai import OpenAILike`（并移除/替换 Gemini 或 OpenAIResponses）
+- [ ] 添加了 `dotenv` 加载（`load_dotenv()`）
+- [ ] 模型配置使用环境变量（`MODEL_ID`、`MODEL_BASE_URL`、`MODEL_API_KEY`）
 - [ ] `.env` 文件已创建并配置
 - [ ] `.env` 在 `.gitignore` 中
 - [ ] 依赖已安装（python-dotenv, openai）
@@ -544,6 +586,18 @@ uv run path/to/file.py
 ```
 
 ## 常见问题
+
+### Q: 文件中用的是 OpenAIResponses 而不是 Gemini，怎么迁移？
+
+**场景：** 如 `02_agents/culture/01_create_cultural_knowledge.py` 使用 `OpenAIResponses(id="gpt-5.2")`，未使用 Gemini。
+
+**做法：** 同样迁到 GLM，按「场景 B：从 OpenAIResponses 迁移」处理即可：
+
+1. **Import**：`from agno.models.openai import OpenAIResponses` → `from agno.models.openai import OpenAILike`（同一模块，只改类名），并加上 `import os`、`load_dotenv`、`load_dotenv()`。
+2. **模型配置**：`model=OpenAIResponses(id="...")` → `model=OpenAILike(id=os.getenv("MODEL_ID", "GLM-4.7"), base_url=..., api_key=...)`。
+3. **.env**：配置 `MODEL_ID`、`MODEL_BASE_URL`、`MODEL_API_KEY`。
+
+无需改 Gemini 相关 import，只做上述替换即可。
 
 ### Q: 余额不足错误
 
