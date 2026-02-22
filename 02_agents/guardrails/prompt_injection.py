@@ -5,10 +5,16 @@
 演示如何使用 Agno Agent 的检查功能实现护栏机制。
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.exceptions import InputCheckError
 from agno.guardrails import PromptInjectionGuardrail
-from agno.models.openai import OpenAIChat
+from agno.models.openai import OpenAILike
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -22,7 +28,11 @@ def main():
     # 创建一个带有提示词注入防护的 agent
     agent = Agent(
         name="Guardrails Demo Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAILike(
+            id=os.getenv("MODEL_ID", "GLM-4.7"),
+            base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+            api_key=os.getenv("MODEL_API_KEY"),
+        ),
         pre_hooks=[PromptInjectionGuardrail()],
         description="An agent that tells jokes and provides helpful information.",
         instructions="You are a friendly assistant that tells jokes and provides helpful information. Always maintain a positive and helpful tone.",

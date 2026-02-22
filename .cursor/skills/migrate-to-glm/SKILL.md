@@ -1,16 +1,17 @@
 ---
 name: migrate-to-glm
-description: 将 Agno 项目代码从 Gemini 或 OpenAIResponses 迁移到 GLM 模型（OpenAILike）。用于用户需要切换模型、替换 Gemini/OpenAI 为 GLM、配置 OpenAI 兼容模型时。
+description: 将 Agno 项目代码从 Gemini、OpenAIResponses 或 OpenAIChat 迁移到 GLM 模型（OpenAILike）。用于用户需要切换模型、替换 Gemini/OpenAI 为 GLM、配置 OpenAI 兼容模型时。
 ---
 
 # 迁移到 GLM 模型
 
-将 Agno 项目中使用 Gemini 或 OpenAI/OpenAIResponses 的代码迁移到 GLM 模型（通过 OpenAILike）。
+将 Agno 项目中使用 Gemini、OpenAIResponses 或 OpenAIChat 的代码迁移到 GLM 模型（通过 OpenAILike）。
 
 ## 适用场景
 
 - 代码使用 `Gemini(id="gemini-3-flash-preview")`，需要切换到 GLM
 - 代码使用 `OpenAIResponses(id="gpt-5.2")` 等 OpenAI 系模型，需要切换到 GLM
+- 代码使用 `OpenAIChat(id="gpt-4o-mini")` 等 OpenAI Chat 模型，需要切换到 GLM
 - 需要统一项目的模型配置为 GLM-4.7 或其他 OpenAI 兼容模型
 
 ## 迁移步骤
@@ -27,6 +28,10 @@ grep -r "Gemini(id=" .
 # 来自 OpenAIResponses 的文件（同一 openai 模块，换为 OpenAILike）
 grep -r "OpenAIResponses(id=" .
 grep -r "from agno.models.openai import OpenAIResponses" .
+
+# 来自 OpenAIChat 的文件（同一 openai 模块，换为 OpenAILike）
+grep -r "OpenAIChat(id=" .
+grep -r "from agno.models.openai import OpenAIChat" .
 ```
 
 ### 2. 更新单个文件
@@ -96,6 +101,40 @@ model=OpenAILike(
 ```
 
 **实战示例（02_agents/culture/01_create_cultural_knowledge.py）：** CultureManager 的 `model` 从 `OpenAIResponses(id="gpt-5.2")` 改为上述 OpenAILike 配置即可，其他逻辑不变。
+
+#### 场景 C：从 OpenAIChat 迁移
+
+同一文件已使用 `agno.models.openai`，与场景 B 操作相同：换类名为 OpenAILike，并改为 GLM 环境变量配置。常见于护栏、审核等示例（如 `gpt-4o-mini`）。
+
+**C1. 替换 import 语句**
+
+```python
+# 旧代码
+from agno.models.openai import OpenAIChat
+
+# 新代码
+import os
+from dotenv import load_dotenv
+from agno.models.openai import OpenAILike
+
+load_dotenv()
+```
+
+**C2. 替换模型配置**
+
+```python
+# 旧代码
+model=OpenAIChat(id="gpt-4o-mini")
+
+# 新代码
+model=OpenAILike(
+    id=os.getenv("MODEL_ID", "GLM-4.7"),
+    base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+    api_key=os.getenv("MODEL_API_KEY"),
+)
+```
+
+**注意：** 同一文件中若有多个 `Agent(...)` 或其它使用模型的地方，每一处 `model=OpenAIChat(...)` 都要替换为上述 OpenAILike 配置。
 
 ### 3. 配置环境变量
 
@@ -473,23 +512,29 @@ git commit -m "feat: 批量迁移 00_quickstart 所有文件到 GLM
 
 **迁移前：**
 ```bash
-# 1. 查找文件列表
+# 1. 查找文件列表（按实际使用的模型类选择）
 Grep pattern="from agno.models.google import Gemini" path="target_dir"
+Grep pattern="from agno.models.openai import OpenAIResponses" path="target_dir"
+Grep pattern="from agno.models.openai import OpenAIChat" path="target_dir"
 
 # 2. 统计需要替换的模型实例数量
 Grep pattern="model=Gemini" path="target_dir"
+Grep pattern="OpenAIResponses\(id=" path="target_dir"
+Grep pattern="OpenAIChat\(id=" path="target_dir"
 ```
 
 **迁移中：**
 - 按文件顺序逐个处理
 - 每个文件先替换 import，再替换模型配置
-- 使用 Grep 确认该文件所有 `model=Gemini` 已替换
+- 使用 Grep 确认该文件所有模型配置已替换（`model=Gemini`、`OpenAIResponses(id=`、`OpenAIChat(id=` 等）
 
 **迁移后：**
 ```bash
-# 验证没有遗漏
+# 验证没有遗漏（按迁移前使用的模型类检查）
 Grep pattern="Gemini\(id=" path="target_dir"
-# 应该返回：无结果
+Grep pattern="OpenAIResponses\(id=" path="target_dir"
+Grep pattern="OpenAIChat\(id=" path="target_dir"
+# 以上均应返回：无结果
 
 # 测试运行（可选）
 export MODEL_ID=GLM-4.7 \
@@ -521,6 +566,33 @@ uv run target_dir/01_sample.py
    - 03_agent_with_typed_input_output.py（同上）
    - 06_agent_with_state_management.py（有自定义工具）
    - 07_agent_search_over_knowledge.py（有知识库配置）
+
+#### 02_agents/guardrails 目录迁移总结
+
+**文件数量：** 5 个 Python 文件  
+**涉及模型类：** 混合使用 `OpenAIResponses(id="gpt-5.2")` 与 `OpenAIChat(id="gpt-4o-mini")`  
+**涉及模型实例：** 共 8 处（单文件内可能 1～2 个 Agent）
+
+**关键发现：**
+
+1. **同一目录可能混用多种 OpenAI 模型类**
+   - 需同时 Grep `OpenAIResponses` 与 `OpenAIChat`，避免遗漏
+   - 替换步骤相同：import 改为 OpenAILike + load_dotenv，模型配置改为环境变量
+
+2. **单文件多实例**
+   - 如 `pii_detection.py`、`openai_moderation.py` 中有 2 个 `Agent(model=...)`，需全部替换
+   - 迁移前用 Grep 统计该文件中 `OpenAIChat(id=` 或 `OpenAIResponses(id=` 出现次数，迁移后再次 Grep 确认为 0
+
+3. **护栏/审核示例无额外依赖**
+   - 仅需 `python-dotenv`，无需改 Embedder 或向量库
+   - 迁移后无新增 linter 报错即可
+
+**Grep 示例（针对目录）：**
+```bash
+# 一次性找出目录内所有需迁移的模型
+Grep pattern="OpenAIResponses\(id=" path="02_agents/guardrails"
+Grep pattern="OpenAIChat\(id=" path="02_agents/guardrails"
+```
 
 ## 注意事项
 

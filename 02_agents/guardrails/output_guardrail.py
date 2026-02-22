@@ -5,10 +5,16 @@
 输出护栏示例。
 """
 
+import os
+
+from dotenv import load_dotenv
+
 from agno.agent import Agent
 from agno.exceptions import CheckTrigger, OutputCheckError
-from agno.models.openai import OpenAIResponses
+from agno.models.openai import OpenAILike
 from agno.run.agent import RunOutput
+
+load_dotenv()
 
 
 def enforce_non_empty_output(run_output: RunOutput) -> None:
@@ -26,7 +32,11 @@ def enforce_non_empty_output(run_output: RunOutput) -> None:
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="Output-Checked Agent",
-    model=OpenAIResponses(id="gpt-5.2"),
+    model=OpenAILike(
+        id=os.getenv("MODEL_ID", "GLM-4.7"),
+        base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+        api_key=os.getenv("MODEL_API_KEY"),
+    ),
     post_hooks=[enforce_non_empty_output],
 )
 

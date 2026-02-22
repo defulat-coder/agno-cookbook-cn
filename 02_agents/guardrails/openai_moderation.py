@@ -7,12 +7,17 @@ OpenAI 内容审核
 
 import asyncio
 import json
+import os
+
+from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.exceptions import InputCheckError
 from agno.guardrails import OpenAIModerationGuardrail
 from agno.media import Image
-from agno.models.openai import OpenAIChat
+from agno.models.openai import OpenAILike
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -29,7 +34,11 @@ async def main():
 
     basic_agent = Agent(
         name="Basic Moderated Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAILike(
+            id=os.getenv("MODEL_ID", "GLM-4.7"),
+            base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+            api_key=os.getenv("MODEL_API_KEY"),
+        ),
         pre_hooks=[OpenAIModerationGuardrail()],
         description="An agent with basic OpenAI content moderation.",
         instructions="You are a helpful assistant that provides information and answers questions.",
@@ -77,7 +86,11 @@ async def main():
 
     custom_agent = Agent(
         name="Custom Moderated Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAILike(
+            id=os.getenv("MODEL_ID", "GLM-4.7"),
+            base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+            api_key=os.getenv("MODEL_API_KEY"),
+        ),
         pre_hooks=[
             OpenAIModerationGuardrail(
                 raise_for_categories=[

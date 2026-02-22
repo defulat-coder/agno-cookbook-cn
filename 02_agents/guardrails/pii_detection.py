@@ -6,11 +6,16 @@
 """
 
 import asyncio
+import os
+
+from dotenv import load_dotenv
 
 from agno.agent import Agent
 from agno.exceptions import InputCheckError
 from agno.guardrails import PIIDetectionGuardrail
-from agno.models.openai import OpenAIChat
+from agno.models.openai import OpenAILike
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -24,7 +29,11 @@ async def main():
     # 创建一个带有 PII 检测防护的 agent
     agent = Agent(
         name="Privacy-Protected Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAILike(
+            id=os.getenv("MODEL_ID", "GLM-4.7"),
+            base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+            api_key=os.getenv("MODEL_API_KEY"),
+        ),
         pre_hooks=[PIIDetectionGuardrail()],
         description="An agent that helps with customer service while protecting privacy.",
         instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
@@ -120,7 +129,11 @@ async def main():
     # 创建一个 PII 检测 agent，它会对输入中的 PII 进行掩码处理
     agent = Agent(
         name="Privacy-Protected Agent (Masked)",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAILike(
+            id=os.getenv("MODEL_ID", "GLM-4.7"),
+            base_url=os.getenv("MODEL_BASE_URL", "https://open.bigmodel.cn/api/coding/paas/v4"),
+            api_key=os.getenv("MODEL_API_KEY"),
+        ),
         pre_hooks=[PIIDetectionGuardrail(mask_pii=True)],
         description="An agent that helps with customer service while protecting privacy.",
         instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
