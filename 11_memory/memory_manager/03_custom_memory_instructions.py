@@ -1,9 +1,8 @@
 """
-Custom Memory Capture Instructions
-==================================
+自定义记忆捕获指令
+==================
 
-This example shows how to customize memory capture instructions and compare the
-results with a default memory manager.
+本示例展示如何自定义记忆捕获指令，并将结果与默认记忆管理器进行对比。
 """
 
 from agno.db.postgres import PostgresDb
@@ -14,45 +13,45 @@ from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 memory_db = PostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Memory Managers
+# 创建记忆管理器
 # ---------------------------------------------------------------------------
 memory = MemoryManager(
     model=OpenAIChat(id="gpt-4o"),
     memory_capture_instructions="""\
-                    Memories should only include details about the user's academic interests.
-                    Only include which subjects they are interested in.
-                    Ignore names, hobbies, and personal interests.
+                    记忆应仅包含用户学术兴趣的相关细节。
+                    只记录他们感兴趣的学科。
+                    忽略姓名、爱好和个人兴趣。
                     """,
     db=memory_db,
 )
 
 # ---------------------------------------------------------------------------
-# Run Memory Manager
+# 运行记忆管理器
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     john_doe_id = "john_doe@example.com"
     memory.create_user_memories(
         message="""\
-My name is John Doe.
+我叫 John Doe。
 
-I enjoy hiking in the mountains on weekends,
-reading science fiction novels before bed,
-cooking new recipes from different cultures,
-playing chess with friends.
+我喜欢周末去山里徒步，
+睡前阅读科幻小说，
+尝试不同文化的新菜谱，
+和朋友下棋。
 
-I am interested to learn about the history of the universe and other astronomical topics.
+我对宇宙的历史和其他天文学话题很感兴趣。
 """,
         user_id=john_doe_id,
     )
 
     memories = memory.get_user_memories(user_id=john_doe_id)
-    print("John Doe's memories:")
+    print("John Doe 的记忆：")
     pprint(memories)
 
     memory = MemoryManager(model=Claude(id="claude-3-5-sonnet-latest"), db=memory_db)
@@ -60,32 +59,32 @@ I am interested to learn about the history of the universe and other astronomica
 
     memory.create_user_memories(
         messages=[
-            Message(role="user", content="Hi, how are you?"),
-            Message(role="assistant", content="I'm good, thank you!"),
-            Message(role="user", content="What are you capable of?"),
+            Message(role="user", content="你好，你好吗？"),
+            Message(role="assistant", content="我很好，谢谢！"),
+            Message(role="user", content="你能做什么？"),
             Message(
                 role="assistant",
-                content="I can help you with your homework and answer questions about the universe.",
+                content="我可以帮你做作业，回答关于宇宙的问题。",
             ),
-            Message(role="user", content="My name is Jane Doe"),
-            Message(role="user", content="I like to play chess"),
+            Message(role="user", content="我叫 Jane Doe"),
+            Message(role="user", content="我喜欢下棋"),
             Message(
                 role="user",
-                content="Actually, forget that I like to play chess. I more enjoy playing table top games like dungeons and dragons",
+                content="算了，忘掉我喜欢下棋这件事。我更喜欢玩桌游，比如龙与地下城",
             ),
             Message(
                 role="user",
-                content="I'm also interested in learning about the history of the universe and other astronomical topics.",
+                content="我还对宇宙的历史和其他天文学话题很感兴趣。",
             ),
-            Message(role="assistant", content="That is great!"),
+            Message(role="assistant", content="很好！"),
             Message(
                 role="user",
-                content="I am really interested in physics. Tell me about quantum mechanics?",
+                content="我对物理学非常感兴趣。能给我讲讲量子力学吗？",
             ),
         ],
         user_id=jane_doe_id,
     )
 
     memories = memory.get_user_memories(user_id=jane_doe_id)
-    print("Jane Doe's memories:")
+    print("Jane Doe 的记忆：")
     pprint(memories)

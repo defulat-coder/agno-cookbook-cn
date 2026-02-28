@@ -1,43 +1,43 @@
-# Test Log: memory_manager
+# 测试日志：memory_manager
 
-> Tests not yet run. Run each file and update this log.
+> 测试尚未执行。请运行每个文件并更新此日志。
 
 ### 01_standalone_memory.py
 
-**Status:** PENDING
+**状态：** 待测试
 
-**Description:** Tests manual memory add, list, delete, and replace operations.
+**说明：** 测试手动记忆的添加、列出、删除和替换操作。
 
 ---
 
 ### 02_memory_creation.py
 
-**Status:** PENDING
+**状态：** 待测试
 
-**Description:** Tests memory creation from direct text and message history.
+**说明：** 测试从纯文本和消息历史创建记忆。
 
 ---
 
 ### 03_custom_memory_instructions.py
 
-**Status:** PENDING
+**状态：** 待测试
 
-**Description:** Tests memory capture customization and default manager behavior.
+**说明：** 测试记忆捕获的自定义配置和默认管理器行为。
 
 ---
 
 ### 04_memory_search.py
 
-**Status:** PENDING
+**状态：** 待测试
 
-**Description:** Tests last_n, first_n, and agentic memory retrieval methods.
+**说明：** 测试 last_n、first_n 和 Agent 式记忆检索方法。
 
 ---
 
 ### 05_db_tools_control.py
 
-**Status:** PENDING
+**状态：** 待测试
 
-**Description:** Tests memory DB tool flag behavior through an agent.
+**说明：** 测试通过 Agent 控制记忆数据库工具标志的行为。
 
 ---

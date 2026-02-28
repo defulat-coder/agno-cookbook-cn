@@ -1,9 +1,9 @@
 """
-Search User Memories
-====================
+搜索用户记忆
+============
 
-This example shows how to search user memories using different retrieval
-methods such as last_n, first_n, and agentic retrieval.
+本示例展示如何使用不同的检索方式搜索用户记忆，
+包括 last_n、first_n 和 agentic 检索。
 """
 
 from agno.db.postgres import PostgresDb
@@ -12,18 +12,18 @@ from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 memory_db = PostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Memory Manager
+# 创建记忆管理器
 # ---------------------------------------------------------------------------
 memory = MemoryManager(model=OpenAIChat(id="gpt-4o"), db=memory_db)
 
 # ---------------------------------------------------------------------------
-# Run Memory Search
+# 运行记忆搜索
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     john_doe_id = "john_doe@example.com"
@@ -37,25 +37,25 @@ if __name__ == "__main__":
         ),
         user_id=john_doe_id,
     )
-    print("John Doe's memories:")
+    print("John Doe 的记忆：")
     pprint(memory.get_user_memories(user_id=john_doe_id))
 
     memories = memory.search_user_memories(
         user_id=john_doe_id, limit=1, retrieval_method="last_n"
     )
-    print("\nJohn Doe's last_n memories:")
+    print("\nJohn Doe 的 last_n 记忆：")
     pprint(memories)
 
     memories = memory.search_user_memories(
         user_id=john_doe_id, limit=1, retrieval_method="first_n"
     )
-    print("\nJohn Doe's first_n memories:")
+    print("\nJohn Doe 的 first_n 记忆：")
     pprint(memories)
 
     memories = memory.search_user_memories(
         user_id=john_doe_id,
-        query="What does the user like to do on weekends?",
+        query="用户周末喜欢做什么？",
         retrieval_method="agentic",
     )
-    print("\nJohn Doe's memories similar to the query (agentic):")
+    print("\nJohn Doe 与查询相似的记忆（agentic 检索）：")
     pprint(memories)

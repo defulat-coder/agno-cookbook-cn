@@ -1,55 +1,55 @@
-Goal: Thoroughly test and validate `cookbook/11_memory` so it aligns with our cookbook standards.
+目标：全面测试和验证 `cookbook/11_memory`，确保符合 cookbook 规范。
 
-Context files (read these first):
-- `AGENTS.md` — Project conventions, virtual environments, testing workflow
-- `cookbook/STYLE_GUIDE.md` — Python file structure rules
+上下文文件（请先阅读）：
+- `AGENTS.md` — 项目约定、虚拟环境、测试流程
+- `cookbook/STYLE_GUIDE.md` — Python 文件结构规范
 
-Environment:
-- Python: `.venvs/demo/bin/python`
-- API keys: loaded via `direnv allow`
-- Database: `./cookbook/scripts/run_pgvector.sh` (needed for memory persistence)
+环境：
+- Python：`.venvs/demo/bin/python`
+- API 密钥：通过 `direnv allow` 加载
+- 数据库：`./cookbook/scripts/run_pgvector.sh`（记忆持久化所需）
 
-Execution requirements:
-1. **Read every `.py` file** in the target cookbook directory before making any changes.
-   Do not rely solely on grep or the structure checker — open and read each file to understand its full contents. This ensures you catch issues the automated checker might miss (e.g., imports inside sections, stale model references in comments, inconsistent patterns).
+执行要求：
+1. **逐一阅读目标 cookbook 目录中的每个 `.py` 文件**，再进行任何修改。
+   不要仅依赖 grep 或结构检查器——打开并阅读每个文件以了解其完整内容。这样可以发现自动检查器可能遗漏的问题（如 section 内部的 import、注释中过时的模型引用、不一致的模式等）。
 
-2. Test root-level files and each subdirectory. Spawn a parallel agent for `memory_manager/` and `optimize_memories/` if desired.
+2. 测试根目录文件和各子目录。可按需为 `memory_manager/` 和 `optimize_memories/` 启动并行 agent。
 
-3. Each agent must:
-   a. Run `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/11_memory/<SUBDIR>` and fix any violations.
-   b. Run all `*.py` files using `.venvs/demo/bin/python` and capture outcomes. Skip `__init__.py`.
-   c. Ensure Python examples align with `cookbook/STYLE_GUIDE.md`:
-      - Module docstring with `=====` underline
-      - Section banners: `# ---------------------------------------------------------------------------`
-      - Imports between docstring and first banner
-      - `if __name__ == "__main__":` gate
-      - No emoji characters
-   d. Also check non-Python files (`README.md`, etc.) in the directory for stale `OpenAIChat` references and update them.
-   e. Make only minimal, behavior-preserving edits where needed for style compliance.
-   f. Update `cookbook/11_memory/TEST_LOG.md` (root), `cookbook/11_memory/memory_manager/TEST_LOG.md`, and `cookbook/11_memory/optimize_memories/TEST_LOG.md` with fresh PASS/FAIL entries per file.
+3. 每个 agent 必须：
+   a. 运行 `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/11_memory/<SUBDIR>` 并修复所有违规项。
+   b. 使用 `.venvs/demo/bin/python` 运行所有 `*.py` 文件并记录结果。跳过 `__init__.py`。
+   c. 确保 Python 示例符合 `cookbook/STYLE_GUIDE.md`：
+      - 模块文档字符串带 `=====` 下划线
+      - 区域分隔注释：`# ---------------------------------------------------------------------------`
+      - import 语句位于文档字符串和第一个分隔注释之间
+      - `if __name__ == "__main__":` 入口保护
+      - 不含 emoji 字符
+   d. 同时检查目录中的非 Python 文件（`README.md` 等）是否存在过时的 `OpenAIChat` 引用并更新。
+   e. 仅在需要风格合规时做最小化、不改变行为的修改。
+   f. 更新 `cookbook/11_memory/TEST_LOG.md`（根目录）、`cookbook/11_memory/memory_manager/TEST_LOG.md` 和 `cookbook/11_memory/optimize_memories/TEST_LOG.md`，为每个文件记录最新的 PASS/FAIL 条目。
 
-4. After all agents complete, collect and merge results.
+4. 所有 agent 完成后，汇总并合并结果。
 
-Special cases:
-- All memory examples require a running PostgreSQL instance — ensure `./cookbook/scripts/run_pgvector.sh` is running.
-- `05_multi_user_multi_session_chat.py` and `06_multi_user_multi_session_chat_concurrent.py` simulate multi-user sessions — they may take longer.
-- `memory_manager/` files use the MemoryManager API directly (not through Agent) — they have different patterns from root-level files.
-- `memory_manager/surrealdb/` files are being relocated to `cookbook/92_integrations/surrealdb/` — skip if still present.
+特殊情况：
+- 所有记忆示例都需要运行中的 PostgreSQL 实例——确保 `./cookbook/scripts/run_pgvector.sh` 已启动。
+- `05_multi_user_multi_session_chat.py` 和 `06_multi_user_multi_session_chat_concurrent.py` 模拟多用户 Session——可能耗时较长。
+- `memory_manager/` 中的文件直接使用 MemoryManager API（不通过 Agent）——其模式与根目录文件不同。
+- `memory_manager/surrealdb/` 中的文件正在迁移到 `cookbook/92_integrations/surrealdb/`——如仍存在则跳过。
 
-Validation commands (must all pass before finishing):
+验证命令（完成前必须全部通过）：
 - `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/11_memory`
 - `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/11_memory/memory_manager`
 - `.venvs/demo/bin/python cookbook/scripts/check_cookbook_pattern.py --base-dir cookbook/11_memory/optimize_memories`
-- `source .venv/bin/activate && ./scripts/format.sh` — format all code (ruff format)
-- `source .venv/bin/activate && ./scripts/validate.sh` — validate all code (ruff check, mypy)
+- `source .venv/bin/activate && ./scripts/format.sh` — 格式化所有代码（ruff format）
+- `source .venv/bin/activate && ./scripts/validate.sh` — 校验所有代码（ruff check, mypy）
 
-Final response format:
-1. Findings (inconsistencies, failures, risks) with file references.
-2. Test/validation commands run with results.
-3. Any remaining gaps or manual follow-ups.
-4. Results table in this format:
+最终输出格式：
+1. 发现的问题（不一致、失败、风险），附文件引用。
+2. 已执行的测试/验证命令及结果。
+3. 剩余差距或需手动跟进的事项。
+4. 结果汇总表，格式如下：
 
-| Subdirectory | File | Status | Notes |
-|-------------|------|--------|-------|
-| root | `01_agent_with_memory.py` | PASS | Memory persisted across runs |
-| `memory_manager` | `01_standalone_memory.py` | PASS | CRUD operations completed |
+| 子目录 | 文件 | 状态 | 备注 |
+|--------|------|------|------|
+| 根目录 | `01_agent_with_memory.py` | PASS | 记忆在多次 Run 中持久保存 |
+| `memory_manager` | `01_standalone_memory.py` | PASS | CRUD 操作完成 |

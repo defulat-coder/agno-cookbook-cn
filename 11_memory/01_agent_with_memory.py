@@ -1,9 +1,9 @@
 """
-Agent With Persistent Memory
-============================
+带持久化记忆的 Agent
+====================
 
-This example shows how to use persistent memory with an Agent.
-After each run, user memories are created or updated.
+本示例展示如何为 Agent 配置持久化记忆。
+每次运行后，用户记忆会自动创建或更新。
 """
 
 import asyncio
@@ -15,13 +15,13 @@ from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -30,7 +30,7 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     db.clear_memories()
@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     asyncio.run(
         agent.aprint_response(
-            "My name is John Doe and I like to hike in the mountains on weekends.",
+            "我叫 John Doe，我喜欢周末去山里徒步。",
             stream=True,
             user_id=john_doe_id,
             session_id=session_id,
@@ -48,20 +48,20 @@ if __name__ == "__main__":
     )
 
     agent.print_response(
-        "What are my hobbies?", stream=True, user_id=john_doe_id, session_id=session_id
+        "我有什么爱好？", stream=True, user_id=john_doe_id, session_id=session_id
     )
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("John Doe's memories:")
+    print("John Doe 的记忆：")
     pprint(memories)
 
     agent.print_response(
-        "Ok i dont like hiking anymore, i like to play soccer instead.",
+        "我不再喜欢徒步了，我现在喜欢踢足球。",
         stream=True,
         user_id=john_doe_id,
         session_id=session_id,
     )
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("John Doe's memories:")
+    print("John Doe 的记忆：")
     pprint(memories)

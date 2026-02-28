@@ -1,9 +1,9 @@
 """
-Agentic Memory Management
-=========================
+Agent 自主记忆管理
+==================
 
-This example shows how to use agentic memory with an Agent.
-During each run, the Agent can create, update, and delete user memories.
+本示例展示如何为 Agent 启用自主记忆功能。
+在每次运行过程中，Agent 可以自主创建、更新和删除用户记忆。
 """
 
 from agno.agent.agent import Agent
@@ -12,13 +12,13 @@ from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -27,45 +27,45 @@ agent = Agent(
 )
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     john_doe_id = "john_doe@example.com"
 
     agent.print_response(
-        "My name is John Doe and I like to hike in the mountains on weekends.",
+        "我叫 John Doe，我喜欢周末去山里徒步。",
         stream=True,
         user_id=john_doe_id,
     )
 
-    agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+    agent.print_response("我有什么爱好？", stream=True, user_id=john_doe_id)
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("Memories about John Doe:")
+    print("关于 John Doe 的记忆：")
     pprint(memories)
 
     agent.print_response(
-        "Remove all existing memories of me.",
+        "删除所有关于我的记忆。",
         stream=True,
         user_id=john_doe_id,
     )
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("Memories about John Doe:")
+    print("关于 John Doe 的记忆：")
     pprint(memories)
 
     agent.print_response(
-        "My name is John Doe and I like to paint.", stream=True, user_id=john_doe_id
+        "我叫 John Doe，我喜欢画画。", stream=True, user_id=john_doe_id
     )
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("Memories about John Doe:")
+    print("关于 John Doe 的记忆：")
     pprint(memories)
 
     agent.print_response(
-        "I don't paint anymore, i draw instead.", stream=True, user_id=john_doe_id
+        "我不再画画了，我现在改画素描了。", stream=True, user_id=john_doe_id
     )
 
     memories = agent.get_user_memories(user_id=john_doe_id)
-    print("Memories about John Doe:")
+    print("关于 John Doe 的记忆：")
     pprint(memories)

@@ -1,9 +1,8 @@
 """
-Concurrent Multi-User Multi-Session Chat
-========================================
+并发多用户多 Session 聊天
+=========================
 
-This example runs multiple user conversations concurrently while persisting
-memory per user and session.
+本示例并发运行多个用户的对话，同时按用户和 Session 持久化记忆。
 """
 
 import asyncio
@@ -13,7 +12,7 @@ from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIChat
 
 # ---------------------------------------------------------------------------
-# Setup
+# 配置
 # ---------------------------------------------------------------------------
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
@@ -28,7 +27,7 @@ user_2_session_1_id = "user_2_session_1"
 user_3_session_1_id = "user_3_session_1"
 
 # ---------------------------------------------------------------------------
-# Create Agent
+# 创建 Agent
 # ---------------------------------------------------------------------------
 chat_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -38,57 +37,57 @@ chat_agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# Run Agent
+# 运行 Agent
 # ---------------------------------------------------------------------------
 async def user_1_conversation() -> None:
     await chat_agent.arun(
-        "My name is Mark Gonzales and I like anime and video games.",
+        "我叫 Mark Gonzales，我喜欢动漫和电子游戏。",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
     await chat_agent.arun(
-        "I also enjoy reading manga and playing video games.",
+        "我还喜欢看漫画和打电子游戏。",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
 
     await chat_agent.arun(
-        "I'm going to the movies tonight.",
+        "我今晚要去看电影。",
         user_id=user_1_id,
         session_id=user_1_session_2_id,
     )
 
     await chat_agent.arun(
-        "What do you suggest I do this weekend?",
+        "你建议我这个周末做什么？",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
 
-    print("User 1 Done")
+    print("用户 1 完成")
 
 
 async def user_2_conversation() -> None:
     await chat_agent.arun(
-        "Hi my name is John Doe.", user_id=user_2_id, session_id=user_2_session_1_id
+        "你好，我叫 John Doe。", user_id=user_2_id, session_id=user_2_session_1_id
     )
     await chat_agent.arun(
-        "I'm planning to hike this weekend.",
+        "我计划这个周末去徒步。",
         user_id=user_2_id,
         session_id=user_2_session_1_id,
     )
-    print("User 2 Done")
+    print("用户 2 完成")
 
 
 async def user_3_conversation() -> None:
     await chat_agent.arun(
-        "Hi my name is Jane Smith.", user_id=user_3_id, session_id=user_3_session_1_id
+        "你好，我叫 Jane Smith。", user_id=user_3_id, session_id=user_3_session_1_id
     )
     await chat_agent.arun(
-        "I'm going to the gym tomorrow.",
+        "我明天要去健身房。",
         user_id=user_3_id,
         session_id=user_3_session_1_id,
     )
-    print("User 3 Done")
+    print("用户 3 完成")
 
 
 async def run_concurrent_chat_agent() -> None:
@@ -101,19 +100,19 @@ if __name__ == "__main__":
     asyncio.run(run_concurrent_chat_agent())
 
     user_1_memories = chat_agent.get_user_memories(user_id=user_1_id)
-    print("User 1's memories:")
+    print("用户 1 的记忆：")
     assert user_1_memories is not None
     for i, m in enumerate(user_1_memories):
         print(f"{i}: {m.memory}")
 
     user_2_memories = chat_agent.get_user_memories(user_id=user_2_id)
-    print("User 2's memories:")
+    print("用户 2 的记忆：")
     assert user_2_memories is not None
     for i, m in enumerate(user_2_memories):
         print(f"{i}: {m.memory}")
 
     user_3_memories = chat_agent.get_user_memories(user_id=user_3_id)
-    print("User 3's memories:")
+    print("用户 3 的记忆：")
     assert user_3_memories is not None
     for i, m in enumerate(user_3_memories):
         print(f"{i}: {m.memory}")
